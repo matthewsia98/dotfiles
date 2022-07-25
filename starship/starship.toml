@@ -46,7 +46,7 @@ format = '[$path](#00ffff)[$read_only]($read_only_style) '
 
 [character]
 success_symbol = "[➜](bold #50fa7b)"
-error_symbol = "[➜](bold #ff5555)" 
+error_symbol = "[➜](bold #50fa7b)" 
 vimcmd_symbol = "[](bold #50fa7b)"
 vimcmd_visual_symbol = "[](bold #f0fa8b)"
 

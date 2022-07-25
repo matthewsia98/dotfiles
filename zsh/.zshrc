@@ -40,7 +40,10 @@ alias ga='git add'
 alias ga.='git add .'
 alias gc='git commit -m'
 alias gp='git push origin main'
+alias gd='git diff'
+alias gd.='git diff .'
 alias pac='sudo pacman'
+alias hg='history 1 | grep'
 
 
 autoload -Uz compinit
