@@ -7,8 +7,10 @@ chpwd_functions+=(set_title)
 
 export PATH=$HOME/.emacs.d/bin:$PATH
 export BAT_THEME='OneHalfDark'
-export EDITOR=vim
-export VISUAL=vim
+#export EDITOR='vim'
+#export VISUAL='vim'
+export EDITOR='emacsclient -t'
+export VISUAL='emacsclient -c -a emacs'
 export HISTFILE=~/.zsh_history
 # Session History
 export HISTSIZE=1000

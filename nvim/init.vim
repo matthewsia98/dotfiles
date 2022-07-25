@@ -102,5 +102,5 @@ inoremap <silent><expr> <c-space>
       \ coc#refresh()
 
 " Use K to show documentation in preview window.
-nnoremap <silent> <S-TAB> :call CocAction('doHover')<CR>
-inoremap <silent> <S-TAB> <Esc>:call CocAction('doHover')<CR>
+nnoremap <silent> <C-j> :call CocAction('doHover')<CR>
+inoremap <silent> <C-j> <Esc>:call CocAction('doHover')<CR>
