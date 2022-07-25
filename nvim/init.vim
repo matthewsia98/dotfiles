@@ -100,3 +100,7 @@ inoremap <silent><expr> <c-space>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<c-space>" :
       \ coc#refresh()
+
+" Use K to show documentation in preview window.
+nnoremap <silent> <S-TAB> :call CocAction('doHover')<CR>
+inoremap <silent> <S-TAB> <Esc>:call CocAction('doHover')<CR>

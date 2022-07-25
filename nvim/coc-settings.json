@@ -1,3 +1,4 @@
 {
-    "suggest.autoTrigger": "none"
+    "suggest.autoTrigger": "none",
+    "signature.enable": false
 }
