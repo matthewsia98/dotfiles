@@ -57,6 +57,9 @@ disabled = false
 format = '[$symbol$branch(:$remote_branch)]($style) '
 
 [git_commit]
+format = '[#$hash$tag]($style) '
+only_detached = false
+disabled = false
 
 [git_state]
 
