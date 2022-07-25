@@ -27,28 +27,43 @@ ZLE_RPROMPT_INDENT=0
 
 
 # Aliases
+# Zsh
+alias hg='history 1 | grep'
 alias grep='grep --color=auto'
 alias ls='lsd'
 alias ll='lsd -alh'
+alias mkdir='mkdir -pv'
 alias cat='bat'
-alias vim='nvim'
+alias mv='mv -i'
+alias cp='cp -i'
+alias rm='rm -i'
+alias ln='ln -i'
 alias logout='loginctl terminate-user siam'
 alias suspend='systemctl suspend'
+
+# Programs
+alias vim='nvim'
 alias emacs="emacsclient -c -a 'emacs'"
-alias gs='git status'
-alias ga='git add'
-alias ga.='git add .'
-alias gc='git commit -m'
-alias gp='git push origin main'
+
+# Git
+alias clone='git clone'
+alias status='git status'
+alias add='git add'
+alias commit='git commit -m'
+alias push='git push'
+alias checkout='git checkout'
 alias gd='git diff'
-alias gd.='git diff .'
+
+# Pacman
 alias pac='sudo pacman'
-alias hg='history 1 | grep'
+alias pacin='sudo pacman -S'
+alias pacrm='sudo pacman -R'
+alias pacsyu='sudo pacman -Syu'
 
 
 autoload -Uz compinit
 compinit
-#zstyle ':completion:*' menu select
+zstyle ':completion:*' menu select
 zmodload zsh/complist
 
 
