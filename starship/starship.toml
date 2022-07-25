@@ -1,0 +1,61 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+continuation_prompt = ''
+
+format = """
+$hostname\
+$username\
+$directory\
+$character\
+$python
+"""
+
+right_format = """
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$time
+"""
+
+# One line prompt
+[line_break]
+disabled = true
+
+[cmd_duration]
+disabled = true
+
+
+[hostname]
+ssh_only = false
+format = '\[[$ssh_symbol$hostname]($style)\] '
+disabled = true
+
+[username]
+show_always = false
+format = '[\[$user\]](bold #00ffff) '
+
+[directory]
+truncate_to_repo = false
+format = '[$path](#00ffff)[$read_only]($read_only_style) '
+
+[character]
+success_symbol = "[➜](bold #50fa7b)"
+error_symbol = "[➜](bold #ff5555)" 
+vimcmd_symbol = "[](bold #50fa7b)"
+vimcmd_visual_symbol = "[](bold #f0fa8b)"
+
+[python]
+disabled = false
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+
+[time]
+format = '[\[$time\]](bold #00ffff)'
+disabled = false
