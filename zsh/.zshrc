@@ -40,6 +40,7 @@ alias ga='git add'
 alias ga.='git add .'
 alias gc='git commit -m'
 alias gp='git push origin main'
+alias pac='sudo pacman'
 
 
 autoload -Uz compinit
