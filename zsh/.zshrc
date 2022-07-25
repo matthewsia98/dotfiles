@@ -36,6 +36,9 @@ alias logout='loginctl terminate-user siam'
 alias suspend='systemctl suspend'
 alias emacs="emacsclient -c -a 'emacs'"
 alias gs='git status'
+alias ga='git add'
+alias ga.='git add .'
+alias gp='git push origin main'
 
 
 autoload -Uz compinit
