@@ -56,6 +56,15 @@ disabled = false
 [git_branch]
 format = '[$symbol$branch(:$remote_branch)]($style) '
 
+[git_commit]
+
+[git_state]
+
+[git_metrics]
+disabled = false
+
+[git_status]
+
 [time]
 format = '[\[$time\]](bold #00ffff)'
 disabled = false

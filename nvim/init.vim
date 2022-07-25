@@ -69,7 +69,7 @@ highlight LineNr guifg=#00ffff
 " highlight search
 set hlsearch
 
-hi MatchParen guibg=white 
+hi MatchParen guibg=#ff00ff 
 
 " enable mouse
 set mouse=a
@@ -79,6 +79,13 @@ set tabstop=4
 set softtabstop=4
 set expandtab
 set shiftwidth=4
+
+" search casing
+set ignorecase
+set smartcase
+
+" prevent newline from starting with comment
+autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
 " key bindings
 nnoremap <C-t> :NERDTreeToggle<CR>
