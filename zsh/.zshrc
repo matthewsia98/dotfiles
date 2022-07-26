@@ -62,6 +62,8 @@ alias pac='sudo pacman'
 alias pacin='sudo pacman -S'
 alias pacrm='sudo pacman -R'
 alias pacsyu='sudo pacman -Syu'
+alias pacg='pacman -Q | grep'
+alias paclist='pacman -Q'
 
 
 autoload -Uz compinit
