@@ -72,7 +72,7 @@ keys = [
     Key([], 'XF86AudioMute', lazy.spawn('pactl set-sink-mute @DEFAULT_SINK@ toggle'), desc='Mute Audio'),
     Key([], 'XF86AudioRaiseVolume', lazy.function(raise_volume), desc='Increase Volume'),
     Key([], 'XF86AudioLowerVolume', lazy.spawn('pactl set-sink-volume @DEFAULT_SINK@ -10%'), desc='Decrease Volume'),
-    Key([], 'Print', lazy.spawn('scrot /home/siam/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png'), desc='Take a screenshot'),
+    Key([], 'Print', lazy.spawn('scrot -s /home/siam/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png'), desc='Take a screenshot'),
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
@@ -270,7 +270,7 @@ screens = [
             background='#a9a1e1',
             opacity=1.0
         ),
-        wallpaper='~/.config/qtile/clouds-night.jpg',
+        wallpaper='~/.config/qtile/vaporwave.jpg',
         wallpaper_mode='stretch',
     ),
 ]
