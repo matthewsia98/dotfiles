@@ -118,14 +118,14 @@ keys = [
 ]
 
 groups = [
-            Group(name='1', label='Dev', spawn='kitty', 
+            Group(name='1', label='Dev', spawn=None, 
                   layouts=[
                               layout.MonadTall(single_border_width=0, single_margin=20, margin=20, border_normal='#1e1f28', border_focus='#00ffff', border_width=2)
                           ]
                  ),
             Group(name='2', label='Chat', spawn='discord'),
             Group(name='3', label='Mail', spawn='thunderbird'),
-            Group(name='4', label='Web', spawn='firefox'),
+            Group(name='4', label='Web', spawn=None),
 	        Group(name='5', label='Etc', spawn=None)
          ]
 
