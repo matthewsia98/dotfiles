@@ -33,12 +33,13 @@ from libqtile.lazy import lazy
 
 picom_on = None
 
-@hook.subscribe.startup_once
+@hook.subscribe.startup
 def autostart():
     global picom_on
-    subprocess.run(['picom', '--experimental-backends', '-b'])
+    #subprocess.run(['picom', '--experimental-backends', '-b'])
     picom_on = True
     qtile.widgets_map['textbox'].update('\uf205' if picom_on else '\uf204')
+    #lazy.reload_config()
 
 def is_muted():
     output = str(subprocess.check_output(['pactl', 'get-sink-mute', '@DEFAULT_SINK@']))
@@ -195,11 +196,11 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                #widget.TextBox(text='\uf205' if picom_on else '\uf204', 
-                #               fontsize=30, width=45, padding=10, margin_y=10, 
-                #               background=colors[2], foreground=colors[7], 
-                #               mouse_callbacks={'Button1': toggle_picom}),
-                #widget.Spacer(length=10, background=colors[2]),
+                widget.TextBox(text='\uf205' if picom_on else '\uf204', 
+                               fontsize=30, width=45, padding=10, margin_y=10, 
+                               background=colors[2], foreground=colors[7], 
+                               mouse_callbacks={'Button1': toggle_picom}),
+                widget.Spacer(length=10, background=colors[2]),
                 #widget.CurrentLayout(),
                 #widget.CurrentLayoutIcon(background=colors[0], scale=0.8, padding=0),
                 #widget.Spacer(length=5, background=colors[7]),
