@@ -195,16 +195,17 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.TextBox(text='\uf205' if picom_on else '\uf204', 
-                               fontsize=30, width=40, padding=5, 
-                               background=colors[2], foreground=colors[7], 
-                               mouse_callbacks={'Button1': toggle_picom}),
-                widget.Spacer(length=5, background=colors[2]),
+                #widget.TextBox(text='\uf205' if picom_on else '\uf204', 
+                #               fontsize=30, width=45, padding=10, margin_y=10, 
+                #               background=colors[2], foreground=colors[7], 
+                #               mouse_callbacks={'Button1': toggle_picom}),
+                #widget.Spacer(length=10, background=colors[2]),
                 #widget.CurrentLayout(),
                 #widget.CurrentLayoutIcon(background=colors[0], scale=0.8, padding=0),
                 #widget.Spacer(length=5, background=colors[7]),
                 # highlight block
-                widget.GroupBox(highlight_method='block', highlight_color=colors[1], block_highlight_text_color=colors[7],  background=colors[0], foreground=colors[7], this_current_screen_border=colors[10], active=colors[7], inactive=colors[7], padding_x=10, padding_y=5),
+                #widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[2], foreground=colors[0]),
+                widget.GroupBox(highlight_method='line', borderwidth=5, highlight_color=colors[0], block_highlight_text_color=colors[7],  background=colors[0], foreground=colors[7], this_current_screen_border=colors[10], active=colors[7], inactive=colors[7], spacing=10, padding_x=0, padding_y=5, margin_x=10, margin_y=5),
                 # highlight border                
                 #widget.GroupBox(highlight_method='border', highlight_color='#00ffff',  background='#00ffff', foreground='#ff00ff', this_current_screen_border='#ff00ff', active='#ff00ff', inactive='#ff00ff'),
                 # highlight line
