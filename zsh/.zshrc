@@ -30,6 +30,7 @@ ZLE_RPROMPT_INDENT=0
 
 # Aliases
 # Zsh
+alias ..='cd ..'
 alias hg='history 1 | grep'
 alias grep='grep --color=auto'
 alias ls='lsd'
