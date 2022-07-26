@@ -23,13 +23,22 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import os
 import subprocess
-#from libqtile.log_utils import logger
-from libqtile import bar, layout, widget
+from libqtile.log_utils import logger
+from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 #from libqtile.utils import guess_terminal
 
+picom_on = None
+
+@hook.subscribe.startup_once
+def autostart():
+    global picom_on
+    subprocess.run(['picom', '--experimental-backends', '-b'])
+    picom_on = True
+    qtile.widgets_map['textbox'].update('\uf205' if picom_on else '\uf204')
 
 def is_muted():
     output = str(subprocess.check_output(['pactl', 'get-sink-mute', '@DEFAULT_SINK@']))
@@ -41,6 +50,12 @@ def raise_volume(qtile):
         subprocess.run(['pactl', 'set-sink-mute', '@DEFAULT_SINK@', '0'])
     else:
         subprocess.run(['pactl', 'set-sink-volume', '@DEFAULT_SINK@', '+5%'])
+
+def toggle_picom():
+    global picom_on
+    output = int(subprocess.check_output(os.path.expanduser('~/toggle-picom.sh')))
+    picom_on = (output == 1)
+    qtile.widgets_map['textbox'].update('\uf205' if picom_on else '\uf204')
 
 
 # 1 alt
@@ -78,6 +93,7 @@ keys = [
     Key([mod, "shift"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "shift"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "m", lazy.window.toggle_maximize(), desc="Toggle maximize"),
+    Key([mod, 'control'], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -100,9 +116,12 @@ keys = [
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 ]
 
-
 groups = [
-            Group(name='1', label='Dev', spawn='kitty'),
+            Group(name='1', label='Dev', spawn='kitty', 
+                  layouts=[
+                              layout.MonadTall(single_border_width=0, single_margin=20, margin=20, border_normal='#1e1f28', border_focus='#00ffff', border_width=2)
+                          ]
+                 ),
             Group(name='2', label='Chat', spawn='discord'),
             Group(name='3', label='Mail', spawn='thunderbird'),
             Group(name='4', label='Web', spawn='firefox'),
@@ -141,7 +160,7 @@ layouts = [
    #layout.Stack(num_stacks=2),
    #layout.Bsp(),
    #layout.Matrix(),
-   layout.MonadTall(single_border_width=0, margin_on_single=10, margin=5, border_normal='#1e1f28', border_focus='#00ffff', border_width=4),
+   layout.MonadTall(single_border_width=0, single_margin=0, margin=20, border_normal='#1e1f28', border_focus='#00ffff', border_width=4),
    #layout.MonadWide(),
    #layout.RatioTile(),
    #layout.Tile(),
@@ -176,69 +195,74 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                widget.TextBox(text='\uf205' if picom_on else '\uf204', 
+                               fontsize=30, width=40, padding=5, 
+                               background=colors[2], foreground=colors[7], 
+                               mouse_callbacks={'Button1': toggle_picom}),
+                widget.Spacer(length=5, background=colors[2]),
                 #widget.CurrentLayout(),
-		#widget.CurrentLayoutIcon(background=colors[0], scale=0.8, padding=0),
-		#widget.Spacer(length=5, background=colors[7]),
-		# highlight block
-        widget.GroupBox(highlight_method='block', highlight_color=colors[1], block_highlight_text_color=colors[7],  background=colors[0], foreground=colors[7], this_current_screen_border=colors[10], active=colors[7], inactive=colors[7], padding_x=10, padding_y=5),
-		# highlight border                
-		#widget.GroupBox(highlight_method='border', highlight_color='#00ffff',  background='#00ffff', foreground='#ff00ff', this_current_screen_border='#ff00ff', active='#ff00ff', inactive='#ff00ff'),
+                #widget.CurrentLayoutIcon(background=colors[0], scale=0.8, padding=0),
+                #widget.Spacer(length=5, background=colors[7]),
+                # highlight block
+                widget.GroupBox(highlight_method='block', highlight_color=colors[1], block_highlight_text_color=colors[7],  background=colors[0], foreground=colors[7], this_current_screen_border=colors[10], active=colors[7], inactive=colors[7], padding_x=10, padding_y=5),
+                # highlight border                
+                #widget.GroupBox(highlight_method='border', highlight_color='#00ffff',  background='#00ffff', foreground='#ff00ff', this_current_screen_border='#ff00ff', active='#ff00ff', inactive='#ff00ff'),
                 # highlight line
-		#widget.GroupBox(highlight_method='line', highlight_color='#00ffff', this_current_screen_border='#ff00ff',  background='#00ffff', foreground='#ff00ff', active='#ff00ff', inactive='#ff00ff'),
-		#widget.TaskList(),
-		#widget.Spacer(length=5, background=colors[7]),
-        #widget.WindowCount(),
-		widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[0], foreground=colors[9]),
-		widget.Spacer(length=10, background=colors[9]),
-        widget.Prompt(background=colors[9], foreground=colors[7]),
-		#widget.WindowTabs(background='#ff00ff', foreground='00ffff', separator=' | '),
-        widget.WindowName(background=colors[9], foreground=colors[7]),
-		#widget.Spacer(length=50),
-        #widget.WindowName(),
-        #widget.TextBox("default config", name="default"),
-        #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-		#widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background='#00ffff', foreground='#ff00ff'),
-        #widget.Systray(icon_size=20, background='#ff00ff', padding=0),
-		#widget.Sep(linewidth=1, background='#000000'),
-		widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[9], foreground=colors[1]),
-        #widget.CheckUpdates(distro='Arch', display_format='Updates: {updates}', no_update_string='no updates', colour_no_updates='#00ffff', colour_have_updates='#00ffff', background='#ff00ff', foreground='#00ffff'),
-		#widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background='#ff00ff', foreground='#00ffff'),
-		#widget.CPU(format='\uf85a {load_percent}%', padding=0, background='#ff00ff', foreground='#00ffff', update_interval=15),
-        widget.CPU(format='\uf029 {load_percent:>3.0f}%', padding=10, background=colors[1], foreground=colors[7], update_interval=5),
-		#widget.Sep(linewidth=1, background='#000000'),
-		widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[1], foreground=colors[2]),
-        widget.Memory(measure_mem='G', format='\uf1c0 {MemPercent:>3.0f}%', padding=10, background=colors[2], foreground=colors[7], update_interval=5),
-		#widget.Memory(measure_mem='G', format='\uf1c0 {MemUsed:.2f}{mm}/{MemTotal:.2f}{mm}', padding=0, background='#00ffff', foreground='#ff00ff', update_interval=5),
-		#widget.Memory(format='{MemUsed:.0f}{mm}/{MemTotal:.0f}{mm}', padding=0, background='#ff00ff', foreground='#00ffff', update_interval=15),
-		#widget.Sep(linewidth=1, background='#000000'),	
-		#widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[2], foreground=colors[2]),
-        widget.DF(format='\uf7c9 {uf}/{s}{m}', padding=10, background=colors[2], foreground=colors[7], visible_on_warn=False, update_interval=60),
-		widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[2], foreground=colors[3]),
-        widget.Net(interface='wlp2s0', format='\uf1eb  {down} \uf175\uf176 {up}', background=colors[3], foreground=colors[7], padding=10, update_interval=5),
-		widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[3], foreground=colors[4]),
-        #widget.Bluetooth(),
-        widget.Volume(get_volume_command="/home/siam/get-volume.sh", fmt='\ufa7d {:>4}', background=colors[4], foreground=colors[7], padding=10, update_interval=0.2),
-        #widget.OpenWeather(location='Ottawa'),
-        #widget.Wttr(location={'Ottawa': 'Ottawa'}),
-        widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[4], foreground=colors[5]),
-        #widget.Clock(format="\uf5ed %a %b %d %I:%M %p", padding=10, background='#00ffff', foreground='#ff00ff'),
-        widget.Clock(format="\uf5ed %a %b %d %H:%M", padding=10, background=colors[5], foreground=colors[7]),
-		#widget.Sep(linewidth=1, background='#000000'),
-		#widget.BatteryIcon(),
-		widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[5], foreground=colors[6]),
-		#widget.Battery(format='{char} {percent:2.0%} {hour:d}h:{min:02d}m', discharge_char='\uf58b', charge_char='\uf583', full_char='\uf583', show_short_text=False, background='#ff00ff', foreground='#00ffff', low_foreground='#00ffff', update_interval=60),
-        widget.Battery(format='{char} {percent:2.0%}', discharge_char='\uf58b', charge_char='\uf583', full_char='\uf583', show_short_text=False, background=colors[6], foreground=colors[7], low_foreground=colors[7], padding=10, update_interval=60),
-                #widget.QuickExit(),
-		widget.Spacer(length=5, background=colors[6])
+                #widget.GroupBox(highlight_method='line', highlight_color='#00ffff', this_current_screen_border='#ff00ff',  background='#00ffff', foreground='#ff00ff', active='#ff00ff', inactive='#ff00ff'),
+                #widget.TaskList(),
+                #widget.Spacer(length=5, background=colors[7]),
+                #widget.WindowCount(),
+                widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[0], foreground=colors[9]),
+                widget.Spacer(length=10, background=colors[9]),
+                widget.Prompt(background=colors[9], foreground=colors[7]),
+                #widget.WindowTabs(background='#ff00ff', foreground='00ffff', separator=' | '),
+                widget.WindowName(background=colors[9], foreground=colors[7]),
+                #widget.Spacer(length=50),
+                #widget.WindowName(),
+                #widget.TextBox("default config", name="default"),
+                #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                #widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background='#00ffff', foreground='#ff00ff'),
+                #widget.Systray(icon_size=20, background='#ff00ff', padding=0),
+                #widget.Sep(linewidth=1, background='#000000'),
+                widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[9], foreground=colors[1]),
+                #widget.CheckUpdates(distro='Arch', display_format='Updates: {updates}', no_update_string='no updates', colour_no_updates='#00ffff', colour_have_updates='#00ffff', background='#ff00ff', foreground='#00ffff'),
+                #widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background='#ff00ff', foreground='#00ffff'),
+                #widget.CPU(format='\uf85a {load_percent}%', padding=0, background='#ff00ff', foreground='#00ffff', update_interval=15),
+                widget.CPU(format='\uf029 {load_percent:>3.0f}%', padding=10, background=colors[1], foreground=colors[7], update_interval=5),
+                #widget.Sep(linewidth=1, background='#000000'),
+                widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[1], foreground=colors[2]),
+                widget.Memory(measure_mem='G', format='\uf1c0 {MemPercent:>3.0f}%', padding=10, background=colors[2], foreground=colors[7], update_interval=5),
+                #widget.Memory(measure_mem='G', format='\uf1c0 {MemUsed:.2f}{mm}/{MemTotal:.2f}{mm}', padding=0, background='#00ffff', foreground='#ff00ff', update_interval=5),
+                #widget.Memory(format='{MemUsed:.0f}{mm}/{MemTotal:.0f}{mm}', padding=0, background='#ff00ff', foreground='#00ffff', update_interval=15),
+                #widget.Sep(linewidth=1, background='#000000'),	
+                #widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[2], foreground=colors[2]),
+                widget.DF(format='\uf7c9 {uf}/{s}{m}', padding=10, background=colors[2], foreground=colors[7], visible_on_warn=False, update_interval=60),
+                widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[2], foreground=colors[3]),
+                widget.Net(interface='wlp2s0', format='\uf1eb  {down} \uf175\uf176 {up}', background=colors[3], foreground=colors[7], padding=10, update_interval=5),
+                widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[3], foreground=colors[4]),
+                #widget.Bluetooth(),
+                widget.Volume(get_volume_command="/home/siam/get-volume.sh", fmt='\ufa7d {:>4}', background=colors[4], foreground=colors[7], padding=10, update_interval=0.2),
+                #widget.OpenWeather(location='Ottawa'),
+                #widget.Wttr(location={'Ottawa': 'Ottawa'}),
+                widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[4], foreground=colors[5]),
+                #widget.Clock(format="\uf5ed %a %b %d %I:%M %p", padding=10, background='#00ffff', foreground='#ff00ff'),
+                widget.Clock(format="\uf5ed %a %b %d %H:%M", padding=10, background=colors[5], foreground=colors[7]),
+                #widget.Sep(linewidth=1, background='#000000'),
+                #widget.BatteryIcon(),
+                widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[5], foreground=colors[6]),
+                #widget.Battery(format='{char} {percent:2.0%} {hour:d}h:{min:02d}m', discharge_char='\uf58b', charge_char='\uf583', full_char='\uf583', show_short_text=False, background='#ff00ff', foreground='#00ffff', low_foreground='#00ffff', update_interval=60),
+                widget.Battery(format='{char} {percent:2.0%}', discharge_char='\uf58b', charge_char='\uf583', full_char='\uf583', show_short_text=False, background=colors[6], foreground=colors[7], low_foreground=colors[7], padding=10, update_interval=60),
+                        #widget.QuickExit(),
+                widget.Spacer(length=5, background=colors[6])
             ],
             40, # top bar size
             margin=[0, 0, 0, 0],
             border_width=[0, 0, 0, 0],  # Draw top and bottom borders
             border_color=["#000000", "#000000", "#000000", "#000000"],  # Borders are magenta
-	    background='#a9a1e1',
-	    opacity=1.0
+            background='#a9a1e1',
+            opacity=1.0
         ),
-	wallpaper='~/.config/qtile/clouds-night.jpg',
+        wallpaper='~/.config/qtile/clouds-night.jpg',
         wallpaper_mode='stretch',
     ),
 ]
@@ -265,7 +289,11 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
-    ]
+        Match(wm_class='pcmanfm'), # File Manager
+    ],
+    border_normal='#1e1f28',
+    border_focus='#00ffff',
+    border_width=4
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"

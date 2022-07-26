@@ -64,6 +64,7 @@ filetype plugin indent on
 
 " show line numbers
 set number
+set relativenumber
 highlight LineNr guifg=#00ffff
 
 " highlight search
@@ -104,3 +105,9 @@ inoremap <silent><expr> <c-space>
 " Use K to show documentation in preview window.
 nnoremap <silent> <C-j> :call CocAction('doHover')<CR>
 inoremap <silent> <C-j> <Esc>:call CocAction('doHover')<CR>
+
+if system('pgrep -x picom > /dev/null && echo 1 || echo 0') == 1
+    highlight Normal guibg=NONE
+else
+    highlight Normal guibg=#24273A
+endif
