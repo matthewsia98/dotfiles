@@ -243,6 +243,12 @@ screens = [
                 widget.Net(interface='wlp2s0', format='\uf1eb  {down} \uf175\uf176 {up}', background=colors[3], foreground=colors[7], padding=10, update_interval=5),
                 widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[3], foreground=colors[4]),
                 #widget.Bluetooth(),
+                widget.Backlight(brightness_file='/sys/class/backlight/intel_backlight/brightness', 
+                                 max_brightness_file='/sys/class/backlight/intel_backlight/max_brightness',
+                                 format='\uf5df {percent:>4.0%}',
+                                 background=colors[4], foreground=colors[7],
+                                 update_interval=0.2
+                                ),
                 widget.Volume(get_volume_command=os.path.expanduser('~/.shell-scripts/qtile/get-volume.sh'), fmt='\ufa7d {:>4}', background=colors[4], foreground=colors[7], padding=10, update_interval=0.2),
                 #widget.OpenWeather(location='Ottawa'),
                 #widget.Wttr(location={'Ottawa': 'Ottawa'}),
