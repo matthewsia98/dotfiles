@@ -66,42 +66,64 @@ def center_and_resize_floating(window):
         window.cmd_set_size_floating(int(1920 * 0.7), int(1080 * 0.7))
         window.cmd_center()
 
+def grow_floating(window, direction, width_step=32, height_step=32):
+    logger.warning('GROW FLOATING')
+    if direction in 'hl':
+        logger.warning('GROW FLOATING HORIZONTAL')
+        grow_width = width_step if direction == 'l' else -width_step
+        window.cmd_set_size_floating(window.width + grow_width, window.height)
+    else:
+        logger.warning('GROW FLOATING VERTICAL')
+        grow_height = height_step if direction == 'k' else -height_step
+        window.cmd_set_size_floating(window.width, window.height + grow_height)
+    window.cmd_center()
+
 @lazy.function
 def grow_horizontal(qtile, direction):
-    group = qtile.current_window.group
-    main_window = group.windows[0]
+    logger.warning('GROW HORIZONTAL')
     curr_window = qtile.current_window
-    curr_window_x = curr_window.cmd_get_position()[0]
-    window_xs = [window.cmd_get_position()[0] for window in group.windows]
-    curr_layout = qtile.current_layout
-
-    if max(window_xs) > curr_window_x:
-        # curr_window is on left
-        if (curr_window == main_window):
-            curr_layout.cmd_shrink_main() if direction == 'h' else curr_layout.cmd_grow_main()
-        else:
-            curr_layout.cmd_grow_main() if direction == 'h' else curr_layout.cmd_shrink_main()
+    if curr_window.floating:
+        logger.warning('GROW HORIZONTAL FLOATING')
+        grow_floating(curr_window, direction)
     else:
-        # curr_window is on right
-        if (curr_window == main_window):
-            curr_layout.cmd_grow_main() if direction == 'h' else curr_layout.cmd_shrink_main()
+        group = qtile.current_window.group
+        main_window = group.windows[0]
+        curr_window_x = curr_window.cmd_get_position()[0]
+        window_xs = [window.cmd_get_position()[0] for window in group.windows]
+        curr_layout = qtile.current_layout
+
+        if max(window_xs) > curr_window_x:
+            # curr_window is on left
+            if (curr_window == main_window):
+                curr_layout.cmd_shrink_main() if direction == 'h' else curr_layout.cmd_grow_main()
+            else:
+                curr_layout.cmd_grow_main() if direction == 'h' else curr_layout.cmd_shrink_main()
         else:
-            curr_layout.cmd_shrink_main() if direction == 'h' else curr_layout.cmd_grow_main()
+            # curr_window is on right
+            if (curr_window == main_window):
+                curr_layout.cmd_grow_main() if direction == 'h' else curr_layout.cmd_shrink_main()
+            else:
+                curr_layout.cmd_shrink_main() if direction == 'h' else curr_layout.cmd_grow_main()
 
 @lazy.function
 def grow_vertical(qtile, direction):
-    curr_layout = qtile.current_layout
-    group = qtile.current_window.group
+    logger.warning('GROW VERTICAL')
     curr_window = qtile.current_window
-    curr_window_y = curr_window.cmd_get_position()[1]
-    window_ys = [window.cmd_get_position()[1] for window in group.windows]
-
-    if min(window_ys) == curr_window_y:
-        # curr window is at top
-        curr_layout.cmd_shrink() if direction == 'k' else curr_layout.cmd_grow()
+    if curr_window.floating:
+        logger.warning('GROW VERTICAL FLOATING')
+        grow_floating(curr_window, direction)
     else:
-        # curr window is in middle or bottom
-        curr_layout.cmd_grow() if direction == 'k' else curr_layout.cmd_shrink()
+        curr_layout = qtile.current_layout
+        group = qtile.current_window.group
+        curr_window_y = curr_window.cmd_get_position()[1]
+        window_ys = [window.cmd_get_position()[1] for window in group.windows]
+
+        if min(window_ys) == curr_window_y:
+            # curr window is at top
+            curr_layout.cmd_shrink() if direction == 'k' else curr_layout.cmd_grow()
+        else:
+            # curr window is in middle or bottom
+            curr_layout.cmd_grow() if direction == 'k' else curr_layout.cmd_shrink()
 
 # 1 alt
 # 4 super
