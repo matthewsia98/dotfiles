@@ -58,6 +58,14 @@ def toggle_picom():
     picom_on = (output == 1)
     qtile.widgets_map['textbox'].update('\uf205' if picom_on else '\uf204')
 
+@lazy.window.function
+def center_and_resize_floating(window):
+    window.toggle_floating()
+    
+    if window.floating:
+        window.cmd_set_size_floating(int(1920 * 0.7), int(1080 * 0.7))
+        window.cmd_center()
+
 
 # 1 alt
 # 4 super
@@ -94,7 +102,7 @@ keys = [
     Key([mod, "shift"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "shift"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "m", lazy.window.toggle_maximize(), desc="Toggle maximize"),
-    Key([mod, 'control'], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
+    Key([mod, 'control'], "f", center_and_resize_floating(), desc="Toggle floating"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -287,6 +295,8 @@ dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
+
+
 floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
@@ -298,6 +308,7 @@ floating_layout = layout.Floating(
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
         Match(wm_class='pcmanfm'), # File Manager
+        Match(wm_class='feh'), # Image Viewer
     ],
     border_normal='#1e1f28',
     border_focus='#00ffff',
