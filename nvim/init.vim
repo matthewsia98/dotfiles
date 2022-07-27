@@ -90,6 +90,8 @@ autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
 " key bindings
 nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <CR> o<Esc>k<CR>
+nnoremap <S-CR> O<Esc>k<CR>
 
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
