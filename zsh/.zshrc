@@ -50,12 +50,12 @@ alias emacs="emacsclient -c -a 'emacs'"
 
 # Git
 alias clone='git clone'
-alias status='git status'
+alias stat='git status'
 alias add='git add'
 alias commit='git commit -m'
 alias pull='git pull'
 alias push='git push'
-alias checkout='git checkout'
+alias check='git checkout'
 alias gd='git diff'
 
 # Pacman
