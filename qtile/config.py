@@ -314,10 +314,10 @@ screens = [
                 #widget.Spacer(length=10, background=colors[9]),
                 #widget.WindowTabs(background='#ff00ff', foreground='00ffff', separator=' | '),
                 #widget.WindowName(background=colors[9], foreground=colors[7]),
-                widget.TextBox(text='\ue0b0', fontsize=40, padding=0,  background='#00000000', foreground=colors[5]),
+                widget.TextBox(text='\ue0b0', fontsize=40, padding=0,  background=colors[4], foreground=colors[5]),
                 #widget.Systray(icon_size=25, background=colors[10], padding=10),
                 #widget.TextBox(text='\ue0b0', fontsize=40, padding=0,  background='#00000000', foreground=colors[10]),
-                widget.Spacer(background='#00000000'),
+                widget.WindowName(background=colors[4], padding=10),
                 #widget.WindowName(),
                 #widget.TextBox("default config", name="default"),
                 #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
@@ -325,7 +325,7 @@ screens = [
                 #widget.Systray(icon_size=20, background='#ff00ff', padding=0),
                 #widget.Sep(linewidth=1, background='#000000'),
 
-                widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background='#00000000', foreground=colors[1]),
+                widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[4], foreground=colors[1]),
                 widget.WidgetBox(widgets=[
                 #widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background='#00000000', foreground=colors[1]),
                 #widget.CheckUpdates(distro='Arch', display_format='Updates: {updates}', no_update_string='no updates', colour_no_updates='#00ffff', colour_have_updates='#00ffff', background='#ff00ff', foreground='#00ffff'),
