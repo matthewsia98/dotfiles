@@ -1,0 +1,96 @@
+/** Basic config file **/
+
+configuration {
+    sidebar-mode: true;
+    show-icons:         true;
+    icon-theme:         "Papirus";
+    display-drun: "Applications";
+    display-window: "Window";
+    display-run: "Run";
+    modi: "drun,window,run";
+    drun-display-format: "{icon} {name}";
+    font: "RobotoMono Nerd Font Medium 25";
+    kb-remove-to-eol: "Control+Shift+e";
+    kb-accept-entry: "Return";
+    kb-row-up: "Up,Control+k";
+    kb-row-down: "Down,Control+j";
+    kb-remove-char-back: "BackSpace";
+    kb-mode-complete: "Control+Shift+space";
+    kb-row-left: "Control+h";
+    kb-row-right: "Control+l";
+}
+
+
+@theme "/dev/null"
+* {
+    top-bg: #24273A;
+    top-fg: #FFFFFF;
+    selected-bg: #8AADF4;
+    selected-fg: #FFFFFF;
+    selected-mode-fg: #FF00FF;
+    background-color: #24273A;
+    text-color: #CAD3F5;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    spacing: 0;
+}
+
+window {
+    width: 70%;
+}
+
+mainbox {
+
+}
+
+inputbar {
+    background-color: @top-bg;
+    text-color: @top-fg;
+    padding: 20;
+}
+
+prompt, entry, case-indicator {
+    background-color: @top-bg;
+    text-color: @top-fg;
+}
+
+entry {
+    margin: 0 0 0 20;
+}
+
+listview {
+    lines: 10;
+    columns: 1;
+}
+
+element {
+    padding: 10;
+}
+
+element-icon {
+    size: 50;
+}
+
+element-text {
+    vertical-align: 0.5;
+}
+
+element selected,
+element-icon selected, 
+element-text selected {
+    background-color: @selected-bg;
+    text-color: @selected-fg;
+}
+
+mode-switcher {
+    margin: 40 100;
+}
+
+button {
+
+}
+
+button selected {
+    text-color: @selected-mode-fg;
+}
