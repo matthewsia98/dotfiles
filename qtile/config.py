@@ -148,24 +148,9 @@ def expand_info(qtile):
     clock_left_powerline.background = colors[4] if info_box.box_is_open else colors[1]
 
 @lazy.function
-def toggle_network_manager(qtile):
-    return_code = subprocess.run(['pgrep', 'connman-gtk']).returncode
-    qtile.cmd_spawn('connman-gtk') if return_code == 1 else subprocess.run(['killall', 'connman-gtk'])
-
-@lazy.function
-def toggle_audio_manager(qtile):
-    return_code = subprocess.run(['pgrep', 'pavucontrol']).returncode
-    qtile.cmd_spawn('pavucontrol') if return_code == 1 else subprocess.run(['killall', 'pavucontrol'])
-
-@lazy.function
-def toggle_sys_info(qtile):
-    return_code = subprocess.run(['pgrep', 'conky']).returncode
-    qtile.cmd_spawn('conky') if return_code == 1 else subprocess.run(['killall', 'conky'])
-
-@lazy.function
-def toggle_backlight_manager(qtile):
-    return_code = subprocess.run(['pgrep', 'clight-gui']).returncode
-    qtile.cmd_spawn('clight-gui') if return_code == 1 else subprocess.run(['killall', 'clight-gui'])
+def toggle_program(qtile, program):
+    return_code = subprocess.run(['pgrep', program]).returncode
+    qtile.cmd_spawn(program) if return_code == 1 else subprocess.run(['killall', program])
 
 
 # 1 alt
@@ -331,18 +316,18 @@ screens = [
                 #widget.CheckUpdates(distro='Arch', display_format='Updates: {updates}', no_update_string='no updates', colour_no_updates='#00ffff', colour_have_updates='#00ffff', background='#ff00ff', foreground='#00ffff'),
                 #widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background='#ff00ff', foreground='#00ffff'),
                 #widget.CPU(format='\uf85a {load_percent}%', padding=0, background='#ff00ff', foreground='#00ffff', update_interval=15),
-                widget.CPU(format='\uf029 {load_percent:>3.0f}%', padding=10, background=colors[1], foreground=colors[7], update_interval=5, mouse_callbacks={'Button1': toggle_sys_info}),
+                widget.CPU(format='\uf029 {load_percent:>3.0f}%', padding=10, background=colors[1], foreground=colors[7], update_interval=5, mouse_callbacks={'Button1': lazy.spawn('kitty htop')}),
                 #widget.Sep(linewidth=1, background='#000000'),
                 widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[1], foreground=colors[2], name='memory_left_powerline'),
-                widget.Memory(measure_mem='G', format='\uf1c0 {MemPercent:>3.0f}%', padding=10, background=colors[2], foreground=colors[7], update_interval=5),
+                widget.Memory(measure_mem='G', format='\uf1c0 {MemPercent:>3.0f}%', padding=10, background=colors[2], foreground=colors[7], update_interval=5, mouse_callbacks={'Button1': toggle_program('conky')}),
                 #widget.Memory(measure_mem='G', format='\uf1c0 {MemUsed:.2f}{mm}/{MemTotal:.2f}{mm}', padding=0, background='#00ffff', foreground='#ff00ff', update_interval=5),
                 #widget.Memory(format='{MemUsed:.0f}{mm}/{MemTotal:.0f}{mm}', padding=0, background='#ff00ff', foreground='#00ffff', update_interval=15),
                 #widget.Sep(linewidth=1, background='#000000'),	
                 #widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[2], foreground=colors[2]),
-                widget.DF(format='\uf7c9 {uf}/{s}{m}', padding=10, background=colors[2], foreground=colors[7], visible_on_warn=False, update_interval=60),
+                widget.DF(format='\uf7c9 {uf}/{s}{m}', padding=10, background=colors[2], foreground=colors[7], visible_on_warn=False, update_interval=60, mouse_callbacks={'Button1': toggle_program('conky')}),
                 widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[2], foreground=colors[3], name='net_left_powerline'),
                 widget.Net(name='net_widget', interface='wlan0', format='\uf1eb  {down} \uf175\uf176 {up}', background=colors[3], foreground=colors[7], padding=10, update_interval=5,
-                           mouse_callbacks={'Button1': toggle_network_manager}),
+                           mouse_callbacks={'Button1': toggle_program('connman-gtk')}),
                 widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[3], foreground=colors[4], name='volume_left_powerline'),
                 #widget.Bluetooth(),
                 widget.Backlight(brightness_file='/sys/class/backlight/intel_backlight/brightness', 
@@ -350,9 +335,9 @@ screens = [
                                  format='\uf5df {percent:>4.0%}',
                                  background=colors[4], foreground=colors[7],
                                  update_interval=0.2,
-                                 mouse_callbacks={'Button1': toggle_backlight_manager}
+                                 mouse_callbacks={'Button1': toggle_program('clight-gui')}
                                 ),
-                widget.Volume(get_volume_command=os.path.expanduser('~/.shell-scripts/qtile/get-volume.sh'), fmt='\ufa7d {:>4}', background=colors[4], foreground=colors[7], padding=10, update_interval=0.2, mouse_callbacks={'Button1': toggle_audio_manager}),
+                widget.Volume(get_volume_command=os.path.expanduser('~/.shell-scripts/qtile/get-volume.sh'), fmt='\ufa7d {:>4}', background=colors[4], foreground=colors[7], padding=10, update_interval=0.2, mouse_callbacks={'Button1': toggle_program('pavucontrol')}),
                 ], background=colors[1], text_closed=' \ufa60  ', text_open=' \ufa60  ',  mouse_callbacks={'Button1': expand_info},
                 name='info_box'),
                 #widget.OpenWeather(location='Ottawa'),
