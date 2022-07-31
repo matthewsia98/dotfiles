@@ -13,7 +13,7 @@ o.termguicolors = true
 -- o.hidden = true
 
 -- Decrease update time
-o.timeoutlen = 500
+o.timeoutlen = 1000
 o.updatetime = 200
 
 -- Enable mouse
@@ -172,6 +172,7 @@ require('indent_blankline').setup {
 
 -- GIT MESSENGER --
 vim.g.git_messenger_no_default_mappings = true
+vim.g.git_messenger_always_into_popup = true
 
 -- COMMENT PLUGIN --
 require('Comment').setup({
@@ -186,7 +187,9 @@ end
 
 --  mode   key      value
 map('i', '<C-E>', '<Esc>A')
+map('n', '<C-E>', 'A<Esc>')
 map('i', '<C-A>', '<Esc>I')
+map('n', '<C-A>', 'I<Esc>')
 map('n', '<CR>', 'o<Esc>')
 map('n', '<S-CR>', 'O<Esc>')
 map('n', '<C-j>', ':move .+1<CR>')
