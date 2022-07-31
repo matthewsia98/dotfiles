@@ -2,8 +2,8 @@
 local g = vim.g
 local o = vim.o
 
--- cmd('syntax on')
--- vim.api.nvim_command('filetype plugin indent on')
+--cmd('syntax on')
+vim.api.nvim_command('filetype plugin indent on')
 
 o.termguicolors = true
 -- o.background = 'dark'
@@ -83,6 +83,7 @@ o.splitbelow = true
 g.mapleader = ' '
 g.maplocalleader = ' '
 
+-- AUTOCMD --
 -- Prevent newline from starting as comment
 vim.api.nvim_create_autocmd('BufEnter', 
                             {callback = function() 
@@ -90,6 +91,7 @@ vim.api.nvim_create_autocmd('BufEnter',
                                         end
 					        }
 			               )
+
 
 -- PLUGINS --
 local Plug = vim.fn['plug#']
@@ -174,5 +176,7 @@ map('i', '<C-E>', '<Esc>A')
 map('i', '<C-A>', '<Esc>E')
 map('n', '<CR>', 'o<Esc>')
 map('n', '<S-CR>', 'O<Esc>')
+map('n', '<C-j>', ':move .+1<CR>')
+map('n', '<C-k>', ':move .-2<CR>')
 map('n', '<C-T>', ':NERDTreeToggle<CR>')
 map('n', '<leader>gm', ':GitMessenger<CR>')
