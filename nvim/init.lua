@@ -1,3 +1,4 @@
+-- PLUGINS --
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 Plug('preservim/nerdtree', {on = {'NERDTreeToggle'}})
@@ -6,6 +7,7 @@ Plug('kyazdani42/nvim-web-devicons')
 Plug('catppuccin/nvim', {as = 'catppuccin'})
 vim.call('plug#end')
 
+-- COLOR SCHEME --
 vim.g.catppuccin_flavour = 'macchiato'
 local cp = require('catppuccin/palettes').get_palette()
 require('catppuccin').setup({
@@ -20,6 +22,7 @@ require('catppuccin').setup({
                            )
 vim.cmd [[colorscheme catppuccin]]
 
+-- LUALINE --
 require('lualine').setup({
                              options = {
                                            theme = 'catppuccin',
@@ -40,6 +43,7 @@ require('lualine').setup({
                          }
                         )
 
+-- VIM OPTIONS --
 local g = vim.g
 local o = vim.o
 
@@ -121,6 +125,13 @@ o.splitbelow = true
 g.mapleader = ' '
 g.maplocalleader = ' '
 
+-- Prevent newline from starting as comment
+vim.api.nvim_create_autocmd('BufEnter', 
+                            {callback = function() 
+							                o.formatoptions = string.gsub(o.formatoptions, '[cro]', '')
+                                        end
+					        }
+			               )
 
 -- KEY BINDINGS --
 local function map(m, k, v)
@@ -131,4 +142,4 @@ end
 map('i', '<C-E>', '<Esc>A')
 map('i', '<C-A>', '<Esc>E')
 map('n', '<CR>', 'o<Esc>')
-map('n', 'S-CR>', 'O<Esc>')
+map('n', '<S-CR>', 'O<Esc>')
