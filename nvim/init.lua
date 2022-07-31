@@ -102,6 +102,7 @@ Plug('nvim-treesitter/nvim-treesitter', {['do'] = vim.fn[':TSUpdate']})
 Plug('lukas-reineke/indent-blankline.nvim')
 Plug('lewis6991/gitsigns.nvim')
 Plug('rhysd/git-messenger.vim')
+Plug('numToStr/Comment.nvim')
 vim.call('plug#end')
 
 -- COLOR SCHEME --
@@ -152,9 +153,16 @@ require('indent_blankline').setup {
                                       show_current_context_start = true,
                                   }
 
+-- GIT SIGNS --
 
 -- GIT MESSENGER --
 vim.g.git_messenger_no_default_mappings = true
+
+-- COMMENT PLUGIN --
+require('Comment').setup({
+
+                         }
+                        )
 
 -- KEY BINDINGS --
 local function map(m, k, v)
