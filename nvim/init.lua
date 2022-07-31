@@ -1,9 +1,10 @@
 -- VIM OPTIONS --
 local g = vim.g
 local o = vim.o
+local A = vim.api
 
 --cmd('syntax on')
-vim.api.nvim_command('filetype plugin indent on')
+A.nvim_command('filetype plugin indent on')
 
 o.termguicolors = true
 -- o.background = 'dark'
@@ -85,13 +86,22 @@ g.maplocalleader = ' '
 
 -- AUTOCMD --
 -- Prevent newline from starting as comment
-vim.api.nvim_create_autocmd('BufEnter', 
-                            {callback = function() 
-							                o.formatoptions = string.gsub(o.formatoptions, '[cro]', '')
-                                        end
-					        }
-			               )
+A.nvim_create_autocmd('BufEnter', 
+                      {
+                          callback = function() 
+                                        o.formatoptions = string.gsub(o.formatoptions, '[cro]', '')
+                                     end
+					  }
+			         )
 
+-- Highlight yanked region
+A.nvim_create_autocmd('TextYankPost', 
+                      {
+                          callback = function()
+                                        vim.highlight.on_yank({ higroup = 'Visual', timeout = 3000 })
+                                     end
+                      }
+                     )
 
 -- PLUGINS --
 local Plug = vim.fn['plug#']
