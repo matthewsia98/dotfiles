@@ -1,48 +1,3 @@
--- PLUGINS --
-local Plug = vim.fn['plug#']
-vim.call('plug#begin', '~/.config/nvim/plugged')
-Plug('preservim/nerdtree', {on = {'NERDTreeToggle'}})
-Plug('nvim-lualine/lualine.nvim')
-Plug('kyazdani42/nvim-web-devicons')
-Plug('catppuccin/nvim', {as = 'catppuccin'})
-vim.call('plug#end')
-
--- COLOR SCHEME --
-vim.g.catppuccin_flavour = 'macchiato'
-local cp = require('catppuccin/palettes').get_palette()
-require('catppuccin').setup({
-                                transparent_background = false,
-                                integrations = {},
-                                custom_highlights = {
-                                                        Comment = {fg = cp.blue},
-                                                        LineNr = {fg = cp.lavender},
-                                                        CursorLineNr = {fg = '#00FFFF'}
-                                                    }
-                            }
-                           )
-vim.cmd [[colorscheme catppuccin]]
-
--- LUALINE --
-require('lualine').setup({
-                             options = {
-                                           theme = 'catppuccin',
-                                           icons_enabled = true,
-                                           -- powerline    
-                                           section_separators = {left = '', right = ''},
-                                           component_separators = {left = '', right = ''}
-                                       },
-                             -- a b c                x y z
-                             sections = {
-                                            lualine_a = {'mode'},
-                                            lualine_b = {}, --'branch', --'diagnostics'
-                                            lualine_c = {'filename'},
-                                            lualine_x = {'encoding', 'fileformat', 'filetype'},
-                                            lualine_y = {}, --'branch', 'diff'}
-                                            lualine_z = {'progress', 'location'}
-                                        }
-                         }
-                        )
-
 -- VIM OPTIONS --
 local g = vim.g
 local o = vim.o
@@ -60,6 +15,9 @@ o.termguicolors = true
 o.timeoutlen = 500
 o.updatetime = 200
 
+-- Enable mouse
+o.mouse = 'a'
+
 -- Number of screen lines to keep above and below the cursor
 o.scrolloff = 8
 
@@ -73,7 +31,7 @@ o.cursorline = true
 -- Better editing experience
 o.expandtab = true
 -- o.smarttab = true
-o.cindent = true
+-- o.cindent = true
 -- o.autoindent = true
 o.wrap = true
 o.textwidth = 300
@@ -81,8 +39,8 @@ o.tabstop = 4
 o.shiftwidth = 0
 o.softtabstop = -1 -- If negative, shiftwidth value is used
 o.list = true
-o.listchars = 'trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
--- o.listchars = 'eol:¬,space:·,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:│   ,'
+o.listchars = 'trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂,space:·'
+--o.listchars = 'eol:¬,space:·,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:│   ,'
 -- o.formatoptions = 'qrn1'
 
 -- Makes neovim and host OS clipboard play nicely with each other
@@ -132,6 +90,63 @@ vim.api.nvim_create_autocmd('BufEnter',
                                         end
 					        }
 			               )
+
+-- PLUGINS --
+local Plug = vim.fn['plug#']
+vim.call('plug#begin', '~/.config/nvim/plugged')
+Plug('preservim/nerdtree', {on = {'NERDTreeToggle'}})
+Plug('nvim-lualine/lualine.nvim')
+Plug('kyazdani42/nvim-web-devicons')
+Plug('catppuccin/nvim', {as = 'catppuccin'})
+Plug('nvim-treesitter/nvim-treesitter', {['do'] = vim.fn[':TSUpdate']})
+Plug('lukas-reineke/indent-blankline.nvim')
+vim.call('plug#end')
+
+-- COLOR SCHEME --
+vim.g.catppuccin_flavour = 'macchiato'
+local cp = require('catppuccin/palettes').get_palette()
+require('catppuccin').setup({
+                                transparent_background = false,
+                                integrations = {},
+                                custom_highlights = {
+                                                        Comment = {fg = cp.blue},
+                                                        LineNr = {fg = cp.lavender},
+                                                        CursorLineNr = {fg = '#00FFFF'}
+                                                    }
+                            }
+                           )
+vim.cmd [[colorscheme catppuccin]]
+
+-- LUALINE --
+require('lualine').setup({
+                             options = {
+                                           theme = 'catppuccin',
+                                           icons_enabled = true,
+                                           -- powerline    
+                                           section_separators = {left = '', right = ''},
+                                           component_separators = {left = '', right = ''}
+                                       },
+                             -- a b c                x y z
+                             sections = {
+                                            lualine_a = {'mode'},
+                                            lualine_b = {}, --'branch', --'diagnostics'
+                                            lualine_c = {'filename'},
+                                            lualine_x = {'encoding', 'fileformat', 'filetype'},
+                                            lualine_y = {}, --'branch', 'diff'}
+                                            lualine_z = {'progress', 'location'}
+                                        }
+                         }
+                        )
+-- color of indent lines
+vim.cmd [[highlight IndentBlanklineChar guifg=#B7BDF8 gui=nocombine]]
+-- color of current context indent line (vertical line)
+vim.cmd [[highlight IndentBlanklineContextChar guifg=#ED8796 gui=nocombine]]
+-- color of current context start (underline)
+vim.cmd [[highlight IndentBlanklineContextStart guisp=#ED8796 gui=underline]]
+require('indent_blankline').setup {
+                                      show_current_context = true,
+                                      show_current_context_start = true,
+                                  }
 
 -- KEY BINDINGS --
 local function map(m, k, v)
