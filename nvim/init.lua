@@ -153,6 +153,9 @@ require('lualine').setup({
                          }
                         )
 
+-- TREESITTER --
+
+
 -- INDENT BLANKLINE --
 -- color of indent lines
 vim.cmd [[highlight IndentBlanklineChar guifg=#B7BDF8 gui=nocombine]]
@@ -183,10 +186,17 @@ end
 
 --  mode   key      value
 map('i', '<C-E>', '<Esc>A')
-map('i', '<C-A>', '<Esc>E')
+map('i', '<C-A>', '<Esc>I')
 map('n', '<CR>', 'o<Esc>')
 map('n', '<S-CR>', 'O<Esc>')
 map('n', '<C-j>', ':move .+1<CR>')
 map('n', '<C-k>', ':move .-2<CR>')
 map('n', '<C-T>', ':NERDTreeToggle<CR>')
 map('n', '<leader>gm', ':GitMessenger<CR>')
+map('n', '<leader>wv', '<C-w>v')
+map('n', '<leader>ws', '<C-w>s')
+map('n', '<leader>wc', '<C-w>c')
+map('n', '<leader>wh', '<C-w>h')
+map('n', '<leader>wl', '<C-w>l')
+map('n', '<leader>wj', '<C-w>j')
+map('n', '<leader>wk', '<C-w>k')
