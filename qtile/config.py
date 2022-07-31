@@ -1,28 +1,3 @@
-# Copyright (c) 2010 Aldo Cortesi
-# Copyright (c) 2010, 2014 dequis
-# Copyright (c) 2012 Randall Ma
-# Copyright (c) 2012-2014 Tycho Andersen
-# Copyright (c) 2012 Craig Barnes
-# Copyright (c) 2013 horsik
-# Copyright (c) 2013 Tao Sauvage
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
 import os
 import subprocess
 from libqtile.log_utils import logger
@@ -31,7 +6,6 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 #from libqtile.utils import guess_terminal
 
-picom_on = None
 colors = ['#ffaaff', #lightpink
           '#ffb86c', #orange
           '#f1fa8c', #yellow
@@ -45,24 +19,24 @@ colors = ['#ffaaff', #lightpink
           '#00ffff'  #cyan
          ]
 
+picom_on = None
 @hook.subscribe.startup
 def autostart():
     global picom_on
-    #subprocess.run(['picom', '--experimental-backends', '-b'])
     picom_on = True
     picom_textbox = qtile.widgets_map.get('picom_toggle')
     if picom_textbox is not None and picom_textbox.text in ['\uf205', '\uf204']:
         picom_textbox.update('\uf205' if picom_on else '\uf204')
-    #lazy.reload_config()
+
     info_box = qtile.widgets_map.get('info_box')
     if not info_box.box_is_open:
         info_box.cmd_toggle()
+
     clock_left_powerline = qtile.widgets_map.get('clock_left_powerline')
     clock_left_powerline.background = colors[4] if info_box.box_is_open else colors[1]
 
 def is_muted():
     output = str(subprocess.check_output(['pactl', 'get-sink-mute', '@DEFAULT_SINK@']))
-    
     return 'yes' in output
 
 def raise_volume(*args):
