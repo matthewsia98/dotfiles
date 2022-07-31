@@ -154,7 +154,12 @@ require('lualine').setup({
                         )
 
 -- TREESITTER --
-
+require('nvim-treesitter.configs').setup {
+                                            highlight = {
+                                                            enable = true,
+                                                            additional_vim_regex_highlighting = false,
+                                                        },
+                                         }
 
 -- INDENT BLANKLINE --
 -- color of indent lines
