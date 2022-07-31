@@ -45,7 +45,7 @@ alias logout='loginctl terminate-user siam'
 alias suspend='systemctl suspend'
 
 # Programs
-alias vim='nvim'
+alias vim='nvim -u ~/.config/nvim/init.lua'
 alias emacs="emacsclient -c -a 'emacs'"
 
 # Git
@@ -73,7 +73,7 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 
 
-neofetch
+# neofetch
 
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -85,8 +85,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="bg=#00ffff,fg=#ff00ff,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 
-# emacs mode
-bindkey -v
+# Shell emacs/vim mode
+bindkey -e
 
 #bindkey '\t' complete-word
 bindkey '^ ' autosuggest-accept
