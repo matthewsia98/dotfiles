@@ -100,6 +100,8 @@ Plug('kyazdani42/nvim-web-devicons')
 Plug('catppuccin/nvim', {as = 'catppuccin'})
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = vim.fn[':TSUpdate']})
 Plug('lukas-reineke/indent-blankline.nvim')
+Plug('lewis6991/gitsigns.nvim')
+Plug('rhysd/git-messenger.vim')
 vim.call('plug#end')
 
 -- COLOR SCHEME --
@@ -137,6 +139,8 @@ require('lualine').setup({
                                         }
                          }
                         )
+
+-- INDENT BLANKLINE --
 -- color of indent lines
 vim.cmd [[highlight IndentBlanklineChar guifg=#B7BDF8 gui=nocombine]]
 -- color of current context indent line (vertical line)
@@ -148,6 +152,10 @@ require('indent_blankline').setup {
                                       show_current_context_start = true,
                                   }
 
+
+-- GIT MESSENGER --
+vim.g.git_messenger_no_default_mappings = true
+
 -- KEY BINDINGS --
 local function map(m, k, v)
     vim.keymap.set(m, k, v, { silent = true })
@@ -158,3 +166,5 @@ map('i', '<C-E>', '<Esc>A')
 map('i', '<C-A>', '<Esc>E')
 map('n', '<CR>', 'o<Esc>')
 map('n', '<S-CR>', 'O<Esc>')
+map('n', '<C-T>', ':NERDTreeToggle<CR>')
+map('n', '<leader>gm', ':GitMessenger<CR>')
