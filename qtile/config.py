@@ -194,7 +194,7 @@ groups = [
                  ),
             Group(name='2', label='\ufb10', spawn='discord'),
             Group(name='3', label='\uf6ed', spawn='thunderbird'),
-            Group(name='4', label='\uf269', spawn=None),
+            Group(name='4', label='\uf269', spawn='firefox'),
 	        Group(name='5', label='\uf313', spawn=None)
          ]
 
