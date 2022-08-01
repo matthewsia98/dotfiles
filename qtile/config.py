@@ -5,6 +5,9 @@ from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
+
+#### GLOBALS ####
+picom_on = None
 colors = [
             '#ffaaff', #lightpink
             '#ffb86c', #orange
@@ -19,8 +22,8 @@ colors = [
             '#00ffff'  #cyan
          ]
 
-picom_on = None
 
+#### FUNCTIONS ####
 @hook.subscribe.startup
 def autostart():
     global picom_on
@@ -131,41 +134,41 @@ def toggle_program(qtile, program):
 # 1 alt
 # 4 super
 mod = "mod1"
-
-#terminal = guess_terminal()
 terminal = 'kitty'
 
+
+#### KEYBINDS ####
 keys = [
-    # Key([], 'XF86MonBrightnessUp', lazy.spawn('pactl set-sink-volume @DEFAULT_SINK@ +10%'), desc='Increase Screen Brightness'),
-    # Key([], 'XF86MonBrightnessDown', lazy.spawn('brightnessctl s 5%-'), desc='Decrease Screen Brightness'),
-    # Key([], 'XF86AudioMute', lazy.spawn('pactl set-sink-mute @DEFAULT_SINK@ toggle'), desc='Mute Audio'),
-    # Key([], 'XF86AudioRaiseVolume', lazy.function(raise_volume), desc='Increase Volume'),
-    # Key([], 'XF86AudioLowerVolume', lazy.spawn('pactl set-sink-volume @DEFAULT_SINK@ -10%'), desc='Decrease Volume'),
     Key([], 'Print', lazy.spawn('scrot -s /home/siam/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png'), desc='Take a screenshot'),
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
+
     # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key([mod, "control"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
     Key([mod, "control"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
     Key([mod, "control"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "control"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
     Key([mod, "shift"], "h", grow_horizontal('h'), desc="Grow window to the left"),
     Key([mod, "shift"], "l", grow_horizontal('l'), desc="Grow window to the right"),
     Key([mod, "shift"], "j", grow_vertical('j'), desc="Grow window down"),
     Key([mod, "shift"], "k", grow_vertical('k'), desc="Grow window up"),
+
+    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod, 'control'], 'space', lazy.layout.flip(), desc='Flip main side'),
     Key([mod], "m", lazy.window.toggle_maximize(), desc="Toggle maximize"),
     Key([mod, 'control'], "f", center_and_resize_floating(), desc="Toggle floating"),
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
@@ -178,6 +181,7 @@ keys = [
     ),
     Key([mod], 'f', lazy.spawn('pcmanfm'), desc='Launch File Manager'),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
@@ -186,6 +190,7 @@ keys = [
     Key([mod], "r", lazy.spawn('rofi -show drun'), desc="Spawn a command using a prompt widget"),
 ]
 
+#### GROUPS ####
 groups = [
             Group(name='1', label='\ue235', spawn=None, 
                   layouts=[
@@ -223,6 +228,7 @@ for i in groups:
     )
     
 
+#### LAYOUTS####
 layouts = [
    #layout.Columns(margin_on_single=10, margin=5, border_normal='#24273a', border_focus='#00ffff', border_width=4),
    #layout.Max(),
@@ -239,6 +245,7 @@ layouts = [
    #layout.Zoomy(),
 ]
 
+#### WIDGETS ####
 widget_defaults = dict(
     font='Ubuntu Mono Nerd Font Bold',
     #font="NotoSans Nerd Font",
@@ -249,6 +256,7 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+#### SCREENS ####
 screens = [
     Screen(
 
@@ -262,42 +270,16 @@ screens = [
                                name='arch_logo'),
                 widget.TextBox(text='\ue0b0', fontsize=40, padding=0,  background=colors[5], foreground=colors[6]),
                 widget.GroupBox(highlight_method='line', fontsize=50, borderwidth=5, highlight_color=colors[5], block_highlight_text_color=colors[7],  background=colors[5], foreground=colors[7], this_current_screen_border=colors[10], active=colors[7], inactive=colors[7], spacing=10, padding_x=0, padding_y=5, margin_x=10, margin_y=5),
-                # highlight border                
-                #widget.GroupBox(highlight_method='border', highlight_color='#00ffff',  background='#00ffff', foreground='#ff00ff', this_current_screen_border='#ff00ff', active='#ff00ff', inactive='#ff00ff'),
-                # highlight line
-                #widget.GroupBox(highlight_method='line', highlight_color='#00ffff', this_current_screen_border='#ff00ff',  background='#00ffff', foreground='#ff00ff', active='#ff00ff', inactive='#ff00ff'),
-                #widget.TaskList(),
-                #widget.Spacer(length=5, background=colors[7]),
-                #widget.WindowCount(),
-                #widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[0], foreground=colors[9]),
-                #widget.Spacer(length=10, background=colors[9]),
-                #widget.WindowTabs(background='#ff00ff', foreground='00ffff', separator=' | '),
-                #widget.WindowName(background=colors[9], foreground=colors[7]),
                 widget.TextBox(text='\ue0b0', fontsize=40, padding=0,  background=colors[4], foreground=colors[5]),
                 #widget.Systray(icon_size=25, background=colors[10], padding=10),
-                #widget.TextBox(text='\ue0b0', fontsize=40, padding=0,  background='#00000000', foreground=colors[10]),
                 widget.WindowName(background=colors[4], padding=10),
-                #widget.WindowName(),
-                #widget.TextBox("default config", name="default"),
-                #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                #widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background='#00ffff', foreground='#ff00ff'),
-                #widget.Systray(icon_size=20, background='#ff00ff', padding=0),
-                #widget.Sep(linewidth=1, background='#000000'),
 
                 widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[4], foreground=colors[1]),
                 widget.WidgetBox(widgets=[
-                #widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background='#00000000', foreground=colors[1]),
                 #widget.CheckUpdates(distro='Arch', display_format='Updates: {updates}', no_update_string='no updates', colour_no_updates='#00ffff', colour_have_updates='#00ffff', background='#ff00ff', foreground='#00ffff'),
-                #widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background='#ff00ff', foreground='#00ffff'),
-                #widget.CPU(format='\uf85a {load_percent}%', padding=0, background='#ff00ff', foreground='#00ffff', update_interval=15),
                 widget.CPU(format='\uf029 {load_percent:>3.0f}%', padding=10, background=colors[1], foreground=colors[7], update_interval=5, mouse_callbacks={'Button1': lazy.spawn('kitty htop')}),
-                #widget.Sep(linewidth=1, background='#000000'),
                 widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[1], foreground=colors[2], name='memory_left_powerline'),
                 widget.Memory(measure_mem='G', format='\uf1c0 {MemPercent:>3.0f}%', padding=10, background=colors[2], foreground=colors[7], update_interval=5, mouse_callbacks={'Button1': toggle_program('conky')}),
-                #widget.Memory(measure_mem='G', format='\uf1c0 {MemUsed:.2f}{mm}/{MemTotal:.2f}{mm}', padding=0, background='#00ffff', foreground='#ff00ff', update_interval=5),
-                #widget.Memory(format='{MemUsed:.0f}{mm}/{MemTotal:.0f}{mm}', padding=0, background='#ff00ff', foreground='#00ffff', update_interval=15),
-                #widget.Sep(linewidth=1, background='#000000'),	
-                #widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[2], foreground=colors[2]),
                 widget.DF(format='\uf7c9 {uf}/{s}{m}', padding=10, background=colors[2], foreground=colors[7], visible_on_warn=False, update_interval=60, mouse_callbacks={'Button1': toggle_program('conky')}),
                 widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[2], foreground=colors[3], name='net_left_powerline'),
                 widget.Net(name='net_widget', interface='wlan0', format='\uf1eb  {down} \uf175\uf176 {up}', background=colors[3], foreground=colors[7], padding=10, update_interval=5,
@@ -316,13 +298,9 @@ screens = [
                 name='info_box'),
                 #widget.OpenWeather(location='Ottawa'),
                 #widget.Wttr(location={'Ottawa': 'Ottawa'}),
-                #widget.Clock(format="\uf5ed %a %b %d %I:%M %p", padding=10, background='#00ffff', foreground='#ff00ff'),
                 widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[4], foreground=colors[5], name='clock_left_powerline'),
                 widget.Clock(format="\uf5ed  %a %b %d %H:%M", padding=10, background=colors[5], foreground=colors[7]),
-                #widget.Sep(linewidth=1, background='#000000'),
-                #widget.BatteryIcon(),
                 widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[5], foreground=colors[6]),
-                #widget.Battery(format='{char} {percent:2.0%} {hour:d}h:{min:02d}m', discharge_char='\uf58b', charge_char='\uf583', full_char='\uf583', show_short_text=False, background='#ff00ff', foreground='#00ffff', low_foreground='#00ffff', update_interval=60),
                 widget.Battery(format='{char} {percent:2.0%}', discharge_char='\uf58b', charge_char='\uf583', full_char='\uf583', show_short_text=False, background=colors[6], foreground=colors[7], low_foreground=colors[7], padding=10, update_interval=60),
                         #widget.QuickExit(),
                 widget.WidgetBox(widgets=[
@@ -348,6 +326,7 @@ screens = [
     ),
 ]
 
+#### MOUSE ####
 # Drag floating layouts.
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
@@ -362,6 +341,7 @@ bring_front_click = False
 cursor_warp = False
 
 
+#### FLOATING ####
 floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
