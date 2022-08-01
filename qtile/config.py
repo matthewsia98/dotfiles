@@ -4,22 +4,23 @@ from libqtile.log_utils import logger
 from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
-#from libqtile.utils import guess_terminal
 
-colors = ['#ffaaff', #lightpink
-          '#ffb86c', #orange
-          '#f1fa8c', #yellow
-          '#50fa7b', #green
-          '#00aaff', #darkblue
-          '#5f55ff', #purple
-          '#ff55ff', #pink
-          '#24273a', #black
-          '#f8f8f2', #white
-          '#8700ff', #darkpurple
-          '#00ffff'  #cyan
+colors = [
+            '#ffaaff', #lightpink
+            '#ffb86c', #orange
+            '#f1fa8c', #yellow
+            '#50fa7b', #green
+            '#00aaff', #darkblue
+            '#5f55ff', #purple
+            '#ff55ff', #pink
+            '#24273a', #black
+            '#f8f8f2', #white
+            '#8700ff', #darkpurple
+            '#00ffff'  #cyan
          ]
 
 picom_on = None
+
 @hook.subscribe.startup
 def autostart():
     global picom_on
@@ -135,11 +136,11 @@ mod = "mod1"
 terminal = 'kitty'
 
 keys = [
-    Key([], 'XF86MonBrightnessUp', lazy.spawn('brightnessctl s +5%'), desc='Increase Screen Brightness'),
-    Key([], 'XF86MonBrightnessDown', lazy.spawn('brightnessctl s 5%-'), desc='Decrease Screen Brightness'),
-    Key([], 'XF86AudioMute', lazy.spawn('pactl set-sink-mute @DEFAULT_SINK@ toggle'), desc='Mute Audio'),
-    Key([], 'XF86AudioRaiseVolume', lazy.function(raise_volume), desc='Increase Volume'),
-    Key([], 'XF86AudioLowerVolume', lazy.spawn('pactl set-sink-volume @DEFAULT_SINK@ -10%'), desc='Decrease Volume'),
+    # Key([], 'XF86MonBrightnessUp', lazy.spawn('pactl set-sink-volume @DEFAULT_SINK@ +10%'), desc='Increase Screen Brightness'),
+    # Key([], 'XF86MonBrightnessDown', lazy.spawn('brightnessctl s 5%-'), desc='Decrease Screen Brightness'),
+    # Key([], 'XF86AudioMute', lazy.spawn('pactl set-sink-mute @DEFAULT_SINK@ toggle'), desc='Mute Audio'),
+    # Key([], 'XF86AudioRaiseVolume', lazy.function(raise_volume), desc='Increase Volume'),
+    # Key([], 'XF86AudioLowerVolume', lazy.spawn('pactl set-sink-volume @DEFAULT_SINK@ -10%'), desc='Decrease Volume'),
     Key([], 'Print', lazy.spawn('scrot -s /home/siam/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png'), desc='Take a screenshot'),
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -182,7 +183,6 @@ keys = [
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "d", lazy.spawn('rofi -show drun'), desc="Spawn a command using a prompt widget"),
     Key([mod], "r", lazy.spawn('rofi -show drun'), desc="Spawn a command using a prompt widget"),
 ]
 

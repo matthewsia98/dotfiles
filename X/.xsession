@@ -4,3 +4,4 @@ xrdb -merge ~/.Xresources
 xmodmap ~/.Xmodmap
 /usr/bin/emacs --daemon
 picom --experimental-backends -b
+sxhkd &
