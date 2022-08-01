@@ -117,6 +117,7 @@ Plug('rhysd/git-messenger.vim')
 Plug('numToStr/Comment.nvim')
 Plug('norcalli/nvim-colorizer.lua')
 Plug('tpope/vim-surround')
+Plug('windwp/nvim-autopairs')
 vim.call('plug#end')
 
 -- COLOR SCHEME --
@@ -189,6 +190,9 @@ require('Comment').setup({
 
 -- COLORIZER --
 require('colorizer').setup()
+
+-- AUTOPAIRS --
+require('nvim-autopairs').setup()
 
 -- KEY BINDINGS --
 local function map(m, k, v)
