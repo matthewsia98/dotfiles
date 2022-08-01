@@ -115,6 +115,8 @@ Plug('lukas-reineke/indent-blankline.nvim')
 Plug('lewis6991/gitsigns.nvim')
 Plug('rhysd/git-messenger.vim')
 Plug('numToStr/Comment.nvim')
+Plug('norcalli/nvim-colorizer.lua')
+Plug('tpope/vim-surround')
 vim.call('plug#end')
 
 -- COLOR SCHEME --
@@ -184,6 +186,9 @@ require('Comment').setup({
 
                          }
                         )
+
+-- COLORIZER --
+require('colorizer').setup()
 
 -- KEY BINDINGS --
 local function map(m, k, v)
