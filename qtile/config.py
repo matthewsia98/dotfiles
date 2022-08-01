@@ -318,7 +318,7 @@ screens = [
                 #widget.Wttr(location={'Ottawa': 'Ottawa'}),
                 #widget.Clock(format="\uf5ed %a %b %d %I:%M %p", padding=10, background='#00ffff', foreground='#ff00ff'),
                 widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[4], foreground=colors[5], name='clock_left_powerline'),
-                widget.Clock(format="\uf5ed %a %b %d %H:%M", padding=10, background=colors[5], foreground=colors[7]),
+                widget.Clock(format="\uf5ed  %a %b %d %H:%M", padding=10, background=colors[5], foreground=colors[7]),
                 #widget.Sep(linewidth=1, background='#000000'),
                 #widget.BatteryIcon(),
                 widget.TextBox(text='\ue0b2', fontsize=40, padding=0,  background=colors[5], foreground=colors[6]),
