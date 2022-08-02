@@ -321,7 +321,7 @@ screens = [
             background='#00000000',
             opacity=1.0
         ),
-        wallpaper='~/.config/qtile/vaporwave.jpg',
+        wallpaper='~/.config/qtile/aurora.jpg',
         wallpaper_mode='stretch',
     ),
 ]
