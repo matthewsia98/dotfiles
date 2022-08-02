@@ -5,7 +5,7 @@ set_title
 
 chpwd_functions+=(set_title)
 
-export PATH=$HOME/.emacs.d/bin:$PATH
+export PATH=$HOME/.emacs.d/bin:~/lua-language-server/bin:$PATH
 export BAT_THEME='OneHalfDark'
 #export EDITOR='vim'
 #export VISUAL='vim'
@@ -98,3 +98,5 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship.toml
+
+alias luamake=/home/siam/lua-language-server/3rd/luamake/luamake
