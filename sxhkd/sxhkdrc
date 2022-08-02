@@ -1,14 +1,13 @@
 XF86MonBrightnessUp
-    brightnessctl s 5%+
-
+    ~/.shell-scripts/dunst/brightness.sh raise
 XF86MonBrightnessDown
-    brightnessctl s 5%-
+    ~/.shell-scripts/dunst/brightness.sh lower
 
 XF86AudioRaiseVolume
-    pactl set-sink-volume @DEFAULT_SINK@ +5%
+    ~/.shell-scripts/dunst/volume.sh raise
 
 XF86AudioLowerVolume
-    pactl set-sink-volume @DEFAULT_SINK@ -5%
+    ~/.shell-scripts/dunst/volume.sh lower
 
 XF86AudioMute
-    pactl set-sink-mute @DEFAULT_SINK@ toggle
+    ~/.shell-scripts/dunst/volume.sh mute
