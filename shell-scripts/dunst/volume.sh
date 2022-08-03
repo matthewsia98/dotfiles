@@ -21,9 +21,9 @@ fi
 
 if [[ $is_muted -eq 1 ]]
 then
-    dunstify -h string:x-dunst-stack-tag:audio -i "/usr/share/icons/Papirus-Dark/16x16/actions/audio-volume-muted.svg" "Muted" -t 3000
+    dunstify -h string:x-dunst-stack-tag:audio -i "/usr/share/icons/Papirus/16x16/actions/audio-volume-muted.svg" "Muted" -t 3000
 else
     volume=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -o -E "([0-9]*)%" | head -1)
     volume=${volume::-1}
-    dunstify -h string:x-dunst-stack-tag:audio -i "/usr/share/icons/Papirus-Dark/16x16/actions/audio-volume-high.svg" "Volume: [$volume%]" -h int:value:"$volume" -t 3000
+    dunstify -h string:x-dunst-stack-tag:audio -i "/usr/share/icons/Papirus/16x16/actions/audio-volume-high.svg" "Volume: [$volume%]" -h int:value:"$volume" -t 3000
 fi
