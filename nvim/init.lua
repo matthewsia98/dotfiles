@@ -186,6 +186,9 @@ vim.g.git_messenger_always_into_popup = true
 
 -- COMMENT PLUGIN --
 require('Comment').setup({
+                            padding = true,
+                            sticky = true,
+                            ignore = nil,
                             toggler = {
                                           line = 'gcc',
                                           block = 'gbc',
