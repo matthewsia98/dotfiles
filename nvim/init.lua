@@ -40,7 +40,7 @@ o.tabstop = 4
 o.shiftwidth = 0
 o.softtabstop = -1 -- If negative, shiftwidth value is used
 o.list = true
-o.listchars = 'trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂,space:·'
+o.listchars = 'lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂,'
 --o.listchars = 'eol:¬,space:·,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:│   ,'
 -- o.formatoptions = 'qrn1'
 
@@ -86,16 +86,16 @@ g.maplocalleader = ' '
 
 -- AUTOCMD --
 -- Prevent newline from starting as comment
-A.nvim_create_autocmd('BufEnter', 
+A.nvim_create_autocmd('BufEnter',
                       {
-                          callback = function() 
+                          callback = function()
                                         o.formatoptions = string.gsub(o.formatoptions, '[cro]', '')
                                      end
 					  }
 			         )
 
 -- Highlight yanked region
-A.nvim_create_autocmd('TextYankPost', 
+A.nvim_create_autocmd('TextYankPost',
                       {
                           callback = function()
                                         vim.highlight.on_yank({ higroup = 'Visual', timeout = 3000 })
