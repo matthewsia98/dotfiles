@@ -59,7 +59,6 @@ def toggle_picom():
 
 @lazy.window.function
 def center_and_resize_floating(window):
-    logger.warning(window)
     window.toggle_floating()
     
     if window.floating:
@@ -152,10 +151,12 @@ keys = [
 
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
-    Key([mod, "control"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "control"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
+    Key([mod, "control"], "h", lazy.layout.swap_left(), desc="Move window to the left"),
+    Key([mod, "control"], "l", lazy.layout.swap_right(), desc="Move window to the right"),
     Key([mod, "control"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "control"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([mod, "control"], "p", lazy.group.prev_window(), desc="Move focus to previous window"),
+    Key([mod, "control"], "n", lazy.group.next_window(), desc="Move focus to next window"),
 
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
@@ -173,12 +174,7 @@ keys = [
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key(
-        [mod, "shift"],
-        "Return",
-        lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack",
-    ),
+    Key([mod, "shift"], "Return", lazy.layout.toggle_split(), desc="Toggle between split and unsplit sides of stack"),
     Key([mod], 'f', lazy.spawn('pcmanfm'), desc='Launch File Manager'),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
 
