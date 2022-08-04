@@ -26,7 +26,7 @@ o.scrolloff = 8
 o.number = true
 o.numberwidth = 6
 o.relativenumber = true
-o.signcolumn = 'yes'
+o.signcolumn = 'yes:2'
 o.cursorline = true
 
 -- Better editing experience
@@ -223,25 +223,27 @@ require('gitsigns').setup {
     signs = {
                 add = {
                     hl = 'GitSignsAdd',
-                    text = '│',
+                    text = '▎',
                     numhl='GitSignsAddNr',
                     linehl='GitSignsAddLn'
                 },
                 change = {
                     hl = 'GitSignsChange',
-                    text = '│',
+                    text = '▎',
                     numhl='GitSignsChangeNr',
                     linehl='GitSignsChangeLn'
                 },
                 delete = {
                     hl = 'GitSignsDelete',
-                    text = '_',
+                    -- text = '_',
+                    text = '',
                     numhl='GitSignsDeleteNr',
                     linehl='GitSignsDeleteLn'
                 },
                 topdelete = {
                     hl = 'GitSignsDelete',
-                    text = '‾',
+                    -- text = '‾',
+                    text = '',
                     numhl='GitSignsDeleteNr',
                     linehl='GitSignsDeleteLn'
                 },
@@ -317,6 +319,22 @@ require('Comment').setup({
 require('colorizer').setup()
 
 -- LSP CONFIG --
+vim.fn.sign_define(
+  "DiagnosticSignError",
+  { texthl = "DiagnosticSignError", text = "❌", numhl = "DiagnosticSignError" }
+)
+vim.fn.sign_define(
+  "DiagnosticSignWarn",
+  { texthl = "DiagnosticSignWarn", text = "", numhl = "DiagnosticSignWarn" }
+)
+vim.fn.sign_define(
+  "DiagnosticSignHint",
+  { texthl = "DiagnosticSignHint", text = "", numhl = "DiagnosticSignHint" }
+)
+vim.fn.sign_define(
+  "DiagnosticSignInfo",
+  { texthl = "DiagnosticSignInfo", text = "🛈", numhl = "DiagnosticSignInfo" }
+)
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
