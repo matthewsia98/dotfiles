@@ -1,3 +1,7 @@
+local function map(m, k, v)
+    vim.keymap.set(m, k, v, { silent = true })
+end
+
 -- VIM OPTIONS --
 local g = vim.g
 local o = vim.o
@@ -106,9 +110,12 @@ A.nvim_create_autocmd('TextYankPost',
 -- PLUGINS --
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
-Plug('preservim/nerdtree', {on = {'NERDTreeToggle'}})
 Plug('nvim-lualine/lualine.nvim')
 Plug('kyazdani42/nvim-web-devicons')
+-- Plug('preservim/nerdtree', {on = {'NERDTreeToggle'}})
+Plug('kyazdani42/nvim-tree.lua')
+Plug('nvim-lua/plenary.nvim')
+Plug('nvim-telescope/telescope.nvim')
 Plug('catppuccin/nvim', {as = 'catppuccin'})
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = vim.fn[':TSUpdate']})
 Plug('lukas-reineke/indent-blankline.nvim')
@@ -158,6 +165,65 @@ require('lualine').setup({
                                         }
                          }
                         )
+
+-- NVIMTREE --
+require('nvim-tree').setup(
+    {
+        sort_by = "case_sensitive",
+        view = {
+            adaptive_size = true,
+            mappings = {
+                list = {
+                    {
+                        key = "u", action = "dir_up"
+                    },
+                },
+            },
+        },
+        renderer = {
+            group_empty = true,
+        },
+        filters = {
+            dotfiles = true,
+        },
+    }
+)
+
+-- TELESCOPE--
+map('n','<leader>ff', '<cmd>Telescope find_files<cr>')
+map('n','<leader>fg', '<cmd>Telescope live_grep<cr>')
+map('n','<leader>fb', '<cmd>Telescope buffers<cr>')
+map('n','<leader>fh', '<cmd>Telescope help_tags<cr>')
+require('telescope').setup {
+    defaults = {
+        -- Default configuration for telescope goes here:
+        -- config_key = value,
+        mappings = {
+            i = {
+                -- map actions.which_key to <C-h> (default: <C-/>)
+                -- actions.which_key shows the mappings for your picker,
+                -- e.g. git_{create, delete, ...}_branch for the git_branches picker
+                ["<C-h>"] = "which_key"
+            }
+        }
+    },
+    pickers = {
+        -- Default configuration for builtin pickers goes here:
+        -- picker_name = {
+        --   picker_config_key = value,
+        --   ...
+        -- }
+        -- Now the picker_config_key will be applied every time you call this
+        -- builtin picker
+    },
+    extensions = {
+        -- Your extension configuration goes here:
+        -- extension_name = {
+        --   extension_config_key = value,
+        -- }
+        -- please take a look at the readme of the extension you want to configure
+    }
+}
 
 -- TREESITTER --
 require('nvim-treesitter.configs').setup {
@@ -511,9 +577,6 @@ require('trouble').setup {
 require('nvim-autopairs').setup()
 
 -- KEY BINDINGS --
-local function map(m, k, v)
-    vim.keymap.set(m, k, v, { silent = true })
-end
 
 --  mode   key      value
 map('i', '<C-E>', '<Esc>A')
@@ -524,7 +587,8 @@ map('n', '<CR>', 'o<Esc>')
 map('n', '<S-CR>', 'O<Esc>')
 map('n', '<C-j>', ':move .+1<CR>')
 map('n', '<C-k>', ':move .-2<CR>')
-map('n', '<leader>nt', ':NERDTreeToggle<CR>')
+-- map('n', '<leader>nt', ':NERDTreeToggle<CR>')
+map('n', '<leader>nt', ':NvimTreeToggle<CR>')
 map('n', '<leader>gm', ':GitMessenger<CR>')
 map('n', '<leader>wv', '<C-w>v')
 map('n', '<leader>ws', '<C-w>s')
