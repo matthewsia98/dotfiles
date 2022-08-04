@@ -391,6 +391,13 @@ require('lspconfig')['pyright'].setup {
 require('lspconfig')['sumneko_lua'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = {'vim'}
+            }
+        }
+    }
 }
 
 -- MASON --
