@@ -449,14 +449,27 @@ local lsp_flags = {
     debounce_text_changes = 150,
 }
 
+local handlers = {
+    ["textDocument/publishDiagnostics"] = vim.lsp.with(
+       vim.lsp.diagnostic.on_publish_diagnostics, {
+           virtual_text = true,
+           signs = false,
+       }
+    ),
+}
+
+-- PYTHON LSP --
 require('lspconfig')['pyright'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
+    handlers = handlers,
 }
 
+-- LUA LSP --
 require('lspconfig')['sumneko_lua'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
+    handlers = handlers,
     settings = {
         Lua = {
             diagnostics = {
