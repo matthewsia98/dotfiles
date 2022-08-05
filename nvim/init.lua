@@ -1,5 +1,6 @@
-local function map(m, k, v)
-    vim.keymap.set(m, k, v, { silent = true })
+local function map(mode, key, value, options)
+    options = options or { silent = true }
+    vim.keymap.set(mode, key, value, options)
 end
 
 -- VIM OPTIONS --
@@ -30,7 +31,7 @@ o.scrolloff = 8
 o.number = true
 o.numberwidth = 6
 o.relativenumber = true
-o.signcolumn = 'auto:3'
+o.signcolumn = 'auto:2'
 o.cursorline = true
 
 -- Better editing experience
@@ -91,33 +92,32 @@ g.maplocalleader = ' '
 -- AUTOCMD --
 -- Prevent newline from starting as comment
 A.nvim_create_autocmd('BufEnter',
-                      {
-                          callback = function()
-                                        o.formatoptions = string.gsub(o.formatoptions, '[cro]', '')
-                                     end
-					  }
-			         )
+    {
+        callback = function()
+            o.formatoptions = string.gsub(o.formatoptions, '[cro]', '')
+        end
+    }
+)
 
 -- Highlight yanked region
 A.nvim_create_autocmd('TextYankPost',
-                      {
-                          callback = function()
-                                        vim.highlight.on_yank({ higroup = 'Visual', timeout = 3000 })
-                                     end
-                      }
-                     )
+    {
+        callback = function()
+            vim.highlight.on_yank({ higroup = 'Visual', timeout = 3000 })
+        end
+    }
+)
 
 -- PLUGINS --
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 Plug('nvim-lualine/lualine.nvim')
 Plug('kyazdani42/nvim-web-devicons')
--- Plug('preservim/nerdtree', {on = {'NERDTreeToggle'}})
 Plug('kyazdani42/nvim-tree.lua')
 Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim')
-Plug('catppuccin/nvim', {as = 'catppuccin'})
-Plug('nvim-treesitter/nvim-treesitter', {['do'] = vim.fn[':TSUpdate']})
+Plug('catppuccin/nvim', { as = 'catppuccin' })
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = vim.fn[':TSUpdate'] })
 Plug('lukas-reineke/indent-blankline.nvim')
 Plug('lewis6991/gitsigns.nvim')
 Plug('rhysd/git-messenger.vim')
@@ -125,6 +125,7 @@ Plug('numToStr/Comment.nvim')
 Plug('norcalli/nvim-colorizer.lua')
 Plug('tpope/vim-surround')
 Plug('neovim/nvim-lspconfig')
+-- Plug('mfussenegger/nvim-jdtls')
 Plug('williamboman/mason.nvim')
 Plug('folke/trouble.nvim')
 Plug('windwp/nvim-autopairs')
@@ -133,67 +134,65 @@ vim.call('plug#end')
 -- COLOR SCHEME --
 vim.g.catppuccin_flavour = 'macchiato'
 local cp = require('catppuccin/palettes').get_palette()
-require('catppuccin').setup({
-                                transparent_background = false,
-                                integrations = {},
-                                custom_highlights = {
-                                                        Comment = {fg = cp.blue},
-                                                        LineNr = {fg = cp.lavender},
-                                                        CursorLineNr = {fg = '#00FFFF'}
-                                                    }
-                            }
-                           )
+require('catppuccin').setup {
+    transparent_background = false,
+    integrations = {},
+    custom_highlights = {
+        Comment = { fg = cp.blue },
+        LineNr = { fg = cp.lavender },
+        CursorLineNr = { fg = '#00FFFF' }
+    }
+}
 vim.cmd [[colorscheme catppuccin]]
 
+
 -- LUALINE --
-require('lualine').setup({
-                             options = {
-                                           theme = 'catppuccin',
-                                           icons_enabled = true,
-                                           -- powerline    
-                                           section_separators = {left = '', right = ''},
-                                           component_separators = {left = '', right = ''}
-                                       },
-                             -- a b c                x y z
-                             sections = {
-                                            lualine_a = {'mode'},
-                                            lualine_b = {'diagnostics'}, --'branch', --'diagnostics'
-                                            lualine_c = {'filename'},
-                                            lualine_x = {'encoding', 'fileformat', 'filetype'},
-                                            lualine_y = {}, --'branch', 'diff'}
-                                            lualine_z = {'progress', 'location'}
-                                        }
-                         }
-                        )
+require('lualine').setup {
+    options = {
+        theme = 'catppuccin',
+        icons_enabled = true,
+        -- powerline    
+        section_separators = { left = '', right = '' },
+        component_separators = { left = '', right = '' }
+    },
+    -- a b c                x y z
+    sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'diagnostics' }, --'branch', --'diagnostics'
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = {}, --'branch', 'diff'}
+        lualine_z = { 'progress', 'location' }
+    }
+}
+
 
 -- NVIMTREE --
-require('nvim-tree').setup(
-    {
-        sort_by = "case_sensitive",
-        view = {
-            adaptive_size = true,
-            mappings = {
-                list = {
-                    {
-                        key = "u", action = "dir_up"
-                    },
-                },
+map('n', '<leader>nt', ':NvimTreeToggle<CR>')
+require('nvim-tree').setup {
+    sort_by = "case_sensitive",
+    view = {
+        adaptive_size = true,
+        mappings = {
+            list = {
+                { key = "u", action = "dir_up" },
             },
         },
-        renderer = {
-            group_empty = true,
-        },
-        filters = {
-            dotfiles = true,
-        },
-    }
-)
+    },
+    renderer = {
+        group_empty = true,
+    },
+    filters = {
+        dotfiles = true,
+    },
+}
+
 
 -- TELESCOPE--
-map('n','<leader>ff', '<cmd>Telescope find_files<cr>')
-map('n','<leader>fg', '<cmd>Telescope live_grep<cr>')
-map('n','<leader>fb', '<cmd>Telescope buffers<cr>')
-map('n','<leader>fh', '<cmd>Telescope help_tags<cr>')
+map('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
+map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
+map('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
+map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
 require('telescope').setup {
     defaults = {
         -- Default configuration for telescope goes here:
@@ -225,106 +224,101 @@ require('telescope').setup {
     }
 }
 
+
 -- TREESITTER --
 require('nvim-treesitter.configs').setup {
-                                            highlight = {
-                                                            enable = true,
-                                                            additional_vim_regex_highlighting = false,
-                                                        },
-                                         }
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
+}
+
 
 -- INDENT BLANKLINE --
--- color of indent lines
-vim.cmd [[highlight IndentBlanklineChar guifg=#B7BDF8 gui=nocombine]]
--- color of current context indent line (vertical line)
-vim.cmd [[highlight IndentBlanklineContextChar guifg=#ED8796 gui=nocombine]]
--- color of current context start (underline)
-vim.cmd [[highlight IndentBlanklineContextStart guisp=#ED8796 gui=underline]]
+vim.cmd [[highlight IndentBlanklineChar guifg=#B7BDF8 gui=nocombine]] -- color of indent lines
+vim.cmd [[highlight IndentBlanklineContextChar guifg=#ED8796 gui=nocombine]] -- color of current context indent line (vertical line)
+vim.cmd [[highlight IndentBlanklineContextStart guisp=#ED8796 gui=underline]] -- color of current context start (underline)
 require('indent_blankline').setup {
-                                      show_current_context = true,
-                                      show_current_context_start = true,
-                                  }
+    show_current_context = true,
+    show_current_context_start = true,
+}
+
 
 -- GIT SIGNS --
 require('gitsigns').setup {
     on_attach = function(bufnr)
-                    local gs = package.loaded.gitsigns
+        local gs = package.loaded.gitsigns
+        -- Navigation
+        map('n', ']h',
+            function()
+                if vim.wo.diff then return ']c' end
+                vim.schedule(function() gs.next_hunk() end)
+                return '<Ignore>'
+            end,
+            { expr = true }
+        )
 
-                    local function map(mode, l, r, opts)
-                      opts = opts or {}
-                      opts.buffer = bufnr
-                      vim.keymap.set(mode, l, r, opts)
-                    end
+        map('n', '[h',
+            function()
+                if vim.wo.diff then return '[c' end
+                vim.schedule(function() gs.prev_hunk() end)
+                return '<Ignore>'
+            end,
+            { expr = true }
+        )
 
-                    -- Navigation
-                    map('n', ']h', function()
-                                       if vim.wo.diff then return ']c' end
-                                       vim.schedule(function() gs.next_hunk() end)
-                                       return '<Ignore>'
-                                   end, {expr=true}
-                    )
+        -- Actions
+        map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+        map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+        map('n', '<leader>hS', gs.stage_buffer)
+        map('n', '<leader>hu', gs.undo_stage_hunk)
+        map('n', '<leader>hR', gs.reset_buffer)
+        map('n', '<leader>hp', gs.preview_hunk)
+        map('n', '<leader>hb', function() gs.blame_line { full = true } end)
+        map('n', '<leader>tb', gs.toggle_current_line_blame)
+        map('n', '<leader>hd', gs.diffthis)
+        map('n', '<leader>hD', function() gs.diffthis('~') end)
+        map('n', '<leader>td', gs.toggle_deleted)
 
-                    map('n', '[h', function()
-                                       if vim.wo.diff then return '[c' end
-                                       vim.schedule(function() gs.prev_hunk() end)
-                                       return '<Ignore>'
-                                   end, {expr=true}
-                    )
-
-                    -- Actions
-                    map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-                    map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-                    map('n', '<leader>hS', gs.stage_buffer)
-                    map('n', '<leader>hu', gs.undo_stage_hunk)
-                    map('n', '<leader>hR', gs.reset_buffer)
-                    map('n', '<leader>hp', gs.preview_hunk)
-                    map('n', '<leader>hb', function() gs.blame_line{full=true} end)
-                    map('n', '<leader>tb', gs.toggle_current_line_blame)
-                    map('n', '<leader>hd', gs.diffthis)
-                    map('n', '<leader>hD', function() gs.diffthis('~') end)
-                    map('n', '<leader>td', gs.toggle_deleted)
-
-                    -- Text object
-                    map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-                end,
+        -- Text object
+        map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+    end,
     signs = {
-                add = {
-                    hl = 'GitSignsAdd',
-                    text = '▎',
-                    numhl='GitSignsAddNr',
-                    linehl='GitSignsAddLn'
-                },
-                change = {
-                    hl = 'GitSignsChange',
-                    text = '▎',
-                    numhl='GitSignsChangeNr',
-                    linehl='GitSignsChangeLn'
-                },
-                delete = {
-                    hl = 'GitSignsDelete',
-                    -- text = '_',
-                    text = '',
-                    numhl='GitSignsDeleteNr',
-                    linehl='GitSignsDeleteLn'
-                },
-                topdelete = {
-                    hl = 'GitSignsDelete',
-                    -- text = '‾',
-                    text = '',
-                    numhl='GitSignsDeleteNr',
-                    linehl='GitSignsDeleteLn'
-                },
-                changedelete = {
-                    hl = 'GitSignsChange',
-                    text = '~',
-                    numhl='GitSignsChangeNr',
-                    linehl='GitSignsChangeLn'
-                },
+        add = {
+            hl = 'GitSignsAdd',
+            text = '▎',
+            numhl = 'GitSignsAddNr',
+            linehl = 'GitSignsAddLn'
+        },
+        change = {
+            hl = 'GitSignsChange',
+            text = '▎',
+            numhl = 'GitSignsChangeNr',
+            linehl = 'GitSignsChangeLn'
+        },
+        delete = {
+            hl = 'GitSignsDelete',
+            text = '',
+            numhl = 'GitSignsDeleteNr',
+            linehl = 'GitSignsDeleteLn'
+        },
+        topdelete = {
+            hl = 'GitSignsDelete',
+            text = '',
+            numhl = 'GitSignsDeleteNr',
+            linehl = 'GitSignsDeleteLn'
+        },
+        changedelete = {
+            hl = 'GitSignsChange',
+            text = '~',
+            numhl = 'GitSignsChangeNr',
+            linehl = 'GitSignsChangeLn'
+        },
     },
-    signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-    numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
-    linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
-    word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+    signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+    numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
+    linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+    word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
     watch_gitdir = {
         interval = 1000,
         follow_files = true
@@ -355,129 +349,40 @@ require('gitsigns').setup {
     },
 }
 
+
 -- GIT MESSENGER --
 vim.g.git_messenger_no_default_mappings = true
 vim.g.git_messenger_always_into_popup = true
--- q 	Close the popup window
--- o 	older. Back to older commit at the line
--- O 	Opposite to o. Forward to newer commit at the line
--- d 	Toggle unified diff hunks only in current file of the commit
--- D 	Toggle all unified diff hunks of the commit
--- r 	Toggle word diff hunks only in current file of the commit
--- R 	Toggle all word diff hunks of current commit
--- ? 	Show mappings help
+map('n', '<leader>gm', ':GitMessenger<CR>')
+
 
 -- COMMENT PLUGIN --
 require('Comment').setup({
-                            padding = true,
-                            sticky = true,
-                            ignore = nil,
-                            toggler = {
-                                          line = 'gcc',
-                                          block = 'gbc',
-                            },
+    padding = true,
+    sticky = true,
+    ignore = nil,
+    toggler = {
+        line = 'gcc',
+        block = 'gbc',
+    },
 
-                            opleader = {
-                                           line = 'gc',
-                                           block = 'gb',
-                            },
+    opleader = {
+        line = 'gc',
+        block = 'gb',
+    },
 
-                            extra = {
-                                        above = 'gcO',
-                                        below = 'gco',
-                                        eol = 'gcA',
-                            },
-                         }
-                        )
+    extra = {
+        above = 'gcO',
+        below = 'gco',
+        eol = 'gcA',
+    },
+}
+)
+
 
 -- COLORIZER --
 require('colorizer').setup()
 
--- LSP CONFIG --
-vim.fn.sign_define(
-  "DiagnosticSignError",
-  { texthl = "DiagnosticSignError", text = "❌", numhl = "DiagnosticSignError" }
-)
-vim.fn.sign_define(
-  "DiagnosticSignWarn",
-  { texthl = "DiagnosticSignWarn", text = "", numhl = "DiagnosticSignWarn" }
-)
-vim.fn.sign_define(
-  "DiagnosticSignHint",
-  { texthl = "DiagnosticSignHint", text = "", numhl = "DiagnosticSignHint" }
-)
-vim.fn.sign_define(
-  "DiagnosticSignInfo",
-  { texthl = "DiagnosticSignInfo", text = "🛈", numhl = "DiagnosticSignInfo" }
-)
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-                      -- Enable completion triggered by <c-x><c-o>
-                      vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-                      -- Mappings.
-                      -- See `:help vim.lsp.*` for documentation on any of the below functions
-                      local bufopts = { noremap=true, silent=true, buffer=bufnr }
-                      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-                      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-                      vim.keymap.set('n', 'H', vim.lsp.buf.hover, bufopts)
-                      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-                      vim.keymap.set('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
-                      vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-                      vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-                      vim.keymap.set('n', '<leader>wl',
-                                     function()
-                                        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-                                     end, bufopts)
-                      vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-                      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-                      vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-                      vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-                      vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
-                  end
-
-local lsp_flags = {
-    debounce_text_changes = 150,
-}
-
-local handlers = {
-    ["textDocument/publishDiagnostics"] = vim.lsp.with(
-       vim.lsp.diagnostic.on_publish_diagnostics, {
-           virtual_text = true,
-           signs = false,
-       }
-    ),
-}
-
--- PYTHON LSP --
-require('lspconfig')['pyright'].setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    handlers = handlers,
-}
-
--- LUA LSP --
-require('lspconfig')['sumneko_lua'].setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    handlers = handlers,
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = {'vim'}
-            }
-        }
-    }
-}
 
 -- MASON --
 require('mason').setup(
@@ -512,31 +417,189 @@ require('mason').setup(
     }
 )
 
+
+-- MASON LSPCONFIG --
+-- require('mason-lspconfig').setup()
+
+
+-- LSP CONFIG --
+vim.fn.sign_define(
+    "DiagnosticSignError",
+    { texthl = "DiagnosticSignError", text = "❌", numhl = "DiagnosticSignError" }
+)
+vim.fn.sign_define(
+    "DiagnosticSignWarn",
+    { texthl = "DiagnosticSignWarn", text = "", numhl = "DiagnosticSignWarn" }
+)
+vim.fn.sign_define(
+    "DiagnosticSignHint",
+    { texthl = "DiagnosticSignHint", text = "", numhl = "DiagnosticSignHint" }
+)
+vim.fn.sign_define(
+    "DiagnosticSignInfo",
+    { texthl = "DiagnosticSignInfo", text = "🛈", numhl = "DiagnosticSignInfo" }
+)
+-- Mappings
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local lsp_opts = { noremap = true, silent = true }
+map('n', '<leader>d', vim.diagnostic.open_float, lsp_opts)
+map('n', '[d', vim.diagnostic.goto_prev, lsp_opts)
+map('n', ']d', vim.diagnostic.goto_next, lsp_opts)
+map('n', '<leader>q', vim.diagnostic.setloclist, lsp_opts)
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+    -- Mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    map('n', 'gD', vim.lsp.buf.declaration, bufopts)
+    map('n', 'gd', vim.lsp.buf.definition, bufopts)
+    map('n', 'H', vim.lsp.buf.hover, bufopts)
+    map('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    map('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
+    map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+    map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+    map('n', '<leader>wl', function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end,
+        bufopts
+    )
+    map('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+    map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+    map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+    map('n', 'gr', vim.lsp.buf.references, bufopts)
+    map('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
+end
+
+local lsp_flags = {
+    debounce_text_changes = 150,
+}
+
+local handlers = {
+    ["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {
+        update_in_insert = true,
+        virtual_text = true,
+        signs = false,
+    }
+    ),
+}
+
+-- PYTHON LSP --
+--[[ require('lspconfig')['pyright'].setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    handlers = handlers,
+} ]]
+require('lspconfig')['pylsp'].setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    handlers = handlers,
+    settings = {
+        pylsp = {
+            plugins = {
+                pycodestyle = {
+                    enabled = false,
+                },
+                pyflakes = {
+                    enabled = false,
+                },
+                mccabe = {
+                    enabled = false,
+                },
+                flake8 = {
+                    enabled = true,
+                    ignore = {
+                        'E501', -- Line too long
+                        'E266', -- Too many leading # for block comment
+                    }
+                },
+                black = {
+                    enabled = true,
+                    max_line_length = 88,
+                    preview = true,
+                },
+                mypy = {
+                    enabled = true,
+                    live_mode = true,
+                    strict = false,
+                },
+                rope = {
+                    enabled = true,
+                },
+                isort = {
+                    enabled = true,
+                }
+            }
+        }
+    }
+}
+
+
+-- LUA LSP --
+require('lspconfig')['sumneko_lua'].setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    handlers = handlers,
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { 'vim' },
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
+}
+
+
+-- JAVA LSP --
+require('lspconfig')['jdtls'].setup {
+    on_attach=on_attach,
+    flags=lsp_flags,
+    handlers = handlers
+}
+
+
 -- TROUBLE --
--- Lua
-vim.api.nvim_set_keymap("n", "<leader>wd", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-  {silent = true, noremap = true}
+map("n", "<leader>wd", "<cmd>TroubleToggle workspace_diagnostics<cr>",
+    { silent = true, noremap = true }
 )
-vim.api.nvim_set_keymap("n", "<leader>dd", "<cmd>TroubleToggle document_diagnostics<cr>",
-  {silent = true, noremap = true}
+map("n", "<leader>dd", "<cmd>TroubleToggle document_diagnostics<cr>",
+    { silent = true, noremap = true }
 )
-vim.api.nvim_set_keymap("n", "<leader>ll", "<cmd>TroubleToggle loclist<cr>",
-  {silent = true, noremap = true}
+map("n", "<leader>ll", "<cmd>TroubleToggle loclist<cr>",
+    { silent = true, noremap = true }
 )
-vim.api.nvim_set_keymap("n", "<leader>qf", "<cmd>TroubleToggle quickfix<cr>",
-  {silent = true, noremap = true}
+map("n", "<leader>qf", "<cmd>TroubleToggle quickfix<cr>",
+    { silent = true, noremap = true }
 )
-vim.api.nvim_set_keymap("n", "<leader>gr", "<cmd>TroubleToggle lsp_references<cr>",
-  {silent = true, noremap = true}
+map("n", "<leader>gr", "<cmd>TroubleToggle lsp_references<cr>",
+    { silent = true, noremap = true }
 )
-vim.api.nvim_set_keymap("n", "<leader>gt", "<cmd>TroubleToggle lsp_type_definitions<cr>",
-  {silent = true, noremap = true}
+map("n", "<leader>gt", "<cmd>TroubleToggle lsp_type_definitions<cr>",
+    { silent = true, noremap = true }
 )
-vim.api.nvim_set_keymap("n", "<leader>gi", "<cmd>TroubleToggle lsp_implementations<cr>",
-  {silent = true, noremap = true}
+map("n", "<leader>gi", "<cmd>TroubleToggle lsp_implementations<cr>",
+    { silent = true, noremap = true }
 )
-vim.api.nvim_set_keymap("n", "<leader>gd", "<cmd>TroubleToggle lsp_definitions<cr>",
-  {silent = true, noremap = true}
+map("n", "<leader>gd", "<cmd>TroubleToggle lsp_definitions<cr>",
+    { silent = true, noremap = true }
 )
 require('trouble').setup {
     position = "bottom", -- position of the list can be: bottom, top, left, right
@@ -554,18 +617,18 @@ require('trouble').setup {
         close = "q", -- close the list
         cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
         refresh = "r", -- manually refresh
-        jump = {"<cr>", "<tab>"}, -- jump to the diagnostic or open / close folds
+        jump = { "<cr>", "<tab>" }, -- jump to the diagnostic or open / close folds
         open_split = { "<c-x>" }, -- open buffer in new split
         open_vsplit = { "<c-v>" }, -- open buffer in new vsplit
         open_tab = { "<c-t>" }, -- open buffer in new tab
-        jump_close = {"o"}, -- jump to the diagnostic and close the list
+        jump_close = { "o" }, -- jump to the diagnostic and close the list
         toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
         toggle_preview = "P", -- toggle auto_preview
         hover = "K", -- opens a small popup with the full multiline message
         preview = "p", -- preview the diagnostic location
-        close_folds = {"zM", "zm"}, -- close all folds
-        open_folds = {"zR", "zr"}, -- open all folds
-        toggle_fold = {"zA", "za"}, -- toggle fold of current file
+        close_folds = { "zM", "zm" }, -- close all folds
+        open_folds = { "zR", "zr" }, -- open all folds
+        toggle_fold = { "zA", "za" }, -- toggle fold of current file
         previous = "k", -- preview item
         next = "j" -- next item
     },
@@ -574,7 +637,7 @@ require('trouble').setup {
     auto_close = false, -- automatically close the list when you have no diagnostics
     auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
     auto_fold = false, -- automatically fold a file trouble list at creation
-    auto_jump = {"lsp_definitions"}, -- for the given modes, automatically jump if there is only a single result
+    auto_jump = { "lsp_definitions" }, -- for the given modes, automatically jump if there is only a single result
     signs = {
         -- icons / text used for a diagnostic
         error = "",
@@ -600,9 +663,6 @@ map('n', '<CR>', 'o<Esc>')
 map('n', '<S-CR>', 'O<Esc>')
 map('n', '<C-j>', ':move .+1<CR>')
 map('n', '<C-k>', ':move .-2<CR>')
--- map('n', '<leader>nt', ':NERDTreeToggle<CR>')
-map('n', '<leader>nt', ':NvimTreeToggle<CR>')
-map('n', '<leader>gm', ':GitMessenger<CR>')
 map('n', '<leader>wv', '<C-w>v')
 map('n', '<leader>ws', '<C-w>s')
 map('n', '<leader>wc', '<C-w>c')
