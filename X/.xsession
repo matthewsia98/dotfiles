@@ -18,7 +18,7 @@ sxhkd &
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started sxhkd' >> $LOGFILE
 
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting qtile' >> $LOGFILE
-qtile start 2>>&1 $LOGFILE
+qtile start 2>> $LOGFILE
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started qtile' >> $LOGFILE
 
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Finished running xession' >> $LOGFILE
