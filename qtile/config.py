@@ -1,44 +1,104 @@
 import os
 import subprocess
 
-# from libqtile.log_utils import logger
+from libqtile.log_utils import logger
 from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
+# from libqtile.confreader import Config
 
 
 #### GLOBALS ####
-picom_on = None
-colors = [
-    '#FFAAFF',  # lightpink
-    '#FFB86C',  # orange
-    '#F1FA8C',  # yellow
-    '#50FA7B',  # green
-    '#00AAFF',  # darkblue
-    '#5F55FF',  # purple
-    '#FF55FF',  # pink
-    '#24273A',  # black
-    '#F8F8F2',  # white
-    '#8700FF',  # darkpurple
-    '#00FFFF'   # cyan
-]
+with open(os.path.expanduser('~/.qtile-powerline-enabled'), 'r') as f:
+    POWERLINE_ENABLED = (int(f.read()) == 1)
+
+PICOM_ON = None
+LEFT_POWERLINE = '\uE0B2'
+RIGHT_POWERLINE = '\uE0B0'
+TOGGLE_ON = '\uF205'
+TOGGLE_OFF = '\uF204'
+POWERLINE_SIZE = 50
+BAR_HEIGHT = 50
+FONT = 'RobotoMono Nerd Font Bold'
+FONT_SIZE = 20
+COLORS = {
+    'background': ['#24273A'],
+    'foreground': ['#CAD3F5', '#24273A'],
+    'selection_background': ['#F4DBD6'],
+    'selection_foreground': ['#24273A'],
+    'active_border_color': ['#B7BDF8'],
+    'inactive_border_color': ['#6E738D'],
+    'black': ['#494D54', '#5B6078'],
+    'red': ['#ED8796', '#ED8796'],
+    'orange': ['#FFBFA0'],
+    'yellow': ['#EED49F', '#EED49F'],
+    'green': ['#A6DA95', '#A6DA95'],
+    'blue': ['#8AADF4', '#8AADF4'],
+    'magenta': ['#F5BDE6', '#F5BDE6'],
+    'purple': ['#C6A0F6'],
+    'cyan': ['#8BD5CA', '#8BD5CA'],
+    'white': ['#B8C0E0', '#A5ADCB'],
+    'transparent': ['#00000000'],
+}
+EMPTY_WIDGET = widget.Spacer(length=0)
 
 
 #### FUNCTIONS ####
 @hook.subscribe.startup
 def autostart():
-    global picom_on
-    picom_on = True
-    picom_textbox = qtile.widgets_map.get('picom_toggle')
-    if picom_textbox is not None and picom_textbox.text in ['\uf205', '\uf204']:
-        picom_textbox.update('\uf205' if picom_on else '\uf204')
+    global PICOM_ON, POWERLINE_ENABLED
+    PICOM_ON = True
+
+    with open(os.path.expanduser('~/.qtile-powerline-enabled'), 'r') as f:
+        POWERLINE_ENABLED = (int(f.read()) == 1)
+        logger.warning(f'POWERLINE_ENABLED: {POWERLINE_ENABLED}')
+
+    picom_toggle = qtile.widgets_map.get('picom_toggle')
+    if picom_toggle is not None:
+        picom_toggle.update(TOGGLE_ON if PICOM_ON else TOGGLE_OFF)
+
+    powerline_toggle = qtile.widgets_map.get('powerline_toggle')
+    if powerline_toggle is not None:
+        powerline_toggle.update(TOGGLE_ON if POWERLINE_ENABLED else TOGGLE_OFF)
 
     info_box = qtile.widgets_map.get('info_box')
-    if not info_box.box_is_open:
+    if info_box.box_is_open:
         info_box.cmd_toggle()
 
-    clock_left_powerline = qtile.widgets_map.get('clock_left_powerline')
-    clock_left_powerline.background = colors[4] if info_box.box_is_open else colors[1]
+
+def spacer(length=None, background=None, name=None):
+    length = 0 if length is None else length
+    background = COLORS['transparent'][0] if background is None else background
+
+    return widget.Spacer(length=length,
+                         background=background,
+                         name=name)
+
+
+def separator(length=None, padding=None, background=None, foreground=None, name=None):
+    length = 1 if length is None else length
+    padding = 40 if padding is None else padding
+    background = COLORS['transparent'][0] if background is None else background
+    foreground = COLORS['transparent'][0] if foreground is None else foreground
+
+    return widget.Sep(linewidth=length,
+                      padding=padding,
+                      background=background,
+                      name=name
+                      )
+
+
+def powerline(direction, background=None, foreground=None, name=None):
+    background = background if background is not None else COLORS['background'][0]
+    foreground = foreground if foreground is not None else COLORS['foreground'][0]
+
+    return widget.TextBox(text=LEFT_POWERLINE if direction == 'l' else RIGHT_POWERLINE,
+                          fontsize=POWERLINE_SIZE,
+                          padding=0,
+                          background=background,
+                          foreground=foreground,
+                          name=name
+                          )
 
 
 def is_muted():
@@ -54,12 +114,28 @@ def raise_volume(*args):
 
 
 def toggle_picom():
-    global picom_on
+    global PICOM_ON
     output = int(subprocess.check_output(os.path.expanduser('~/.shell-scripts/qtile/toggle-picom.sh')))
-    picom_on = (output == 1)
+    PICOM_ON = (output == 1)
     picom_textbox = qtile.widgets_map.get('picom_toggle')
-    if picom_textbox is not None and picom_textbox.text in ['\uf205', '\uf204']:
-        picom_textbox.update('\uf205' if picom_on else '\uf204')
+    if picom_textbox is not None:
+        picom_textbox.update(TOGGLE_ON if PICOM_ON else TOGGLE_OFF)
+
+
+def toggle_powerline():
+    global POWERLINE_ENABLED
+    POWERLINE_ENABLED = not POWERLINE_ENABLED
+
+    with open(os.path.expanduser('~/.qtile-powerline-enabled'), 'w') as f:
+        subprocess.call(['echo', '1' if POWERLINE_ENABLED else '0'], stdout=f)
+
+    powerline_textbox = qtile.widgets_map.get('powerline_toggle')
+    if powerline_textbox is not None:
+        powerline_textbox.update(TOGGLE_ON if POWERLINE_ENABLED else TOGGLE_OFF)
+
+    # conf = Config('~/.config/qtile/powerline-config.py' if POWERLINE_ENABLED else '~/.config/qtile/config.py')
+    # qtile.config = conf
+    qtile.cmd_reload_config()
 
 
 @lazy.window.function
@@ -127,11 +203,12 @@ def grow_vertical(qtile, direction):
 
 
 @lazy.function
-def expand_info(qtile):
+def toggle_info(qtile):
     info_box = qtile.widgets_map.get('info_box')
     info_box.cmd_toggle()
-    clock_left_powerline = qtile.widgets_map.get('clock_left_powerline')
-    clock_left_powerline.background = colors[4] if info_box.box_is_open else colors[1]
+
+    widgetbox_powerline = qtile.widgets_map.get('widgetbox_powerline')
+    widgetbox_powerline.foreground = COLORS['red' if info_box.box_is_open else 'green'][0]
 
 
 @lazy.function
@@ -165,17 +242,17 @@ keys = [
     Key([mod, "control"], "l", lazy.layout.swap_right(), desc="Move window to the right"),
     Key([mod, "control"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "control"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-    Key([mod, "control"], "p", lazy.group.prev_window(), desc="Move focus to previous window"),
-    Key([mod, "control"], "n", lazy.group.next_window(), desc="Move focus to next window"),
+    Key([mod], "p", lazy.group.prev_window(), desc="Move focus to previous window"),
+    Key([mod], "n", lazy.group.next_window(), desc="Move focus to next window"),
 
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    Key([mod, "shift"], "h", grow_horizontal('h'), desc="Grow window to the left"),
-    Key([mod, "shift"], "l", grow_horizontal('l'), desc="Grow window to the right"),
-    Key([mod, "shift"], "j", grow_vertical('j'), desc="Grow window down"),
-    Key([mod, "shift"], "k", grow_vertical('k'), desc="Grow window up"),
+    Key([mod, 'shift'], "h", grow_horizontal('h'), desc="Grow window to the left"),
+    Key([mod, 'shift'], "l", grow_horizontal('l'), desc="Grow window to the right"),
+    Key([mod, 'shift'], "j", grow_vertical('j'), desc="Grow window down"),
+    Key([mod, 'shift'], "k", grow_vertical('k'), desc="Grow window up"),
 
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([mod, 'shift'], 'n', lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod, 'control'], 'space', lazy.layout.flip(), desc='Flip main side'),
     Key([mod], "m", lazy.window.toggle_maximize(), desc="Toggle maximize"),
     Key([mod, 'control'], "f", center_and_resize_floating(), desc="Toggle floating"),
@@ -196,13 +273,14 @@ keys = [
     Key([mod], "r", lazy.spawn('rofi -show drun'), desc="Spawn a command using a prompt widget"),
 ]
 
+
 #### GROUPS ####
 groups = [
-    Group(name='1', label='\ue235', spawn=None),
-    Group(name='2', label='\ufb10', spawn='discord'),
-    Group(name='3', label='\uf6ed', spawn='thunderbird'),
-    Group(name='4', label='\uf269', spawn='firefox'),
-    Group(name='5', label='\uf313', spawn=None)
+    Group(name='1', label='\uE235', spawn=None),
+    Group(name='2', label='\uFB10', spawn='discord'),
+    Group(name='3', label='\uF6ED', spawn='thunderbird'),
+    Group(name='4', label='\uF269', spawn='firefox'),
+    Group(name='5', label='\uF313', spawn=None)
 ]
 
 for i in groups:
@@ -230,16 +308,35 @@ for i in groups:
     )
 
 
+#### MOUSE ####
+# Drag floating layouts.
+mouse = [
+    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag([mod], "Button2", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Click([mod], "Button3", lazy.window.bring_to_front()),
+]
+
+
 #### LAYOUTS####
 layouts = [
-    # layout.Columns(margin_on_single=10, margin=5, border_normal='#24273A', border_focus='#00FFFF', border_width=4),
-    # layout.Max(),
-    ## Try more layouts by unleashing below layouts.
+    # layout.Columns(margin_on_single=10,
+    #                margin=5,
+    #                border_width=4,
+    #                border_normal=COLORS['inactive_border_color'][0],
+    #                border_focus=COLORS['active_border_color'][0],
+    #                ),
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    layout.MonadTall(single_border_width=0, single_margin=0, margin=20, border_normal='#1e1f28', border_focus='#00ffff', border_width=4),
+    layout.MonadTall(single_border_width=0,
+                     single_margin=0,
+                     margin=20,
+                     border_width=4,
+                     border_normal=COLORS['inactive_border_color'][0],
+                     border_focus=COLORS['active_border_color'][0],
+                     ),
     # layout.MonadWide(),
+    # layout.Max(),
     # layout.RatioTile(),
     # layout.Tile(),
     # layout.TreeTab(),
@@ -247,98 +344,296 @@ layouts = [
     # layout.Zoomy(),
 ]
 
-#### WIDGETS ####
+#### WIDGET DEFAULTS ####
 widget_defaults = dict(
-    # font='Ubuntu Mono Nerd Font Bold',
-    font="RobotoMono Nerd Font Bold",
-    fontsize=20,
-    padding=3,
-    background='#778899',
-    foreground='#000000'
+    font=FONT,
+    fontsize=FONT_SIZE,
+    padding=0,
+    margin=0,
+    background=COLORS['background'][0],
+    foreground=COLORS['foreground'][0]
 )
 extension_defaults = widget_defaults.copy()
+
 
 #### SCREENS ####
 screens = [
     Screen(
         top=bar.Bar(
-            [
+            widgets=[
+                spacer(length=10,
+                       background=COLORS['blue'][0] if POWERLINE_ENABLED else None,
+                       name='layout_spacer'
+                       ),
                 # widget.CurrentLayout(),
-                # widget.CurrentLayoutIcon(background=colors[5], foreground=colors[7], scale=0.8, padding=0),
+                widget.CurrentLayoutIcon(background=COLORS['blue'][0] if POWERLINE_ENABLED else None,
+                                         scale=0.6,
+                                         ),
+                separator(length=4,
+                          padding=20,
+                          background=COLORS['blue'][0] if POWERLINE_ENABLED else None
+                          ),
                 # widget.Spacer(length=10, background=colors[6]),
-                # widget.TextBox(text='\uf303 ', background=colors[6], padding=0,
+                # widget.TextBox(text='\uF303 ', background=colors[6], padding=0,
                 #                mouse_callbacks={'Button1': lazy.spawn('rofi -show drun')},
                 #                name='arch_logo'
                 #                ),
-                # widget.TextBox(text='\ue0b0', fontsize=40, padding=0, background=colors[5], foreground=colors[6]),
-                widget.GroupBox(highlight_method='line', fontsize=50, borderwidth=5, highlight_color=colors[5], block_highlight_text_color=colors[7], background=colors[5], foreground=colors[7], this_current_screen_border=colors[10], active=colors[7], inactive=colors[7], spacing=10, padding_x=0, padding_y=5, margin_x=10, margin_y=5),
-                widget.TextBox(text='\ue0b0', fontsize=40, padding=0, background=colors[4], foreground=colors[5]),
+                # widget.TextBox(text=right_arrow, fontsize=40, padding=0, background=colors[5], foreground=colors[6]),
+                widget.GroupBox(highlight_method='block',
+                                fontsize=50,
+                                borderwidth=5,
+                                highlight_color=COLORS['selection_background'][0],
+                                block_highlight_text_color=COLORS['selection_foreground'][0],
+                                background=COLORS['blue'][0] if POWERLINE_ENABLED else None,
+                                foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                                this_current_screen_border=COLORS['cyan'][0],
+                                active=COLORS['foreground'][POWERLINE_ENABLED],
+                                inactive=COLORS['foreground'][POWERLINE_ENABLED],
+                                rounded=True,
+                                center_aligned=True,
+                                spacing=0,
+                                padding_x=3,
+                                padding_y=0,
+                                margin_x=0,
+                                margin_y=3,
+                                name='groupbox'
+                                ),
+                powerline('r',
+                          background=COLORS['transparent'][0],
+                          foreground=COLORS['blue'][0],
+                          name='groupbox_powerline'
+                          ) if POWERLINE_ENABLED else separator(length=4, name='groupbox_separator'),
                 # widget.Systray(icon_size=25, background=colors[10], padding=10),
-                widget.WindowName(background=colors[4], padding=10),
+                widget.TaskList(background=COLORS['transparent'][0],
+                                foreground=COLORS['foreground'][0],
+                                border=COLORS['active_border_color'][0],
+                                highlight_method='border',
+                                title_width_method='uniform',
+                                rounded=True,
+                                txt_floating='[F] ',
+                                txt_maximized='[M] ',
+                                txt_minimized='[-] ',
+                                icon_size=0,
+                                margin_x=0,
+                                margin_y=1,
+                                padding_x=10,
+                                padding_y=10,
+                                ),
+                # widget.WindowName(background=COLORS['transparent'][0],
+                #                   foreground=COLORS['foreground'][0],
+                #                   padding=10,
+                #                   name='windowname'
+                #                   ),
+                # widget.Spacer(length=bar.STRETCH, background='#00000000'),
+                # widget.TextBox(text=LEFT_ARROW,
+                #                fontsize=ARROW_SIZE,
+                #                padding=0,
+                #                background=COLORS['background'][0],
+                #                foreground=COLORS['foreground'][0],
+                #                mouse_callbacks={'Button1': toggle_info}
+                #                ) if POWERLINE_ENABLED else separator(),
+                # widget.CheckUpdates(distro='Arch',
+                #                     display_format='Updates: {updates}',
+                #                     no_update_string='no updates',
+                #                     colour_no_updates=COLORS['foreground'][0],
+                #                     colour_have_updates=COLORS['green'][0],
+                #                     background=COLORS['background'][0],
+                #                     foreground=COLORS['foreground'][0],
+                #                     ),
+                powerline('l',
+                          background=COLORS['transparent'][0],
+                          foreground=COLORS['green'][0],
+                          name='widgetbox_powerline'
+                          ) if POWERLINE_ENABLED else separator(length=4, name='widgetbox_separator'),
+                widget.WidgetBox(
+                    widgets=[
+                        widget.CPU(format='\uF029 {load_percent:>2.0f}%',
+                                   padding=10,
+                                   background=COLORS['red'][0] if POWERLINE_ENABLED else None,
+                                   foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                                   update_interval=5,
+                                   mouse_callbacks={'Button1': lazy.spawn('kitty htop')},
+                                   name='cpu'
+                                   ),
+                        widget.Memory(measure_mem='G',
+                                      format='\uf1c0 {MemPercent:>2.0f}%',
+                                      padding=10,
+                                      background=COLORS['red'][0] if POWERLINE_ENABLED else None,
+                                      foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                                      update_interval=5,
+                                      mouse_callbacks={'Button1': toggle_program(os.path.expanduser('~/.shell-scripts/conky/launch-all.sh'))},
+                                      name='memory'
+                                      ),
+                        powerline('l',
+                                  background=COLORS['red'][0],
+                                  foreground=COLORS['orange'][0],
+                                  name='df_powerline'
+                                  ) if POWERLINE_ENABLED else separator(length=4, name='df_separator'),
+                        widget.DF(format='\uf7c9 {uf}/{s}{m}',
+                                  padding=10,
+                                  background=COLORS['orange'][0] if POWERLINE_ENABLED else None,
 
-                widget.TextBox(text='\ue0b2', fontsize=40, padding=0, background=colors[4], foreground=colors[1]),
-                widget.WidgetBox(widgets=[
-                    # widget.CheckUpdates(distro='Arch', display_format='Updates: {updates}', no_update_string='no updates', colour_no_updates='#00ffff', colour_have_updates='#00ffff', background='#ff00ff', foreground='#00ffff'),
-                    widget.CPU(format='\uf029 {load_percent:>3.0f}%', padding=10, background=colors[1],
-                               foreground=colors[7], update_interval=5,
-                               mouse_callbacks={'Button1': lazy.spawn('kitty htop')}
-                               ),
-                    widget.TextBox(text='\ue0b2', fontsize=40, padding=0, background=colors[1], foreground=colors[2], name='memory_left_powerline'),
-                    widget.Memory(measure_mem='G', format='\uf1c0 {MemPercent:>3.0f}%', padding=10, background=colors[2], foreground=colors[7], update_interval=5, mouse_callbacks={'Button1': toggle_program('conky')}),
-                    widget.DF(format='\uf7c9 {uf}/{s}{m}', padding=10, background=colors[2], foreground=colors[7], visible_on_warn=False, update_interval=60, mouse_callbacks={'Button1': toggle_program('conky')}),
-                    widget.TextBox(text='\ue0b2', fontsize=40, padding=0, background=colors[2], foreground=colors[3], name='net_left_powerline'),
-                    widget.Net(name='net_widget', interface='wlan0', format='\uf1eb  {down} \uf175\uf176 {up}', background=colors[3], foreground=colors[7], padding=10, update_interval=5,
-                               mouse_callbacks={'Button1': toggle_program('connman-gtk')}),
-                    widget.TextBox(text='\ue0b2', fontsize=40, padding=0, background=colors[3], foreground=colors[4], name='volume_left_powerline'),
-                    # widget.Bluetooth(),
-                    widget.Backlight(brightness_file='/sys/class/backlight/intel_backlight/brightness',
-                                     max_brightness_file='/sys/class/backlight/intel_backlight/max_brightness',
-                                     format='\uf5df {percent:>4.0%}',
-                                     background=colors[4], foreground=colors[7],
-                                     update_interval=0.2,
-                                     mouse_callbacks={'Button1': toggle_program('clight-gui')}
-                                     ),
-                    widget.Volume(get_volume_command=os.path.expanduser('~/.shell-scripts/qtile/get-volume.sh'), fmt='\ufa7d {:>4}', background=colors[4], foreground=colors[7], padding=10, update_interval=0.2, mouse_callbacks={'Button1': toggle_program('pavucontrol')}),
-                ],
-                    background=colors[1], text_closed=' \ufa60  ', text_open=' \ufa60  ', mouse_callbacks={'Button1': expand_info},
-                    name='info_box'),
+                                  foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                                  visible_on_warn=False,
+                                  update_interval=60,
+                                  mouse_callbacks={'Button1': toggle_program('conky')},
+                                  name='df'
+                                  ),
+                        powerline('l',
+                                  background=COLORS['orange'][0],
+                                  foreground=COLORS['yellow'][0],
+                                  name='net_powerline'
+                                  ) if POWERLINE_ENABLED else separator(length=4, name='net_separator'),
+                        widget.Net(interface='wlan0',
+                                   format='\uf1eb  {down} \uf175\uf176 {up}',
+                                   background=COLORS['yellow'][0] if POWERLINE_ENABLED else None,
+                                   foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                                   padding=10,
+                                   update_interval=5,
+                                   mouse_callbacks={'Button1': toggle_program('connman-gtk')},
+                                   name='net'
+                                   ),
+                        powerline('l',
+                                  background=COLORS['yellow'][0],
+                                  foreground=COLORS['green'][0],
+                                  name='backlight_powerline'
+                                  ) if POWERLINE_ENABLED else separator(length=4, name='backlight_separator'),
+                        # widget.Bluetooth(),
+                        widget.Backlight(brightness_file='/sys/class/backlight/intel_backlight/brightness',
+                                         max_brightness_file='/sys/class/backlight/intel_backlight/max_brightness',
+                                         format='\uf5df {percent:>3.0%}',
+                                         background=COLORS['green'][0] if POWERLINE_ENABLED else None,
+                                         foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                                         padding=10,
+                                         update_interval=0.2,
+                                         mouse_callbacks={'Button1': toggle_program('clight-gui')},
+                                         name='backlight'
+                                         ),
+                        widget.Volume(get_volume_command=os.path.expanduser('~/.shell-scripts/qtile/get-volume.sh'),
+                                      fmt='\ufa7d {:>4}',
+                                      background=COLORS['green'][0] if POWERLINE_ENABLED else None,
+                                      foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                                      padding=10,
+                                      update_interval=0.2,
+                                      mouse_callbacks={'Button1': toggle_program('pavucontrol')},
+                                      name='volume'
+                                      ),
+                        widget.TextBox(text='\uF5B0',
+                                       background=COLORS['green'][0] if POWERLINE_ENABLED else None,
+                                       foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                                       padding=10,
+                                       mouse_callbacks={'Button1': toggle_program('blueman-manager')},
+                                       name='bluetooth'
+                                       ),
+                    ],
+                    close_button_location='right',
+                    background=COLORS['green'][0] if POWERLINE_ENABLED else None,
+                    foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                    fontsize=25,
+                    text_closed='\uF303'.center(3),
+                    text_open='\uF303'.center(3),
+                    mouse_callbacks={'Button1': toggle_info},
+                    name='info_box'
+                ),
                 # widget.OpenWeather(location='Ottawa'),
                 # widget.Wttr(location={'Ottawa': 'Ottawa'}),
-                widget.TextBox(text='\ue0b2', fontsize=40, padding=0, background=colors[4], foreground=colors[5], name='clock_left_powerline'),
-                widget.Clock(format="\uf5ed  %a %b %d %H:%M", padding=10, background=colors[5], foreground=colors[7]),
-                widget.TextBox(text='\ue0b2', fontsize=40, padding=0, background=colors[5], foreground=colors[6]),
-                widget.Battery(format='{char} {percent:2.0%}', discharge_char='\uf58b', charge_char='\uf583', full_char='\uf583', show_short_text=False, background=colors[6], foreground=colors[7], low_foreground=colors[7], padding=10, update_interval=60),
-                widget.WidgetBox(widgets=[
-                    widget.TextBox(text='Picom', background=colors[6], foreground=colors[7]),
-                    widget.TextBox(text='\uf205' if picom_on else '\uf204',
-                                   fontsize=30, width=45, padding=10, margin_y=10,
-                                   background=colors[6], foreground=colors[7],
-                                   mouse_callbacks={'Button1': toggle_picom},
-                                   name='picom_toggle'),
-                    widget.Spacer(length=10, background=colors[6]),
-                ], close_button_location='right', text_closed='\uf992 ', text_open='\uf992 ', background=colors[6]),
-                # widget.QuickExit(background=colors[6]),
-                widget.Spacer(length=5, background=colors[6])
+                powerline('l',
+                          background=COLORS['green'][0],
+                          foreground=COLORS['purple'][0],
+                          name='clock_powerline'
+                          ) if POWERLINE_ENABLED else separator(length=4, name='clock_separator'),
+                widget.Clock(format='\uf5ed  %a %b %d %H:%M:%S',
+                             background=COLORS['purple'][0] if POWERLINE_ENABLED else None,
+                             foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                             padding=0 if POWERLINE_ENABLED else 10,
+                             name='clock'
+                             ),
+                powerline('l',
+                          background=COLORS['purple'][0],
+                          foreground=COLORS['magenta'][0],
+                          name='battery_powerline'
+                          ) if POWERLINE_ENABLED else separator(length=4, name='battery_separator'),
+                widget.Battery(format='{char} {percent:2.0%}',
+                               discharge_char='\uf58b',
+                               charge_char='\uf583',
+                               full_char='\uf583',
+                               show_short_text=False,
+                               background=COLORS['magenta'][0] if POWERLINE_ENABLED else None,
+                               foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                               low_foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                               padding=0 if POWERLINE_ENABLED else 10,
+                               update_interval=60,
+                               name='battery'
+                               ),
+                widget.Spacer(length=20 if POWERLINE_ENABLED else 10,
+                              background=COLORS['magenta'][0] if POWERLINE_ENABLED else None,
+                              name='battery_spacer'
+                              ),
+                widget.WidgetBox(
+                    widgets=[
+                        widget.TextBox(text='Powerline',
+                                       background=COLORS['magenta'][0] if POWERLINE_ENABLED else None,
+                                       foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                                       mouse_callbacks={'Button1': toggle_powerline},
+                                       name='powerline_text'
+                                       ),
+                        widget.TextBox(text=TOGGLE_ON if PICOM_ON else TOGGLE_OFF,
+                                       fontsize=30,
+                                       width=45,
+                                       padding=10,
+                                       background=COLORS['magenta'][0] if POWERLINE_ENABLED else None,
+                                       foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                                       mouse_callbacks={'Button1': toggle_powerline},
+                                       name='powerline_toggle'
+                                       ),
+                        widget.Spacer(length=10,
+                                      background=COLORS['magenta'][0] if POWERLINE_ENABLED else None,
+                                      name='powerline_spacer'
+                                      ),
+                        widget.TextBox(text='Picom',
+                                       background=COLORS['magenta'][0] if POWERLINE_ENABLED else None,
+                                       foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                                       mouse_callbacks={'Button1': toggle_picom},
+                                       name='picom_text'
+                                       ),
+                        widget.TextBox(text=TOGGLE_ON if PICOM_ON else TOGGLE_OFF,
+                                       fontsize=30,
+                                       width=45,
+                                       padding=10,
+                                       background=COLORS['magenta'][0] if POWERLINE_ENABLED else None,
+                                       foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                                       mouse_callbacks={'Button1': toggle_picom},
+                                       name='picom_toggle'
+                                       ),
+                        widget.Spacer(length=10,
+                                      background=COLORS['magenta'][0] if POWERLINE_ENABLED else None,
+                                      name='picom_spacer'
+                                      ),
+                    ],
+                    close_button_location='right',
+                    text_closed='\uF992 ',
+                    text_open='\uF992 ',
+                    background=COLORS['magenta'][0] if POWERLINE_ENABLED else None,
+                    foreground=COLORS['foreground'][POWERLINE_ENABLED],
+                    name='settings'
+                ),
+                widget.Spacer(length=5,
+                              background=COLORS['magenta'][0] if POWERLINE_ENABLED else None
+                              )
             ],
-            40,  # top bar size
+            size=BAR_HEIGHT,  # top bar size
             margin=[0, 0, 0, 0],
             border_width=[0, 0, 0, 0],  # Draw top and bottom borders
-            border_color=["#000000", "#000000", "#000000", "#000000"],
+            border_color=COLORS['inactive_border_color'][0],
             background='#00000000',
-            opacity=1.0
+            opacity=1.0,
+            name='bar'
         ),
-        wallpaper='~/.config/qtile/aurora.jpg',
+        wallpaper='~/.config/qtile/wallpapers/aurora.jpg',
         wallpaper_mode='stretch',
     ),
 ]
 
-#### MOUSE ####
-# Drag floating layouts.
-mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front()),
-]
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
@@ -362,13 +657,15 @@ floating_layout = layout.Floating(
         Match(wm_class='feh'),  # Image Viewer
         Match(wm_class='connman-gtk'),  # Network Manager
         Match(wm_class='Pavucontrol'),  # Audio Manager
-        Match(wm_class='Conky'),
-        Match(wm_class='clight-gui'),
+        Match(wm_class='Conky'),  # System Monitor
+        Match(wm_class='blueman-manager'),  # Bluetooth Manager
     ],
-    border_normal='#1E1F28',
-    border_focus='#00FFFF',
+    border_normal=COLORS['inactive_border_color'][0],
+    border_focus=COLORS['active_border_color'][0],
     border_width=4
 )
+
+
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
@@ -380,12 +677,4 @@ auto_minimize = True
 # When using the Wayland backend, this can be used to configure input devices.
 wl_input_rules = None
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
 wmname = "Qtile"
