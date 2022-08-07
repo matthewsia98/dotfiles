@@ -37,10 +37,6 @@ alias ls='lsd'
 alias ll='lsd -alh'
 alias mkdir='mkdir -pv'
 alias cat='bat'
-alias mv='mv'
-alias cp='cp'
-alias rm='rm'
-alias ln='ln'
 alias logout='loginctl terminate-user siam'
 alias suspend='systemctl suspend'
 
@@ -49,13 +45,13 @@ alias vim='nvim -u ~/.config/nvim/init.lua'
 alias emacs="emacsclient -c -a 'emacs'"
 
 # Git
-alias clone='git clone'
-alias stat='git status'
-alias add='git add'
-alias commit='git commit -m'
-alias pull='git pull'
-alias push='git push'
-alias check='git checkout'
+alias gcl='git clone'
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit -m'
+alias gpl='git pull'
+alias gps='git push'
+alias gco='git checkout'
 alias gd='git diff'
 
 # Pacman
