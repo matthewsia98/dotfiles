@@ -173,6 +173,7 @@ Plug 'hrsh7th/cmp-path'
 -- Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'L3MON4D3/LuaSnip'
+Plug 'onsails/lspkind.nvim'
 
 vim.call('plug#end')
 
@@ -535,6 +536,11 @@ local handlers = {
     ),
 }
 
+local capabilities = require('cmp_nvim_lsp').update_capabilities(
+    vim.lsp.protocol.make_client_capabilities()
+    )
+
+
 -- PYTHON LSP --
 --[[ require('lspconfig')['pyright'].setup {
     on_attach = on_attach,
@@ -545,6 +551,7 @@ require('lspconfig')['pylsp'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
     handlers = handlers,
+    capabilities = capabilities,
     settings = {
         pylsp = {
             plugins = {
@@ -591,6 +598,7 @@ require('lspconfig')['sumneko_lua'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
     handlers = handlers,
+    capabilities = capabilities,
     settings = {
         Lua = {
             runtime = {
@@ -618,15 +626,39 @@ require('lspconfig')['sumneko_lua'].setup {
 require('lspconfig')['jdtls'].setup {
     on_attach=on_attach,
     flags=lsp_flags,
-    handlers = handlers
+    handlers = handlers,
+    capabilities = capabilities,
 }
 
 
 -- NVIM CMP --
 local cmp = require('cmp')
+local lspkind = require('lspkind')
 if cmp ~= nil then
     cmp.setup(
         {
+            formatting = {
+                fields = {'kind', 'abbr', 'menu'},
+                format = function(entry, vim_item)
+                            local kind = lspkind.cmp_format(
+                                {
+                                    mode = 'symbol_text',
+                                    maxwidth = 50,
+                                    menu = ({
+                                        buffer = '[Buffer]',
+                                        nvim_lsp = '[LSP]',
+                                        luasnip = '[LuaSnip]',
+                                        nvim_lua = '[Lua]',
+                                        latex_symbols = '[Latex]'
+                                    })
+                                }
+                            )(entry, vim_item)
+                            local strings = vim.split(kind.kind, '%s', {trimempty = true})
+                            kind.kind = ' ' .. strings[1] .. ' '
+                            kind.menu = "    (" .. strings[2] .. ")"
+                            return kind
+                        end,
+            },
             snippet = {
                 -- REQUIRED - you must specify a snippet engine
                 expand = function(args)
@@ -637,8 +669,18 @@ if cmp ~= nil then
                          end,
             },
             window = {
-              -- completion = cmp.config.window.bordered(),
+                completion = {
+                    winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
+                    col_offset = -3,
+                    side_padding = 0,
+                }
               -- documentation = cmp.config.window.bordered(),
+            },
+            view = {
+                entries = {
+                    name = 'custom',
+                    selection_order = 'near_cursor'
+                }
             },
             mapping = cmp.mapping.preset.insert(
                 {
