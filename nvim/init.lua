@@ -8,7 +8,7 @@ local g = vim.g
 local o = vim.o
 local A = vim.api
 
---cmd('syntax on')
+-- cmd('syntax on')
 A.nvim_command('filetype plugin indent on')
 
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
@@ -48,7 +48,7 @@ o.shiftwidth = 0
 o.softtabstop = -1 -- If negative, shiftwidth value is used
 o.list = true
 o.listchars = 'lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂,'
---o.listchars = 'eol:¬,space:·,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:│   ,'
+-- o.listchars = 'eol:¬,space:·,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:│   ,'
 -- o.formatoptions = 'qrn1'
 
 -- Makes neovim and host OS clipboard play nicely with each other
@@ -114,30 +114,66 @@ A.nvim_create_autocmd('TextYankPost',
 -- PLUGINS --
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
+
+-- Status Line
 Plug 'nvim-lualine/lualine.nvim'
+
+-- Icons
 Plug 'kyazdani42/nvim-web-devicons'
+
+-- Directory Tree
 Plug 'kyazdani42/nvim-tree.lua'
+
+-- Required by Telescope
 Plug 'nvim-lua/plenary.nvim'
+
+-- Fuzzy Finder
 Plug 'nvim-telescope/telescope.nvim'
+
+-- Color Scheme
 Plug('catppuccin/nvim', { as = 'catppuccin' })
+
+-- Abstract Syntax Tree
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = vim.fn[':TSUpdate'] })
+
+-- Indent Lines
 Plug 'lukas-reineke/indent-blankline.nvim'
+
+-- Git Decorations
 Plug 'lewis6991/gitsigns.nvim'
+
+-- Preview Git Commits
 Plug 'rhysd/git-messenger.vim'
+
+-- Easily toggle and make new comments
 Plug 'numToStr/Comment.nvim'
+
+-- Visualize RGB color codes
 Plug 'norcalli/nvim-colorizer.lua'
+
+-- Easily surround text objects
 Plug 'tpope/vim-surround'
+
+-- Matching Quotes/Brackets
+Plug'windwp/nvim-autopairs'
+
+-- Language Server
 Plug 'neovim/nvim-lspconfig'
+
+-- Language Server Manager
+Plug'williamboman/mason.nvim'
+
+-- Pretty LSP Preview
+Plug'folke/trouble.nvim'
+
+-- Code Completion
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 -- Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'L3MON4D3/LuaSnip'
--- Plug 'mfussenegger/nvim-jdtls'
-Plug'williamboman/mason.nvim'
-Plug'folke/trouble.nvim'
-Plug'windwp/nvim-autopairs'
+
 vim.call('plug#end')
 
 
@@ -588,82 +624,84 @@ require('lspconfig')['jdtls'].setup {
 
 -- NVIM CMP --
 local cmp = require('cmp')
-cmp.setup(
-    {
-        snippet = {
-            -- REQUIRED - you must specify a snippet engine
-            expand = function(args)
-                         -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-                         require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-                         -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-                         -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-                     end,
-        },
-        window = {
-          -- completion = cmp.config.window.bordered(),
-          -- documentation = cmp.config.window.bordered(),
-        },
-        mapping = cmp.mapping.preset.insert(
-            {
-                ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-                ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                ['<C-Space>'] = cmp.mapping.complete(),
-                ['<C-e>'] = cmp.mapping.abort(),
-                ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-            }
-        ),
-        sources = cmp.config.sources(
-            {
-                { name = 'nvim_lsp' },
-                { name = 'vsnip' }, -- For vsnip users.
-                -- { name = 'luasnip' }, -- For luasnip users.
-                -- { name = 'ultisnips' }, -- For ultisnips users.
-                -- { name = 'snippy' }, -- For snippy users.
+if cmp ~= nil then
+    cmp.setup(
+        {
+            snippet = {
+                -- REQUIRED - you must specify a snippet engine
+                expand = function(args)
+                             -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+                             require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                             -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+                             -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+                         end,
             },
-            {
-                { name = 'buffer' },
-            }
-        )
-    }
-)
-
--- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit',
-    {
-        sources = cmp.config.sources(
-            {
-                { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+            window = {
+              -- completion = cmp.config.window.bordered(),
+              -- documentation = cmp.config.window.bordered(),
             },
-            {
-                { name = 'buffer' },
-            }
-        )
-    }
-)
-
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-    mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-            { name = 'buffer' }
+            mapping = cmp.mapping.preset.insert(
+                {
+                    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                    ['<C-e>'] = cmp.mapping.abort(),
+                    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                }
+            ),
+            sources = cmp.config.sources(
+                {
+                    { name = 'nvim_lsp' },
+                    { name = 'vsnip' }, -- For vsnip users.
+                    -- { name = 'luasnip' }, -- For luasnip users.
+                    -- { name = 'ultisnips' }, -- For ultisnips users.
+                    -- { name = 'snippy' }, -- For snippy users.
+                },
+                {
+                    { name = 'buffer' },
+                }
+            )
         }
-    }
-)
+    )
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':',
-    {
+    -- Set configuration for specific filetype.
+    cmp.setup.filetype('gitcommit',
+        {
+            sources = cmp.config.sources(
+                {
+                    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+                },
+                {
+                    { name = 'buffer' },
+                }
+            )
+        }
+    )
+
+    -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline('/', {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources(
-            {
-                { name = 'path' }
-            },
-            {
-                { name = 'cmdline' }
+            sources = {
+                { name = 'buffer' }
             }
-        )
-    }
-)
+        }
+    )
+
+    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline(':',
+        {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources(
+                {
+                    { name = 'path' }
+                },
+                {
+                    { name = 'cmdline' }
+                }
+            )
+        }
+    )
+end
 
 
 -- TROUBLE --
@@ -739,11 +777,12 @@ require('trouble').setup {
     use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
 }
 
+
 -- AUTOPAIRS --
 require('nvim-autopairs').setup()
 
--- KEY BINDINGS --
 
+-- KEY BINDINGS --
 --  mode   key      value
 map('i', '<C-E>', '<Esc>A')
 map('n', '<C-E>', 'A<Esc>')
