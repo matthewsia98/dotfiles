@@ -50,7 +50,7 @@ alias gs='git status'
 alias ga='git add'
 alias gc='git commit -m'
 alias gpl='git pull'
-alias gp='git push'
+alias gp='git push origin main'
 alias gco='git checkout'
 alias gd='git diff'
 
