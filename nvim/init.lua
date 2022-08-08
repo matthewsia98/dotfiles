@@ -9,7 +9,7 @@ local o = vim.o
 local A = vim.api
 
 -- cmd('syntax on')
-A.nvim_command('filetype plugin indent on')
+-- A.nvim_command('filetype plugin indent on')
 
 o.termguicolors = true
 -- o.background = 'dark'
@@ -37,8 +37,8 @@ o.cursorline = true
 -- Better editing experience
 o.expandtab = true
 -- o.smarttab = true
--- o.cindent = true
-o.autoindent = true
+o.cindent = true
+-- o.autoindent = true
 o.wrap = true
 o.textwidth = 300
 o.tabstop = 4
