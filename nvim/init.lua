@@ -31,7 +31,7 @@ o.scrolloff = 8
 o.number = true
 o.numberwidth = 6
 o.relativenumber = true
-o.signcolumn = 'auto:2'
+o.signcolumn = 'yes:1'
 o.cursorline = true
 
 -- Better editing experience
@@ -153,16 +153,16 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'tpope/vim-surround'
 
 -- Matching Quotes/Brackets
-Plug'windwp/nvim-autopairs'
+Plug 'windwp/nvim-autopairs'
 
 -- Language Server
 Plug 'neovim/nvim-lspconfig'
 
 -- Language Server Manager
-Plug'williamboman/mason.nvim'
+Plug 'williamboman/mason.nvim'
 
 -- Pretty LSP Preview
-Plug'folke/trouble.nvim'
+Plug 'folke/trouble.nvim'
 
 -- Code Completion
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -294,7 +294,7 @@ require('gitsigns').setup {
     on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
         -- Navigation
-        map('n', ']h',
+        map('n', '<leader>nh',
             function()
                 if vim.wo.diff then return ']c' end
                 vim.schedule(function() gs.next_hunk() end)
@@ -303,7 +303,7 @@ require('gitsigns').setup {
             { expr = true }
         )
 
-        map('n', '[h',
+        map('n', '<leader>ph',
             function()
                 if vim.wo.diff then return '[c' end
                 vim.schedule(function() gs.prev_hunk() end)
@@ -397,7 +397,7 @@ require('gitsigns').setup {
 
 -- GIT MESSENGER --
 vim.g.git_messenger_no_default_mappings = true
-vim.g.git_messenger_always_into_popup = true
+vim.g.git_messenger_always_into_popup = false
 map('n', '<leader>gm', ':GitMessenger<CR>')
 
 
@@ -488,8 +488,8 @@ vim.fn.sign_define(
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local lsp_opts = { noremap = true, silent = true }
 map('n', '<leader>d', vim.diagnostic.open_float, lsp_opts)
-map('n', '[d', vim.diagnostic.goto_prev, lsp_opts)
-map('n', ']d', vim.diagnostic.goto_next, lsp_opts)
+map('n', '<leader>pd', vim.diagnostic.goto_prev, lsp_opts)
+map('n', '<leader>nd', vim.diagnostic.goto_next, lsp_opts)
 map('n', '<leader>q', vim.diagnostic.setloclist, lsp_opts)
 
 -- Use an on_attach function to only map the following keys
@@ -536,7 +536,7 @@ local handlers = {
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(
     vim.lsp.protocol.make_client_capabilities()
-    )
+)
 
 
 -- PYTHON LSP --
@@ -622,15 +622,15 @@ require('lspconfig')['sumneko_lua'].setup {
 
 -- JAVA LSP --
 require('lspconfig')['jdtls'].setup {
-    on_attach=on_attach,
-    flags=lsp_flags,
+    on_attach = on_attach,
+    flags = lsp_flags,
     handlers = handlers,
     capabilities = capabilities,
 }
 
 
 -- NVIM CMP --
-vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 -- Scrollbar
 vim.cmd [[highlight PmenuThumb guibg=#C5CDD9 guifg=NONE]]
@@ -669,46 +669,52 @@ vim.cmd [[highlight CmpItemKindEnumMember guibg=#6C8ED4 guifg=#DDE5F5]]
 vim.cmd [[highlight CmpItemKindInterface guibg=#58B5A8 guifg=#D8EEEB]]
 vim.cmd [[highlight CmpItemKindColor guibg=#58B5A8 guifg=#D8EEEB]]
 vim.cmd [[highlight CmpItemKindTypeParameter guibg=#58B5A8 guifg=#D8EEEB]]
+
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+local luasnip = require('luasnip')
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 if cmp ~= nil then
     cmp.setup(
         {
             formatting = {
-                fields = {'kind', 'abbr', 'menu'},
+                fields = { 'kind', 'abbr', 'menu' },
                 format = function(entry, vim_item)
-                            local kind = lspkind.cmp_format(
-                                {
-                                    mode = 'symbol_text',
-                                    maxwidth = 50,
-                                    menu = ({
-                                        buffer = '[Buffer]',
-                                        nvim_lsp = '[LSP]',
-                                        luasnip = '[LuaSnip]',
-                                        nvim_lua = '[Lua]',
-                                        latex_symbols = '[Latex]'
-                                    })
-                                }
-                            )(entry, vim_item)
-                            local strings = vim.split(kind.kind, '%s', {trimempty = true})
-                            if strings[1] ~= nil then
-                                kind.kind = ' ' .. strings[1] .. ' '
-                            end
-                            if strings[2] ~= nil then
-                                kind.menu = "    (" .. strings[2] .. ")"
-                            end
+                    local kind = lspkind.cmp_format(
+                        {
+                            mode = 'symbol_text',
+                            maxwidth = 50,
+                            menu = ({
+                                buffer = '[Buffer]',
+                                nvim_lsp = '[LSP]',
+                                luasnip = '[LuaSnip]',
+                                nvim_lua = '[Lua]',
+                                latex_symbols = '[Latex]'
+                            })
+                        }
+                    )(entry, vim_item)
+                    local strings = vim.split(kind.kind, '%s', { trimempty = true })
+                    if strings[1] ~= nil then
+                        kind.kind = ' ' .. strings[1] .. ' '
+                    end
+                    if strings[2] ~= nil then
+                        kind.menu = '    (' .. strings[2] .. ')'
+                    end
 
-                            return kind
-                        end,
+                    return kind
+                end,
             },
             snippet = {
                 -- REQUIRED - you must specify a snippet engine
                 expand = function(args)
-                             -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-                             require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-                             -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-                             -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-                         end,
+                    -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+                    luasnip.lsp_expand(args.body) -- For `luasnip` users.
+                    -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+                    -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+                end,
             },
             window = {
                 completion = {
@@ -716,7 +722,7 @@ if cmp ~= nil then
                     col_offset = -3,
                     side_padding = 0,
                 }
-              -- documentation = cmp.config.window.bordered(),
+                -- documentation = cmp.config.window.bordered(),
             },
             view = {
                 entries = {
@@ -726,6 +732,26 @@ if cmp ~= nil then
             },
             mapping = cmp.mapping.preset.insert(
                 {
+                    ["<Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                          cmp.select_next_item()
+                        elseif luasnip.expand_or_jumpable() then
+                          luasnip.expand_or_jump()
+                        elseif has_words_before() then
+                          cmp.complete()
+                        else
+                          fallback()
+                        end
+                    end, { "i", "s" }),
+                    ["<S-Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                          cmp.select_prev_item()
+                        elseif luasnip.jumpable(-1) then
+                          luasnip.jump(-1)
+                        else
+                          fallback()
+                        end
+                    end, { "i", "s" }),
                     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
                     ['<C-Space>'] = cmp.mapping.complete(),
@@ -765,10 +791,10 @@ if cmp ~= nil then
     -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
     cmp.setup.cmdline('/', {
         mapping = cmp.mapping.preset.cmdline(),
-            sources = {
-                { name = 'buffer' }
-            }
+        sources = {
+            { name = 'buffer' }
         }
+    }
     )
 
     -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
