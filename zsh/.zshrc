@@ -48,6 +48,7 @@ alias emacs="emacsclient -c -a 'emacs'"
 alias gcl='git clone'
 alias gs='git status'
 alias ga='git add'
+alias ga.='git add .'
 alias gc='git commit -m'
 alias gpl='git pull'
 alias gp='git push origin main'
