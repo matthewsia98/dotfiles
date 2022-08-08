@@ -79,11 +79,12 @@ o.splitbelow = true
 -- When running macros and regexes on a large file, lazy redraw tells neovim/vim not to draw the screen
 -- o.lazyredraw = true
 
--- Better folds (don't fold by default)
--- o.foldmethod = 'indent'
--- o.foldlevelstart = 99
--- o.foldnestmax = 3
--- o.foldminlines = 1
+o.foldmethod = 'expr'
+o.foldexpr = 'nvim_treesitter#foldexpr()'
+-- Don't fold by default
+o.foldlevelstart = 99
+o.foldnestmax = 3
+o.foldminlines = 1
 
 -- Map <leader> to space
 g.mapleader = ' '
@@ -233,11 +234,86 @@ require('nvim-tree').setup {
 }
 
 
+-- TROUBLE --
+map("n", "<leader>wd", "<cmd>TroubleToggle workspace_diagnostics<cr>",
+    { silent = true, noremap = true }
+)
+map("n", "<leader>dd", "<cmd>TroubleToggle document_diagnostics<cr>",
+    { silent = true, noremap = true }
+)
+map("n", "<leader>ll", "<cmd>TroubleToggle loclist<cr>",
+    { silent = true, noremap = true }
+)
+map("n", "<leader>qf", "<cmd>TroubleToggle quickfix<cr>",
+    { silent = true, noremap = true }
+)
+map("n", "<leader>gr", "<cmd>TroubleToggle lsp_references<cr>",
+    { silent = true, noremap = true }
+)
+map("n", "<leader>gt", "<cmd>TroubleToggle lsp_type_definitions<cr>",
+    { silent = true, noremap = true }
+)
+map("n", "<leader>gi", "<cmd>TroubleToggle lsp_implementations<cr>",
+    { silent = true, noremap = true }
+)
+-- map("n", "<leader>gd", "<cmd>TroubleToggle lsp_definitions<cr>",
+--     { silent = true, noremap = true }
+-- )
+require('trouble').setup {
+    position = "bottom", -- position of the list can be: bottom, top, left, right
+    height = 10, -- height of the trouble list when position is top or bottom
+    width = 50, -- width of the list when position is left or right
+    icons = true, -- use devicons for filenames
+    mode = "workspace_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
+    fold_open = "", -- icon used for open folds
+    fold_closed = "", -- icon used for closed folds
+    group = true, -- group results by file
+    padding = true, -- add an extra new line on top of the list
+    action_keys = { -- key mappings for actions in the trouble list
+        -- map to {} to remove a mapping, for example:
+        -- close = {},
+        close = "q", -- close the list
+        cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
+        refresh = "r", -- manually refresh
+        jump = { "<cr>", "<tab>" }, -- jump to the diagnostic or open / close folds
+        open_split = { "<c-x>" }, -- open buffer in new split
+        open_vsplit = { "<c-v>" }, -- open buffer in new vsplit
+        open_tab = { "<c-t>" }, -- open buffer in new tab
+        jump_close = { "o" }, -- jump to the diagnostic and close the list
+        toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
+        toggle_preview = "P", -- toggle auto_preview
+        hover = "K", -- opens a small popup with the full multiline message
+        preview = "p", -- preview the diagnostic location
+        close_folds = { "zM", "zm" }, -- close all folds
+        open_folds = { "zR", "zr" }, -- open all folds
+        toggle_fold = { "zA", "za" }, -- toggle fold of current file
+        previous = "k", -- preview item
+        next = "j" -- next item
+    },
+    indent_lines = true, -- add an indent guide below the fold icons
+    auto_open = false, -- automatically open the list when you have diagnostics
+    auto_close = false, -- automatically close the list when you have no diagnostics
+    auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
+    auto_fold = false, -- automatically fold a file trouble list at creation
+    auto_jump = { "lsp_definitions" }, -- for the given modes, automatically jump if there is only a single result
+    signs = {
+        -- icons / text used for a diagnostic
+        error = "",
+        warning = "",
+        hint = "",
+        information = "",
+        other = "﫠"
+    },
+    use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
+}
+
+
 -- TELESCOPE--
 map('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
 map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
 map('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
 map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
+local trouble = require('trouble.providers.telescope')
 require('telescope').setup {
     defaults = {
         -- Default configuration for telescope goes here:
@@ -247,7 +323,11 @@ require('telescope').setup {
                 -- map actions.which_key to <C-h> (default: <C-/>)
                 -- actions.which_key shows the mappings for your picker,
                 -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-                ["<C-h>"] = "which_key"
+                ["<C-h>"] = "which_key",
+                ['<C-t>'] = trouble.open_with_trouble,
+            },
+            n = {
+                ['<C-t>'] = trouble.open_with_trouble,
             }
         }
     },
@@ -272,18 +352,33 @@ require('telescope').setup {
 
 -- TREESITTER --
 require('nvim-treesitter.configs').setup {
+    auto_install = true,
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
+    },
+    indent = {
+        enable = true,
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = 'gnn',
+            node_incremental = 'grn',
+            scope_incremental = 'grc',
+            node_decremental = 'grm',
+        },
     },
 }
 
 
 -- INDENT BLANKLINE --
 vim.cmd [[highlight IndentBlanklineChar guifg=#B7BDF8 gui=nocombine]] -- color of indent lines
-vim.cmd [[highlight IndentBlanklineContextChar guifg=#ED8796 gui=nocombine]] -- color of current context indent line (vertical line)
-vim.cmd [[highlight IndentBlanklineContextStart guisp=#ED8796 gui=underline]] -- color of current context start (underline)
+vim.cmd [[highlight IndentBlanklineContextChar guifg=#FF00FF gui=nocombine]] -- color of current context indent line (vertical line)
+vim.cmd [[highlight IndentBlanklineContextStart guisp=#FF00FF gui=underline]] -- color of current context start (underline)
 require('indent_blankline').setup {
+    enabled = true,
+    use_treesitter = false,
     show_current_context = true,
     show_current_context_start = true,
 }
@@ -647,9 +742,9 @@ vim.cmd [[highlight CmpItemMenu guibg=NONE guifg=#C792EA gui=italic]]
 vim.cmd [[highlight CmpItemKindField guibg=#B5585F guifg=#EED8DA]]
 vim.cmd [[highlight CmpItemKindProperty guibg=#B5585F guifg=#EED8DA]]
 vim.cmd [[highlight CmpItemKindEvent guibg=#B5585F guifg=#EED8DA]]
-vim.cmd [[highlight CmpItemKindText guibg=#9FBD73 guifg=#C3E88D]]
-vim.cmd [[highlight CmpItemKindEnum guibg=#9FBD73 guifg=#C3E88D]]
-vim.cmd [[highlight CmpItemKindKeyword guibg=#9FBD73 guifg=#C3E88D]]
+vim.cmd [[highlight CmpItemKindText guibg=#9FBD73 guifg=#FFFFFF]]
+vim.cmd [[highlight CmpItemKindEnum guibg=#9FBD73 guifg=#FFFFFF]]
+vim.cmd [[highlight CmpItemKindKeyword guibg=#9FBD73 guifg=#FFFFFF]]
 vim.cmd [[highlight CmpItemKindConstant guibg=#D4BB6C guifg=#FFE082]]
 vim.cmd [[highlight CmpItemKindConstructor guibg=#D4BB6C guifg=#FFE082]]
 vim.cmd [[highlight CmpItemKindReference guibg=#D4BB6C guifg=#FFE082]]
@@ -671,8 +766,8 @@ vim.cmd [[highlight CmpItemKindColor guibg=#58B5A8 guifg=#D8EEEB]]
 vim.cmd [[highlight CmpItemKindTypeParameter guibg=#58B5A8 guifg=#D8EEEB]]
 
 local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 local luasnip = require('luasnip')
 local cmp = require('cmp')
@@ -734,22 +829,22 @@ if cmp ~= nil then
                 {
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
-                          cmp.select_next_item()
+                            cmp.select_next_item()
                         elseif luasnip.expand_or_jumpable() then
-                          luasnip.expand_or_jump()
+                            luasnip.expand_or_jump()
                         elseif has_words_before() then
-                          cmp.complete()
+                            cmp.complete()
                         else
-                          fallback()
+                            fallback()
                         end
                     end, { "i", "s" }),
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
-                          cmp.select_prev_item()
+                            cmp.select_prev_item()
                         elseif luasnip.jumpable(-1) then
-                          luasnip.jump(-1)
+                            luasnip.jump(-1)
                         else
-                          fallback()
+                            fallback()
                         end
                     end, { "i", "s" }),
                     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -814,80 +909,6 @@ if cmp ~= nil then
 end
 
 
--- TROUBLE --
-map("n", "<leader>wd", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-    { silent = true, noremap = true }
-)
-map("n", "<leader>dd", "<cmd>TroubleToggle document_diagnostics<cr>",
-    { silent = true, noremap = true }
-)
-map("n", "<leader>ll", "<cmd>TroubleToggle loclist<cr>",
-    { silent = true, noremap = true }
-)
-map("n", "<leader>qf", "<cmd>TroubleToggle quickfix<cr>",
-    { silent = true, noremap = true }
-)
-map("n", "<leader>gr", "<cmd>TroubleToggle lsp_references<cr>",
-    { silent = true, noremap = true }
-)
-map("n", "<leader>gt", "<cmd>TroubleToggle lsp_type_definitions<cr>",
-    { silent = true, noremap = true }
-)
-map("n", "<leader>gi", "<cmd>TroubleToggle lsp_implementations<cr>",
-    { silent = true, noremap = true }
-)
-map("n", "<leader>gd", "<cmd>TroubleToggle lsp_definitions<cr>",
-    { silent = true, noremap = true }
-)
-require('trouble').setup {
-    position = "bottom", -- position of the list can be: bottom, top, left, right
-    height = 10, -- height of the trouble list when position is top or bottom
-    width = 50, -- width of the list when position is left or right
-    icons = true, -- use devicons for filenames
-    mode = "workspace_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
-    fold_open = "", -- icon used for open folds
-    fold_closed = "", -- icon used for closed folds
-    group = true, -- group results by file
-    padding = true, -- add an extra new line on top of the list
-    action_keys = { -- key mappings for actions in the trouble list
-        -- map to {} to remove a mapping, for example:
-        -- close = {},
-        close = "q", -- close the list
-        cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
-        refresh = "r", -- manually refresh
-        jump = { "<cr>", "<tab>" }, -- jump to the diagnostic or open / close folds
-        open_split = { "<c-x>" }, -- open buffer in new split
-        open_vsplit = { "<c-v>" }, -- open buffer in new vsplit
-        open_tab = { "<c-t>" }, -- open buffer in new tab
-        jump_close = { "o" }, -- jump to the diagnostic and close the list
-        toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
-        toggle_preview = "P", -- toggle auto_preview
-        hover = "K", -- opens a small popup with the full multiline message
-        preview = "p", -- preview the diagnostic location
-        close_folds = { "zM", "zm" }, -- close all folds
-        open_folds = { "zR", "zr" }, -- open all folds
-        toggle_fold = { "zA", "za" }, -- toggle fold of current file
-        previous = "k", -- preview item
-        next = "j" -- next item
-    },
-    indent_lines = true, -- add an indent guide below the fold icons
-    auto_open = false, -- automatically open the list when you have diagnostics
-    auto_close = false, -- automatically close the list when you have no diagnostics
-    auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
-    auto_fold = false, -- automatically fold a file trouble list at creation
-    auto_jump = { "lsp_definitions" }, -- for the given modes, automatically jump if there is only a single result
-    signs = {
-        -- icons / text used for a diagnostic
-        error = "",
-        warning = "",
-        hint = "",
-        information = "",
-        other = "﫠"
-    },
-    use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
-}
-
-
 -- AUTOPAIRS --
 require('nvim-autopairs').setup()
 
@@ -913,3 +934,5 @@ map('n', '<leader>wh', '<C-w>h')
 map('n', '<leader>wl', '<C-w>l')
 map('n', '<leader>wj', '<C-w>j')
 map('n', '<leader>wk', '<C-w>k')
+-- Folds
+map('n', '<leader>fd', 'za')
