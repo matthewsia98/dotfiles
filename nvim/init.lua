@@ -38,7 +38,7 @@ o.cursorline = true
 o.expandtab = true
 -- o.smarttab = true
 -- o.cindent = true
--- o.autoindent = true
+o.autoindent = true
 o.wrap = true
 o.textwidth = 300
 o.tabstop = 4
@@ -359,6 +359,7 @@ require('nvim-treesitter.configs').setup {
     },
     indent = {
         enable = true,
+        disable = {'python'},
     },
     incremental_selection = {
         enable = true,
