@@ -632,8 +632,8 @@ require('lspconfig')['jdtls'].setup {
 
 
 -- NVIM CMP --
-vim.cmd [[highlight Pmenu guibg=#22252A guifg=#C5CDD9 ]]
-vim.cmd [[highlight PmenuSel guibg=#282C34 guifg=NONE]]
+vim.cmd [[highlight CmpPmenu guibg=#22252A guifg=#C5CDD9]]
+vim.cmd [[highlight CmpPmenuSel guibg=#282C34 guifg=NONE]]
 vim.cmd [[highlight CmpItemAbbrDeprecated guibg=NONE guifg=#7E8294 gui=strikethrough]]
 vim.cmd [[highlight CmpItemAbbrMatch guibg=NONE guifg=#82AAFF gui=bold]]
 vim.cmd [[highlight CmpItemAbbrMatchFuzzy guibg=NONE guifg=#82AAFF gui=bold]]
