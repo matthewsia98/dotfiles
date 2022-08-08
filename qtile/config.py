@@ -361,18 +361,22 @@ screens = [
     Screen(
         top=bar.Bar(
             widgets=[
-                spacer(length=10,
-                       background=COLORS['blue'][0] if POWERLINE_ENABLED else None,
-                       name='layout_spacer'
-                       ),
+                # spacer(length=0,
+                #        background=COLORS['blue'][0] if POWERLINE_ENABLED else None,
+                #        name='layout_spacer'
+                #        ),
                 # widget.CurrentLayout(),
                 widget.CurrentLayoutIcon(background=COLORS['blue'][0] if POWERLINE_ENABLED else None,
                                          scale=0.6,
                                          ),
                 separator(length=4,
-                          padding=20,
+                          padding=0,
                           background=COLORS['blue'][0] if POWERLINE_ENABLED else None
                           ),
+                spacer(length=5,
+                       background=COLORS['blue'][0] if POWERLINE_ENABLED else None,
+                       name='layout_spacer'
+                       ),
                 # widget.Spacer(length=10, background=colors[6]),
                 # widget.TextBox(text='\uF303 ', background=colors[6], padding=0,
                 #                mouse_callbacks={'Button1': lazy.spawn('rofi -show drun')},
@@ -423,6 +427,10 @@ screens = [
                 #                   foreground=COLORS['foreground'][0],
                 #                   padding=10,
                 #                   name='windowname'
+                #                   ),
+                # widget.WindowTabs(background=COLORS['transparent'][0],
+                #                   foreground=COLORS['foreground'][0],
+                #                   selected=('\uF005 ', ''),
                 #                   ),
                 # widget.Spacer(length=bar.STRETCH, background='#00000000'),
                 # widget.TextBox(text=LEFT_ARROW,
