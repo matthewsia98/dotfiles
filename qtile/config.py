@@ -208,13 +208,18 @@ def toggle_info(qtile):
     info_box.cmd_toggle()
 
     widgetbox_powerline = qtile.widgets_map.get('widgetbox_powerline')
-    widgetbox_powerline.foreground = COLORS['red' if info_box.box_is_open else 'green'][0]
+    widgetbox_powerline.foreground = COLORS['orange' if info_box.box_is_open else 'green'][0]
 
 
 @lazy.function
 def toggle_program(qtile, program):
     return_code = subprocess.run(['pgrep', program]).returncode
     qtile.cmd_spawn(program) if return_code == 1 else subprocess.run(['killall', program])
+
+
+def toggle_conky():
+    return_code = subprocess.run(['pgrep', 'conky']).returncode
+    qtile.cmd_spawn(os.path.expanduser('~/.shell-scripts/conky/launch-all.sh')) if return_code == 1 else subprocess.run(['killall', 'conky'])
 
 
 # 1 alt
@@ -391,6 +396,8 @@ screens = [
                                 background=COLORS['blue'][0] if POWERLINE_ENABLED else None,
                                 foreground=COLORS['foreground'][POWERLINE_ENABLED],
                                 this_current_screen_border=COLORS['cyan'][0],
+                                urgent_border=COLORS['red'][0],
+                                urgent_text=COLORS['foreground'][POWERLINE_ENABLED],
                                 active=COLORS['foreground'][POWERLINE_ENABLED],
                                 inactive=COLORS['foreground'][POWERLINE_ENABLED],
                                 rounded=True,
@@ -411,6 +418,8 @@ screens = [
                 widget.TaskList(background=COLORS['transparent'][0],
                                 foreground=COLORS['foreground'][0],
                                 border=COLORS['active_border_color'][0],
+                                unfocused_border=COLORS['inactive_border_color'][0],
+                                urgent_border=COLORS['red'][0],
                                 highlight_method='border',
                                 title_width_method='uniform',
                                 rounded=True,
@@ -457,26 +466,26 @@ screens = [
                     widgets=[
                         widget.CPU(format='\uF029 {load_percent:>2.0f}%',
                                    padding=10,
-                                   background=COLORS['red'][0] if POWERLINE_ENABLED else None,
+                                   background=COLORS['orange'][0] if POWERLINE_ENABLED else None,
                                    foreground=COLORS['foreground'][POWERLINE_ENABLED],
                                    update_interval=5,
-                                   mouse_callbacks={'Button1': lazy.spawn('kitty htop')},
+                                   mouse_callbacks={'Button1': toggle_conky},
                                    name='cpu'
                                    ),
                         widget.Memory(measure_mem='G',
                                       format='\uf1c0 {MemPercent:>2.0f}%',
                                       padding=10,
-                                      background=COLORS['red'][0] if POWERLINE_ENABLED else None,
+                                      background=COLORS['orange'][0] if POWERLINE_ENABLED else None,
                                       foreground=COLORS['foreground'][POWERLINE_ENABLED],
                                       update_interval=5,
-                                      mouse_callbacks={'Button1': toggle_program(os.path.expanduser('~/.shell-scripts/conky/launch-all.sh'))},
+                                      mouse_callbacks={'Button1': toggle_conky},
                                       name='memory'
                                       ),
-                        powerline('l',
-                                  background=COLORS['red'][0],
-                                  foreground=COLORS['orange'][0],
-                                  name='df_powerline'
-                                  ) if POWERLINE_ENABLED else separator(length=4, name='df_separator'),
+                        # powerline('l',
+                        #           background=COLORS['orange'][0],
+                        #           foreground=COLORS['orange'][0],
+                        #           name='df_powerline'
+                        #           ) if POWERLINE_ENABLED else separator(length=4, name='df_separator'),
                         widget.DF(format='\uf7c9 {uf}/{s}{m}',
                                   padding=10,
                                   background=COLORS['orange'][0] if POWERLINE_ENABLED else None,
@@ -484,7 +493,7 @@ screens = [
                                   foreground=COLORS['foreground'][POWERLINE_ENABLED],
                                   visible_on_warn=False,
                                   update_interval=60,
-                                  mouse_callbacks={'Button1': toggle_program('conky')},
+                                  mouse_callbacks={'Button1': toggle_conky},
                                   name='df'
                                   ),
                         powerline('l',
@@ -637,7 +646,7 @@ screens = [
             opacity=1.0,
             name='bar'
         ),
-        wallpaper='~/.config/qtile/wallpapers/aurora.jpg',
+        wallpaper='~/.config/qtile/wallpapers/space2.jpg',
         wallpaper_mode='stretch',
     ),
 ]
