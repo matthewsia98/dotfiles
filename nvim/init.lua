@@ -3,7 +3,7 @@ local function map(mode, key, value, options)
     vim.keymap.set(mode, key, value, options)
 end
 
--- VIM OPTIONS --
+-- VIM --
 local g = vim.g
 local o = vim.o
 local A = vim.api
@@ -632,6 +632,45 @@ require('lspconfig')['jdtls'].setup {
 
 
 -- NVIM CMP --
+vim.cmd [[highlight Pmenu guibg=#22252A guifg=#C5CDD9 ]]
+vim.cmd [[highlight PmenuSel guibg=#282C34 guifg=NONE]]
+vim.cmd [[highlight CmpItemAbbrDeprecated guibg=NONE guifg=#7E8294 gui=strikethrough]]
+vim.cmd [[highlight CmpItemAbbrMatch guibg=NONE guifg=#82AAFF gui=bold]]
+vim.cmd [[highlight CmpItemAbbrMatchFuzzy guibg=NONE guifg=#82AAFF gui=bold]]
+vim.cmd [[highlight CmpItemMenu guibg=NONE guifg=#C792EA gui=italic]]
+
+vim.cmd [[highlight CmpItemKindField guibg=#B5585F guifg=#EED8DA]]
+vim.cmd [[highlight CmpItemKindProperty guibg=#B5585F guifg=#EED8DA]]
+vim.cmd [[highlight CmpItemKindEvent guibg=#B5585F guifg=#EED8DA]]
+
+vim.cmd [[highlight CmpItemKindText guibg=#9FBD73 guifg=#C3E88D]]
+vim.cmd [[highlight CmpItemKindEnum guibg=#9FBD73 guifg=#C3E88D]]
+vim.cmd [[highlight CmpItemKindKeyword guibg=#9FBD73 guifg=#C3E88D]]
+
+vim.cmd [[highlight CmpItemKindConstant guibg=#D4BB6C guifg=#FFE082]]
+vim.cmd [[highlight CmpItemKindConstructor guibg=#D4BB6C guifg=#FFE082]]
+vim.cmd [[highlight CmpItemKindReference guibg=#D4BB6C guifg=#FFE082]]
+
+vim.cmd [[highlight CmpItemKindFunction guibg=#A377BF guifg=#EADFF0]]
+vim.cmd [[highlight CmpItemKindStruct guibg=#A377BF guifg=#EADFF0]]
+vim.cmd [[highlight CmpItemKindClass guibg=#A377BF guifg=#EADFF0]]
+vim.cmd [[highlight CmpItemKindModule guibg=#A377BF guifg=#EADFF0]]
+vim.cmd [[highlight CmpItemKindOperator guibg=#A377BF guifg=#EADFF0]]
+
+vim.cmd [[highlight CmpItemKindVariable guibg=#7E8294 guifg=#C5CDD9]]
+vim.cmd [[highlight CmpItemKindFile guibg=#7E8294 guifg=#C5CDD9]]
+
+vim.cmd [[highlight CmpItemKindUnit guibg=#D4A959 guifg=#F5EBD9]]
+vim.cmd [[highlight CmpItemKindSnippet guibg=#D4A959 guifg=#F5EBD9]]
+vim.cmd [[highlight CmpItemKindFolder guibg=#D4A959 guifg=#F5EBD9]]
+
+vim.cmd [[highlight CmpItemKindMethod guibg=#6C8ED4 guifg=#DDE5F5]]
+vim.cmd [[highlight CmpItemKindValue guibg=#6C8ED4 guifg=#DDE5F5]]
+vim.cmd [[highlight CmpItemKindEnumMember guibg=#6C8ED4 guifg=#DDE5F5]]
+
+vim.cmd [[highlight CmpItemKindInterface guibg=#58B5A8 guifg=#D8EEEB]]
+vim.cmd [[highlight CmpItemKindColor guibg=#58B5A8 guifg=#D8EEEB]]
+vim.cmd [[highlight CmpItemKindTypeParameter guibg=#58B5A8 guifg=#D8EEEB]]
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 if cmp ~= nil then
@@ -654,8 +693,13 @@ if cmp ~= nil then
                                 }
                             )(entry, vim_item)
                             local strings = vim.split(kind.kind, '%s', {trimempty = true})
-                            kind.kind = ' ' .. strings[1] .. ' '
-                            kind.menu = "    (" .. strings[2] .. ")"
+                            if strings[1] ~= nil then
+                                kind.kind = ' ' .. strings[1] .. ' '
+                            end
+                            if strings[2] ~= nil then
+                                kind.menu = "    (" .. strings[2] .. ")"
+                            end
+
                             return kind
                         end,
             },
@@ -670,7 +714,7 @@ if cmp ~= nil then
             },
             window = {
                 completion = {
-                    winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
+                    winhighlight = 'Normal:CmpPmenu,FloatBorder:CmpPmenu,Search:None',
                     col_offset = -3,
                     side_padding = 0,
                 }
@@ -826,14 +870,18 @@ require('nvim-autopairs').setup()
 
 -- KEY BINDINGS --
 --  mode   key      value
+-- Go to start and end of line
 map('i', '<C-E>', '<Esc>A')
 map('n', '<C-E>', 'A<Esc>')
 map('i', '<C-A>', '<Esc>I')
 map('n', '<C-A>', 'I<Esc>')
+-- Insert blank lines
 map('n', '<CR>', 'o<Esc>')
 map('n', '<S-CR>', 'O<Esc>')
+-- Move Lines
 map('n', '<C-j>', ':move .+1<CR>')
 map('n', '<C-k>', ':move .-2<CR>')
+-- Window Splits
 map('n', '<leader>wv', '<C-w>v')
 map('n', '<leader>ws', '<C-w>s')
 map('n', '<leader>wc', '<C-w>c')
