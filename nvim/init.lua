@@ -11,8 +11,6 @@ local A = vim.api
 -- cmd('syntax on')
 A.nvim_command('filetype plugin indent on')
 
-vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
-
 o.termguicolors = true
 -- o.background = 'dark'
 
@@ -632,42 +630,42 @@ require('lspconfig')['jdtls'].setup {
 
 
 -- NVIM CMP --
+vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+
+-- Scrollbar
+vim.cmd [[highlight PmenuThumb guibg=#C5CDD9 guifg=NONE]]
+
+-- Prompt Menu
 vim.cmd [[highlight CmpPmenu guibg=#22252A guifg=#C5CDD9]]
 vim.cmd [[highlight CmpPmenuSel guibg=#282C34 guifg=NONE]]
+
+-- Completion Items
 vim.cmd [[highlight CmpItemAbbrDeprecated guibg=NONE guifg=#7E8294 gui=strikethrough]]
 vim.cmd [[highlight CmpItemAbbrMatch guibg=NONE guifg=#82AAFF gui=bold]]
 vim.cmd [[highlight CmpItemAbbrMatchFuzzy guibg=NONE guifg=#82AAFF gui=bold]]
 vim.cmd [[highlight CmpItemMenu guibg=NONE guifg=#C792EA gui=italic]]
-
 vim.cmd [[highlight CmpItemKindField guibg=#B5585F guifg=#EED8DA]]
 vim.cmd [[highlight CmpItemKindProperty guibg=#B5585F guifg=#EED8DA]]
 vim.cmd [[highlight CmpItemKindEvent guibg=#B5585F guifg=#EED8DA]]
-
 vim.cmd [[highlight CmpItemKindText guibg=#9FBD73 guifg=#C3E88D]]
 vim.cmd [[highlight CmpItemKindEnum guibg=#9FBD73 guifg=#C3E88D]]
 vim.cmd [[highlight CmpItemKindKeyword guibg=#9FBD73 guifg=#C3E88D]]
-
 vim.cmd [[highlight CmpItemKindConstant guibg=#D4BB6C guifg=#FFE082]]
 vim.cmd [[highlight CmpItemKindConstructor guibg=#D4BB6C guifg=#FFE082]]
 vim.cmd [[highlight CmpItemKindReference guibg=#D4BB6C guifg=#FFE082]]
-
 vim.cmd [[highlight CmpItemKindFunction guibg=#A377BF guifg=#EADFF0]]
 vim.cmd [[highlight CmpItemKindStruct guibg=#A377BF guifg=#EADFF0]]
 vim.cmd [[highlight CmpItemKindClass guibg=#A377BF guifg=#EADFF0]]
 vim.cmd [[highlight CmpItemKindModule guibg=#A377BF guifg=#EADFF0]]
 vim.cmd [[highlight CmpItemKindOperator guibg=#A377BF guifg=#EADFF0]]
-
 vim.cmd [[highlight CmpItemKindVariable guibg=#7E8294 guifg=#C5CDD9]]
 vim.cmd [[highlight CmpItemKindFile guibg=#7E8294 guifg=#C5CDD9]]
-
 vim.cmd [[highlight CmpItemKindUnit guibg=#D4A959 guifg=#F5EBD9]]
 vim.cmd [[highlight CmpItemKindSnippet guibg=#D4A959 guifg=#F5EBD9]]
 vim.cmd [[highlight CmpItemKindFolder guibg=#D4A959 guifg=#F5EBD9]]
-
 vim.cmd [[highlight CmpItemKindMethod guibg=#6C8ED4 guifg=#DDE5F5]]
 vim.cmd [[highlight CmpItemKindValue guibg=#6C8ED4 guifg=#DDE5F5]]
 vim.cmd [[highlight CmpItemKindEnumMember guibg=#6C8ED4 guifg=#DDE5F5]]
-
 vim.cmd [[highlight CmpItemKindInterface guibg=#58B5A8 guifg=#D8EEEB]]
 vim.cmd [[highlight CmpItemKindColor guibg=#58B5A8 guifg=#D8EEEB]]
 vim.cmd [[highlight CmpItemKindTypeParameter guibg=#58B5A8 guifg=#D8EEEB]]
@@ -738,8 +736,8 @@ if cmp ~= nil then
             sources = cmp.config.sources(
                 {
                     { name = 'nvim_lsp' },
-                    { name = 'vsnip' }, -- For vsnip users.
-                    -- { name = 'luasnip' }, -- For luasnip users.
+                    -- { name = 'vsnip' }, -- For vsnip users.
+                    { name = 'luasnip' }, -- For luasnip users.
                     -- { name = 'ultisnips' }, -- For ultisnips users.
                     -- { name = 'snippy' }, -- For snippy users.
                 },
