@@ -26,7 +26,7 @@ COLORS = {
     'foreground': ['#CAD3F5', '#24273A'],
     'selection_background': ['#F4DBD6'],
     'selection_foreground': ['#24273A'],
-    'active_border_color': ['#B7BDF8'],
+    'active_border_color': ['#00FFFF', '#B7BDF8'],
     'inactive_border_color': ['#6E738D'],
     'black': ['#494D54', '#5B6078'],
     'red': ['#ED8796', '#ED8796'],
