@@ -40,7 +40,6 @@ COLORS = {
     'white': ['#B8C0E0', '#A5ADCB'],
     'transparent': ['#00000000'],
 }
-EMPTY_WIDGET = widget.Spacer(length=0)
 
 
 #### FUNCTIONS ####
