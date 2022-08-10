@@ -162,6 +162,8 @@ Plug 'neovim/nvim-lspconfig'
 -- Language Server Manager
 Plug 'williamboman/mason.nvim'
 
+Plug 'jose-elias-alvarez/null-ls.nvim'
+
 -- Pretty LSP Preview
 Plug 'folke/trouble.nvim'
 
@@ -264,7 +266,7 @@ require('trouble').setup {
     height = 10, -- height of the trouble list when position is top or bottom
     width = 50, -- width of the list when position is left or right
     icons = true, -- use devicons for filenames
-    mode = "workspace_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
+    mode = { 'workspace_diagnostics', 'document_diagnostics', 'quickfix', 'lsp_references', 'loclist' },
     fold_open = "", -- icon used for open folds
     fold_closed = "", -- icon used for closed folds
     group = true, -- group results by file
@@ -359,7 +361,7 @@ require('nvim-treesitter.configs').setup {
     },
     indent = {
         enable = true,
-        disable = {'python'},
+        disable = { 'python' },
     },
     incremental_selection = {
         enable = true,
@@ -563,6 +565,17 @@ require('mason').setup(
 -- require('mason-lspconfig').setup()
 
 
+-- NULL LS --
+-- local null_ls = require('null-ls')
+-- local null_ls_sources = {
+--     null_ls.builtins.formatting.black,
+--     null_ls.builtins.formatting.isort,
+-- }
+-- null_ls.setup({
+--     sources =  null_ls_sources
+-- })
+
+
 -- LSP CONFIG --
 vim.fn.sign_define(
     "DiagnosticSignError",
@@ -592,7 +605,7 @@ map('n', '<leader>q', vim.diagnostic.setloclist, lsp_opts)
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -613,7 +626,14 @@ local on_attach = function(client, bufnr)
     map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
     map('n', 'gr', vim.lsp.buf.references, bufopts)
-    map('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
+    map('n', '<leader>fmt', vim.lsp.buf.formatting, bufopts)
+    -- Set some key bindings conditional on server capabilities
+    -- if client.resolved_capabilities.document_formatting then
+    --     map("n", "<leader>f", vim.lsp.buf.formatting_sync, bufopts)
+    -- end
+    if client.resolved_capabilities.document_range_formatting then
+        map('x', '<leader>fmt', vim.lsp.buf.range_formatting, bufopts)
+    end
 end
 
 local lsp_flags = {
@@ -649,15 +669,9 @@ require('lspconfig')['pylsp'].setup {
     settings = {
         pylsp = {
             plugins = {
-                pycodestyle = {
-                    enabled = false,
-                },
-                pyflakes = {
-                    enabled = false,
-                },
-                mccabe = {
-                    enabled = false,
-                },
+                pycodestyle = { enabled = false, },
+                pyflakes = { enabled = false, },
+                mccabe = { enabled = false, },
                 flake8 = {
                     enabled = true,
                     ignore = {
@@ -665,20 +679,28 @@ require('lspconfig')['pylsp'].setup {
                         'E266', -- Too many leading # for block comment
                     }
                 },
-                black = {
+                jedi_completion = {
                     enabled = true,
-                    max_line_length = 88,
-                    preview = true,
+                    fuzzy = true,
                 },
-                mypy = {
+                pylint = {
+                    enabled = false,
+                    executable = 'pylint',
+                },
+                pylsp_black = {
+                    enabled = true,
+                    preview = true,
+                    -- max_line_length = 88,
+                },
+                pylsp_mypy = {
                     enabled = true,
                     live_mode = true,
-                    strict = false,
+                    -- strict = false,
                 },
-                rope = {
+                pylsp_rope = {
                     enabled = true,
                 },
-                isort = {
+                pyls_isort = {
                     enabled = true,
                 }
             }
@@ -785,6 +807,7 @@ if cmp ~= nil then
                             maxwidth = 50,
                             menu = ({
                                 buffer = '[Buffer]',
+                                path = '[Path]',
                                 nvim_lsp = '[LSP]',
                                 luasnip = '[LuaSnip]',
                                 nvim_lua = '[Lua]',
@@ -852,7 +875,12 @@ if cmp ~= nil then
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
                     ['<C-Space>'] = cmp.mapping.complete(),
                     ['<C-e>'] = cmp.mapping.abort(),
-                    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                    ['<CR>'] = cmp.mapping.confirm(
+                        {
+                            behavior = cmp.ConfirmBehavior.Replace,
+                            select = true
+                        }
+                    ), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 }
             ),
             sources = cmp.config.sources(
@@ -862,8 +890,7 @@ if cmp ~= nil then
                     { name = 'luasnip' }, -- For luasnip users.
                     -- { name = 'ultisnips' }, -- For ultisnips users.
                     -- { name = 'snippy' }, -- For snippy users.
-                },
-                {
+                    { name = 'path' },
                     { name = 'buffer' },
                 }
             )
