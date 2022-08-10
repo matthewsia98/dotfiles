@@ -256,10 +256,11 @@ keys = [
     Key([mod, 'shift'], "j", grow_vertical('j'), desc="Grow window down"),
     Key([mod, 'shift'], "k", grow_vertical('k'), desc="Grow window up"),
 
-    Key([mod, 'shift'], 'n', lazy.layout.normalize(), desc="Reset all window sizes"),
+    # Key([mod, 'shift'], 'n', lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod, 'control'], 'space', lazy.layout.flip(), desc='Flip main side'),
-    Key([mod], "m", lazy.window.toggle_maximize(), desc="Toggle maximize"),
-    Key([mod, 'control'], "f", center_and_resize_floating(), desc="Toggle floating"),
+    Key([mod, 'control'], 'n', lazy.window.toggle_minimize(), desc='Toggle minimize'),
+    Key([mod, 'control'], 'm', lazy.window.toggle_maximize(), desc="Toggle maximize"),
+    Key([mod, 'control'], 'f', center_and_resize_floating(), desc="Toggle floating"),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -420,12 +421,13 @@ screens = [
                                 unfocused_border=COLORS['inactive_border_color'][0],
                                 urgent_border=COLORS['red'][0],
                                 highlight_method='border',
-                                title_width_method='uniform',
+                                title_width_method=None,
                                 rounded=True,
-                                txt_floating='[F] ',
-                                txt_maximized='[M] ',
-                                txt_minimized='[-] ',
+                                txt_floating='[\uF06D] ',
+                                txt_maximized='[\uF067] ',
+                                txt_minimized='[\uF068] ',
                                 icon_size=0,
+                                spacing=10,
                                 margin_x=0,
                                 margin_y=1,
                                 padding_x=10,
