@@ -45,8 +45,8 @@ o.tabstop = 4
 o.shiftwidth = 0
 o.softtabstop = -1 -- If negative, shiftwidth value is used
 o.list = true
-o.listchars = 'lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂,'
--- o.listchars = 'eol:¬,space:·,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:│   ,'
+o.listchars = 'lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
+-- o.listchars = 'eol:↲,eol:¬,space:·,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:│   ,'
 -- o.formatoptions = 'qrn1'
 
 -- Makes neovim and host OS clipboard play nicely with each other
@@ -167,13 +167,18 @@ Plug 'jose-elias-alvarez/null-ls.nvim'
 -- Pretty LSP Preview
 Plug 'folke/trouble.nvim'
 
+-- Luasnip
+Plug 'L3MON4D3/LuaSnip'
+Plug 'rafamadriz/friendly-snippets'
+
 -- Code Completion
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 -- Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'L3MON4D3/LuaSnip'
 Plug 'onsails/lspkind.nvim'
 
 vim.call('plug#end')
@@ -747,21 +752,40 @@ require('lspconfig')['jdtls'].setup {
 }
 
 
--- NVIM CMP --
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+-- LUASNIP --
+local luasnip = require('luasnip')
+map('i', '<C-l>', function ()
+    if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+    end
+end, {silent = true, noremap = true})
+map('i', '<C-h>', function ()
+    if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+    end
+end, {silent = true, noremap = true})
+luasnip.config.set_config {
+    history = true,
+    updateevents = 'TextChanged,TextChangedI',
+    -- enable_autosnippets = true,
+}
+require('luasnip.loaders.from_vscode').lazy_load()
 
+
+-- NVIM CMP --
 -- Scrollbar
 vim.cmd [[highlight PmenuThumb guibg=#C5CDD9 guifg=NONE]]
 
 -- Prompt Menu
 vim.cmd [[highlight CmpPmenu guibg=#22252A guifg=#C5CDD9]]
-vim.cmd [[highlight CmpPmenuSel guibg=#282C34 guifg=NONE]]
+vim.cmd [[highlight PmenuSel guibg=#6E738D guifg=NONE]]
 
 -- Completion Items
-vim.cmd [[highlight CmpItemAbbrDeprecated guibg=NONE guifg=#7E8294 gui=strikethrough]]
+vim.cmd [[highlight CmpItemAbbr guibg=NONE guifg=#CAD3F5]]
+vim.cmd [[highlight CmpItemAbbrDeprecated guibg=NONE guifg=#FF0000 gui=strikethrough]]
 vim.cmd [[highlight CmpItemAbbrMatch guibg=NONE guifg=#82AAFF gui=bold]]
 vim.cmd [[highlight CmpItemAbbrMatchFuzzy guibg=NONE guifg=#82AAFF gui=bold]]
-vim.cmd [[highlight CmpItemMenu guibg=NONE guifg=#C792EA gui=italic]]
+vim.cmd [[highlight CmpItemMenu guibg=NONE guifg=#C6A0F6 gui=NONE]]
 vim.cmd [[highlight CmpItemKindField guibg=#B5585F guifg=#EED8DA]]
 vim.cmd [[highlight CmpItemKindProperty guibg=#B5585F guifg=#EED8DA]]
 vim.cmd [[highlight CmpItemKindEvent guibg=#B5585F guifg=#EED8DA]]
@@ -792,36 +816,63 @@ local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
-local luasnip = require('luasnip')
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 if cmp ~= nil then
     cmp.setup(
         {
+            completion = {
+                completeopt = 'menu,menuone'
+            },
             formatting = {
                 fields = { 'kind', 'abbr', 'menu' },
+
                 format = function(entry, vim_item)
                     local kind = lspkind.cmp_format(
                         {
-                            mode = 'symbol_text',
+                            mode = 'symbol_text', -- {'text', 'text_symbol', 'symbol', 'symbol_text'}
+                            preset = 'default',
                             maxwidth = 50,
                             menu = ({
                                 buffer = '[Buffer]',
                                 path = '[Path]',
                                 nvim_lsp = '[LSP]',
-                                luasnip = '[LuaSnip]',
-                                nvim_lua = '[Lua]',
+                                luasnip = '[Snip]',
+                                nvim_lua = '[Api]',
                                 latex_symbols = '[Latex]'
-                            })
+                            }),
+                            symbol_map = {
+                                Text = '  ',
+                                Method = '  ',
+                                Function = '  ',
+                                Constructor = '  ',
+                                Field = '  ',
+                                Variable = '  ',
+                                Class = '  ',
+                                Interface = '  ',
+                                Module = '  ',
+                                Property = '  ',
+                                Unit = '  ',
+                                Value = '  ',
+                                Enum = '  ',
+                                Keyword = '  ',
+                                Snippet = '  ',
+                                Color = '  ',
+                                File = '  ',
+                                Reference = '  ',
+                                Folder = '  ',
+                                EnumMember = '  ',
+                                Constant = '  ',
+                                Struct = '  ',
+                                Event = '  ',
+                                Operator = '  ',
+                                TypeParameter = '  ',
+                            },
                         }
                     )(entry, vim_item)
-                    local strings = vim.split(kind.kind, '%s', { trimempty = true })
-                    if strings[1] ~= nil then
-                        kind.kind = ' ' .. strings[1] .. ' '
-                    end
-                    if strings[2] ~= nil then
-                        kind.menu = '    (' .. strings[2] .. ')'
-                    end
+                    -- local strings = vim.split(kind.kind, '%s', { trimempty = true })
+                    local strings = vim.split(vim_item.kind, '%s+', { trimempty = true })
+                    kind.kind = ' ' .. string.format('[%s] %-13s', strings[1], strings[2]) .. ' '
 
                     return kind
                 end,
@@ -829,15 +880,12 @@ if cmp ~= nil then
             snippet = {
                 -- REQUIRED - you must specify a snippet engine
                 expand = function(args)
-                    -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
                     luasnip.lsp_expand(args.body) -- For `luasnip` users.
-                    -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-                    -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
                 end,
             },
             window = {
                 completion = {
-                    winhighlight = 'Normal:CmpPmenu,FloatBorder:CmpPmenu,Search:None',
+                    winhighlight = 'Normal:CmpPmenu,FloatBorder:CmpPmenu,CursorLine:PmenuSel,Search:None',
                     col_offset = -3,
                     side_padding = 0,
                 }
@@ -877,7 +925,7 @@ if cmp ~= nil then
                     ['<C-e>'] = cmp.mapping.abort(),
                     ['<CR>'] = cmp.mapping.confirm(
                         {
-                            behavior = cmp.ConfirmBehavior.Replace,
+                            behavior = cmp.ConfirmBehavior.Insert,
                             select = true
                         }
                     ), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
@@ -885,13 +933,12 @@ if cmp ~= nil then
             ),
             sources = cmp.config.sources(
                 {
+                    -- Order Matters! OR explicitly set priority
+                    -- keyword_length, priority, max_item_count
                     { name = 'nvim_lsp' },
-                    -- { name = 'vsnip' }, -- For vsnip users.
                     { name = 'luasnip' }, -- For luasnip users.
-                    -- { name = 'ultisnips' }, -- For ultisnips users.
-                    -- { name = 'snippy' }, -- For snippy users.
                     { name = 'path' },
-                    { name = 'buffer' },
+                    { name = 'buffer', keyword_length = 5 },
                 }
             )
         }
