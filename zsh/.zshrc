@@ -13,9 +13,9 @@ export EDITOR='emacsclient -t'
 export VISUAL='emacsclient -c -a emacs'
 export HISTFILE=~/.zsh_history
 # Session History
-export HISTSIZE=1000
+export HISTSIZE=10000
 # Max history file size
-export SAVEHIST=10000
+export SAVEHIST=1000000
 
 setopt INC_APPEND_HISTORY
 export HISTTIMEFORMAT='[%F %T]'
