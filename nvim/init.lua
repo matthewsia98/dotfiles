@@ -225,7 +225,7 @@ map('n', '<leader>nt', ':NvimTreeToggle<CR>')
 require('nvim-tree').setup {
     sort_by = "case_sensitive",
     view = {
-        adaptive_size = true,
+        adaptive_size = false,
         mappings = {
             list = {
                 { key = "u", action = "dir_up" },
@@ -236,7 +236,7 @@ require('nvim-tree').setup {
         group_empty = true,
     },
     filters = {
-        dotfiles = true,
+        dotfiles = false,
     },
 }
 
@@ -754,22 +754,33 @@ require('lspconfig')['jdtls'].setup {
 
 -- LUASNIP --
 local luasnip = require('luasnip')
-map('i', '<C-l>', function ()
+map({'i', 's'}, '<C-k>', function ()
     if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
     end
 end, {silent = true, noremap = true})
-map('i', '<C-h>', function ()
+map({'i', 's'}, '<C-j>', function ()
     if luasnip.jumpable(-1) then
         luasnip.jump(-1)
     end
 end, {silent = true, noremap = true})
+map({'i', 's'}, '<C-n>', '<Plug>luasnip-next-choice', {})
+map({'i', 's'}, '<C-p>', '<Plug>luasnip-prev-choice', {})
+
+-- Deleting insert node default puts you back in Normal mode
+-- <C-G> changes to VISUAL, s clears and enters INSERT
+map('s', '<BS>', '<C-G>s')
 luasnip.config.set_config {
     history = true,
     updateevents = 'TextChanged,TextChangedI',
     -- enable_autosnippets = true,
 }
 require('luasnip.loaders.from_vscode').lazy_load()
+require('luasnip.loaders.from_lua').lazy_load(
+    {
+        paths = '~/.config/nvim/my-snippets'
+    }
+)
 
 
 -- NVIM CMP --
@@ -822,7 +833,7 @@ if cmp ~= nil then
     cmp.setup(
         {
             completion = {
-                completeopt = 'menu,menuone'
+                completeopt = 'menu,menuone,noselect'
             },
             formatting = {
                 fields = { 'kind', 'abbr', 'menu' },
@@ -926,7 +937,7 @@ if cmp ~= nil then
                     ['<CR>'] = cmp.mapping.confirm(
                         {
                             behavior = cmp.ConfirmBehavior.Insert,
-                            select = true
+                            select = false
                         }
                     ), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 }
@@ -985,7 +996,7 @@ end
 
 
 -- AUTOPAIRS --
-require('nvim-autopairs').setup()
+-- require('nvim-autopairs').setup()
 
 
 -- KEY BINDINGS --
@@ -995,12 +1006,19 @@ map('i', '<C-E>', '<Esc>A')
 map('n', '<C-E>', 'A<Esc>')
 map('i', '<C-A>', '<Esc>I')
 map('n', '<C-A>', 'I<Esc>')
+
+-- Line Actions
+map('i', '<C-BS>', '<Esc>ddA')
+map('i', '<C-CR>', '<Esc>jA')
+
 -- Insert blank lines
 map('n', '<CR>', 'o<Esc>')
 map('n', '<S-CR>', 'O<Esc>')
+
 -- Move Lines
 map('n', '<C-j>', ':move .+1<CR>')
 map('n', '<C-k>', ':move .-2<CR>')
+
 -- Window Splits
 map('n', '<leader>wv', '<C-w>v')
 map('n', '<leader>ws', '<C-w>s')
@@ -1009,5 +1027,10 @@ map('n', '<leader>wh', '<C-w>h')
 map('n', '<leader>wl', '<C-w>l')
 map('n', '<leader>wj', '<C-w>j')
 map('n', '<leader>wk', '<C-w>k')
+
+-- Toggle type of quote
+vim.api.nvim_set_keymap("n", "'\"", "cs'\"", {})
+vim.api.nvim_set_keymap("n", "\"'", "cs\"'", {})
+
 -- Folds
 map('n', '<leader>fd', 'za')
