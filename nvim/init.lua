@@ -72,6 +72,8 @@ o.history = 50
 o.splitright = true
 o.splitbelow = true
 
+o.laststatus = 3
+
 -- Preserve view while jumping
 -- o.jumpoptions = 'view'
 
@@ -1054,6 +1056,9 @@ end
 
 -- AUTOPAIRS --
 require('nvim-autopairs').setup()
+
+
+vim.cmd [[highlight WinSeparator guibg=NONE guifg=#B7BDF8]]
 
 
 -- KEY BINDINGS --
