@@ -1097,10 +1097,10 @@ A.nvim_set_keymap('n', ')]', 'cs)]', {})
 A.nvim_set_keymap('n', ')(', 'cs)(', {})
 A.nvim_set_keymap('n', '})', 'cs})', {})
 A.nvim_set_keymap('n', '}]', 'cs}]', {})
-A.nvim_set_keymap('n', '}]', 'cs}{', {})
+A.nvim_set_keymap('n', '}{', 'cs}{', {})
 A.nvim_set_keymap('n', '])', 'cs])', {})
 A.nvim_set_keymap('n', ']}', 'cs]}', {})
-A.nvim_set_keymap('n', ']}', 'cs][', {})
+A.nvim_set_keymap('n', '][', 'cs][', {})
 
 -- Folds
 map('n', '<leader>fd', 'za')
