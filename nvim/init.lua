@@ -754,6 +754,7 @@ require('lspconfig')['jdtls'].setup {
 
 -- LUASNIP --
 local luasnip = require('luasnip')
+local types = require('luasnip.util.types')
 map({'i', 's'}, '<C-k>', function ()
     if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
@@ -774,6 +775,13 @@ luasnip.config.set_config {
     history = true,
     updateevents = 'TextChanged,TextChangedI',
     -- enable_autosnippets = true,
+    ext_opts = {
+        [types.choiceNode] = {
+            active = {
+                virt_text = { { ' <- Current Choice', 'NonTest' } },
+            },
+        },
+    }
 }
 require('luasnip.loaders.from_vscode').lazy_load()
 require('luasnip.loaders.from_lua').lazy_load(
@@ -1028,9 +1036,15 @@ map('n', '<leader>wl', '<C-w>l')
 map('n', '<leader>wj', '<C-w>j')
 map('n', '<leader>wk', '<C-w>k')
 
--- Toggle type of quote
-vim.api.nvim_set_keymap("n", "'\"", "cs'\"", {})
-vim.api.nvim_set_keymap("n", "\"'", "cs\"'", {})
+-- Toggle type of quote / bracket
+A.nvim_set_keymap('n', "'\"", "cs'\"", {})
+A.nvim_set_keymap("n", "\"'", "cs\"'", {})
+A.nvim_set_keymap('n', ')}', 'cs)}', {})
+A.nvim_set_keymap('n', ')]', 'cs)]', {})
+A.nvim_set_keymap('n', '})', 'cs})', {})
+A.nvim_set_keymap('n', '}]', 'cs}]', {})
+A.nvim_set_keymap('n', '])', 'cs])', {})
+A.nvim_set_keymap('n', ']}', 'cs]}', {})
 
 -- Folds
 map('n', '<leader>fd', 'za')

@@ -12,24 +12,14 @@ local fmt = require('luasnip.extras.fmt').fmt
 return {
     s('now',
         f(function()
-            return os.date('%A %B %d %Y %H:%M:%S')
+            return os.date('%H:%M:%S')
         end
         )
     ),
-    s('test',
-        fmt([[
-            Argument 1: {}
-            This is Argument 1 repeated: {}
-            Choice Node: {}
-            ]],
-            {
-                i(1),
-                d(2, function(args)
-                    return sn(nil, t(args[1][1]))
-                end, {1}
-                ),
-                c(3, {t('First Choice'), t('Second Choice')})
-            }
+    s('today',
+        f(function()
+            return os.date('%A %B %d, %Y')
+        end
         )
-    )
+    ),
 }
