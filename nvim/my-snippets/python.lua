@@ -142,6 +142,54 @@ return {
                 }),
             }
         )),
+    s('torch_imports',
+        t({
+            'import torch',
+            'import torch.nn as nn',
+            'import torch.nn.functional as F',
+            'import torch.optim as optim',
+            '',
+            'from torch.utils.data import Dataset, DataLoader'
+        })
+    ),
+    s('torch_dataloader',
+        fmt([[
+            DataLoader({}, batch_size={}{}{}{}{})
+            ]],
+            {
+                i(1, 'dataset'),
+                i(2, 'BatchSize'),
+                c(3, {
+                    sn(nil, {
+                        t(', shuffle='),
+                        i(1, 'True'),
+                    }),
+                    t(''),
+                }),
+                c(4, {
+                    sn(nil, {
+                        t(', sampler='),
+                        i(1, 'sampler'),
+                    }),
+                    t(''),
+                }),
+                c(5, {
+                    sn(nil, {
+                        t(', collate_fn='),
+                        i(1, 'sampler'),
+                    }),
+                    t(''),
+                }),
+                c(6, {
+                    sn(nil, {
+                        t(', num_workers='),
+                        i(1, 'sampler'),
+                    }),
+                    t(''),
+                }),
+            }
+        )
+    ),
     s('torch_dataset',
         fmt([[
             class {}({}):
@@ -179,6 +227,82 @@ return {
                 i(5),
                 i(6),
                 i(7),
+            }
+        )
+    ),
+    s('torch_model',
+        fmt([[
+            class {}(nn.Module):
+                def __init__(self{}):
+                    super({}).__init__()
+                    {}{}
+
+                def forward(self, {}):
+                    {}
+
+                    return {}
+            ]],
+            {
+                i(1, 'MyModel'),
+                c(2, {
+                    t(''),
+                    sn(nil, {
+                        t(', '),
+                        i(1, 'args'),
+                    }),
+                }),
+                c(3, {
+                    dl(nil, l._1 .. ', self', 1),
+                    t(''),
+                }),
+                d(4, function(args)
+                    local splits = vim.split(args[1][1], ', ')
+                    local texts = {}
+                    if #args[1][1] > 0 then
+                        table.insert(texts, '')
+                    end
+                    for idx, split in ipairs(splits) do
+                        if idx > 1 then
+                            split = split:match('([%w_]*)=?')
+                            local curr = '\t\tself.' .. split .. ' = ' .. split
+                            table.insert(texts, curr)
+                        end
+                    end
+
+                    table.insert(texts, '')
+                    table.insert(texts, '')
+
+                    return sn(nil, {
+                        t(texts),
+                    })
+                end, { 2 }),
+                i(5, '\t\t# Layers'),
+                i(6, 'x'),
+                d(7, function(args)
+                    local x = args[2][1]
+                    local texts = {}
+                    for idx, line in ipairs(args[1]) do
+                        local curr = string.gsub(line:match('([%s%w_%.]*)=?'), '%s', '')
+                        local res = x .. ' = ' .. curr .. '(' .. x .. ')'
+                        if idx > 1 then
+                            res = '\t\t' .. res
+                        end
+                        table.insert(texts, res)
+                        -- if curr ~= nil then
+                        --     table.insert(texts, x .. ' = ' .. curr .. '(' .. x .. ')')
+                        -- end
+                    end
+
+                    return sn(nil, {
+                        t(texts)
+                    })
+                end, { 5, 6 }),
+                rep(6)
+                -- d(8, function(args)
+                --     return sn(nil, {
+                --         i(1, args[1][1])
+                --     })
+                -- end, {6})
             }
         )
     ),
