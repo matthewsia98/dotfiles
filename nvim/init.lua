@@ -114,27 +114,27 @@ A.nvim_create_autocmd('TextYankPost',
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 
--- Status Line
-Plug 'akinsho/bufferline.nvim'
-Plug 'nvim-lualine/lualine.nvim'
-
 -- Icons
 Plug 'kyazdani42/nvim-web-devicons'
-
--- Directory Tree
-Plug 'kyazdani42/nvim-tree.lua'
-
--- Required by Telescope
-Plug 'nvim-lua/plenary.nvim'
-
--- Fuzzy Finder
-Plug 'nvim-telescope/telescope.nvim'
 
 -- Color Scheme
 Plug('catppuccin/nvim', { as = 'catppuccin' })
 
--- Abstract Syntax Tree
-Plug('nvim-treesitter/nvim-treesitter', { ['do'] = vim.fn[':TSUpdate'] })
+-- Visualize RGB color codes
+Plug 'norcalli/nvim-colorizer.lua'
+
+-- Easily toggle and make new comments
+Plug 'numToStr/Comment.nvim'
+
+-- Easily surround text objects
+Plug 'tpope/vim-surround'
+
+-- Matching Quotes/Brackets
+Plug 'windwp/nvim-autopairs'
+
+-- Status Lines
+Plug 'akinsho/bufferline.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 
 -- Indent Lines
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -145,17 +145,17 @@ Plug 'lewis6991/gitsigns.nvim'
 -- Preview Git Commits
 Plug 'rhysd/git-messenger.vim'
 
--- Easily toggle and make new comments
-Plug 'numToStr/Comment.nvim'
+-- Directory Tree
+Plug 'kyazdani42/nvim-tree.lua'
 
--- Visualize RGB color codes
-Plug 'norcalli/nvim-colorizer.lua'
+-- Required by Telescope
+Plug 'nvim-lua/plenary.nvim'
 
--- Easily surround text objects
-Plug 'tpope/vim-surround'
+-- Fuzzy Finder
+Plug 'nvim-telescope/telescope.nvim'
 
--- Matching Quotes/Brackets
-Plug 'windwp/nvim-autopairs'
+-- Abstract Syntax Tree
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = vim.fn[':TSUpdate'] })
 
 -- Language Server
 Plug 'neovim/nvim-lspconfig'
@@ -163,7 +163,7 @@ Plug 'neovim/nvim-lspconfig'
 -- Language Server Manager
 Plug 'williamboman/mason.nvim'
 
-Plug 'jose-elias-alvarez/null-ls.nvim'
+-- Plug 'jose-elias-alvarez/null-ls.nvim'
 
 -- Pretty LSP Preview
 Plug 'folke/trouble.nvim'
@@ -231,7 +231,7 @@ require('bufferline').setup {
         diagnostics = 'nvim_lsp',
         diagnostics_update_in_insert = true,
     -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
-        diagnostics_indicator = function(count, level, diagnostics_dict, context)
+        diagnostics_indicator = function(count)
             return '('..count..')'
         end,
         color_icons = true, -- whether or not to add the filetype icon highlights
@@ -443,10 +443,10 @@ require('indent_blankline').setup {
 
 -- GIT SIGNS --
 require('gitsigns').setup {
-    on_attach = function(bufnr)
+    on_attach = function()
         local gs = package.loaded.gitsigns
         -- Navigation
-        map('n', '<leader>nh',
+        map('n', '<leader>hn',
             function()
                 if vim.wo.diff then return ']c' end
                 vim.schedule(function() gs.next_hunk() end)
@@ -455,7 +455,7 @@ require('gitsigns').setup {
             { expr = true }
         )
 
-        map('n', '<leader>ph',
+        map('n', '<leader>hp',
             function()
                 if vim.wo.diff then return '[c' end
                 vim.schedule(function() gs.prev_hunk() end)
@@ -470,7 +470,7 @@ require('gitsigns').setup {
         map('n', '<leader>hS', gs.stage_buffer)
         map('n', '<leader>hu', gs.undo_stage_hunk)
         map('n', '<leader>hR', gs.reset_buffer)
-        map('n', '<leader>hp', gs.preview_hunk)
+        map('n', '<leader>hpv', gs.preview_hunk)
         map('n', '<leader>hb', function() gs.blame_line { full = true } end)
         map('n', '<leader>tb', gs.toggle_current_line_blame)
         map('n', '<leader>hd', gs.diffthis)
