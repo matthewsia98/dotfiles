@@ -10,7 +10,7 @@ local rep = require('luasnip.extras').rep
 local fmt = require('luasnip.extras.fmt').fmt
 
 return {
-    s('now',
+    s('timenow',
         f(function()
             return os.date('%H:%M:%S')
         end
@@ -19,6 +19,12 @@ return {
     s('today',
         f(function()
             return os.date('%A %B %d, %Y')
+        end
+        )
+    ),
+    s('datetimenow',
+        f(function()
+            return os.date('%A %B %d, %Y\t%H:%M:%S')
         end
         )
     ),

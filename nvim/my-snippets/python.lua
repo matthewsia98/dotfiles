@@ -14,7 +14,7 @@ local fmt = require('luasnip.extras.fmt').fmt
 
 
 return {
-    s('clsinit',
+    s('classinit',
         fmt([[
             class {}{}:
                 """
@@ -44,14 +44,14 @@ return {
                         if idx == 1 then
                             curr = 'self.' .. split .. ' = ' .. split
                         else
-                            curr = '\tself.' .. split .. ' = ' .. split
+                            curr = '\t\tself.' .. split .. ' = ' .. split
                         end
                         table.insert(texts, curr)
                     end
                     return sn(nil,
                         t(texts)
                     )
-                end, {4}),
+                end, { 4 }),
             }
         )
     ),
@@ -78,7 +78,7 @@ return {
                     return sn(nil,
                         t(texts)
                     )
-                end, {1}),
+                end, { 1 }),
             }
         )
     ),
@@ -142,7 +142,7 @@ return {
                 }),
             }
         )),
-    s('pt_dataset',
+    s('torch_dataset',
         fmt([[
             class {}({}):
                 def __init__(self, {}):
@@ -175,17 +175,17 @@ return {
                     return sn(nil,
                         t(texts)
                     )
-                end, {3}),
+                end, { 3 }),
                 i(5),
                 i(6),
                 i(7),
             }
         )
     ),
-    s('pt_train',
+    s('torch_train',
         fmt([[
-            for epoch in range({}):
-                for batch_num, (batch_Xs, batch_ys) in enumerate({}):
+            for {} in range({}):
+                for {}, {} in enumerate({}):
                     {}.zero_grad()
 
                     {}
@@ -195,8 +195,21 @@ return {
                     {}.step()
             ]],
             {
-                i(1, 'N'),
-                d(2, function()
+                i(1, 'epoch'),
+                i(2, 'N'),
+                i(3, 'batch_num'),
+                c(4, {
+                    sn(nil, {
+                        t('('),
+                        i(1, 'batch_Xs'),
+                        t(', '),
+                        i(2, 'batch_ys'),
+                        t(')'),
+                    }),
+                    i(1, 'batch'),
+                    t(''),
+                }),
+                d(5, function()
                     local imported_tqdm = false
                     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
                     for _, line in ipairs(lines) do
@@ -217,18 +230,18 @@ return {
                         })
                     end
                 end),
-                i(3, 'optimizer'),
-                i(4),
-                i(5, 'loss'),
-                i(6,'loss_function'),
-                i(7, 'outputs'),
-                i(8, 'batch_ys'),
+                i(6, 'optimizer'),
+                i(7),
+                i(8, 'loss'),
+                i(9, 'loss_function'),
+                i(10, 'outputs'),
+                i(11, 'batch_ys'),
                 f(function(args)
                     return args[1][1]
-                end, {5}),
+                end, { 8 }),
                 f(function(args)
                     return args[1][1]
-                end, {3}),
+                end, { 6 }),
             }
         )
     ),

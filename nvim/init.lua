@@ -1004,7 +1004,7 @@ end
 
 
 -- AUTOPAIRS --
--- require('nvim-autopairs').setup()
+require('nvim-autopairs').setup()
 
 
 -- KEY BINDINGS --
