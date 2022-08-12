@@ -203,19 +203,9 @@ vim.cmd [[colorscheme catppuccin]]
 
 
 -- BUFFERLINE --
--- These commands will navigate through buffers in order regardless of which mode you are using
--- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
-map('n', '<leader>bl', ':BufferLineCycleNext<CR>', {silent = true})
-map('n', '<leader>bh', ':BufferLineCyclePrev<CR>', {silent = true})
-
--- These commands will move the current buffer backwards or forwards in the bufferline
-map('n', '<leader>bml', ':BufferLineMoveNext<CR>', {silent=true})
-map('n', '<leader>bmh', ':BufferLineMovePrev<CR>', {silent=true})
-
-map('n', '<leader>bc', ':bdelete<CR>')
 require('bufferline').setup {
     options = {
-        mode = 'buffers',
+        mode = 'buffers', --'buffers', 'tabs'
         numbers = 'both',
         close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
         right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
@@ -246,6 +236,7 @@ require('bufferline').setup {
         -- can also be a table containing 2 custom separators
         -- [focused and unfocused]. eg: { '|', '|' }
         separator_style =  'thin',
+        enforce_regular_tabs = false,
         always_show_bufferline = true,
     }
 }
@@ -1089,10 +1080,33 @@ map('n', '<leader>wh', '<C-w>h')
 map('n', '<leader>wl', '<C-w>l')
 map('n', '<leader>wj', '<C-w>j')
 map('n', '<leader>wk', '<C-w>k')
+-- Move windows
+map('n', '<leader>wmh', '<C-w>H')
+map('n', '<leader>wml', '<C-w>L')
+map('n', '<leader>wmj', '<C-w>J')
+map('n', '<leader>wmk', '<C-w>K')
+-- Window Resize
 map('n', '<leader>whk', '<C-w>10>')
 map('n', '<leader>whj', '<C-w>10<')
 map('n', '<leader>wvk', '<C-w>2+')
 map('n', '<leader>wvj', '<C-w>2-')
+-- Buffers
+-- These commands will navigate through buffers in order regardless of which mode you are using
+-- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
+map('n', '<leader>bl', ':BufferLineCycleNext<CR>', {silent = true})
+map('n', '<leader>bh', ':BufferLineCyclePrev<CR>', {silent = true})
+
+-- These commands will move the current buffer backwards or forwards in the bufferline
+map('n', '<leader>bml', ':BufferLineMoveNext<CR>', {silent=true})
+map('n', '<leader>bmh', ':BufferLineMovePrev<CR>', {silent=true})
+map('n', '<leader>b', ':ls<CR>:buffer<Space>')
+map('n', '<leader>bc', ':bdelete<CR>')
+
+-- Tabs
+-- map('n', '<leader>t', ':tabnew<CR>')
+map('n', '<leader>tl', ':tabnext<CR>')
+map('n', '<leader>th', ':tabprev<CR>')
+map('n', '<leader>tc', ':tabclose<CR>')
 
 -- Toggle type of quote / bracket
 A.nvim_set_keymap('n', "'\"", "cs'\"", {})
