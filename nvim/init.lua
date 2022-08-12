@@ -115,6 +115,7 @@ local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 
 -- Status Line
+Plug 'akinsho/bufferline.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 
 -- Icons
@@ -199,6 +200,54 @@ require('catppuccin').setup {
 vim.cmd [[colorscheme catppuccin]]
 
 
+-- BUFFERLINE --
+-- These commands will navigate through buffers in order regardless of which mode you are using
+-- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
+map('n', '<leader>bl', ':BufferLineCycleNext<CR>', {silent = true})
+map('n', '<leader>bh', ':BufferLineCyclePrev<CR>', {silent = true})
+
+-- These commands will move the current buffer backwards or forwards in the bufferline
+map('n', '<leader>bml', ':BufferLineMoveNext<CR>', {silent=true})
+map('n', '<leader>bmh', ':BufferLineMovePrev<CR>', {silent=true})
+
+map('n', '<leader>bc', ':bdelete<CR>')
+require('bufferline').setup {
+    options = {
+        mode = 'buffers',
+        numbers = 'both',
+        close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
+        right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
+        left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
+        middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
+        indicator_icon = '▎',
+        buffer_close_icon = '',
+        modified_icon = '●',
+        close_icon = '',
+        left_trunc_marker = '',
+        right_trunc_marker = '',
+        max_name_length = 18,
+        max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+        tab_size = 18,
+        diagnostics = 'nvim_lsp',
+        diagnostics_update_in_insert = true,
+    -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
+        diagnostics_indicator = function(count, level, diagnostics_dict, context)
+            return '('..count..')'
+        end,
+        color_icons = true, -- whether or not to add the filetype icon highlights
+        show_buffer_icons = true, -- disable filetype icons for buffers
+        show_buffer_close_icons = true,
+        show_buffer_default_icon = true, -- whether or not an unrecognised filetype should show a default icon
+        show_close_icon = true,
+        show_tab_indicators = true,
+        persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+        -- can also be a table containing 2 custom separators
+        -- [focused and unfocused]. eg: { '|', '|' }
+        separator_style =  'thin',
+        always_show_bufferline = true,
+    }
+}
+
 -- LUALINE --
 require('lualine').setup {
     options = {
@@ -214,7 +263,7 @@ require('lualine').setup {
         lualine_b = { 'diagnostics' }, --'branch', --'diagnostics'
         lualine_c = { 'filename' },
         lualine_x = { 'encoding', 'fileformat', 'filetype' },
-        lualine_y = {}, --'branch', 'diff'}
+        lualine_y = {}, -- 'buffers', 'branch', 'diff'
         lualine_z = { 'progress', 'location' }
     }
 }
@@ -622,7 +671,7 @@ local on_attach = function(client, bufnr)
     map('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
     map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
     map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    map('n', '<leader>wl', function()
+    map('n', '<leader>wlst', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end,
         bufopts
