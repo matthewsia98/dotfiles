@@ -336,7 +336,7 @@ layouts = [
     layout.MonadTall(single_border_width=0,
                      single_margin=0,
                      margin=20,
-                     border_width=4,
+                     border_width=2,
                      border_normal=COLORS['inactive_border_color'][0],
                      border_focus=COLORS['active_border_color'][0],
                      ),
@@ -680,7 +680,7 @@ floating_layout = layout.Floating(
     ],
     border_normal=COLORS['inactive_border_color'][0],
     border_focus=COLORS['active_border_color'][0],
-    border_width=4
+    border_width=2
 )
 
 
