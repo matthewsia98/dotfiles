@@ -238,7 +238,7 @@ require('bufferline').setup {
         show_buffer_icons = true, -- disable filetype icons for buffers
         show_buffer_close_icons = true,
         show_buffer_default_icon = true, -- whether or not an unrecognised filetype should show a default icon
-        show_close_icon = true,
+        show_close_icon = false,
         show_tab_indicators = true,
         persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
         -- can also be a table containing 2 custom separators
@@ -259,11 +259,11 @@ require('lualine').setup {
     },
     -- a b c                x y z
     sections = {
-        lualine_a = { 'mode' },
-        lualine_b = { 'diagnostics' }, --'branch', --'diagnostics'
-        lualine_c = { 'filename' },
-        lualine_x = { 'encoding', 'fileformat', 'filetype' },
-        lualine_y = {}, -- 'buffers', 'branch', 'diff'
+        lualine_a = { 'mode', },
+        lualine_b = { 'branch'}, --'diagnostics'
+        lualine_c = { 'diagnostics' }, -- filename
+        lualine_x = {}, --'filetype' , 'filesize'
+        lualine_y = { 'encoding', 'fileformat', }, -- 'buffers', 'diff'
         lualine_z = { 'progress', 'location' }
     }
 }
@@ -1084,16 +1084,23 @@ map('n', '<leader>wh', '<C-w>h')
 map('n', '<leader>wl', '<C-w>l')
 map('n', '<leader>wj', '<C-w>j')
 map('n', '<leader>wk', '<C-w>k')
+map('n', '<leader>hk', '<C-w>10>')
+map('n', '<leader>hj', '<C-w>10<')
+map('n', '<leader>vk', '<C-w>2+')
+map('n', '<leader>vj', '<C-w>2-')
 
 -- Toggle type of quote / bracket
 A.nvim_set_keymap('n', "'\"", "cs'\"", {})
 A.nvim_set_keymap("n", "\"'", "cs\"'", {})
 A.nvim_set_keymap('n', ')}', 'cs)}', {})
 A.nvim_set_keymap('n', ')]', 'cs)]', {})
+A.nvim_set_keymap('n', ')(', 'cs)(', {})
 A.nvim_set_keymap('n', '})', 'cs})', {})
 A.nvim_set_keymap('n', '}]', 'cs}]', {})
+A.nvim_set_keymap('n', '}]', 'cs}{', {})
 A.nvim_set_keymap('n', '])', 'cs])', {})
 A.nvim_set_keymap('n', ']}', 'cs]}', {})
+A.nvim_set_keymap('n', ']}', 'cs][', {})
 
 -- Folds
 map('n', '<leader>fd', 'za')
