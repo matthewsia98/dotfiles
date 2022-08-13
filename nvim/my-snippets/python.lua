@@ -1,5 +1,6 @@
 local ls = require('luasnip')
 local e = require('luasnip.extras')
+local fmt = require('luasnip.extras.fmt').fmt
 local s = ls.s
 local i = ls.insert_node
 local t = ls.text_node
@@ -10,7 +11,6 @@ local l = e.lambda
 local dl = e.dynamic_lambda
 local sn = ls.sn
 local rep = e.rep
-local fmt = require('luasnip.extras.fmt').fmt
 
 
 return {
@@ -245,11 +245,11 @@ return {
             {
                 i(1, 'MyModel'),
                 c(2, {
-                    t(''),
                     sn(nil, {
                         t(', '),
                         i(1, 'args'),
                     }),
+                    t(''),
                 }),
                 c(3, {
                     dl(nil, l._1 .. ', self', 1),
@@ -276,7 +276,14 @@ return {
                         t(texts),
                     })
                 end, { 2 }),
-                i(5, '\t\t# Layers'),
+                d(5, function()
+                    return sn(nil, {
+                        t('\t\t'),
+                        i(1, '# Layers')
+                    })
+                    end
+                ),
+                -- i(5, '\t\t# Layers'),
                 i(6, 'x'),
                 d(7, function(args)
                     local x = args[2][1]
