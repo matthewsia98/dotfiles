@@ -25,7 +25,7 @@ o.updatetime = 200
 o.mouse = 'a'
 
 -- Number of screen lines to keep above and below the cursor
-o.scrolloff = 8
+o.scrolloff = 12
 
 -- Better editor UI
 o.number = true
@@ -72,6 +72,7 @@ o.history = 50
 o.splitright = true
 o.splitbelow = true
 
+-- Only 1 global statusline
 o.laststatus = 3
 
 -- Preserve view while jumping
@@ -81,6 +82,7 @@ o.laststatus = 3
 -- When running macros and regexes on a large file, lazy redraw tells neovim/vim not to draw the screen
 -- o.lazyredraw = true
 
+-- Code Folding
 o.foldmethod = 'expr'
 o.foldexpr = 'nvim_treesitter#foldexpr()'
 -- Don't fold by default
@@ -344,14 +346,14 @@ require('trouble').setup {
     auto_close = false, -- automatically close the list when you have no diagnostics
     auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
     auto_fold = false, -- automatically fold a file trouble list at creation
-    auto_jump = { "lsp_definitions" }, -- for the given modes, automatically jump if there is only a single result
+    auto_jump = { 'lsp_definitions' }, -- for the given modes, automatically jump if there is only a single result
     signs = {
         -- icons / text used for a diagnostic
-        error = "",
-        warning = "",
-        hint = "",
-        information = "",
-        other = "﫠"
+        error = '',
+        warning = '',
+        hint = '',
+        information = '',
+ --[[   ]]      other = '﫠'
     },
     use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
 }
@@ -372,7 +374,7 @@ require('telescope').setup {
                 -- map actions.which_key to <C-h> (default: <C-/>)
                 -- actions.which_key shows the mappings for your picker,
                 -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-                ["<C-h>"] = "which_key",
+                ['<C-h>'] = 'which_key',
                 ['<C-t>'] = trouble.open_with_trouble,
             },
             n = {
@@ -402,6 +404,9 @@ require('telescope').setup {
 -- TREESITTER --
 require('nvim-treesitter.configs').setup {
     auto_install = true,
+    endwise = {
+        enable = true,
+    },
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
@@ -439,7 +444,7 @@ require('gitsigns').setup {
     on_attach = function()
         local gs = package.loaded.gitsigns
         -- Navigation
-        map('n', '<leader>hn',
+        map('n', '<leader>hj',
             function()
                 if vim.wo.diff then return ']c' end
                 vim.schedule(function() gs.next_hunk() end)
@@ -448,7 +453,7 @@ require('gitsigns').setup {
             { expr = true }
         )
 
-        map('n', '<leader>hp',
+        map('n', '<leader>hk',
             function()
                 if vim.wo.diff then return '[c' end
                 vim.schedule(function() gs.prev_hunk() end)
@@ -463,7 +468,7 @@ require('gitsigns').setup {
         map('n', '<leader>hS', gs.stage_buffer)
         map('n', '<leader>hu', gs.undo_stage_hunk)
         map('n', '<leader>hR', gs.reset_buffer)
-        map('n', '<leader>hpv', gs.preview_hunk)
+        map('n', '<leader>hp', gs.preview_hunk)
         map('n', '<leader>hb', function() gs.blame_line { full = true } end)
         map('n', '<leader>tb', gs.toggle_current_line_blame)
         map('n', '<leader>hd', gs.diffthis)
@@ -690,8 +695,8 @@ local lsp_flags = {
 local handlers = {
     ["textDocument/publishDiagnostics"] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {
-        update_in_insert = true,
-        virtual_text = true,
+        update_in_insert = false,
+        virtual_text = false,
         signs = false,
     }
     ),
@@ -797,12 +802,13 @@ require('lspconfig')['jdtls'].setup {
 -- LUASNIP --
 local luasnip = require('luasnip')
 local types = require('luasnip.util.types')
-map({'i', 's'}, '<C-k>', function ()
+map({'i', 's'}, '<C-u>', '<cmd>lua require("luasnip.extras.select_choice")()<CR>')
+map({'i', 's'}, '<C-l>', function ()
     if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
     end
 end, {silent = true, noremap = true})
-map({'i', 's'}, '<C-j>', function ()
+map({'i', 's'}, '<C-h>', function ()
     if luasnip.jumpable(-1) then
         luasnip.jump(-1)
     end
@@ -1046,10 +1052,13 @@ end
 
 
 -- AUTOPAIRS --
-require('nvim-autopairs').setup()
-
-
-vim.cmd [[highlight WinSeparator guibg=NONE guifg=#B7BDF8]]
+local npairs = require('nvim-autopairs')
+npairs.setup(
+    {
+        check_ts = true,
+        enable_check_bracket_line = true
+    }
+)
 
 
 -- KEY BINDINGS --
@@ -1073,6 +1082,7 @@ map('n', '<C-j>', ':move .+1<CR>')
 map('n', '<C-k>', ':move .-2<CR>')
 
 -- Window Splits
+vim.cmd [[highlight WinSeparator guibg=NONE guifg=#B7BDF8]]
 map('n', '<leader>wv', '<C-w>v')
 map('n', '<leader>ws', '<C-w>s')
 map('n', '<leader>wc', '<C-w>c')
