@@ -50,7 +50,6 @@ def autostart():
 
     with open(os.path.expanduser('~/.qtile-powerline-enabled'), 'r') as f:
         POWERLINE_ENABLED = (int(f.read()) == 1)
-        logger.warning(f'POWERLINE_ENABLED: {POWERLINE_ENABLED}')
 
     picom_toggle = qtile.widgets_map.get('picom_toggle')
     if picom_toggle is not None:
@@ -87,7 +86,7 @@ def separator(length=None, padding=None, background=None, foreground=None, name=
                       )
 
 
-def powerline(direction, background=None, foreground=None, name=None):
+def powerline(direction, background=None, foreground=None, name=None, mouse_callbacks=None):
     background = background if background is not None else COLORS['background'][0]
     foreground = foreground if foreground is not None else COLORS['foreground'][0]
 
@@ -96,6 +95,7 @@ def powerline(direction, background=None, foreground=None, name=None):
                           padding=0,
                           background=background,
                           foreground=foreground,
+                          mouse_callbacks=mouse_callbacks,
                           name=name
                           )
 
@@ -524,7 +524,6 @@ screens = [
                                          foreground=COLORS['foreground'][POWERLINE_ENABLED],
                                          padding=10,
                                          update_interval=0.2,
-                                         mouse_callbacks={'Button1': toggle_program('clight-gui')},
                                          name='backlight'
                                          ),
                         widget.Volume(get_volume_command=os.path.expanduser('~/.shell-scripts/qtile/get-volume.sh'),
