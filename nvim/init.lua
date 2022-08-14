@@ -95,6 +95,15 @@ g.mapleader = ' '
 g.maplocalleader = ' '
 
 -- AUTOCMD --
+-- Format before save
+-- A.nvim_create_autocmd('BufWritePre',
+-- 	{
+-- 		callback = function()
+-- 			vim.lsp.buf.formatting_sync()
+-- 		end
+-- 	}
+-- )
+
 -- Prevent newline from starting as comment
 A.nvim_create_autocmd('BufEnter',
     {
@@ -152,7 +161,7 @@ Plug 'rhysd/git-messenger.vim'
 -- Directory Tree
 Plug 'kyazdani42/nvim-tree.lua'
 
--- Required by Telescope
+-- Run lua jobs
 Plug 'nvim-lua/plenary.nvim'
 
 -- Fuzzy Finder
@@ -209,10 +218,10 @@ require('bufferline').setup {
     options = {
         mode = 'buffers', --'buffers', 'tabs'
         numbers = 'both',
-        close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
-        right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-        left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
-        middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
+        close_command = 'bdelete! %d', -- can be a string | function, see "Mouse actions"
+        right_mouse_command = 'bdelete! %d', -- can be a string | function, see "Mouse actions"
+        left_mouse_command = 'buffer %d', -- can be a string | function, see "Mouse actions"
+        middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
         indicator_icon = '▎',
         buffer_close_icon = '',
         modified_icon = '●',
@@ -224,9 +233,9 @@ require('bufferline').setup {
         tab_size = 18,
         diagnostics = 'nvim_lsp',
         diagnostics_update_in_insert = true,
-    -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
+        -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
         diagnostics_indicator = function(count)
-            return '('..count..')'
+            return '(' .. count .. ')'
         end,
         color_icons = true, -- whether or not to add the filetype icon highlights
         show_buffer_icons = true, -- disable filetype icons for buffers
@@ -237,7 +246,7 @@ require('bufferline').setup {
         persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
         -- can also be a table containing 2 custom separators
         -- [focused and unfocused]. eg: { '|', '|' }
-        separator_style =  'thin',
+        separator_style = 'thin',
         enforce_regular_tabs = false,
         always_show_bufferline = true,
     }
@@ -255,7 +264,7 @@ require('lualine').setup {
     -- a b c                x y z
     sections = {
         lualine_a = { 'mode', },
-        lualine_b = { 'branch'}, --'diagnostics'
+        lualine_b = { 'branch' }, --'diagnostics'
         lualine_c = { 'diagnostics' }, -- filename
         lualine_x = {}, --'filetype' , 'filesize'
         lualine_y = { 'encoding', 'fileformat', }, -- 'buffers', 'diff'
@@ -267,12 +276,12 @@ require('lualine').setup {
 -- NVIMTREE --
 map('n', '<leader>nt', ':NvimTreeToggle<CR>')
 require('nvim-tree').setup {
-    sort_by = "case_sensitive",
+    sort_by = 'case_sensitive',
     view = {
         adaptive_size = false,
         mappings = {
             list = {
-                { key = "u", action = "dir_up" },
+                { key = 'u', action = 'dir_up' },
             },
         },
     },
@@ -286,60 +295,60 @@ require('nvim-tree').setup {
 
 
 -- TROUBLE --
-map("n", "<leader>wd", "<cmd>TroubleToggle workspace_diagnostics<cr>",
+map('n', '<leader>wd', '<cmd>TroubleToggle workspace_diagnostics<cr>',
     { silent = true, noremap = true }
 )
-map("n", "<leader>dd", "<cmd>TroubleToggle document_diagnostics<cr>",
+map('n', '<leader>dd', '<cmd>TroubleToggle document_diagnostics<cr>',
     { silent = true, noremap = true }
 )
-map("n", "<leader>ll", "<cmd>TroubleToggle loclist<cr>",
+map('n', '<leader>ll', '<cmd>TroubleToggle loclist<cr>',
     { silent = true, noremap = true }
 )
-map("n", "<leader>qf", "<cmd>TroubleToggle quickfix<cr>",
+map('n', '<leader>qf', '<cmd>TroubleToggle quickfix<cr>',
     { silent = true, noremap = true }
 )
-map("n", "<leader>gr", "<cmd>TroubleToggle lsp_references<cr>",
+map('n', '<leader>gr', '<cmd>TroubleToggle lsp_references<cr>',
     { silent = true, noremap = true }
 )
-map("n", "<leader>gt", "<cmd>TroubleToggle lsp_type_definitions<cr>",
+map('n', '<leader>gt', '<cmd>TroubleToggle lsp_type_definitions<cr>',
     { silent = true, noremap = true }
 )
-map("n", "<leader>gi", "<cmd>TroubleToggle lsp_implementations<cr>",
+map('n', '<leader>gi', '<cmd>TroubleToggle lsp_implementations<cr>',
     { silent = true, noremap = true }
 )
--- map("n", "<leader>gd", "<cmd>TroubleToggle lsp_definitions<cr>",
+-- map('n', '<leader>gd', '<cmd>TroubleToggle lsp_definitions<cr>',
 --     { silent = true, noremap = true }
 -- )
 require('trouble').setup {
-    position = "bottom", -- position of the list can be: bottom, top, left, right
+    position = 'bottom', -- position of the list can be: bottom, top, left, right
     height = 10, -- height of the trouble list when position is top or bottom
     width = 50, -- width of the list when position is left or right
     icons = true, -- use devicons for filenames
     mode = { 'workspace_diagnostics', 'document_diagnostics', 'quickfix', 'lsp_references', 'loclist' },
-    fold_open = "", -- icon used for open folds
-    fold_closed = "", -- icon used for closed folds
+    fold_open = '', -- icon used for open folds
+    fold_closed = '', -- icon used for closed folds
     group = true, -- group results by file
     padding = true, -- add an extra new line on top of the list
     action_keys = { -- key mappings for actions in the trouble list
         -- map to {} to remove a mapping, for example:
         -- close = {},
-        close = "q", -- close the list
-        cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
-        refresh = "r", -- manually refresh
-        jump = { "<cr>", "<tab>" }, -- jump to the diagnostic or open / close folds
-        open_split = { "<c-x>" }, -- open buffer in new split
-        open_vsplit = { "<c-v>" }, -- open buffer in new vsplit
-        open_tab = { "<c-t>" }, -- open buffer in new tab
-        jump_close = { "o" }, -- jump to the diagnostic and close the list
-        toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
-        toggle_preview = "P", -- toggle auto_preview
-        hover = "K", -- opens a small popup with the full multiline message
-        preview = "p", -- preview the diagnostic location
-        close_folds = { "zM", "zm" }, -- close all folds
-        open_folds = { "zR", "zr" }, -- open all folds
-        toggle_fold = { "zA", "za" }, -- toggle fold of current file
-        previous = "k", -- preview item
-        next = "j" -- next item
+        close = 'q', -- close the list
+        cancel = '<esc>', -- cancel the preview and get back to your last window / buffer / cursor
+        refresh = 'r', -- manually refresh
+        jump = { '<cr>', '<tab>' }, -- jump to the diagnostic or open / close folds
+        open_split = { '<c-x>' }, -- open buffer in new split
+        open_vsplit = { '<c-v>' }, -- open buffer in new vsplit
+        open_tab = { '<c-t>' }, -- open buffer in new tab
+        jump_close = { 'o' }, -- jump to the diagnostic and close the list
+        toggle_mode = 'm', -- toggle between "workspace" and "document" diagnostics mode
+        toggle_preview = 'P', -- toggle auto_preview
+        hover = 'K', -- opens a small popup with the full multiline message
+        preview = 'p', -- preview the diagnostic location
+        close_folds = { 'zM', 'zm' }, -- close all folds
+        open_folds = { 'zR', 'zr' }, -- open all folds
+        toggle_fold = { 'zA', 'za' }, -- toggle fold of current file
+        previous = 'k', -- preview item
+        next = 'j' -- next item
     },
     indent_lines = true, -- add an indent guide below the fold icons
     auto_open = false, -- automatically open the list when you have diagnostics
@@ -353,7 +362,7 @@ require('trouble').setup {
         warning = '',
         hint = '',
         information = '',
- --[[   ]]      other = '﫠'
+        --[[   ]] other = '﫠'
     },
     use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
 }
@@ -369,6 +378,12 @@ require('telescope').setup {
     defaults = {
         -- Default configuration for telescope goes here:
         -- config_key = value,
+        layout_config = {
+            horizontal = {
+                preview_width = 0.7,
+                preview_cutoff = 0,
+            },
+        },
         mappings = {
             i = {
                 -- map actions.which_key to <C-h> (default: <C-/>)
@@ -444,7 +459,7 @@ require('gitsigns').setup {
     on_attach = function()
         local gs = package.loaded.gitsigns
         -- Navigation
-        map('n', '<leader>hj',
+        map('n', '<leader>hn',
             function()
                 if vim.wo.diff then return ']c' end
                 vim.schedule(function() gs.next_hunk() end)
@@ -453,7 +468,7 @@ require('gitsigns').setup {
             { expr = true }
         )
 
-        map('n', '<leader>hk',
+        map('n', '<leader>hp',
             function()
                 if vim.wo.diff then return '[c' end
                 vim.schedule(function() gs.prev_hunk() end)
@@ -584,29 +599,29 @@ require('mason').setup(
     {
         ui = {
             icons = {
-                package_installed = "✓",
-                package_pending = "➜",
-                package_uninstalled = "✗"
+                package_installed = '✓',
+                package_pending = '➜',
+                package_uninstalled = '✗'
             },
             keymaps = {
                 -- Keymap to expand a package
-                toggle_package_expand = "<CR>",
+                toggle_package_expand = '<CR>',
                 -- Keymap to install the package under the current cursor position
-                install_package = "i",
+                install_package = 'i',
                 -- Keymap to reinstall/update the package under the current cursor position
-                update_package = "u",
+                update_package = 'u',
                 -- Keymap to check for new version for the package under the current cursor position
-                check_package_version = "c",
+                check_package_version = 'c',
                 -- Keymap to update all installed packages
-                update_all_packages = "U",
+                update_all_packages = 'U',
                 -- Keymap to check which installed packages are outdated
-                check_outdated_packages = "C",
+                check_outdated_packages = 'C',
                 -- Keymap to uninstall a package
-                uninstall_package = "X",
+                uninstall_package = 'X',
                 -- Keymap to cancel a package installation
-                cancel_installation = "<C-c>",
+                cancel_installation = '<C-c>',
                 -- Keymap to apply language filter
-                apply_language_filter = "<C-f>",
+                apply_language_filter = '<C-f>',
             },
         }
     }
@@ -630,27 +645,27 @@ require('mason').setup(
 
 -- LSP CONFIG --
 vim.fn.sign_define(
-    "DiagnosticSignError",
-    { texthl = "DiagnosticSignError", text = "❌", numhl = "DiagnosticSignError" }
+    'DiagnosticSignError',
+    { texthl = 'DiagnosticSignError', text = '❌', numhl = 'DiagnosticSignError' }
 )
 vim.fn.sign_define(
-    "DiagnosticSignWarn",
-    { texthl = "DiagnosticSignWarn", text = "", numhl = "DiagnosticSignWarn" }
+    'DiagnosticSignWarn',
+    { texthl = 'DiagnosticSignWarn', text = '', numhl = 'DiagnosticSignWarn' }
 )
 vim.fn.sign_define(
-    "DiagnosticSignHint",
-    { texthl = "DiagnosticSignHint", text = "", numhl = "DiagnosticSignHint" }
+    'DiagnosticSignHint',
+    { texthl = 'DiagnosticSignHint', text = '', numhl = 'DiagnosticSignHint' }
 )
 vim.fn.sign_define(
-    "DiagnosticSignInfo",
-    { texthl = "DiagnosticSignInfo", text = "🛈", numhl = "DiagnosticSignInfo" }
+    'DiagnosticSignInfo',
+    { texthl = 'DiagnosticSignInfo', text = '🛈', numhl = 'DiagnosticSignInfo' }
 )
 -- Mappings
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local lsp_opts = { noremap = true, silent = true }
 map('n', '<leader>d', vim.diagnostic.open_float, lsp_opts)
-map('n', '<leader>pd', vim.diagnostic.goto_prev, lsp_opts)
-map('n', '<leader>nd', vim.diagnostic.goto_next, lsp_opts)
+map('n', '<leader>dp', vim.diagnostic.goto_prev, lsp_opts)
+map('n', '<leader>dn', vim.diagnostic.goto_next, lsp_opts)
 map('n', '<leader>q', vim.diagnostic.setloclist, lsp_opts)
 
 -- Use an on_attach function to only map the following keys
@@ -664,27 +679,26 @@ local on_attach = function(client, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     map('n', 'gD', vim.lsp.buf.declaration, bufopts)
     map('n', 'gd', vim.lsp.buf.definition, bufopts)
+    map('n', 'gt', vim.lsp.buf.type_definition, bufopts)
     map('n', 'H', vim.lsp.buf.hover, bufopts)
     map('n', 'gi', vim.lsp.buf.implementation, bufopts)
     map('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
     map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
     map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    map('n', '<leader>wlst', function()
+    map('n', '<leader>wls', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end,
         bufopts
     )
-    map('n', 'gt', vim.lsp.buf.type_definition, bufopts)
     map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
     map('n', 'gr', vim.lsp.buf.references, bufopts)
-    map('n', '<leader>fmt', vim.lsp.buf.formatting, bufopts)
     -- Set some key bindings conditional on server capabilities
-    -- if client.resolved_capabilities.document_formatting then
-    --     map("n", "<leader>f", vim.lsp.buf.formatting_sync, bufopts)
-    -- end
+    if client.resolved_capabilities.document_formatting then
+        map('n', '<leader>fm', vim.lsp.buf.formatting, bufopts)
+    end
     if client.resolved_capabilities.document_range_formatting then
-        map('x', '<leader>fmt', vim.lsp.buf.range_formatting, bufopts)
+        map('x', '<leader>fm', vim.lsp.buf.range_formatting, bufopts)
     end
 end
 
@@ -693,7 +707,7 @@ local lsp_flags = {
 }
 
 local handlers = {
-    ["textDocument/publishDiagnostics"] = vim.lsp.with(
+    ['textDocument/publishDiagnostics'] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {
         update_in_insert = false,
         virtual_text = false,
@@ -779,7 +793,7 @@ require('lspconfig')['sumneko_lua'].setup {
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
+                library = vim.api.nvim_get_runtime_file('', true),
             },
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {
@@ -802,19 +816,19 @@ require('lspconfig')['jdtls'].setup {
 -- LUASNIP --
 local luasnip = require('luasnip')
 local types = require('luasnip.util.types')
-map({'i', 's'}, '<C-u>', '<cmd>lua require("luasnip.extras.select_choice")()<CR>')
-map({'i', 's'}, '<C-l>', function ()
+map({ 'i', 's' }, '<C-u>', '<cmd>lua require("luasnip.extras.select_choice")()<CR>')
+map({ 'i', 's' }, '<C-l>', function()
     if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
     end
-end, {silent = true, noremap = true})
-map({'i', 's'}, '<C-h>', function ()
+end, { silent = true, noremap = true })
+map({ 'i', 's' }, '<C-h>', function()
     if luasnip.jumpable(-1) then
         luasnip.jump(-1)
     end
-end, {silent = true, noremap = true})
-map({'i', 's'}, '<C-n>', '<Plug>luasnip-next-choice', {})
-map({'i', 's'}, '<C-p>', '<Plug>luasnip-prev-choice', {})
+end, { silent = true, noremap = true })
+map({ 'i', 's' }, '<C-n>', '<Plug>luasnip-next-choice', {})
+map({ 'i', 's' }, '<C-p>', '<Plug>luasnip-prev-choice', {})
 
 -- Deleting insert node default puts you back in Normal mode
 -- <C-G> changes to VISUAL, s clears and enters INSERT
@@ -826,7 +840,7 @@ luasnip.config.set_config {
     ext_opts = {
         [types.choiceNode] = {
             active = {
-                virt_text = { { ' <- Current Choice', 'NonTest' } },
+                virt_text = { { ' <- Current Choice', 'CmpItemKindFunction' } },
             },
         },
     }
@@ -881,7 +895,7 @@ vim.cmd [[highlight CmpItemKindTypeParameter guibg=#58B5A8 guifg=#D8EEEB]]
 
 local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 end
 local cmp = require('cmp')
 local lspkind = require('lspkind')
@@ -966,7 +980,7 @@ if cmp ~= nil then
             },
             mapping = cmp.mapping.preset.insert(
                 {
-                    ["<Tab>"] = cmp.mapping(function(fallback)
+                    ['<Tab>'] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item()
                         elseif luasnip.expand_or_jumpable() then
@@ -976,8 +990,8 @@ if cmp ~= nil then
                         else
                             fallback()
                         end
-                    end, { "i", "s" }),
-                    ["<S-Tab>"] = cmp.mapping(function(fallback)
+                    end, { 'i', 's' }),
+                    ['<S-Tab>'] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item()
                         elseif luasnip.jumpable(-1) then
@@ -985,14 +999,14 @@ if cmp ~= nil then
                         else
                             fallback()
                         end
-                    end, { "i", "s" }),
+                    end, { 'i', 's' }),
                     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
                     ['<C-Space>'] = cmp.mapping.complete(),
                     ['<C-e>'] = cmp.mapping.abort(),
                     ['<CR>'] = cmp.mapping.confirm(
                         {
-                            behavior = cmp.ConfirmBehavior.Insert,
+                            -- behavior = cmp.ConfirmBehavior.Insert,
                             select = false
                         }
                     ), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
@@ -1012,42 +1026,41 @@ if cmp ~= nil then
     )
 
     -- Set configuration for specific filetype.
-    cmp.setup.filetype('gitcommit',
-        {
-            sources = cmp.config.sources(
-                {
-                    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-                },
-                {
-                    { name = 'buffer' },
-                }
-            )
-        }
-    )
+    -- cmp.setup.filetype('gitcommit',
+    -- 	{
+    -- 		sources = cmp.config.sources(
+    -- 			{
+    -- 				{ name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    -- 			},
+    -- 			{
+    -- 				{ name = 'buffer' },
+    -- 			}
+    -- 		)
+    -- 	}
+    -- )
 
     -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-    cmp.setup.cmdline('/', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-            { name = 'buffer' }
-        }
-    }
-    )
+    -- cmp.setup.cmdline('/', {
+    -- 	mapping = cmp.mapping.preset.cmdline(),
+    -- 	sources = {
+    -- 		{ name = 'buffer' }
+    -- 	}
+    -- })
 
     -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-    cmp.setup.cmdline(':',
-        {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources(
-                {
-                    { name = 'path' }
-                },
-                {
-                    { name = 'cmdline' }
-                }
-            )
-        }
-    )
+    -- cmp.setup.cmdline(':',
+    -- 	{
+    -- 		mapping = cmp.mapping.preset.cmdline(),
+    -- 		sources = cmp.config.sources(
+    -- 			{
+    -- 				{ name = 'path' }
+    -- 			},
+    -- 			{
+    -- 				{ name = 'cmdline' }
+    -- 			}
+    -- 		)
+    -- 	}
+    -- )
 end
 
 
@@ -1103,12 +1116,12 @@ map('n', '<leader>wvj', '<C-w>2-')
 -- Buffers
 -- These commands will navigate through buffers in order regardless of which mode you are using
 -- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
-map('n', '<leader>bl', ':BufferLineCycleNext<CR>', {silent = true})
-map('n', '<leader>bh', ':BufferLineCyclePrev<CR>', {silent = true})
+map('n', '<leader>bl', ':BufferLineCycleNext<CR>', { silent = true })
+map('n', '<leader>bh', ':BufferLineCyclePrev<CR>', { silent = true })
 
 -- These commands will move the current buffer backwards or forwards in the bufferline
-map('n', '<leader>bml', ':BufferLineMoveNext<CR>', {silent=true})
-map('n', '<leader>bmh', ':BufferLineMovePrev<CR>', {silent=true})
+map('n', '<leader>bml', ':BufferLineMoveNext<CR>', { silent = true })
+map('n', '<leader>bmh', ':BufferLineMovePrev<CR>', { silent = true })
 map('n', '<leader>b', ':ls<CR>:buffer<Space>')
 map('n', '<leader>bc', ':bdelete<CR>')
 
