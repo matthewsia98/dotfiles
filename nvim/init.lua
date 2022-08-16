@@ -739,6 +739,7 @@ local on_attach = function(client, bufnr)
     )
     map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+    map('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
     map('n', 'gr', vim.lsp.buf.references, bufopts)
     -- Set some key bindings conditional on server capabilities
     if client.resolved_capabilities.document_formatting then
