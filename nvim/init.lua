@@ -31,7 +31,7 @@ o.scrolloff = 12
 o.number = true
 o.numberwidth = 6
 o.relativenumber = true
-o.signcolumn = 'yes:1'
+o.signcolumn = 'yes:2'
 o.cursorline = true
 
 -- Better editing experience
@@ -166,6 +166,7 @@ Plug 'nvim-lua/plenary.nvim'
 
 -- Fuzzy Finder
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-ui-select.nvim'
 
 -- Abstract Syntax Tree
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = vim.fn[':TSUpdate'] })
@@ -274,7 +275,7 @@ require('lualine').setup {
 
 
 -- NVIMTREE --
-map('n', '<leader>nt', ':NvimTreeToggle<CR>')
+map('n', '<leader>nt', '<cmd>NvimTreeToggle<CR>')
 require('nvim-tree').setup {
     sort_by = 'case_sensitive',
     view = {
@@ -364,24 +365,36 @@ require('trouble').setup {
         information = '',
         --[[   ]] other = '﫠'
     },
-    use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
+    use_diagnostic_signs = true -- enabling this will use the signs defined in your lsp client
 }
 
 
 -- TELESCOPE--
-map('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
-map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
-map('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
-map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
-local trouble = require('trouble.providers.telescope')
-require('telescope').setup {
+map('n', '<leader>ff', '<cmd>Telescope find_files<CR>')
+map('n', '<C-f>', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
+map('n', '<leader>fgc', '<cmd>Telescope git_commits<CR>')
+map('n', '<leader>fg', '<cmd>Telescope live_grep<CR>')
+map('n', '<leader>fb', '<cmd>Telescope buffers<CR>')
+map('n', '<leader>fr', '<cmd>Telescope lsp_references<CR>')
+map('n', '<leader>fds', '<cmd>Telescope lsp_document_symbols<CR>')
+map('n', '<leader>fdd', '<cmd>Telescope diagnostics<CR>')
+map('n', '<leader>fts', '<cmd>Telescope treesitter<CR>')
+map('n', '<leader>fcmd', '<cmd>Telescope commands<CR>')
+map('n', '<leader>fh', '<cmd>Telescope help_tags<CR>')
+local telescope = require('telescope')
+local trouble_telescope = require('trouble.providers.telescope')
+telescope.setup {
     defaults = {
         -- Default configuration for telescope goes here:
         -- config_key = value,
+        sorting_strategy = 'ascending',
+        layout_strategy = 'horizontal',
         layout_config = {
             horizontal = {
-                preview_width = 0.7,
+                width = 0.99,
+                preview_width = 0.5,
                 preview_cutoff = 0,
+                prompt_position = 'top',
             },
         },
         mappings = {
@@ -390,10 +403,10 @@ require('telescope').setup {
                 -- actions.which_key shows the mappings for your picker,
                 -- e.g. git_{create, delete, ...}_branch for the git_branches picker
                 ['<C-h>'] = 'which_key',
-                ['<C-t>'] = trouble.open_with_trouble,
+                ['<C-t>'] = trouble_telescope.open_with_trouble,
             },
             n = {
-                ['<C-t>'] = trouble.open_with_trouble,
+                ['<C-t>'] = trouble_telescope.open_with_trouble,
             }
         }
     },
@@ -405,6 +418,33 @@ require('telescope').setup {
         -- }
         -- Now the picker_config_key will be applied every time you call this
         -- builtin picker
+        find_files = {
+            layout_config = {
+                preview_width = 0.7,
+            },
+        },
+        git_commits = {
+            layout_config = {
+                preview_width = 0.5,
+            },
+        },
+        treesitter = {
+            layout_config = {
+                preview_width = 0.5,
+            },
+        },
+        current_buffer_fuzzy_find = {
+            -- sorting_strategy = 'ascending',
+            layout_config = {
+                preview_width = 0.4,
+            }
+        },
+        lsp_references = {
+            -- sorting_strategy = 'ascending',
+            layout_config = {
+                preview_width = 0.5,
+            }
+        },
     },
     extensions = {
         -- Your extension configuration goes here:
@@ -412,8 +452,14 @@ require('telescope').setup {
         --   extension_config_key = value,
         -- }
         -- please take a look at the readme of the extension you want to configure
+        ['ui-select'] = {
+            require('telescope.themes').get_dropdown {
+                -- even more opts
+            }
+        }
     }
 }
+telescope.load_extension('ui-select')
 
 
 -- TREESITTER --
@@ -427,7 +473,7 @@ require('nvim-treesitter.configs').setup {
         additional_vim_regex_highlighting = false,
     },
     indent = {
-        enable = true,
+        -- enable = true,
         disable = { 'python' },
     },
     incremental_selection = {
@@ -451,6 +497,7 @@ require('indent_blankline').setup {
     use_treesitter = false,
     show_current_context = true,
     show_current_context_start = true,
+    show_trailing_blankline_indent = false,
 }
 
 
@@ -478,8 +525,8 @@ require('gitsigns').setup {
         )
 
         -- Actions
-        map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-        map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+        map({ 'n', 'v' }, '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>')
+        map({ 'n', 'v' }, '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>')
         map('n', '<leader>hS', gs.stage_buffer)
         map('n', '<leader>hu', gs.undo_stage_hunk)
         map('n', '<leader>hR', gs.reset_buffer)
@@ -491,7 +538,7 @@ require('gitsigns').setup {
         map('n', '<leader>td', gs.toggle_deleted)
 
         -- Text object
-        map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        map({ 'o', 'x' }, 'ih', '<cmd><C-U>Gitsigns select_hunk<CR>')
     end,
     signs = {
         add = {
@@ -563,7 +610,7 @@ require('gitsigns').setup {
 -- GIT MESSENGER --
 vim.g.git_messenger_no_default_mappings = true
 vim.g.git_messenger_always_into_popup = false
-map('n', '<leader>gm', ':GitMessenger<CR>')
+map('n', '<leader>gm', '<cmd>GitMessenger<CR>')
 
 
 -- COMMENT PLUGIN --
@@ -646,11 +693,11 @@ require('mason').setup(
 -- LSP CONFIG --
 vim.fn.sign_define(
     'DiagnosticSignError',
-    { texthl = 'DiagnosticSignError', text = '❌', numhl = 'DiagnosticSignError' }
+    { texthl = 'DiagnosticSignError', text = '', numhl = 'DiagnosticSignError' }
 )
 vim.fn.sign_define(
     'DiagnosticSignWarn',
-    { texthl = 'DiagnosticSignWarn', text = '', numhl = 'DiagnosticSignWarn' }
+    { texthl = 'DiagnosticSignWarn', text = '', numhl = 'DiagnosticSignWarn' }
 )
 vim.fn.sign_define(
     'DiagnosticSignHint',
@@ -658,7 +705,7 @@ vim.fn.sign_define(
 )
 vim.fn.sign_define(
     'DiagnosticSignInfo',
-    { texthl = 'DiagnosticSignInfo', text = '🛈', numhl = 'DiagnosticSignInfo' }
+    { texthl = 'DiagnosticSignInfo', text = '', numhl = 'DiagnosticSignInfo' }
 )
 -- Mappings
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -706,13 +753,48 @@ local lsp_flags = {
     debounce_text_changes = 150,
 }
 
+-- Create a custom namespace. This will aggregate signs from all other
+-- namespaces and only show the one with the highest severity on a
+-- given line
+local ns = vim.api.nvim_create_namespace("my_namespace")
+
+-- Get a reference to the original signs handler
+local orig_signs_handler = vim.diagnostic.handlers.signs
+
+-- Override the built-in signs handler
+vim.diagnostic.handlers.signs = {
+  show = function(_, bufnr, _, opts)
+    -- Get all diagnostics from the whole buffer rather than just the
+    -- diagnostics passed to the handler
+    local diagnostics = vim.diagnostic.get(bufnr)
+
+    -- Find the "worst" diagnostic per line
+    local max_severity_per_line = {}
+    for _, d in pairs(diagnostics) do
+      local m = max_severity_per_line[d.lnum]
+      if not m or d.severity < m.severity then
+        max_severity_per_line[d.lnum] = d
+      end
+    end
+
+    -- Pass the filtered diagnostics (with our custom namespace) to
+    -- the original handler
+    local filtered_diagnostics = vim.tbl_values(max_severity_per_line)
+    orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
+  end,
+  hide = function(_, bufnr)
+    orig_signs_handler.hide(ns, bufnr)
+  end,
+}
+
 local handlers = {
     ['textDocument/publishDiagnostics'] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {
-        update_in_insert = false,
-        virtual_text = false,
-        signs = false,
-    }
+            update_in_insert = false,
+            virtual_text = true,
+            signs = true,
+            severity_sort = true,
+        }
     ),
 }
 
@@ -1091,14 +1173,14 @@ map('n', '<CR>', 'o<Esc>')
 map('n', '<S-CR>', 'O<Esc>')
 
 -- Move Lines
-map('n', '<C-j>', ':move .+1<CR>')
-map('n', '<C-k>', ':move .-2<CR>')
+map('n', '<C-j>', '<cmd>move .+1<CR>')
+map('n', '<C-k>', '<cmd>move .-2<CR>')
 
 -- Window Splits
 vim.cmd [[highlight WinSeparator guibg=NONE guifg=#B7BDF8]]
 map('n', '<leader>wv', '<C-w>v')
 map('n', '<leader>ws', '<C-w>s')
-map('n', '<leader>wc', '<C-w>c')
+map('n', '<leader>wq', '<C-w>c')
 map('n', '<leader>wh', '<C-w>h')
 map('n', '<leader>wl', '<C-w>l')
 map('n', '<leader>wj', '<C-w>j')
@@ -1116,20 +1198,20 @@ map('n', '<leader>wvj', '<C-w>2-')
 -- Buffers
 -- These commands will navigate through buffers in order regardless of which mode you are using
 -- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
-map('n', '<leader>bl', ':BufferLineCycleNext<CR>', { silent = true })
-map('n', '<leader>bh', ':BufferLineCyclePrev<CR>', { silent = true })
+map('n', '<leader>bl', '<cmd>BufferLineCycleNext<CR>', { silent = true })
+map('n', '<leader>bh', '<cmd>BufferLineCyclePrev<CR>', { silent = true })
 
 -- These commands will move the current buffer backwards or forwards in the bufferline
-map('n', '<leader>bml', ':BufferLineMoveNext<CR>', { silent = true })
-map('n', '<leader>bmh', ':BufferLineMovePrev<CR>', { silent = true })
-map('n', '<leader>b', ':ls<CR>:buffer<Space>')
-map('n', '<leader>bc', ':bdelete<CR>')
+map('n', '<leader>bml', '<cmd>BufferLineMoveNext<CR>', { silent = true })
+map('n', '<leader>bmh', '<cmd>BufferLineMovePrev<CR>', { silent = true })
+map('n', '<leader>b', '<cmd>ls<CR><cmd>buffer<Space>')
+map('n', '<leader>bc', '<cmd>bdelete<CR>')
 
 -- Tabs
--- map('n', '<leader>t', ':tabnew<CR>')
-map('n', '<leader>tl', ':tabnext<CR>')
-map('n', '<leader>th', ':tabprev<CR>')
-map('n', '<leader>tc', ':tabclose<CR>')
+-- map('n', '<leader>t', '<cmd>tabnew<CR>')
+map('n', '<leader>tl', '<cmd>tabnext<CR>')
+map('n', '<leader>th', '<cmd>tabprev<CR>')
+map('n', '<leader>tc', '<cmd>tabclose<CR>')
 
 -- Toggle type of quote / bracket
 A.nvim_set_keymap('n', "'\"", "cs'\"", {})
@@ -1146,3 +1228,6 @@ A.nvim_set_keymap('n', '][', 'cs][', {})
 
 -- Folds
 map('n', '<leader>fd', 'za')
+
+-- Reload Config
+map('n', '<F4>', '<cmd>source ~/.config/nvim/init.lua<CR>')
