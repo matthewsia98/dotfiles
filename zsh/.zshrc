@@ -39,7 +39,8 @@ alias logout='loginctl terminate-user $USER'
 alias suspend='systemctl suspend'
 
 # Programs
-alias vim='nvim -u ~/.config/nvim/init.lua'
+# alias vim='nvim -u ~/.config/nvim/init.lua'
+alias vim='nvim'
 alias emacs="emacsclient -c -a 'emacs'"
 
 # Git
