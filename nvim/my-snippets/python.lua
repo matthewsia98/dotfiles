@@ -14,6 +14,91 @@ local rep = e.rep
 
 
 return {
+    s('def', fmt([[
+        def {}({}){}:
+            {}
+        ]],
+        {
+            i(1, 'FunctionName'),
+            i(2, 'args'),
+            c(3, {
+                sn(nil, {
+                    t(' -> '),
+                    i(1, 'ReturnType'),
+                }),
+                t('')
+            }),
+            c(4, {
+                d(nil, function(args)
+                    local splits = vim.split(args[1][1], ', ')
+                    local inserted_args_header = false
+                    local inserted_kwargs_header = false
+                    local texts = {}
+                    table.insert(texts, '"""')
+                    for _, split in ipairs(splits) do
+                        if #split > 0 then
+                            local is_kwarg = split:match('=')
+                            if not inserted_kwargs_header and is_kwarg then
+                                if inserted_args_header then
+                                    table.insert(texts, '')
+                                end
+                                table.insert(texts, '\tKwargs:')
+                                inserted_kwargs_header = true
+                            elseif not inserted_args_header and not is_kwarg then
+                                table.insert(texts, '\tArgs:')
+                                inserted_args_header = true
+                            end
+
+                            local matches = split:gmatch([[([%w_'"]+)]])
+                            local idx = 1
+                            local name = ''
+                            local type = ''
+                            local default = ''
+                            for match in matches do
+                                if idx == 1 then
+                                    -- variable name
+                                    name = match
+                                elseif idx == 2 then
+                                    -- variable type
+                                    type = match
+                                elseif idx == 3 then
+                                    -- variable default
+                                    default = match
+                                end
+                                idx = idx + 1
+                            end
+
+                            if #default > 0 then
+                                table.insert(texts, '\t\t' .. name .. ' (' .. type .. '):')
+                                table.insert(texts, '\t\t\t' .. 'Default value = ' .. default)
+                            elseif #type > 0 then
+                                table.insert(texts, '\t\t' .. name .. ' (' .. type .. '):')
+                            else
+                                table.insert(texts, '\t\t' .. name .. ':')
+                            end
+
+                        end
+                    end
+
+                    if #args[2][1] > 0 then
+                        -- Return type specified
+                        table.insert(texts, '')
+                        table.insert(texts, '\tReturns:')
+                        table.insert(texts, '\t\t' .. args[2][1]:match('(%w+)'))
+                    end
+                    table.insert(texts, '\t"""')
+
+                    return sn(nil,
+                        {
+                            i(1),
+                            t(texts),
+                        }
+                    )
+                end, { 2, 3 }),
+                t(''),
+            })
+        })
+    ),
     s('classinit', fmt([[
 		class {}{}:
 			"""
