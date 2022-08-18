@@ -1,5 +1,5 @@
 local function map(mode, key, value, options)
-    options = options or { silent = true }
+    options = options or { silent = true, noremap = true }
     vim.keymap.set(mode, key, value, options)
 end
 
@@ -18,7 +18,7 @@ o.termguicolors = true
 -- o.hidden = true
 
 -- Decrease update time
-o.timeoutlen = 1000
+o.timeoutlen = 500
 o.updatetime = 200
 
 -- Enable mouse
@@ -148,6 +148,7 @@ Plug 'windwp/nvim-autopairs'
 -- Status Lines
 Plug 'akinsho/bufferline.nvim'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-lua/lsp-status.nvim'
 
 -- Indent Lines
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -253,6 +254,25 @@ require('bufferline').setup {
     }
 }
 
+-- LSPSTATUS --
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
+lsp_status.config({
+    current_function = true,
+    show_filename = true,
+    diagnostics = false,
+    status_symbol = '',
+    component_separator = ' ',
+    indicator_separator = ' ',
+    indicator_errors = '',
+    indicator_warnings = '',
+    indicator_info = '',
+    indicator_hint = '',
+    indicator_ok = '',
+    kind_labels = {}
+})
+
+
 -- LUALINE --
 require('lualine').setup {
     options = {
@@ -260,13 +280,34 @@ require('lualine').setup {
         icons_enabled = true,
         -- powerline    
         section_separators = { left = '', right = '' },
-        component_separators = { left = '', right = '' }
+        -- component_separators = { left = '', right = '' }
+        component_separators = { left = '', right = '' }
     },
     -- a b c                x y z
     sections = {
         lualine_a = { 'mode', },
         lualine_b = { 'branch' }, --'diagnostics'
-        lualine_c = { 'diagnostics' }, -- filename
+        lualine_c = {
+            { 'diagnostics',
+                sources = { 'nvim_lsp' },
+
+                -- Displays diagnostics for the defined severity types
+                sections = { 'error', 'warn', 'info', 'hint' },
+
+                diagnostics_color = {
+                    -- Same values as the general color option can be used here.
+                    error = 'DiagnosticError', -- Changes diagnostics' error color.
+                    warn  = 'DiagnosticWarn', -- Changes diagnostics' warn color.
+                    info  = 'DiagnosticInfo', -- Changes diagnostics' info color.
+                    hint  = 'DiagnosticHint', -- Changes diagnostics' hint color.
+                },
+                -- symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'},
+                colored = true, -- Displays diagnostics status in color if set to true.
+                update_in_insert = false, -- Update diagnostics in insert mode.
+                always_visible = false, -- Show diagnostics even if there are none.
+            },
+            'require("lsp-status").status()'
+        }, -- 'diagnostics', 'filename'
         lualine_x = {}, --'filetype' , 'filesize'
         lualine_y = { 'encoding', 'fileformat', }, -- 'buffers', 'diff'
         lualine_z = { 'progress', 'location' }
@@ -718,6 +759,8 @@ map('n', '<leader>q', vim.diagnostic.setloclist, lsp_opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+    lsp_status.on_attach(client)
+    -- lsp_status.register_client(client)
     -- Enable completion triggered by <c-x><c-o>
     -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -764,44 +807,45 @@ local orig_signs_handler = vim.diagnostic.handlers.signs
 
 -- Override the built-in signs handler
 vim.diagnostic.handlers.signs = {
-  show = function(_, bufnr, _, opts)
-    -- Get all diagnostics from the whole buffer rather than just the
-    -- diagnostics passed to the handler
-    local diagnostics = vim.diagnostic.get(bufnr)
+    show = function(_, bufnr, _, opts)
+        -- Get all diagnostics from the whole buffer rather than just the
+        -- diagnostics passed to the handler
+        local diagnostics = vim.diagnostic.get(bufnr)
 
-    -- Find the "worst" diagnostic per line
-    local max_severity_per_line = {}
-    for _, d in pairs(diagnostics) do
-      local m = max_severity_per_line[d.lnum]
-      if not m or d.severity < m.severity then
-        max_severity_per_line[d.lnum] = d
-      end
-    end
+        -- Find the "worst" diagnostic per line
+        local max_severity_per_line = {}
+        for _, d in pairs(diagnostics) do
+            local m = max_severity_per_line[d.lnum]
+            if not m or d.severity < m.severity then
+                max_severity_per_line[d.lnum] = d
+            end
+        end
 
-    -- Pass the filtered diagnostics (with our custom namespace) to
-    -- the original handler
-    local filtered_diagnostics = vim.tbl_values(max_severity_per_line)
-    orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
-  end,
-  hide = function(_, bufnr)
-    orig_signs_handler.hide(ns, bufnr)
-  end,
+        -- Pass the filtered diagnostics (with our custom namespace) to
+        -- the original handler
+        local filtered_diagnostics = vim.tbl_values(max_severity_per_line)
+        orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
+    end,
+    hide = function(_, bufnr)
+        orig_signs_handler.hide(ns, bufnr)
+    end,
 }
 
 local handlers = {
     ['textDocument/publishDiagnostics'] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {
-            update_in_insert = false,
-            virtual_text = true,
-            signs = true,
-            severity_sort = true,
-        }
-    ),
+        update_in_insert = false,
+        virtual_text = true,
+        signs = true,
+        severity_sort = true,
+    }),
 }
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(
     vim.lsp.protocol.make_client_capabilities()
 )
+-- Set default client capabilities plus window/workDoneProgress
+capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilities)
 
 
 -- PYTHON LSP --
@@ -1165,9 +1209,11 @@ map('n', '<C-E>', 'A<Esc>')
 map('i', '<C-A>', '<Esc>I')
 map('n', '<C-A>', 'I<Esc>')
 
--- Line Actions
-map('i', '<C-BS>', '<Esc>ddA')
-map('i', '<C-CR>', '<Esc>jA')
+-- Insert mode movements
+map('i', '<C-k>', '<Esc>ka')
+map('i', '<C-j>', '<Esc>ja')
+map('i', '<C-h>', '<Esc>i')
+map('i', '<C-l>', '<Esc>la')
 
 -- Insert blank lines
 map('n', '<CR>', 'o<Esc>')
@@ -1179,40 +1225,40 @@ map('n', '<C-k>', '<cmd>move .-2<CR>')
 
 -- Window Splits
 vim.cmd [[highlight WinSeparator guibg=NONE guifg=#B7BDF8]]
-map('n', '<leader>wv', '<C-w>v')
-map('n', '<leader>ws', '<C-w>s')
-map('n', '<leader>wq', '<C-w>c')
-map('n', '<leader>wh', '<C-w>h')
-map('n', '<leader>wl', '<C-w>l')
-map('n', '<leader>wj', '<C-w>j')
-map('n', '<leader>wk', '<C-w>k')
--- Move windows
-map('n', '<leader>wmh', '<C-w>H')
-map('n', '<leader>wml', '<C-w>L')
-map('n', '<leader>wmj', '<C-w>J')
-map('n', '<leader>wmk', '<C-w>K')
+-- map('n', '<leader>wv', '<C-w>v')
+-- map('n', '<leader>ws', '<C-w>s')
+-- map('n', '<leader>wq', '<C-w>c')
+-- map('n', '<leader>wh', '<C-w>h')
+-- map('n', '<leader>wl', '<C-w>l')
+-- map('n', '<leader>wj', '<C-w>j')
+-- map('n', '<leader>wk', '<C-w>k')
+-- -- Move windows
+-- map('n', '<leader>wmh', '<C-w>H')
+-- map('n', '<leader>wml', '<C-w>L')
+-- map('n', '<leader>wmj', '<C-w>J')
+-- map('n', '<leader>wmk', '<C-w>K')
 -- Window Resize
-map('n', '<leader>whk', '<C-w>10>')
-map('n', '<leader>whj', '<C-w>10<')
-map('n', '<leader>wvk', '<C-w>2+')
-map('n', '<leader>wvj', '<C-w>2-')
+map('n', '<Right>', '<C-w>10>')
+map('n', '<Left>', '<C-w>10<')
+map('n', '<Up>', '<C-w>1+')
+map('n', '<Down>', '<C-w>1-')
 -- Buffers
 -- These commands will navigate through buffers in order regardless of which mode you are using
 -- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
-map('n', '<leader>bl', '<cmd>BufferLineCycleNext<CR>', { silent = true })
-map('n', '<leader>bh', '<cmd>BufferLineCyclePrev<CR>', { silent = true })
+map('n', '<C-b>l', '<cmd>BufferLineCycleNext<CR>')
+map('n', '<C-b>h', '<cmd>BufferLineCyclePrev<CR>')
 
 -- These commands will move the current buffer backwards or forwards in the bufferline
-map('n', '<leader>bml', '<cmd>BufferLineMoveNext<CR>', { silent = true })
-map('n', '<leader>bmh', '<cmd>BufferLineMovePrev<CR>', { silent = true })
-map('n', '<leader>b', '<cmd>ls<CR><cmd>buffer<Space>')
-map('n', '<leader>bc', '<cmd>bdelete<CR>')
+map('n', '<C-b>L', '<cmd>BufferLineMoveNext<CR>')
+map('n', '<C-b>H', '<cmd>BufferLineMovePrev<CR>')
+map('n', '<C-b>b', '<cmd>ls<CR><cmd>buffer<Space>')
+map('n', '<C-b>c', '<cmd>bdelete<CR>')
 
 -- Tabs
--- map('n', '<leader>t', '<cmd>tabnew<CR>')
-map('n', '<leader>tl', '<cmd>tabnext<CR>')
-map('n', '<leader>th', '<cmd>tabprev<CR>')
-map('n', '<leader>tc', '<cmd>tabclose<CR>')
+map('n', '<C-t>v', '<cmd>tabnew<CR>')
+map('n', '<C-t>l', '<cmd>tabnext<CR>')
+map('n', '<C-t>h', '<cmd>tabprev<CR>')
+map('n', '<C-t>c', '<cmd>tabclose<CR>')
 
 -- Toggle type of quote / bracket
 A.nvim_set_keymap('n', "'\"", "cs'\"", {})
@@ -1231,4 +1277,4 @@ A.nvim_set_keymap('n', '][', 'cs][', {})
 map('n', '<leader>fd', 'za')
 
 -- Reload Config
-map('n', '<F4>', '<cmd>source ~/.config/nvim/init.lua<CR>')
+map('n', '<F4>', '<cmd>source %<CR>')
