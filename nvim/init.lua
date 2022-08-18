@@ -932,8 +932,8 @@ local luasnip = require('luasnip')
 local types = require('luasnip.util.types')
 map({ 'i', 's' }, '<C-u>', '<cmd>lua require("luasnip.extras.select_choice")()<CR>')
 map({ 'i', 's' }, '<C-l>', function()
-    if luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
+    if luasnip.jumpable(1) then
+        luasnip.jump(1)
     end
 end, { silent = true, noremap = true })
 map({ 'i', 's' }, '<C-h>', function()
@@ -960,7 +960,7 @@ luasnip.config.set_config {
         },
     }
 }
-require('luasnip.loaders.from_vscode').lazy_load()
+-- require('luasnip.loaders.from_vscode').lazy_load()
 require('luasnip.loaders.from_lua').lazy_load(
     {
         paths = '~/.config/nvim/my-snippets'

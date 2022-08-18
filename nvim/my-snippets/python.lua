@@ -21,7 +21,13 @@ return {
             {}
         ]],
         {
-            i(1, 'function_name'),
+            c(1, {
+                sn(nil, {
+                    i(1, 'function_name')
+                }),
+                t('')
+            }),
+            -- i(1, 'function_name'),
             i(2, 'args'),
             c(3, {
                 sn(nil, {
