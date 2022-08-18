@@ -733,13 +733,7 @@ vim.fn.sign_define(
     'DiagnosticSignInfo',
     { texthl = 'DiagnosticSignInfo', text = '', numhl = 'DiagnosticSignInfo' }
 )
--- Mappings
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local lsp_opts = { noremap = true, silent = true }
-map('n', '<leader>d', vim.diagnostic.open_float, lsp_opts)
-map('n', '<leader>dp', vim.diagnostic.goto_prev, lsp_opts)
-map('n', '<leader>dn', vim.diagnostic.goto_next, lsp_opts)
-map('n', '<leader>q', vim.diagnostic.setloclist, lsp_opts)
+
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -753,12 +747,19 @@ local on_attach = function(client, bufnr)
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    -- Mappings
+    -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+    map('n', '<leader>d', vim.diagnostic.open_float, bufopts)
+    map('n', '<leader>dp', vim.diagnostic.goto_prev, bufopts)
+    map('n', '<leader>dn', vim.diagnostic.goto_next, bufopts)
+    map('n', '<leader>dll', vim.diagnostic.setloclist, bufopts)
+    map('n', '<leader>dqf', vim.diagnostic.setqflist, bufopts)
     map('n', 'gD', vim.lsp.buf.declaration, bufopts)
     map('n', 'gd', vim.lsp.buf.definition, bufopts)
     map('n', 'gt', vim.lsp.buf.type_definition, bufopts)
     map('n', 'gi', vim.lsp.buf.implementation, bufopts)
     map('n', 'K', vim.lsp.buf.hover, bufopts)
-    map('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
+    -- map('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
     map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
     map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
     map('n', '<leader>wls', function()
