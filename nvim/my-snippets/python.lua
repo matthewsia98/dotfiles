@@ -17,14 +17,16 @@ return {
     s('def', fmt([[
         def {}({}){}:
             {}
+            {}
+            {}
         ]],
         {
-            i(1, 'FunctionName'),
+            i(1, 'function_name'),
             i(2, 'args'),
             c(3, {
                 sn(nil, {
                     t(' -> '),
-                    i(1, 'ReturnType'),
+                    i(1, 'None'),
                 }),
                 t('')
             }),
@@ -84,18 +86,26 @@ return {
                         -- Return type specified
                         table.insert(texts, '')
                         table.insert(texts, '\tReturns:')
-                        table.insert(texts, '\t\t' .. args[2][1]:match('(%w+)'))
+                        table.insert(texts, '\t\t' .. args[2][1]:gsub('%s%->%s', ''):match('([%s%w%[%],]+)'))
                     end
                     table.insert(texts, '\t"""')
 
                     return sn(nil,
                         {
-                            i(1),
                             t(texts),
+                            i(1),
                         }
                     )
                 end, { 2, 3 }),
                 t(''),
+            }),
+            i(5, '# Function Body'),
+            c(6, {
+                sn(nil, {
+                    t('return '),
+                    i(1, 'None')
+                }),
+                t('')
             })
         })
     ),
@@ -375,7 +385,7 @@ return {
                 local x = args[2][1]
                 local indented = false
                 local texts = {}
-                for idx, line in ipairs(args[1]) do
+                for _, line in ipairs(args[1]) do
                     local match = line:match('(self[%s%w_%.]*)=?')
                     if match ~= nil then
                         match = string.gsub(match, '%s', '')
@@ -395,11 +405,6 @@ return {
                 })
             end, { 6, 7 }),
             rep(7)
-            -- d(8, function(args)
-            --     return sn(nil, {
-            --         i(1, args[1][1])
-            --     })
-            -- end, {6})
         })
     ),
     s('torch_train', fmt([[

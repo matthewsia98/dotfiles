@@ -954,7 +954,8 @@ luasnip.config.set_config {
     ext_opts = {
         [types.choiceNode] = {
             active = {
-                virt_text = { { ' <- Current Choice', 'CmpItemKindFunction' } },
+                -- virt_text = { { ' <- Current Choice', 'CmpItemKindFunction' } },
+                virt_text = { { ' ﬋ Current Choice ', 'CmpItemKindFunction' } },
             },
         },
     }
@@ -1197,10 +1198,10 @@ map('i', '<C-A>', '<Esc>I')
 map('n', '<C-A>', 'I<Esc>')
 
 -- Insert mode movements
-map('i', '<C-k>', '<Esc>ka')
-map('i', '<C-j>', '<Esc>ja')
-map('i', '<C-h>', '<Esc>i')
-map('i', '<C-l>', '<Esc>la')
+-- map('i', '<C-k>', '<Esc>ka')
+-- map('i', '<C-j>', '<Esc>ja')
+-- map('i', '<C-h>', '<Esc>i')
+-- map('i', '<C-l>', '<Esc>la')
 
 -- Insert blank lines
 map('n', '<CR>', 'o<Esc>')
