@@ -31,7 +31,7 @@ o.scrolloff = 12
 o.number = true
 o.numberwidth = 6
 o.relativenumber = true
-o.signcolumn = 'yes:2'
+o.signcolumn = 'yes:1'
 o.cursorline = true
 
 -- Better editing experience
@@ -256,7 +256,6 @@ require('bufferline').setup {
 
 -- LSPSTATUS --
 local lsp_status = require('lsp-status')
-lsp_status.register_progress()
 lsp_status.config({
     current_function = true,
     show_filename = true,
@@ -337,27 +336,13 @@ require('nvim-tree').setup {
 
 
 -- TROUBLE --
-map('n', '<leader>wd', '<cmd>TroubleToggle workspace_diagnostics<cr>',
-    { silent = true, noremap = true }
-)
-map('n', '<leader>dd', '<cmd>TroubleToggle document_diagnostics<cr>',
-    { silent = true, noremap = true }
-)
-map('n', '<leader>ll', '<cmd>TroubleToggle loclist<cr>',
-    { silent = true, noremap = true }
-)
-map('n', '<leader>qf', '<cmd>TroubleToggle quickfix<cr>',
-    { silent = true, noremap = true }
-)
-map('n', '<leader>gr', '<cmd>TroubleToggle lsp_references<cr>',
-    { silent = true, noremap = true }
-)
-map('n', '<leader>gt', '<cmd>TroubleToggle lsp_type_definitions<cr>',
-    { silent = true, noremap = true }
-)
-map('n', '<leader>gi', '<cmd>TroubleToggle lsp_implementations<cr>',
-    { silent = true, noremap = true }
-)
+map('n', '<leader>wd', '<cmd>TroubleToggle workspace_diagnostics<cr>')
+map('n', '<leader>dd', '<cmd>TroubleToggle document_diagnostics<cr>')
+map('n', '<leader>ll', '<cmd>TroubleToggle loclist<cr>')
+map('n', '<leader>qf', '<cmd>TroubleToggle quickfix<cr>')
+map('n', 'gr', '<cmd>TroubleToggle lsp_references<cr>')
+-- map('n', '<leader>gt', '<cmd>TroubleToggle lsp_type_definitions<cr>')
+-- map('n', '<leader>gi', '<cmd>TroubleToggle lsp_implementations<cr>')
 -- map('n', '<leader>gd', '<cmd>TroubleToggle lsp_definitions<cr>',
 --     { silent = true, noremap = true }
 -- )
@@ -413,15 +398,15 @@ require('trouble').setup {
 -- TELESCOPE--
 map('n', '<leader>ff', '<cmd>Telescope find_files<CR>')
 map('n', '<C-f>', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
-map('n', '<leader>fgc', '<cmd>Telescope git_commits<CR>')
-map('n', '<leader>fg', '<cmd>Telescope live_grep<CR>')
+map('n', '<leader>fg', '<cmd>Telescope git_commits<CR>')
+map('n', '<leader>frg', '<cmd>Telescope live_grep<CR>')
 map('n', '<leader>fb', '<cmd>Telescope buffers<CR>')
 map('n', '<leader>fr', '<cmd>Telescope lsp_references<CR>')
-map('n', '<leader>fds', '<cmd>Telescope lsp_document_symbols<CR>')
 map('n', '<leader>fdd', '<cmd>Telescope diagnostics<CR>')
-map('n', '<leader>fts', '<cmd>Telescope treesitter<CR>')
-map('n', '<leader>fcmd', '<cmd>Telescope commands<CR>')
-map('n', '<leader>fh', '<cmd>Telescope help_tags<CR>')
+-- map('n', '<leader>fds', '<cmd>Telescope lsp_document_symbols<CR>')
+-- map('n', '<leader>fts', '<cmd>Telescope treesitter<CR>')
+-- map('n', '<leader>fcm', '<cmd>Telescope commands<CR>')
+-- map('n', '<leader>fh', '<cmd>Telescope help_tags<CR>')
 local telescope = require('telescope')
 local trouble_telescope = require('trouble.providers.telescope')
 telescope.setup {
@@ -760,6 +745,7 @@ map('n', '<leader>q', vim.diagnostic.setloclist, lsp_opts)
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
     lsp_status.on_attach(client)
+    lsp_status.register_progress()
     -- lsp_status.register_client(client)
     -- Enable completion triggered by <c-x><c-o>
     -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -770,8 +756,8 @@ local on_attach = function(client, bufnr)
     map('n', 'gD', vim.lsp.buf.declaration, bufopts)
     map('n', 'gd', vim.lsp.buf.definition, bufopts)
     map('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-    map('n', 'H', vim.lsp.buf.hover, bufopts)
     map('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    map('n', 'K', vim.lsp.buf.hover, bufopts)
     map('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
     map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
     map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -783,7 +769,7 @@ local on_attach = function(client, bufnr)
     map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
     map('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
-    map('n', 'gr', vim.lsp.buf.references, bufopts)
+    -- map('n', 'gr', vim.lsp.buf.references, bufopts)
     -- Set some key bindings conditional on server capabilities
     if client.resolved_capabilities.document_formatting then
         map('n', '<leader>fm', vim.lsp.buf.formatting, bufopts)
@@ -797,46 +783,46 @@ local lsp_flags = {
     debounce_text_changes = 150,
 }
 
--- Create a custom namespace. This will aggregate signs from all other
--- namespaces and only show the one with the highest severity on a
--- given line
-local ns = vim.api.nvim_create_namespace("my_namespace")
-
--- Get a reference to the original signs handler
-local orig_signs_handler = vim.diagnostic.handlers.signs
-
--- Override the built-in signs handler
-vim.diagnostic.handlers.signs = {
-    show = function(_, bufnr, _, opts)
-        -- Get all diagnostics from the whole buffer rather than just the
-        -- diagnostics passed to the handler
-        local diagnostics = vim.diagnostic.get(bufnr)
-
-        -- Find the "worst" diagnostic per line
-        local max_severity_per_line = {}
-        for _, d in pairs(diagnostics) do
-            local m = max_severity_per_line[d.lnum]
-            if not m or d.severity < m.severity then
-                max_severity_per_line[d.lnum] = d
-            end
-        end
-
-        -- Pass the filtered diagnostics (with our custom namespace) to
-        -- the original handler
-        local filtered_diagnostics = vim.tbl_values(max_severity_per_line)
-        orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
-    end,
-    hide = function(_, bufnr)
-        orig_signs_handler.hide(ns, bufnr)
-    end,
-}
+-- -- Create a custom namespace. This will aggregate signs from all other
+-- -- namespaces and only show the one with the highest severity on a
+-- -- given line
+-- local ns = vim.api.nvim_create_namespace("my_namespace")
+--
+-- -- Get a reference to the original signs handler
+-- local orig_signs_handler = vim.diagnostic.handlers.signs
+--
+-- -- Override the built-in signs handler
+-- vim.diagnostic.handlers.signs = {
+--     show = function(_, bufnr, _, opts)
+--         -- Get all diagnostics from the whole buffer rather than just the
+--         -- diagnostics passed to the handler
+--         local diagnostics = vim.diagnostic.get(bufnr)
+--
+--         -- Find the "worst" diagnostic per line
+--         local max_severity_per_line = {}
+--         for _, d in pairs(diagnostics) do
+--             local m = max_severity_per_line[d.lnum]
+--             if not m or d.severity < m.severity then
+--                 max_severity_per_line[d.lnum] = d
+--             end
+--         end
+--
+--         -- Pass the filtered diagnostics (with our custom namespace) to
+--         -- the original handler
+--         local filtered_diagnostics = vim.tbl_values(max_severity_per_line)
+--         orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
+--     end,
+--     hide = function(_, bufnr)
+--         orig_signs_handler.hide(ns, bufnr)
+--     end,
+-- }
 
 local handlers = {
     ['textDocument/publishDiagnostics'] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {
         update_in_insert = false,
         virtual_text = true,
-        signs = true,
+        signs = false,
         severity_sort = true,
     }),
 }
@@ -845,7 +831,7 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(
     vim.lsp.protocol.make_client_capabilities()
 )
 -- Set default client capabilities plus window/workDoneProgress
-capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilities)
+-- capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilities)
 
 
 -- PYTHON LSP --
@@ -1127,8 +1113,8 @@ if cmp ~= nil then
                             fallback()
                         end
                     end, { 'i', 's' }),
-                    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                    -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+                    -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
                     ['<C-Space>'] = cmp.mapping.complete(),
                     ['<C-e>'] = cmp.mapping.abort(),
                     ['<CR>'] = cmp.mapping.confirm(
@@ -1144,7 +1130,7 @@ if cmp ~= nil then
                     -- Order Matters! OR explicitly set priority
                     -- keyword_length, priority, max_item_count
                     { name = 'nvim_lsp' },
-                    { name = 'luasnip' }, -- For luasnip users.
+                    { name = 'luasnip' },
                     { name = 'path' },
                     { name = 'buffer', keyword_length = 5 },
                 }
