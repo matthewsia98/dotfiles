@@ -197,6 +197,7 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'onsails/lspkind.nvim'
 
+Plug('dccsillag/magma-nvim', { ['do'] = vim.fn[':UpdateRemotePlugins'] })
 vim.call('plug#end')
 
 
@@ -1204,8 +1205,20 @@ npairs.setup(
 )
 
 
+-- MAGMA --
+g.magma_automatically_open_output = true
+g.magma_image_provider = 'ueberzug'
+g.magma_cell_highlight_group = 'PmenuSel'
+map('n', '<Leader>mi', '<cmd>MagmaInit<CR>')
+map('n', '<Leader>mr', '<cmd>MagmaEvaluateLine<CR>')
+map('x', '<Leader>mr', ':<C-u>MagmaEvaluateVisual<CR>')
+map('n', '<Leader>mrr', '<cmd>MagmaReevaluateCell<CR>')
+map('n', '<Leader>mo', '<cmd>MagmaShowOutput<CR>')
+
+
 -- KEY BINDINGS --
 --  mode   key      value
+
 -- Go to start and end of line
 map('i', '<C-E>', '<Esc>A')
 map('n', '<C-E>', 'A<Esc>')
