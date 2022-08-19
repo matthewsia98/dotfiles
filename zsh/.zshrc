@@ -82,7 +82,10 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 
 # Shell emacs/vim mode
-bindkey -e
+bindkey -v
+
+bindkey '^p' up-line-or-search
+bindkey '^n' down-line-or-search
 
 #bindkey '\t' complete-word
 bindkey '^ ' autosuggest-accept
@@ -96,3 +99,5 @@ eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship.toml
 
 alias luamake=/home/siam/lua-language-server/3rd/luamake/luamake
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
