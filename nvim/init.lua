@@ -3,6 +3,10 @@ local function map(mode, key, value, options)
     vim.keymap.set(mode, key, value, options)
 end
 
+local function unmap(mode, key, options)
+    vim.keymap.del(mode, key, options)
+end
+
 -- VIM --
 local g = vim.g
 local o = vim.o
@@ -168,6 +172,7 @@ Plug 'nvim-lua/plenary.nvim'
 -- Fuzzy Finder
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
+Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 
 -- Abstract Syntax Tree
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = vim.fn[':TSUpdate'] })
@@ -498,10 +503,18 @@ telescope.setup {
             require('telescope.themes').get_dropdown {
                 -- even more opts
             }
+        },
+        fzf = {
+          fuzzy = true,                    -- false will only do exact matching
+          override_generic_sorter = true,  -- override the generic sorter
+          override_file_sorter = true,     -- override the file sorter
+          case_mode = 'smart_case',        -- or "ignore_case" or "respect_case"
+                                           -- the default case_mode is "smart_case"
         }
     }
 }
 telescope.load_extension('ui-select')
+telescope.load_extension('fzf')
 
 
 -- TREESITTER --
@@ -1206,15 +1219,33 @@ npairs.setup(
 
 
 -- MAGMA --
-g.magma_automatically_open_output = true
+g.magma_automatically_open_output = false
 g.magma_image_provider = 'ueberzug'
 g.magma_cell_highlight_group = 'PmenuSel'
-map('n', '<Leader>mi', '<cmd>MagmaInit<CR>')
-map('n', '<Leader>mr', '<cmd>MagmaEvaluateLine<CR>')
-map('x', '<Leader>mr', ':<C-u>MagmaEvaluateVisual<CR>')
-map('n', '<Leader>mrr', '<cmd>MagmaReevaluateCell<CR>')
-map('n', '<Leader>mo', '<cmd>MagmaShowOutput<CR>')
-
+map('n', '<Leader>mi', function()
+    vim.cmd('MagmaInit')
+    map('n', 'mr', '<cmd>MagmaEvaluateLine<CR>')
+    map('x', 'mr', ':<C-u>MagmaEvaluateVisual<CR>')
+    map('n', 'mrr', '<cmd>MagmaReevaluateCell<CR>')
+    map('n', 'mo', '<cmd>MagmaShowOutput<CR>')
+    map('n', 'moo', '<cmd>MagmaEnterOutput<CR>')
+    map('n', 'mc', '<cmd>MagmaInterrupt<CR>')
+    map('n', 'mrs', '<cmd>MagmaRestart<CR>')
+    map('n', 'mrst', '<cmd>MagmaRestart!<CR>')
+    end
+)
+map('n', '<Leader>md', function()
+    vim.cmd('MagmaDeinit')
+    unmap('n', 'mr')
+    unmap('x', 'mr')
+    unmap('n', 'mrr')
+    unmap('n', 'mo')
+    unmap('n', 'moo')
+    unmap('n', 'mc')
+    unmap('n', 'mrs')
+    unmap('n', 'mrst')
+    end
+)
 
 -- KEY BINDINGS --
 --  mode   key      value
