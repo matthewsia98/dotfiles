@@ -219,7 +219,7 @@ vim.cmd [[colorscheme catppuccin]]
 require('bufferline').setup {
     options = {
         mode = 'buffers', --'buffers', 'tabs'
-        numbers = 'both',
+        numbers = 'buffer_id',
         close_command = 'bdelete! %d', -- can be a string | function, see "Mouse actions"
         right_mouse_command = 'bdelete! %d', -- can be a string | function, see "Mouse actions"
         left_mouse_command = 'buffer %d', -- can be a string | function, see "Mouse actions"
@@ -235,7 +235,6 @@ require('bufferline').setup {
         tab_size = 18,
         diagnostics = 'nvim_lsp',
         diagnostics_update_in_insert = true,
-        -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
         diagnostics_indicator = function(count)
             return '(' .. count .. ')'
         end,
@@ -249,7 +248,7 @@ require('bufferline').setup {
         -- can also be a table containing 2 custom separators
         -- [focused and unfocused]. eg: { '|', '|' }
         separator_style = 'thin',
-        enforce_regular_tabs = false,
+        enforce_regular_tabs = true,
         always_show_bufferline = true,
     }
 }
@@ -279,7 +278,6 @@ require('lualine').setup {
         icons_enabled = true,
         -- powerline    
         section_separators = { left = '', right = '' },
-        -- component_separators = { left = '', right = '' }
         component_separators = { left = '', right = '' }
     },
     -- a b c                x y z
@@ -310,7 +308,24 @@ require('lualine').setup {
         lualine_x = {}, --'filetype' , 'filesize'
         lualine_y = { 'encoding', 'fileformat', }, -- 'buffers', 'diff'
         lualine_z = { 'progress', 'location' }
-    }
+    },
+    tabline = {},
+    winbar = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = { 'filename' }
+    },
+    inactive_winbar = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = { 'filename' }
+    },
 }
 
 
@@ -499,7 +514,7 @@ require('nvim-treesitter.configs').setup {
         additional_vim_regex_highlighting = false,
     },
     indent = {
-        -- enable = true,
+        enable = true,
         disable = { 'python' },
     },
     incremental_selection = {
@@ -772,10 +787,10 @@ local on_attach = function(client, bufnr)
     map('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
     -- map('n', 'gr', vim.lsp.buf.references, bufopts)
     -- Set some key bindings conditional on server capabilities
-    if client.resolved_capabilities.document_formatting then
+    if client.server_capabilities.document_formatting then
         map('n', '<leader>fm', vim.lsp.buf.formatting, bufopts)
     end
-    if client.resolved_capabilities.document_range_formatting then
+    if client.server_capabilities.document_range_formatting then
         map('x', '<leader>fm', vim.lsp.buf.range_formatting, bufopts)
     end
 end
@@ -1243,10 +1258,10 @@ map('n', '<C-b>b', '<cmd>ls<CR><cmd>buffer<Space>')
 map('n', '<C-b>c', '<cmd>bdelete<CR>')
 
 -- Tabs
-map('n', '<C-t>v', '<cmd>tabnew<CR>')
-map('n', '<C-t>l', '<cmd>tabnext<CR>')
-map('n', '<C-t>h', '<cmd>tabprev<CR>')
-map('n', '<C-t>c', '<cmd>tabclose<CR>')
+-- map('n', '<C-t>v', '<cmd>tabnew<CR>')
+-- map('n', '<C-t>l', '<cmd>tabnext<CR>')
+-- map('n', '<C-t>h', '<cmd>tabprev<CR>')
+-- map('n', '<C-t>c', '<cmd>tabclose<CR>')
 
 -- Toggle type of quote / bracket
 A.nvim_set_keymap('n', "'\"", "cs'\"", {})
