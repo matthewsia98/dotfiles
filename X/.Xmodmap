@@ -59,8 +59,8 @@ keycode  65 = space NoSymbol space
 
 clear lock
 clear control
-add control = Caps_Lock Control_L Control_R
-keycode  66 = Control_L Caps_Lock NoSymbol NoSymbol
+keycode  66 = Control_L
+add control = Control_L
 
 keycode  67 = F1 F1 F1 F1 F1 F1 XF86Switch_VT_1
 keycode  68 = F2 F2 F2 F2 F2 F2 XF86Switch_VT_2
