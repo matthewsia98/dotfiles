@@ -229,7 +229,8 @@ terminal = 'kitty'
 
 #### KEYBINDS ####
 keys = [
-    Key([], 'Print', lazy.spawn('scrot -s /home/siam/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png'), desc='Take a screenshot'),
+    Key([], 'Print', lazy.spawn('flameshot gui'), desc='Take a screenshot'),
+    # Key([], 'Print', lazy.spawn('scrot -s /home/siam/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png'), desc='Take a screenshot'),
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
 
@@ -258,11 +259,11 @@ keys = [
     Key([mod, 'shift'], "j", grow_vertical('j'), desc="Grow window down"),
     Key([mod, 'shift'], "k", grow_vertical('k'), desc="Grow window up"),
 
-    Key([mod, 'shift'], 'n', lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([mod, 'shift'], 'r', lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod, 'control'], 's', lazy.layout.swap_main(), desc='Swap current window to main pane'),
     Key([mod, 'control'], 'space', lazy.layout.flip(), desc='Flip main side'),
-    Key([mod, 'shift'], 'm', lazy.window.toggle_minimize(), desc='Toggle minimize'),
-    # Key([mod, 'shift'], 'm', lazy.window.toggle_maximize(), desc="Toggle maximize"),
+    Key([mod, 'shift'], 'n', lazy.window.toggle_minimize(), desc='Toggle minimize'),
+    Key([mod, 'shift'], 'm', lazy.window.toggle_maximize(), desc="Toggle maximize"),
     Key([mod, 'control'], 'f', center_and_resize_floating(), desc="Toggle floating"),
 
     # Toggle between split and unsplit sides of stack.
