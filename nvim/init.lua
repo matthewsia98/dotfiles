@@ -431,12 +431,12 @@ require('trouble').setup {
 
 -- TELESCOPE--
 map('n', '<leader>ff', '<cmd>Telescope find_files<CR>')
-map('n', '<C-f>', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
-map('n', '<leader>fg', '<cmd>Telescope git_commits<CR>')
-map('n', '<leader>frg', '<cmd>Telescope live_grep<CR>')
+map('n', '<leader>fc', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
+map('n', '<leader>gc', '<cmd>Telescope git_commits<CR>')
+map('n', '<leader>lg', '<cmd>Telescope live_grep<CR>')
 map('n', '<leader>fb', '<cmd>Telescope buffers<CR>')
-map('n', '<leader>fr', '<cmd>Telescope lsp_references<CR>')
-map('n', '<leader>fdd', '<cmd>Telescope diagnostics<CR>')
+-- map('n', '<leader>fr', '<cmd>Telescope lsp_references<CR>')
+-- map('n', '<leader>fdd', '<cmd>Telescope diagnostics<CR>')
 -- map('n', '<leader>fds', '<cmd>Telescope lsp_document_symbols<CR>')
 -- map('n', '<leader>fts', '<cmd>Telescope treesitter<CR>')
 -- map('n', '<leader>fcm', '<cmd>Telescope commands<CR>')
@@ -572,7 +572,7 @@ require('indent_blankline').setup {
 -- NEOSCROLL --
 require('neoscroll').setup({
     -- All these keys will be mapped to their corresponding default scrolling animation
-    mappings = { '<C-u>', '<C-d>' },
+    mappings = { '<C-u>', '<C-d>', '<C-f>', '<C-b>' },
     hide_cursor = true, -- Hide cursor while scrolling
     stop_eof = true, -- Stop at <EOF> when scrolling downwards
     respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
