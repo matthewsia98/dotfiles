@@ -99,18 +99,26 @@ g.mapleader = ' '
 g.maplocalleader = ' '
 
 -- AUTOCMD --
+local group = A.nvim_create_augroup('MyAutocmds', { clear = true })
 -- Format before save
--- A.nvim_create_autocmd('BufWritePre',
--- 	{
--- 		callback = function()
--- 			vim.lsp.buf.formatting_sync()
--- 		end
--- 	}
--- )
+A.nvim_create_autocmd('BufWritePre',
+    {
+        group = group,
+        callback = function()
+            local bufnr = A.nvim_get_current_buf()
+            local lsp_client = vim.lsp.get_active_clients({ bufnr = bufnr })[1]
+
+            if lsp_client ~= nil and lsp_client['server_capabilities']['documentFormattingProvider'] then
+                vim.lsp.buf.format()
+            end
+        end
+    }
+)
 
 -- Prevent newline from starting as comment
 A.nvim_create_autocmd('BufEnter',
     {
+        group = group,
         callback = function()
             o.formatoptions = string.gsub(o.formatoptions, '[cro]', '')
         end
@@ -120,6 +128,7 @@ A.nvim_create_autocmd('BufEnter',
 -- Highlight yanked region
 A.nvim_create_autocmd('TextYankPost',
     {
+        group = group,
         callback = function()
             vim.highlight.on_yank({ higroup = 'Visual', timeout = 3000 })
         end
@@ -156,6 +165,9 @@ Plug 'nvim-lua/lsp-status.nvim'
 
 -- Indent Lines
 Plug 'lukas-reineke/indent-blankline.nvim'
+
+-- Smooth Scrolling
+Plug 'karb94/neoscroll.nvim'
 
 -- Git Decorations
 Plug 'lewis6991/gitsigns.nvim'
@@ -202,6 +214,7 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'onsails/lspkind.nvim'
 
+Plug 'goerz/jupytext.vim'
 Plug('dccsillag/magma-nvim', { ['do'] = vim.fn[':UpdateRemotePlugins'] })
 vim.call('plug#end')
 
@@ -505,11 +518,11 @@ telescope.setup {
             }
         },
         fzf = {
-          fuzzy = true,                    -- false will only do exact matching
-          override_generic_sorter = true,  -- override the generic sorter
-          override_file_sorter = true,     -- override the file sorter
-          case_mode = 'smart_case',        -- or "ignore_case" or "respect_case"
-                                           -- the default case_mode is "smart_case"
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
+            -- the default case_mode is "smart_case"
         }
     }
 }
@@ -554,6 +567,21 @@ require('indent_blankline').setup {
     show_current_context_start = true,
     show_trailing_blankline_indent = false,
 }
+
+
+-- NEOSCROLL --
+require('neoscroll').setup({
+    -- All these keys will be mapped to their corresponding default scrolling animation
+    mappings = { '<C-u>', '<C-d>' },
+    hide_cursor = true, -- Hide cursor while scrolling
+    stop_eof = true, -- Stop at <EOF> when scrolling downwards
+    respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+    cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+    easing_function = nil, -- Default easing function
+    pre_hook = nil, -- Function to run before the scrolling animation starts
+    post_hook = nil, -- Function to run after the scrolling animation ends
+    performance_mode = false, -- Disable "Performance Mode" on all buffers.
+})
 
 
 -- GIT SIGNS --
@@ -1232,7 +1260,7 @@ map('n', '<Leader>mi', function()
     map('n', 'mc', '<cmd>MagmaInterrupt<CR>')
     map('n', 'mrs', '<cmd>MagmaRestart<CR>')
     map('n', 'mrst', '<cmd>MagmaRestart!<CR>')
-    end
+end
 )
 map('n', '<Leader>md', function()
     vim.cmd('MagmaDeinit')
@@ -1244,7 +1272,7 @@ map('n', '<Leader>md', function()
     unmap('n', 'mc')
     unmap('n', 'mrs')
     unmap('n', 'mrst')
-    end
+end
 )
 
 -- KEY BINDINGS --
