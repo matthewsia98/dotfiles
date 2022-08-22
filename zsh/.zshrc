@@ -104,7 +104,7 @@ alias luamake=/home/siam/lua-language-server/3rd/luamake/luamake
 # FZF
 local fzf_cmd='find -L'
 local fzf_opts='--height 60% --layout=reverse --border --multi --info=inline --header="" --color bg:#24273A,fg:#CAD3F5,preview-bg:#24273A,preview-fg:#CAD3F5,bg+:#494D64,fg+:#CAD3F5,gutter:#24273A,border:#B7BDF8,hl:#A6DA95,hl+:#A6DA95,pointer:#CAD3F5,info:#CAD3F5'
-export FZF_COMPLETION_TRIGGER=''
+export FZF_COMPLETION_TRIGGER='*'
 export FZF_COMPLETION_OPTS=$fzf_opts
 export FZF_DEFAULT_COMMAND=$fzf_cmd
 export FZF_CTRL_T_COMMAND=$fzf_cmd
