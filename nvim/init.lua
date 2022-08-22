@@ -1,3 +1,7 @@
+function P(item)
+    print(vim.inspect(item))
+end
+
 local function map(mode, key, value, options)
     options = options or { silent = true, noremap = true }
     vim.keymap.set(mode, key, value, options)
@@ -43,7 +47,7 @@ o.expandtab = true
 -- o.smarttab = true
 o.cindent = true
 -- o.autoindent = true
-o.wrap = true
+o.wrap = false
 o.textwidth = 300
 o.tabstop = 4
 o.shiftwidth = 0
@@ -188,6 +192,7 @@ Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 
 -- Abstract Syntax Tree
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = vim.fn[':TSUpdate'] })
+Plug 'nvim-treesitter/playground'
 
 -- Language Server
 Plug 'neovim/nvim-lspconfig'
@@ -435,6 +440,8 @@ map('n', '<leader>fc', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
 map('n', '<leader>gc', '<cmd>Telescope git_commits<CR>')
 map('n', '<leader>lg', '<cmd>Telescope live_grep<CR>')
 map('n', '<leader>fb', '<cmd>Telescope buffers<CR>')
+map('n', '<leader>fh', '<cmd>Telescope help_tags<CR>')
+map('n', '<leader>fo', '<cmd>Telescope vim_options<CR>')
 -- map('n', '<leader>fr', '<cmd>Telescope lsp_references<CR>')
 -- map('n', '<leader>fdd', '<cmd>Telescope diagnostics<CR>')
 -- map('n', '<leader>fds', '<cmd>Telescope lsp_document_symbols<CR>')
@@ -553,6 +560,24 @@ require('nvim-treesitter.configs').setup {
             node_decremental = 'grm',
         },
     },
+    playground = {
+        enable = true,
+        disable = {},
+        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+        persist_queries = false, -- Whether the query persists across vim sessions
+        keybindings = {
+            toggle_query_editor = 'o',
+            toggle_hl_groups = 'i',
+            toggle_injected_languages = 't',
+            toggle_anonymous_nodes = 'a',
+            toggle_language_display = 'I',
+            focus_language = 'f',
+            unfocus_language = 'F',
+            update = 'R',
+            goto_node = '<cr>',
+            show_help = '?',
+        },
+    }
 }
 
 
@@ -829,10 +854,10 @@ local on_attach = function(client, bufnr)
     map('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
     -- map('n', 'gr', vim.lsp.buf.references, bufopts)
     -- Set some key bindings conditional on server capabilities
-    if client.server_capabilities.document_formatting then
+    if client.server_capabilities.documentFormattingProvider then
         map('n', '<leader>fm', vim.lsp.buf.formatting, bufopts)
     end
-    if client.server_capabilities.document_range_formatting then
+    if client.server_capabilities.documentRangeFormattingProvider then
         map('x', '<leader>fm', vim.lsp.buf.range_formatting, bufopts)
     end
 end
@@ -1303,10 +1328,11 @@ vim.cmd [[highlight WinSeparator guibg=NONE guifg=#B7BDF8]]
 -- map('n', '<leader>wv', '<C-w>v')
 -- map('n', '<leader>ws', '<C-w>s')
 -- map('n', '<leader>wq', '<C-w>c')
--- map('n', '<leader>wh', '<C-w>h')
--- map('n', '<leader>wl', '<C-w>l')
--- map('n', '<leader>wj', '<C-w>j')
--- map('n', '<leader>wk', '<C-w>k')
+-- Move between windows
+map('n', '<C-h>', '<C-w>h')
+map('n', '<C-l>', '<C-w>l')
+map('n', '<C-j>', '<C-w>j')
+map('n', '<C-k>', '<C-w>k')
 -- -- Move windows
 -- map('n', '<leader>wmh', '<C-w>H')
 -- map('n', '<leader>wml', '<C-w>L')
