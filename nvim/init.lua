@@ -2,6 +2,11 @@ function P(item)
     print(vim.inspect(item))
 end
 
+function R(name)
+    require('plenary.reload').reload_module(name)
+    return require(name)
+end
+
 local function map(mode, key, value, options)
     options = options or { silent = true, noremap = true }
     vim.keymap.set(mode, key, value, options)
@@ -143,6 +148,7 @@ A.nvim_create_autocmd('TextYankPost',
 -- PLUGINS --
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
+Plug '~/my-nvim-plugins/python-treesitter-util.nvim'
 
 -- Icons
 Plug 'kyazdani42/nvim-web-devicons'
@@ -952,7 +958,7 @@ require('lspconfig')['pylsp'].setup {
                 pylsp_black = {
                     enabled = true,
                     preview = true,
-                    -- max_line_length = 88,
+                    max_line_length = 88,
                 },
                 pylsp_mypy = {
                     enabled = true,
@@ -1272,33 +1278,21 @@ npairs.setup(
 
 
 -- MAGMA --
-g.magma_automatically_open_output = false
+g.magma_automatically_open_output = true
 g.magma_image_provider = 'ueberzug'
 g.magma_cell_highlight_group = 'PmenuSel'
-map('n', '<Leader>mi', function()
-    vim.cmd('MagmaInit')
-    map('n', 'mr', '<cmd>MagmaEvaluateLine<CR>')
-    map('x', 'mr', ':<C-u>MagmaEvaluateVisual<CR>')
-    map('n', 'mrr', '<cmd>MagmaReevaluateCell<CR>')
-    map('n', 'mo', '<cmd>MagmaShowOutput<CR>')
-    map('n', 'moo', '<cmd>MagmaEnterOutput<CR>')
-    map('n', 'mc', '<cmd>MagmaInterrupt<CR>')
-    map('n', 'mrs', '<cmd>MagmaRestart<CR>')
-    map('n', 'mrst', '<cmd>MagmaRestart!<CR>')
-end
-)
-map('n', '<Leader>md', function()
-    vim.cmd('MagmaDeinit')
-    unmap('n', 'mr')
-    unmap('x', 'mr')
-    unmap('n', 'mrr')
-    unmap('n', 'mo')
-    unmap('n', 'moo')
-    unmap('n', 'mc')
-    unmap('n', 'mrs')
-    unmap('n', 'mrst')
-end
-)
+map('n', '<Leader>mi', '<cmd>MagmaInit<CR>')
+map('n', '<Leader>mr', '<cmd>MagmaEvaluateLine<CR>')
+map('x', '<Leader>mr', ':<C-u>MagmaEvaluateVisual<CR>')
+map('n', '<Leader>mrr', '<cmd>MagmaReevaluateCell<CR>')
+map('n', '<Leader>mo', '<cmd>MagmaShowOutput<CR>')
+map('n', '<Leader>moo', '<cmd>MagmaEnterOutput<CR>')
+map('n', '<Leader>mc', '<cmd>MagmaInterrupt<CR>')
+map('n', '<Leader>mrs', '<cmd>MagmaRestart<CR>')
+map('n', '<Leader>mrst', '<cmd>MagmaRestart!<CR>')
+map('n', '<Leader>md', '<cmd>MagmaDelete<CR>')
+map('n', '<Leader>mq', '<cmd>MagmaDeinit<CR>')
+
 
 -- KEY BINDINGS --
 --  mode   key      value
