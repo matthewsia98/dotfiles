@@ -906,7 +906,6 @@ local lsp_flags = {
 --         orig_signs_handler.hide(ns, bufnr)
 --     end,
 -- }
-
 local handlers = {
     ['textDocument/publishDiagnostics'] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -915,6 +914,41 @@ local handlers = {
         signs = false,
         severity_sort = true,
     }),
+    ['textDocument/definition'] = function (_, result, ctx, config)
+        local log = require('vim.lsp.log')
+        local util = require('vim.lsp.util')
+        if result == nil or vim.tbl_isempty(result) then
+          local _ = log.info() and log.info(ctx.method, 'No location found')
+          return nil
+        end
+        local client = vim.lsp.get_client_by_id(ctx.client_id)
+
+        config = config or {}
+
+        -- textDocument/definition can return Location or Location[]
+        -- https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_definition
+
+        if vim.tbl_islist(result) then
+          local title = 'LSP locations'
+          local items = util.locations_to_items(result, client.offset_encoding)
+
+          if config.on_list then
+            assert(type(config.on_list) == 'function', 'on_list is not a function')
+            config.on_list({ title = title, items = items })
+          else
+            if #result == 1 then
+              util.jump_to_location(result[1], client.offset_encoding, config.reuse_win)
+              return
+            end
+
+            vim.fn.setloclist(0, {}, ' ', { title = title, items = items })
+            vim.cmd[[Trouble loclist]]
+            -- A.nvim_command('botright copen')
+          end
+        else
+          util.jump_to_location(result, client.offset_encoding, config.reuse_win)
+        end
+    end
 }
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(

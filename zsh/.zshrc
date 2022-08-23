@@ -6,6 +6,7 @@ set_title
 chpwd_functions+=(set_title)
 
 export PATH=$HOME/.local/bin:$HOME/.emacs.d/bin:$PATH
+export PYTHONPATH=$HOME/.local/lib/python3.10/site-packages:$PYTHONPATH
 export BAT_THEME='OneHalfDark'
 export EDITOR='nvim'
 export VISUAL='nvim'
