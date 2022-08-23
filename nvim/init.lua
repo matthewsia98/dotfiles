@@ -386,7 +386,7 @@ map('n', '<leader>wd', '<cmd>TroubleToggle workspace_diagnostics<cr>')
 map('n', '<leader>dd', '<cmd>TroubleToggle document_diagnostics<cr>')
 map('n', '<leader>ll', '<cmd>TroubleToggle loclist<cr>')
 map('n', '<leader>qf', '<cmd>TroubleToggle quickfix<cr>')
-map('n', 'gr', '<cmd>TroubleToggle lsp_references<cr>')
+-- map('n', 'gr', '<cmd>TroubleToggle lsp_references<cr>')
 map('n', '<leader>gd', '<cmd>TroubleToggle lsp_definitions<cr>')
 -- map('n', '<leader>gt', '<cmd>TroubleToggle lsp_type_definitions<cr>')
 -- map('n', '<leader>gi', '<cmd>TroubleToggle lsp_implementations<cr>')
@@ -845,6 +845,7 @@ local on_attach = function(client, bufnr)
     map('n', '<leader>dqf', vim.diagnostic.setqflist, bufopts)
     map('n', 'gD', vim.lsp.buf.declaration, bufopts)
     map('n', 'gd', vim.lsp.buf.definition, bufopts)
+    map('n', 'gr', vim.lsp.buf.references, bufopts)
     map('n', 'gt', vim.lsp.buf.type_definition, bufopts)
     map('n', 'gi', vim.lsp.buf.implementation, bufopts)
     map('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -859,7 +860,6 @@ local on_attach = function(client, bufnr)
     map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
     map('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
-    -- map('n', 'gr', vim.lsp.buf.references, bufopts)
     -- Set some key bindings conditional on server capabilities
     if client.server_capabilities.documentFormattingProvider then
         map('n', '<leader>fm', vim.lsp.buf.format, bufopts)
@@ -947,6 +947,29 @@ local handlers = {
           end
         else
           util.jump_to_location(result, client.offset_encoding, config.reuse_win)
+        end
+    end,
+    ['textDocument/references'] = function(_, result, ctx, config)
+        local util = require('vim.lsp.util')
+        if not result or vim.tbl_isempty(result) then
+          vim.notify('No references found')
+        else
+          local client = vim.lsp.get_client_by_id(ctx.client_id)
+          config = config or {}
+          local title = 'References'
+          local items = util.locations_to_items(result, client.offset_encoding)
+
+          -- if config.loclist then
+        vim.fn.setloclist(0, {}, ' ', { title = title, items = items, context = ctx })
+        vim.cmd[[Trouble loclist]]
+            -- A.nvim_command('lopen')
+          -- elseif config.on_list then
+          --   assert(type(config.on_list) == 'function', 'on_list is not a function')
+          --   config.on_list({ title = title, items = items, context = ctx })
+          -- else
+          --   vim.fn.setqflist({}, ' ', { title = title, items = items, context = ctx })
+          --   A.nvim_command('botright copen')
+          -- end
         end
     end
 }
