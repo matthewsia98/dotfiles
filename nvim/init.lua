@@ -110,19 +110,18 @@ g.maplocalleader = ' '
 -- AUTOCMD --
 local group = A.nvim_create_augroup('MyAutocmds', { clear = true })
 -- Format before save
-A.nvim_create_autocmd('BufWritePre',
-    {
-        group = group,
-        callback = function()
-            local bufnr = A.nvim_get_current_buf()
-            local lsp_client = vim.lsp.get_active_clients({ bufnr = bufnr })[1]
-
-            if lsp_client ~= nil and lsp_client['server_capabilities']['documentFormattingProvider'] then
-                vim.lsp.buf.format()
-            end
-        end
-    }
-)
+-- A.nvim_create_autocmd('BufWritePre', {
+--         group = group,
+--         callback = function()
+--             local bufnr = A.nvim_get_current_buf()
+--             local lsp_client = vim.lsp.get_active_clients({ bufnr = bufnr })[1]
+--
+--             if lsp_client ~= nil and lsp_client['server_capabilities']['documentFormattingProvider'] then
+--                 vim.lsp.buf.format()
+--             end
+--         end
+--     }
+-- )
 
 -- Prevent newline from starting as comment
 A.nvim_create_autocmd('BufEnter',
@@ -148,7 +147,8 @@ A.nvim_create_autocmd('TextYankPost',
 -- PLUGINS --
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
-Plug '~/my-nvim-plugins/python-treesitter-util.nvim'
+-- My Plugins
+Plug '~/my-nvim-plugins/python-treesitter-navigation.nvim'
 
 -- Icons
 Plug 'kyazdani42/nvim-web-devicons'
@@ -219,6 +219,7 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 -- Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'saadparwaiz1/cmp_luasnip'
@@ -386,9 +387,9 @@ map('n', '<leader>dd', '<cmd>TroubleToggle document_diagnostics<cr>')
 map('n', '<leader>ll', '<cmd>TroubleToggle loclist<cr>')
 map('n', '<leader>qf', '<cmd>TroubleToggle quickfix<cr>')
 map('n', 'gr', '<cmd>TroubleToggle lsp_references<cr>')
+map('n', '<leader>gd', '<cmd>TroubleToggle lsp_definitions<cr>')
 -- map('n', '<leader>gt', '<cmd>TroubleToggle lsp_type_definitions<cr>')
 -- map('n', '<leader>gi', '<cmd>TroubleToggle lsp_implementations<cr>')
--- map('n', '<leader>gd', '<cmd>TroubleToggle lsp_definitions<cr>',
 --     { silent = true, noremap = true }
 -- )
 require('trouble').setup {
@@ -396,7 +397,7 @@ require('trouble').setup {
     height = 10, -- height of the trouble list when position is top or bottom
     width = 50, -- width of the list when position is left or right
     icons = true, -- use devicons for filenames
-    mode = { 'workspace_diagnostics', 'document_diagnostics', 'quickfix', 'lsp_references', 'loclist' },
+    mode = 'workspace_diagnostics', -- 'document_diagnostics', 'quickfix', 'lsp_references', 'loclist'
     fold_open = '', -- icon used for open folds
     fold_closed = '', -- icon used for closed folds
     group = true, -- group results by file
@@ -861,7 +862,7 @@ local on_attach = function(client, bufnr)
     -- map('n', 'gr', vim.lsp.buf.references, bufopts)
     -- Set some key bindings conditional on server capabilities
     if client.server_capabilities.documentFormattingProvider then
-        map('n', '<leader>fm', vim.lsp.buf.formatting, bufopts)
+        map('n', '<leader>fm', vim.lsp.buf.format, bufopts)
     end
     if client.server_capabilities.documentRangeFormattingProvider then
         map('x', '<leader>fm', vim.lsp.buf.range_formatting, bufopts)
@@ -1220,6 +1221,7 @@ if cmp ~= nil then
                     -- Order Matters! OR explicitly set priority
                     -- keyword_length, priority, max_item_count
                     { name = 'nvim_lsp' },
+                    { name = 'nvim_lsp_signature_help' },
                     { name = 'luasnip' },
                     { name = 'path' },
                     { name = 'buffer', keyword_length = 5 },

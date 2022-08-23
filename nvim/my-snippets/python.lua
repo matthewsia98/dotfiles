@@ -82,7 +82,9 @@ return {
                             elseif #type > 0 then
                                 table.insert(texts, '\t\t' .. name .. ' (' .. type .. '):')
                             else
-                                table.insert(texts, '\t\t' .. name .. ':')
+                                if name ~= 'self' then
+                                    table.insert(texts, '\t\t' .. name .. ':')
+                                end
                             end
 
                         end
