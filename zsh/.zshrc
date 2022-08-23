@@ -42,6 +42,7 @@ alias suspend='systemctl suspend'
 # alias vim='nvim -u ~/.config/nvim/init.lua'
 alias vim='nvim'
 alias emacs="emacsclient -c -a 'emacs'"
+alias feh='feh --scale-down -d -g 1920x1030+0+50 --image-bg black -C ~/.fonts -e RobotoMono-Bold/20'
 
 # Git
 alias gcl='git clone'
@@ -84,6 +85,22 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 # Shell emacs/vim mode
 bindkey -v
 
+# Yank to the system clipboard
+function vi-yank-xclip {
+   zle vi-yank
+   echo "$CUTBUFFER" | xclip -i -selection clipboard
+}
+zle -N vi-yank-xclip
+bindkey -M vicmd 'y' vi-yank-xclip
+
+# Paste from system clipboard
+function vi-paste-xclip () {
+    RBUFFER=$(xclip -o -selection clipboard)$RBUFFER
+}
+zle -N vi-paste-xclip
+bindkey -M vicmd 'p' vi-paste-xclip
+
+bindkey '^?' backward-delete-char
 bindkey '^p' up-line-or-search
 bindkey '^n' down-line-or-search
 
