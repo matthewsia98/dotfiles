@@ -12,15 +12,17 @@ local function map(mode, key, value, options)
     vim.keymap.set(mode, key, value, options)
 end
 
-local function unmap(mode, key, options)
-    vim.keymap.del(mode, key, options)
-end
+-- local function unmap(mode, key, options)
+--     vim.keymap.del(mode, key, options)
+-- end
 
 -- VIM --
 local g = vim.g
 local o = vim.o
 local A = vim.api
 
+
+g.python3_host_prog = '/usr/bin/python3'
 -- cmd('syntax on')
 -- A.nvim_command('filetype plugin indent on')
 
@@ -149,12 +151,16 @@ local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 -- My Plugins
 Plug '~/my-nvim-plugins/python-treesitter-navigation.nvim'
+Plug '~/my-nvim-plugins/python-docstring-generator.nvim'
 
 -- Icons
 Plug 'kyazdani42/nvim-web-devicons'
 
 -- Color Scheme
 Plug('catppuccin/nvim', { as = 'catppuccin' })
+
+-- Notifications
+Plug 'rcarriga/nvim-notify'
 
 -- Visualize RGB color codes
 Plug 'norcalli/nvim-colorizer.lua'
@@ -202,9 +208,11 @@ Plug 'nvim-treesitter/playground'
 
 -- Language Server
 Plug 'neovim/nvim-lspconfig'
+Plug 'HallerPatrick/py_lsp.nvim'
 
 -- Language Server Manager
 Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 
 -- Plug 'jose-elias-alvarez/null-ls.nvim'
 
@@ -213,7 +221,7 @@ Plug 'folke/trouble.nvim'
 
 -- Luasnip
 Plug 'L3MON4D3/LuaSnip'
-Plug 'rafamadriz/friendly-snippets'
+-- Plug 'rafamadriz/friendly-snippets'
 
 -- Code Completion
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -226,8 +234,8 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'onsails/lspkind.nvim'
 
-Plug 'goerz/jupytext.vim'
-Plug('dccsillag/magma-nvim', { ['do'] = vim.fn[':UpdateRemotePlugins'] })
+-- Plug 'goerz/jupytext.vim'
+-- Plug('dccsillag/magma-nvim', { ['do'] = vim.fn[':UpdateRemotePlugins'] })
 vim.call('plug#end')
 
 
@@ -243,7 +251,11 @@ require('catppuccin').setup {
         CursorLineNr = { fg = '#00FFFF' }
     }
 }
-vim.cmd [[colorscheme catppuccin]]
+vim.cmd([[colorscheme catppuccin]])
+
+
+-- NVIM NOTIFY --
+local notify = require('notify')
 
 
 -- BUFFERLINE --
@@ -255,7 +267,10 @@ require('bufferline').setup {
         right_mouse_command = 'bdelete! %d', -- can be a string | function, see "Mouse actions"
         left_mouse_command = 'buffer %d', -- can be a string | function, see "Mouse actions"
         middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
-        indicator_icon = '▎',
+        indicator = {
+            icon = '▎', -- this should be omitted if indicator style is not 'icon'
+            style = 'icon' -- 'underline', 'none',
+        },
         buffer_close_icon = '',
         modified_icon = '●',
         close_icon = '',
@@ -589,9 +604,9 @@ require('nvim-treesitter.configs').setup {
 
 
 -- INDENT BLANKLINE --
-vim.cmd [[highlight IndentBlanklineChar guifg=#B7BDF8 gui=nocombine]] -- color of indent lines
-vim.cmd [[highlight IndentBlanklineContextChar guifg=#FF00FF gui=nocombine]] -- color of current context indent line (vertical line)
-vim.cmd [[highlight IndentBlanklineContextStart guisp=#FF00FF gui=underline]] -- color of current context start (underline)
+vim.cmd([[highlight IndentBlanklineChar guifg=#B7BDF8 gui=nocombine]]) -- color of indent lines
+vim.cmd([[highlight IndentBlanklineContextChar guifg=#FF00FF gui=nocombine]]) -- color of current context indent line (vertical line)
+vim.cmd([[highlight IndentBlanklineContextStart guisp=#FF00FF gui=underline]]) -- color of current context start (underline)
 require('indent_blankline').setup {
     enabled = true,
     use_treesitter = false,
@@ -757,41 +772,19 @@ require('colorizer').setup()
 
 
 -- MASON --
-require('mason').setup(
-    {
-        ui = {
-            icons = {
-                package_installed = '✓',
-                package_pending = '➜',
-                package_uninstalled = '✗'
-            },
-            keymaps = {
-                -- Keymap to expand a package
-                toggle_package_expand = '<CR>',
-                -- Keymap to install the package under the current cursor position
-                install_package = 'i',
-                -- Keymap to reinstall/update the package under the current cursor position
-                update_package = 'u',
-                -- Keymap to check for new version for the package under the current cursor position
-                check_package_version = 'c',
-                -- Keymap to update all installed packages
-                update_all_packages = 'U',
-                -- Keymap to check which installed packages are outdated
-                check_outdated_packages = 'C',
-                -- Keymap to uninstall a package
-                uninstall_package = 'X',
-                -- Keymap to cancel a package installation
-                cancel_installation = '<C-c>',
-                -- Keymap to apply language filter
-                apply_language_filter = '<C-f>',
-            },
-        }
+require('mason').setup {
+    ui = {
+        icons = {
+            package_installed = '✓',
+            package_pending = '➜',
+            package_uninstalled = '✗'
+        },
     }
-)
+}
 
 
 -- MASON LSPCONFIG --
--- require('mason-lspconfig').setup()
+require('mason-lspconfig').setup()
 
 
 -- NULL LS --
@@ -806,22 +799,22 @@ require('mason').setup(
 
 
 -- LSP CONFIG --
-vim.fn.sign_define(
-    'DiagnosticSignError',
-    { texthl = 'DiagnosticSignError', text = '', numhl = 'DiagnosticSignError' }
-)
-vim.fn.sign_define(
-    'DiagnosticSignWarn',
-    { texthl = 'DiagnosticSignWarn', text = '', numhl = 'DiagnosticSignWarn' }
-)
-vim.fn.sign_define(
-    'DiagnosticSignHint',
-    { texthl = 'DiagnosticSignHint', text = '', numhl = 'DiagnosticSignHint' }
-)
-vim.fn.sign_define(
-    'DiagnosticSignInfo',
-    { texthl = 'DiagnosticSignInfo', text = '', numhl = 'DiagnosticSignInfo' }
-)
+-- vim.fn.sign_define(
+--     'DiagnosticSignError',
+--     { texthl = 'DiagnosticSignError', text = '', numhl = 'DiagnosticSignError' }
+-- )
+-- vim.fn.sign_define(
+--     'DiagnosticSignWarn',
+--     { texthl = 'DiagnosticSignWarn', text = '', numhl = 'DiagnosticSignWarn' }
+-- )
+-- vim.fn.sign_define(
+--     'DiagnosticSignHint',
+--     { texthl = 'DiagnosticSignHint', text = '', numhl = 'DiagnosticSignHint' }
+-- )
+-- vim.fn.sign_define(
+--     'DiagnosticSignInfo',
+--     { texthl = 'DiagnosticSignInfo', text = '', numhl = 'DiagnosticSignInfo' }
+-- )
 
 
 -- Use an on_attach function to only map the following keys
@@ -829,43 +822,32 @@ vim.fn.sign_define(
 local on_attach = function(client, bufnr)
     lsp_status.on_attach(client)
     lsp_status.register_progress()
-    -- lsp_status.register_client(client)
-    -- Enable completion triggered by <c-x><c-o>
-    -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    -- Mappings
-    -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-    map('n', '<leader>d', vim.diagnostic.open_float, bufopts)
-    map('n', '<leader>dp', vim.diagnostic.goto_prev, bufopts)
-    map('n', '<leader>dn', vim.diagnostic.goto_next, bufopts)
-    map('n', '<leader>dll', vim.diagnostic.setloclist, bufopts)
-    map('n', '<leader>dqf', vim.diagnostic.setqflist, bufopts)
-    map('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    map('n', 'gd', vim.lsp.buf.definition, bufopts)
-    map('n', 'gr', vim.lsp.buf.references, bufopts)
-    map('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-    map('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    map('n', 'K', vim.lsp.buf.hover, bufopts)
+    map('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', bufopts)
+    map('n', '<leader>dp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', bufopts)
+    map('n', '<leader>dn', '<cmd>lua vim.diagnostic.goto_next()<CR>', bufopts)
+    map('n', '<leader>dll', '<cmd>lua vim.diagnostic.setloclist()<CR>', bufopts)
+    map('n', '<leader>dqf', '<cmd>lua vim.diagnostic.setqflist()<CR>', bufopts)
+    map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', bufopts)
+    map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', bufopts)
+    map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', bufopts)
+    map('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', bufopts)
+    map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', bufopts)
+    map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', bufopts)
     -- map('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
-    map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    map('n', '<leader>wls', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end,
-        bufopts
-    )
-    map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-    map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    map('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
+    map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', bufopts)
+    map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', bufopts)
+    map('n', '<leader>wls', function() P(vim.lsp.buf.list_workspace_folders()) end, bufopts)
+    map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', bufopts)
+    map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', bufopts)
+    map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', bufopts)
     -- Set some key bindings conditional on server capabilities
     if client.server_capabilities.documentFormattingProvider then
-        map('n', '<leader>fm', vim.lsp.buf.format, bufopts)
+        map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.format()<CR>', bufopts)
     end
     if client.server_capabilities.documentRangeFormattingProvider then
-        map('x', '<leader>fm', vim.lsp.buf.range_formatting, bufopts)
+        map('x', '<leader>fm', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', bufopts)
     end
 end
 
@@ -914,62 +896,60 @@ local handlers = {
         signs = false,
         severity_sort = true,
     }),
-    ['textDocument/definition'] = function (_, result, ctx, config)
-        local log = require('vim.lsp.log')
+    ['textDocument/definition'] = function (err, result, ctx, config)
+        if err ~= nil then P(err) end
         local util = require('vim.lsp.util')
         if result == nil or vim.tbl_isempty(result) then
-          local _ = log.info() and log.info(ctx.method, 'No location found')
-          return nil
-        end
-        local client = vim.lsp.get_client_by_id(ctx.client_id)
-
-        config = config or {}
-
-        -- textDocument/definition can return Location or Location[]
-        -- https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_definition
-
-        if vim.tbl_islist(result) then
-          local title = 'LSP locations'
-          local items = util.locations_to_items(result, client.offset_encoding)
-
-          if config.on_list then
-            assert(type(config.on_list) == 'function', 'on_list is not a function')
-            config.on_list({ title = title, items = items })
-          else
-            if #result == 1 then
-              util.jump_to_location(result[1], client.offset_encoding, config.reuse_win)
-              return
-            end
-
-            vim.fn.setloclist(0, {}, ' ', { title = title, items = items })
-            vim.cmd[[Trouble loclist]]
-            -- A.nvim_command('botright copen')
-          end
+            notify('No definitions found', 'info', {
+                title = 'LSP',
+                timeout = 1000,
+            })
         else
-          util.jump_to_location(result, client.offset_encoding, config.reuse_win)
+            -- textDocument/definition can return Location or Location[]
+            -- https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_definition
+            config = config or {}
+            local client = vim.lsp.get_client_by_id(ctx.client_id)
+
+            if vim.tbl_islist(result) then
+              local title = 'LSP Definitions'
+              local items = util.locations_to_items(result, client.offset_encoding)
+
+                if #result == 1 then
+                    util.jump_to_location(result[1], client.offset_encoding, config.reuse_win)
+                    return
+                else
+                    vim.fn.setloclist(0, {}, ' ', { title = title, items = items })
+                    vim.cmd([[Trouble loclist]])
+                end
+            else
+                util.jump_to_location(result, client.offset_encoding, config.reuse_win)
+            end
         end
     end,
-    ['textDocument/references'] = function(_, result, ctx, config)
+    ['textDocument/references'] = function(err, result, ctx, config)
+        if err ~= nil then P(err) end
         local util = require('vim.lsp.util')
         if not result or vim.tbl_isempty(result) then
-          vim.notify('No references found')
+            notify('No references found', 'info', {
+                title = 'LSP',
+                timeout = 1000,
+            })
         else
-          local client = vim.lsp.get_client_by_id(ctx.client_id)
-          config = config or {}
-          local title = 'References'
-          local items = util.locations_to_items(result, client.offset_encoding)
+            config = config or {}
+            local client = vim.lsp.get_client_by_id(ctx.client_id)
 
-          -- if config.loclist then
-        vim.fn.setloclist(0, {}, ' ', { title = title, items = items, context = ctx })
-        vim.cmd[[Trouble loclist]]
-            -- A.nvim_command('lopen')
-          -- elseif config.on_list then
-          --   assert(type(config.on_list) == 'function', 'on_list is not a function')
-          --   config.on_list({ title = title, items = items, context = ctx })
-          -- else
-          --   vim.fn.setqflist({}, ' ', { title = title, items = items, context = ctx })
-          --   A.nvim_command('botright copen')
-          -- end
+              local title = 'LSP References'
+              local items = util.locations_to_items(result, client.offset_encoding)
+
+            if #result == 1 then
+                notify('No other references', 'info', {
+                    title = title,
+                    timeout = 1000,
+                })
+            else
+                vim.fn.setloclist(0, {}, ' ', { title = title, items = items, context = ctx })
+                vim.cmd([[Trouble loclist]])
+            end
         end
     end
 }
@@ -980,14 +960,22 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(
 -- Set default client capabilities plus window/workDoneProgress
 -- capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilities)
 
+local lspconfig = require('lspconfig')
+
 
 -- PYTHON LSP --
---[[ require('lspconfig')['pyright'].setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    handlers = handlers,
-} ]]
-require('lspconfig')['pylsp'].setup {
+-- local function get_python_env()
+--     local env = '/usr'
+--     if vim.env.VIRTUAL_ENV ~= nil then
+--         -- env = vim.env.VIRTUAL_ENV .. '/bin/python'
+--         env = vim.env.VIRTUAL_ENV
+--     end
+--
+--     vim.schedule(function() print('Jedi Environment:', env) end)
+--     return env
+-- end
+
+lspconfig['pylsp'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
     handlers = handlers,
@@ -998,16 +986,43 @@ require('lspconfig')['pylsp'].setup {
                 pycodestyle = { enabled = false, },
                 pyflakes = { enabled = false, },
                 mccabe = { enabled = false, },
+                jedi = { extra_paths = {
+                        '.local/lib/python3.10/site-packages',
+                    },
+                    -- environment = '/usr',
+                },
+                jedi_completion = {
+                    enabled = true,
+                    fuzzy = true,
+                    eager = true,
+                    resolve_at_most = 25,
+                    cache_for = {'numpy', 'pandas', 'torch', 'matplotlib'}
+                },
+                jedi_definition = {
+                    enabled = true,
+                    follow_builtin_imports = true,
+                    follow_imports = true,
+                },
+                jedi_hover = {
+                    enabled = true,
+                },
+                jedi_references = {
+                    enabled = true,
+                },
+                jedi_signature_help = {
+                    enabled = true,
+                },
+                jedi_symbols = {
+                    enabled = true,
+                    all_scopes = true,
+                    include_import_symbols = true,
+                },
                 flake8 = {
                     enabled = true,
                     ignore = {
                         'E501', -- Line too long
                         'E266', -- Too many leading # for block comment
                     }
-                },
-                jedi_completion = {
-                    enabled = true,
-                    fuzzy = true,
                 },
                 pylint = {
                     enabled = false,
@@ -1021,7 +1036,7 @@ require('lspconfig')['pylsp'].setup {
                 pylsp_mypy = {
                     enabled = true,
                     live_mode = true,
-                    -- strict = false,
+                    strict = false,
                 },
                 pylsp_rope = {
                     enabled = true,
@@ -1035,8 +1050,34 @@ require('lspconfig')['pylsp'].setup {
 }
 
 
+-- JEDI --
+-- lspconfig['jedi_language_server'].setup {
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+--     handlers = handlers,
+--     capabilities = capabilities,
+-- }
+
+
+-- PYRIGHT --
+-- lspconfig['pyright'].setup {
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+--     handlers = handlers,
+--     capabilities = capabilities,
+-- }
+
+
 -- LUA LSP --
-require('lspconfig')['sumneko_lua'].setup {
+lspconfig['sumneko_lua'].setup {
+    root_dir = function(fname)
+        local root_pattern = lspconfig.util.root_pattern('.git', '*.rockspec')(fname)
+        local home = vim.fn.expand('~')
+        if root_pattern == home then
+            return nil
+        end
+        return root_pattern or fname
+    end,
     on_attach = on_attach,
     flags = lsp_flags,
     handlers = handlers,
@@ -1050,6 +1091,7 @@ require('lspconfig')['sumneko_lua'].setup {
             diagnostics = {
                 -- Get the language server to recognize the `vim` global
                 globals = { 'vim' },
+                workspaceDelay = -1,
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files
@@ -1065,12 +1107,12 @@ require('lspconfig')['sumneko_lua'].setup {
 
 
 -- JAVA LSP --
-require('lspconfig')['jdtls'].setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    handlers = handlers,
-    capabilities = capabilities,
-}
+-- lspconfig['jdtls'].setup {
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+--     handlers = handlers,
+--     capabilities = capabilities,
+-- }
 
 
 -- LUASNIP --
@@ -1081,12 +1123,12 @@ map({ 'i', 's' }, '<C-l>', function()
     if luasnip.jumpable(1) then
         luasnip.jump(1)
     end
-end, { silent = true, noremap = true })
+end)
 map({ 'i', 's' }, '<C-h>', function()
     if luasnip.jumpable(-1) then
         luasnip.jump(-1)
     end
-end, { silent = true, noremap = true })
+end)
 map({ 'i', 's' }, '<C-n>', '<Plug>luasnip-next-choice', {})
 map({ 'i', 's' }, '<C-p>', '<Plug>luasnip-prev-choice', {})
 
@@ -1116,43 +1158,43 @@ require('luasnip.loaders.from_lua').lazy_load(
 
 -- NVIM CMP --
 -- Scrollbar
-vim.cmd [[highlight PmenuThumb guibg=#C5CDD9 guifg=NONE]]
+vim.cmd([[highlight PmenuThumb guibg=#C5CDD9 guifg=NONE]])
 
 -- Prompt Menu
-vim.cmd [[highlight CmpPmenu guibg=#22252A guifg=#C5CDD9]]
-vim.cmd [[highlight PmenuSel guibg=#6E738D guifg=NONE]]
+vim.cmd([[highlight CmpPmenu guibg=#22252A guifg=#C5CDD9]])
+vim.cmd([[highlight PmenuSel guibg=#6E738D guifg=NONE]])
 
 -- Completion Items
-vim.cmd [[highlight CmpItemAbbr guibg=NONE guifg=#CAD3F5]]
-vim.cmd [[highlight CmpItemAbbrDeprecated guibg=NONE guifg=#FF0000 gui=strikethrough]]
-vim.cmd [[highlight CmpItemAbbrMatch guibg=NONE guifg=#82AAFF gui=bold]]
-vim.cmd [[highlight CmpItemAbbrMatchFuzzy guibg=NONE guifg=#82AAFF gui=bold]]
-vim.cmd [[highlight CmpItemMenu guibg=NONE guifg=#C6A0F6 gui=NONE]]
-vim.cmd [[highlight CmpItemKindField guibg=#B5585F guifg=#EED8DA]]
-vim.cmd [[highlight CmpItemKindProperty guibg=#B5585F guifg=#EED8DA]]
-vim.cmd [[highlight CmpItemKindEvent guibg=#B5585F guifg=#EED8DA]]
-vim.cmd [[highlight CmpItemKindText guibg=#9FBD73 guifg=#FFFFFF]]
-vim.cmd [[highlight CmpItemKindEnum guibg=#9FBD73 guifg=#FFFFFF]]
-vim.cmd [[highlight CmpItemKindKeyword guibg=#9FBD73 guifg=#FFFFFF]]
-vim.cmd [[highlight CmpItemKindConstant guibg=#D4BB6C guifg=#FFE082]]
-vim.cmd [[highlight CmpItemKindConstructor guibg=#D4BB6C guifg=#FFE082]]
-vim.cmd [[highlight CmpItemKindReference guibg=#D4BB6C guifg=#FFE082]]
-vim.cmd [[highlight CmpItemKindFunction guibg=#A377BF guifg=#EADFF0]]
-vim.cmd [[highlight CmpItemKindStruct guibg=#A377BF guifg=#EADFF0]]
-vim.cmd [[highlight CmpItemKindClass guibg=#A377BF guifg=#EADFF0]]
-vim.cmd [[highlight CmpItemKindModule guibg=#A377BF guifg=#EADFF0]]
-vim.cmd [[highlight CmpItemKindOperator guibg=#A377BF guifg=#EADFF0]]
-vim.cmd [[highlight CmpItemKindVariable guibg=#7E8294 guifg=#C5CDD9]]
-vim.cmd [[highlight CmpItemKindFile guibg=#7E8294 guifg=#C5CDD9]]
-vim.cmd [[highlight CmpItemKindUnit guibg=#D4A959 guifg=#F5EBD9]]
-vim.cmd [[highlight CmpItemKindSnippet guibg=#D4A959 guifg=#F5EBD9]]
-vim.cmd [[highlight CmpItemKindFolder guibg=#D4A959 guifg=#F5EBD9]]
-vim.cmd [[highlight CmpItemKindMethod guibg=#6C8ED4 guifg=#DDE5F5]]
-vim.cmd [[highlight CmpItemKindValue guibg=#6C8ED4 guifg=#DDE5F5]]
-vim.cmd [[highlight CmpItemKindEnumMember guibg=#6C8ED4 guifg=#DDE5F5]]
-vim.cmd [[highlight CmpItemKindInterface guibg=#58B5A8 guifg=#D8EEEB]]
-vim.cmd [[highlight CmpItemKindColor guibg=#58B5A8 guifg=#D8EEEB]]
-vim.cmd [[highlight CmpItemKindTypeParameter guibg=#58B5A8 guifg=#D8EEEB]]
+vim.cmd([[highlight CmpItemAbbr guibg=NONE guifg=#CAD3F5]])
+vim.cmd([[highlight CmpItemAbbrDeprecated guibg=NONE guifg=#FF0000 gui=strikethrough]])
+vim.cmd([[highlight CmpItemAbbrMatch guibg=NONE guifg=#82AAFF gui=bold]])
+vim.cmd([[highlight CmpItemAbbrMatchFuzzy guibg=NONE guifg=#82AAFF gui=bold]])
+vim.cmd([[highlight CmpItemMenu guibg=NONE guifg=#C6A0F6 gui=NONE]])
+vim.cmd([[highlight CmpItemKindField guibg=#B5585F guifg=#EED8DA]])
+vim.cmd([[highlight CmpItemKindProperty guibg=#B5585F guifg=#EED8DA]])
+vim.cmd([[highlight CmpItemKindEvent guibg=#B5585F guifg=#EED8DA]])
+vim.cmd([[highlight CmpItemKindText guibg=#9FBD73 guifg=#FFFFFF]])
+vim.cmd([[highlight CmpItemKindEnum guibg=#9FBD73 guifg=#FFFFFF]])
+vim.cmd([[highlight CmpItemKindKeyword guibg=#9FBD73 guifg=#FFFFFF]])
+vim.cmd([[highlight CmpItemKindConstant guibg=#D4BB6C guifg=#FFE082]])
+vim.cmd([[highlight CmpItemKindConstructor guibg=#D4BB6C guifg=#FFE082]])
+vim.cmd([[highlight CmpItemKindReference guibg=#D4BB6C guifg=#FFE082]])
+vim.cmd([[highlight CmpItemKindFunction guibg=#A377BF guifg=#EADFF0]])
+vim.cmd([[highlight CmpItemKindStruct guibg=#A377BF guifg=#EADFF0]])
+vim.cmd([[highlight CmpItemKindClass guibg=#A377BF guifg=#EADFF0]])
+vim.cmd([[highlight CmpItemKindModule guibg=#A377BF guifg=#EADFF0]])
+vim.cmd([[highlight CmpItemKindOperator guibg=#A377BF guifg=#EADFF0]])
+vim.cmd([[highlight CmpItemKindVariable guibg=#7E8294 guifg=#C5CDD9]])
+vim.cmd([[highlight CmpItemKindFile guibg=#7E8294 guifg=#C5CDD9]])
+vim.cmd([[highlight CmpItemKindUnit guibg=#D4A959 guifg=#F5EBD9]])
+vim.cmd([[highlight CmpItemKindSnippet guibg=#D4A959 guifg=#F5EBD9]])
+vim.cmd([[highlight CmpItemKindFolder guibg=#D4A959 guifg=#F5EBD9]])
+vim.cmd([[highlight CmpItemKindMethod guibg=#6C8ED4 guifg=#DDE5F5]])
+vim.cmd([[highlight CmpItemKindValue guibg=#6C8ED4 guifg=#DDE5F5]])
+vim.cmd([[highlight CmpItemKindEnumMember guibg=#6C8ED4 guifg=#DDE5F5]])
+vim.cmd([[highlight CmpItemKindInterface guibg=#58B5A8 guifg=#D8EEEB]])
+vim.cmd([[highlight CmpItemKindColor guibg=#58B5A8 guifg=#D8EEEB]])
+vim.cmd([[highlight CmpItemKindTypeParameter guibg=#58B5A8 guifg=#D8EEEB]])
 
 local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -1337,24 +1379,23 @@ npairs.setup(
 
 
 -- MAGMA --
-g.magma_automatically_open_output = true
-g.magma_image_provider = 'ueberzug'
-g.magma_cell_highlight_group = 'PmenuSel'
-map('n', '<Leader>mi', '<cmd>MagmaInit<CR>')
-map('n', '<Leader>mr', '<cmd>MagmaEvaluateLine<CR>')
-map('x', '<Leader>mr', ':<C-u>MagmaEvaluateVisual<CR>')
-map('n', '<Leader>mrr', '<cmd>MagmaReevaluateCell<CR>')
-map('n', '<Leader>mo', '<cmd>MagmaShowOutput<CR>')
-map('n', '<Leader>moo', '<cmd>MagmaEnterOutput<CR>')
-map('n', '<Leader>mc', '<cmd>MagmaInterrupt<CR>')
-map('n', '<Leader>mrs', '<cmd>MagmaRestart<CR>')
-map('n', '<Leader>mrst', '<cmd>MagmaRestart!<CR>')
-map('n', '<Leader>md', '<cmd>MagmaDelete<CR>')
-map('n', '<Leader>mq', '<cmd>MagmaDeinit<CR>')
+-- g.magma_automatically_open_output = true
+-- g.magma_image_provider = 'ueberzug'
+-- g.magma_cell_highlight_group = 'PmenuSel'
+-- map('n', '<Leader>mi', '<cmd>MagmaInit<CR>')
+-- map('n', '<Leader>mr', '<cmd>MagmaEvaluateLine<CR>')
+-- map('x', '<Leader>mr', ':<C-u>MagmaEvaluateVisual<CR>')
+-- map('n', '<Leader>mrr', '<cmd>MagmaReevaluateCell<CR>')
+-- map('n', '<Leader>mo', '<cmd>MagmaShowOutput<CR>')
+-- map('n', '<Leader>moo', '<cmd>MagmaEnterOutput<CR>')
+-- map('n', '<Leader>mc', '<cmd>MagmaInterrupt<CR>')
+-- map('n', '<Leader>mrs', '<cmd>MagmaRestart<CR>')
+-- map('n', '<Leader>mrst', '<cmd>MagmaRestart!<CR>')
+-- map('n', '<Leader>md', '<cmd>MagmaDelete<CR>')
+-- map('n', '<Leader>mq', '<cmd>MagmaDeinit<CR>')
 
 
 -- KEY BINDINGS --
---  mode   key      value
 
 -- Go to start and end of line
 map('i', '<C-E>', '<Esc>A')
@@ -1377,7 +1418,7 @@ map('n', '<C-j>', '<cmd>move .+1<CR>')
 map('n', '<C-k>', '<cmd>move .-2<CR>')
 
 -- Window Splits
-vim.cmd [[highlight WinSeparator guibg=NONE guifg=#B7BDF8]]
+vim.cmd([[highlight WinSeparator guibg=NONE guifg=#B7BDF8]])
 -- map('n', '<leader>wv', '<C-w>v')
 -- map('n', '<leader>ws', '<C-w>s')
 -- map('n', '<leader>wq', '<C-w>c')
@@ -1432,3 +1473,12 @@ map('n', '<leader>fd', 'za')
 
 -- Reload Config
 map('n', '<F4>', '<cmd>source %<CR>')
+
+map('t', '<Esc>', '<C-\\><C-n>')
+
+map('n', '<leader>pfn', '<cmd>lua require("python-treesitter-navigation").goto_next("function")<CR>')
+map('n', '<leader>pcn', '<cmd>lua require("python-treesitter-navigation").goto_next("class")<CR>')
+map('n', '<leader>ptn', '<cmd>lua require("python-treesitter-navigation").goto_next("todo")<CR>')
+map('n', '<leader>pfp', '<cmd>lua require("python-treesitter-navigation").goto_prev("function")<CR>')
+map('n', '<leader>pcp', '<cmd>lua require("python-treesitter-navigation").goto_prev("class")<CR>')
+map('n', '<leader>ptp', '<cmd>lua require("python-treesitter-navigation").goto_prev("todo")<CR>')
