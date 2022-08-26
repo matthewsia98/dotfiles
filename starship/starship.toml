@@ -17,6 +17,7 @@ $git_metrics\
 $git_status\
 $python\
 $lua\
+$env_var\
 $line_break\
 $character
 """
@@ -32,7 +33,6 @@ disabled = false
 [cmd_duration]
 disabled = true
 
-
 [hostname]
 ssh_only = false
 format = '\[[$ssh_symbol$hostname]($style)\] '
@@ -44,23 +44,25 @@ format = '[\[$user\]](bold #00ffff) '
 
 [directory]
 truncate_to_repo = false
+read_only = " "
 format = '[$path](#00ffff)[$read_only]($read_only_style) '
 
 [character]
-success_symbol = "[➜](bold #50fa7b)"
-error_symbol = "[➜](bold #50fa7b)" 
-vimcmd_symbol = "[](bold #50fa7b)"
-vimcmd_visual_symbol = "[](bold #f0fa8b)"
+success_symbol = "[➜](bold #A6DA95)"
+error_symbol = "[➜](bold #ED8796)" 
+vimcmd_symbol = "[](bold #C6A0F6)"
+vimcmd_visual_symbol = "[](bold #C6A0F6)"
 
-[python]
-disabled = false
-format = '[$symbol$version]($style)'
-[lua]
-disabled = false
-format = '[$symbol$version]($style)'
+[env_var]
+disabled = true
+variable = "VIRTUAL_ENV"
+symbol = ""
+default = ""
+format = "[$env_value](bold #EED49F)"
 
 [git_branch]
-format = '[$symbol$branch(:$remote_branch)]($style) '
+symbol = ""
+format = '[\[$symbol $branch(:$remote_branch)\]]($style) '
 
 [git_commit]
 format = '[#$hash$tag]($style) '
@@ -77,3 +79,71 @@ disabled = false
 [time]
 format = '[\[$time\]](bold #00ffff)'
 disabled = false
+
+[aws]
+symbol = "  "
+
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[lua]
+symbol = " "
+format = '[\[$symbol$version\]]($style)'
+
+[memory_usage]
+symbol = " "
+
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[package]
+symbol = " "
+
+[python]
+symbol = " "
+format = '[\[$symbol$version( $virtualenv)\]]($style)'
+
+[spack]
+symbol = "🅢 "
+
+[rust]
+symbol = " "
