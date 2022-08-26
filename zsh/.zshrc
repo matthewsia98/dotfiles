@@ -5,8 +5,9 @@ set_title
 
 chpwd_functions+=(set_title)
 
-export PATH=$HOME/.local/bin:$HOME/.emacs.d/bin:$PATH
-export PYTHONPATH=$HOME/.local/lib/python3.10/site-packages:$PYTHONPATH
+#export PATH=$HOME/.local/bin:$HOME/.emacs.d/bin:$PATH
+export PATH
+#export PYTHONPATH=$HOME/.local/lib/python3.10/site-packages:$PYTHONPATH
 export BAT_THEME='OneHalfDark'
 export EDITOR='nvim'
 export VISUAL='nvim'
@@ -40,10 +41,11 @@ alias logout='loginctl terminate-user $USER'
 alias suspend='systemctl suspend'
 
 # Programs
-# alias vim='nvim -u ~/.config/nvim/init.lua'
+alias vi='nvim'
 alias vim='nvim'
 alias emacs="emacsclient -c -a 'emacs'"
-alias feh='feh --scale-down -d -g 1920x1030+0+50 --image-bg black -C ~/.fonts -e RobotoMono-Bold/20'
+alias feh='feh --scale-down -d -g 1920x1030+0+50 --image-bg black -C ~/.fonts -e static/RobotoMono-Bold/20'
+alias conky="conky -c ~/.config/conky/process.conf"
 
 # Git
 alias gcl='git clone'
@@ -62,7 +64,7 @@ alias pacin='sudo pacman -S'
 alias pacrm='sudo pacman -R'
 alias pacsyu='sudo pacman -Syu'
 alias pacg='pacman -Q | grep'
-alias paclist='pacman -Q'
+alias pacls='pacman -Q'
 
 
 autoload -Uz compinit
@@ -116,8 +118,6 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship.toml
 
-alias luamake=/home/siam/lua-language-server/3rd/luamake/luamake
-
 
 # FZF
 local fzf_cmd='find -L'
@@ -141,4 +141,5 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source /usr/share/fzf/key-bindings.zsh
+[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
