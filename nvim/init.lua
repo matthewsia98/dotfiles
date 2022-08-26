@@ -965,11 +965,7 @@ local lspconfig = require('lspconfig')
 
 -- PYTHON LSP --
 -- local function get_python_env()
---     local env = '/usr'
---     if vim.env.VIRTUAL_ENV ~= nil then
---         -- env = vim.env.VIRTUAL_ENV .. '/bin/python'
---         env = vim.env.VIRTUAL_ENV
---     end
+--     local env = vim.env.VIRTUAL_ENV or '/usr'
 --
 --     vim.schedule(function() print('Jedi Environment:', env) end)
 --     return env
@@ -986,10 +982,11 @@ lspconfig['pylsp'].setup {
                 pycodestyle = { enabled = false, },
                 pyflakes = { enabled = false, },
                 mccabe = { enabled = false, },
-                jedi = { extra_paths = {
-                        '.local/lib/python3.10/site-packages',
-                    },
-                    -- environment = '/usr',
+                jedi = {
+                    -- extra_paths = {
+                    --     '.local/lib/python3.10/site-packages',
+                    -- },
+                    environment = vim.env.VIRTUAL_ENV or '/usr',
                 },
                 jedi_completion = {
                     enabled = true,
@@ -1138,7 +1135,7 @@ map('s', '<BS>', '<C-G>s')
 luasnip.config.set_config {
     history = true,
     updateevents = 'TextChanged,TextChangedI',
-    -- enable_autosnippets = true,
+    enable_autosnippets = true,
     ext_opts = {
         [types.choiceNode] = {
             active = {
