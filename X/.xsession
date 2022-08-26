@@ -5,9 +5,9 @@ xrandr --output eDP-1 --mode 1920x1080
 xrdb -merge ~/.Xresources
 xmodmap ~/.Xmodmap
 
-echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting emacs daemon' >> $LOGFILE
-/usr/bin/emacs --daemon
-echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started emacs daemon' >> $LOGFILE
+/* echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting emacs daemon' >> $LOGFILE */
+/* /usr/bin/emacs --daemon */
+/* echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started emacs daemon' >> $LOGFILE */
 
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting picom' >> $LOGFILE
 picom --experimental-backends -b
