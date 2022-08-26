@@ -18,9 +18,9 @@ LEFT_POWERLINE = "\uE0B2"
 RIGHT_POWERLINE = "\uE0B0"
 TOGGLE_ON = "\uF205"
 TOGGLE_OFF = "\uF204"
-POWERLINE_SIZE = 50
-BAR_HEIGHT = 50
-FONT = "RobotoMono Nerd Font Bold"
+POWERLINE_SIZE = 40
+BAR_HEIGHT = 40
+FONT = "Roboto Mono Nerd Font Medium"
 FONT_SIZE = 20
 COLORS = {
     "background": ["#24273A"],
@@ -305,11 +305,15 @@ keys = [
 
 #### GROUPS ####
 groups = [
-    Group(name="1", label="\uE235", spawn=None),
-    Group(name="2", label="\uFB10", spawn="discord"),
-    Group(name="3", label="\uF6ED", spawn="thunderbird"),
-    Group(name="4", label="\uF269", spawn="firefox"),
-    Group(name="5", label="\uF313", spawn=None),
+    Group(name="1", label="1", spawn=None),
+    Group(name="2", label="2", spawn="discord"),
+    Group(name="3", label="3", spawn="thunderbird"),
+    Group(name="4", label="4", spawn="firefox"),
+    Group(name="5", label="5", spawn=None),
+    Group(name="6", label="6", spawn=None),
+    Group(name="7", label="7", spawn=None),
+    Group(name="8", label="8", spawn=None),
+    Group(name="9", label="9", spawn=None),
 ]
 
 for i in groups:
@@ -367,8 +371,8 @@ layouts = [
     layout.MonadTall(
         single_border_width=0,
         single_margin=0,
-        margin=20,
-        border_width=2,
+        margin=10,
+        border_width=0,
         border_normal=COLORS["inactive_border_color"][0],
         border_focus=COLORS["active_border_color"][0],
     ),
@@ -403,20 +407,20 @@ screens = [
                 #        name='layout_spacer'
                 #        ),
                 # widget.CurrentLayout(),
-                widget.CurrentLayoutIcon(
-                    background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
-                    scale=0.6,
-                ),
-                separator(
-                    length=4,
-                    padding=0,
-                    background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
-                ),
-                spacer(
-                    length=5,
-                    background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
-                    name="layout_spacer",
-                ),
+                # widget.CurrentLayoutIcon(
+                #     background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
+                #     scale=0.6,
+                # ),
+                # separator(
+                #     length=4,
+                #     padding=0,
+                #     background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
+                # ),
+                # spacer(
+                #     length=5,
+                #     background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
+                #     name="layout_spacer",
+                # ),
                 # widget.Spacer(length=10, background=colors[6]),
                 # widget.TextBox(text='\uF303 ', background=colors[6], padding=0,
                 #                mouse_callbacks={'Button1': lazy.spawn('rofi -show drun')},
@@ -424,24 +428,25 @@ screens = [
                 #                ),
                 # widget.TextBox(text=right_arrow, fontsize=40, padding=0, background=colors[5], foreground=colors[6]),
                 widget.GroupBox(
-                    highlight_method="block",
-                    fontsize=50,
-                    borderwidth=5,
+                    disable_drag=True,
+                    highlight_method="text",
+                    # fontsize=30,
+                    borderwidth=0,
                     highlight_color=COLORS["selection_background"][0],
                     block_highlight_text_color=COLORS["selection_foreground"][0],
                     background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
                     foreground=COLORS["foreground"][POWERLINE_ENABLED],
-                    this_current_screen_border=COLORS["cyan"][0],
+                    this_current_screen_border=COLORS['active_border_color'][0],
                     urgent_border=COLORS["red"][0],
                     urgent_text=COLORS["foreground"][POWERLINE_ENABLED],
                     active=COLORS["foreground"][POWERLINE_ENABLED],
                     inactive=COLORS["foreground"][POWERLINE_ENABLED],
                     rounded=True,
                     center_aligned=True,
-                    spacing=0,
-                    padding_x=3,
-                    padding_y=0,
-                    margin_x=0,
+                    spacing=10,
+                    padding_x=0,
+                    padding_y=10,
+                    margin_x=10,
                     margin_y=3,
                     name="groupbox",
                 ),
@@ -466,12 +471,12 @@ screens = [
                     txt_floating="[\uF06D] ",
                     txt_maximized="[\uF067] ",
                     txt_minimized="[\uF068] ",
-                    icon_size=0,
+                    icon_size=20,
                     spacing=10,
                     margin_x=0,
-                    margin_y=1,
-                    padding_x=10,
-                    padding_y=10,
+                    margin_y=0,
+                    padding_x=5,
+                    padding_y=9,
                 ),
                 # widget.WindowName(background=COLORS['transparent'][0],
                 #                   foreground=COLORS['foreground'][0],
