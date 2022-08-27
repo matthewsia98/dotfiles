@@ -476,7 +476,7 @@ screens = [
                     margin_x=0,
                     margin_y=0,
                     padding_x=5,
-                    padding_y=9,
+                    padding_y=6,
                 ),
                 # widget.WindowName(background=COLORS['transparent'][0],
                 #                   foreground=COLORS['foreground'][0],
