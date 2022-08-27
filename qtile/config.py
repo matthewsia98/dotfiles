@@ -372,7 +372,7 @@ layouts = [
         single_border_width=0,
         single_margin=0,
         margin=10,
-        border_width=0,
+        border_width=1,
         border_normal=COLORS["inactive_border_color"][0],
         border_focus=COLORS["active_border_color"][0],
     ),
@@ -785,7 +785,7 @@ floating_layout = layout.Floating(
     ],
     border_normal=COLORS["inactive_border_color"][0],
     border_focus=COLORS["active_border_color"][0],
-    border_width=0,
+    border_width=1,
 )
 
 
