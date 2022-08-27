@@ -19,7 +19,7 @@ end
 
 -- VIM --
 local g = vim.g
-local o = vim.o
+local o = vim.opt
 local A = vim.api
 
 g.python3_host_prog = '/usr/bin/python3'
@@ -48,14 +48,13 @@ o.numberwidth = 6
 o.relativenumber = true
 o.signcolumn = 'yes:1'
 o.cursorline = true
-
 -- Better editing experience
 o.expandtab = true
 -- o.smarttab = true
 o.cindent = true
 -- o.autoindent = true
 o.wrap = false
-o.textwidth = 300
+o.textwidth = 127
 o.tabstop = 4
 o.shiftwidth = 0
 o.softtabstop = -1 -- If negative, shiftwidth value is used
@@ -129,7 +128,15 @@ local group = A.nvim_create_augroup('MyAutocmds', { clear = true })
 A.nvim_create_autocmd('BufEnter', {
     group = group,
     callback = function()
-        o.formatoptions = string.gsub(o.formatoptions, '[cro]', '')
+        -- t: Auto-wrap using textwidth
+        -- c: Auto-wrap comments using textwidth and insert comment leader automatically
+        -- r: BAD!!! Automatically insert comment leader when hitting <Enter> in Insert mode
+        -- o: BAD!!! Automatically insert comment leader when hitting o/O in Normal mode
+        -- n: Recognize numbered lists
+        -- l: Long lines are not broken in insert mode
+        -- j: Remove comment leader when joining lines
+        -- p: Don't break lines at single spaces that follow periods e.g. Mr. John
+        vim.cmd [[set formatoptions=tcnjp]]
     end
 })
 
