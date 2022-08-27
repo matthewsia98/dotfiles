@@ -16,11 +16,11 @@ end
 --     vim.keymap.del(mode, key, options)
 -- end
 
+
 -- VIM --
 local g = vim.g
 local o = vim.o
 local A = vim.api
-
 
 g.python3_host_prog = '/usr/bin/python3'
 -- cmd('syntax on')
@@ -164,7 +164,7 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'numToStr/Comment.nvim'
 
 -- Easily surround text objects
-Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
 
 -- Matching Quotes/Brackets
 Plug 'windwp/nvim-autopairs'
@@ -203,7 +203,6 @@ Plug 'nvim-treesitter/playground'
 
 -- Language Server
 Plug 'neovim/nvim-lspconfig'
-Plug 'HallerPatrick/py_lsp.nvim'
 
 -- Language Server Manager
 Plug 'williamboman/mason.nvim'
@@ -235,14 +234,16 @@ vim.call('plug#end')
 
 
 -- COLOR SCHEME --
+local catppuccin = require('catppuccin')
+local catppuccin_palette = require('catppuccin/palettes').get_palette()
+
 vim.g.catppuccin_flavour = 'macchiato'
-local cp = require('catppuccin/palettes').get_palette()
-require('catppuccin').setup {
+catppuccin.setup {
     transparent_background = false,
     integrations = {},
     custom_highlights = {
-        Comment = { fg = cp.blue },
-        LineNr = { fg = cp.lavender },
+        Comment = { fg = catppuccin_palette.blue },
+        LineNr = { fg = catppuccin_palette.lavender },
         CursorLineNr = { fg = '#00FFFF' }
     }
 }
@@ -253,44 +254,60 @@ vim.cmd([[colorscheme catppuccin]])
 local notify = require('notify')
 
 
--- BUFFERLINE --
-require('bufferline').setup {
+-- -- BUFFERLINE --
+local bufferline = require('bufferline')
+bufferline.setup {
     options = {
-        mode = 'buffers', --'buffers', 'tabs'
-        numbers = 'buffer_id',
-        close_command = 'bdelete! %d', -- can be a string | function, see "Mouse actions"
-        right_mouse_command = 'bdelete! %d', -- can be a string | function, see "Mouse actions"
-        left_mouse_command = 'buffer %d', -- can be a string | function, see "Mouse actions"
-        middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
+        mode = "buffers", -- set to "tabs" to only show tabpages instead
+        numbers = function(tbl)
+            -- ordinal, id
+            return tbl['id'] .. '.'
+        end,
+        close_command = "bdelete! %d",
+        right_mouse_command = "bdelete! %d",
+        left_mouse_command = "buffer %d",
+        middle_mouse_command = nil,
         indicator = {
             icon = '▎', -- this should be omitted if indicator style is not 'icon'
-            style = 'icon' -- 'underline', 'none',
+            style = 'icon', -- 'icon' | 'underline' | 'none',
         },
         buffer_close_icon = '',
         modified_icon = '●',
         close_icon = '',
         left_trunc_marker = '',
         right_trunc_marker = '',
+        name_formatter = function(buf)  -- buf contains a "name", "path" and "bufnr"
+            return buf.name
+        end,
         max_name_length = 18,
         max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
         tab_size = 18,
-        diagnostics = 'nvim_lsp',
+        diagnostics = 'nvim_lsp', -- false | "nvim_lsp" | "coc",
         diagnostics_update_in_insert = true,
-        diagnostics_indicator = function(count)
-            return '(' .. count .. ')'
+        diagnostics_indicator = function(count, level, diagnostics_dict, context)
+            return "("..count..")"
         end,
+        offsets = {
+            {
+                filetype = "NvimTree",
+                text = 'File Explorer', -- "File Explorer" | function ,
+                text_align = 'left',
+                separator = true,
+            }
+        },
         color_icons = true, -- whether or not to add the filetype icon highlights
         show_buffer_icons = true, -- disable filetype icons for buffers
         show_buffer_close_icons = true,
         show_buffer_default_icon = true, -- whether or not an unrecognised filetype should show a default icon
-        show_close_icon = false,
+        show_close_icon = true,
         show_tab_indicators = true,
         persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-        -- can also be a table containing 2 custom separators
-        -- [focused and unfocused]. eg: { '|', '|' }
-        separator_style = 'thin',
+        separator_style = 'thick', -- "slant" | "thick" | "thin" | { 'any', 'any' },
         enforce_regular_tabs = true,
         always_show_bufferline = true,
+        -- 'insert_after_current' |'insert_at_end' | 'id' | 'extension' | 'relative_directory' | 'directory' |
+        -- 'tabs' | function(buffer_a, buffer_b)
+        sort_by = 'insert_at_end',
     }
 }
 
@@ -323,32 +340,29 @@ require('lualine').setup {
     },
     -- a b c                x y z
     sections = {
+        -- 'mode', 'branch', 'diff', 'diagnostics', 'filename', 'encoding', 'fileformat', 'filetype', 'progress', 'location'
         lualine_a = { 'mode', },
-        lualine_b = { 'branch' }, --'diagnostics'
+        lualine_b = { 'branch' },
         lualine_c = {
             { 'diagnostics',
                 sources = { 'nvim_lsp' },
-
-                -- Displays diagnostics for the defined severity types
                 sections = { 'error', 'warn', 'info', 'hint' },
-
                 diagnostics_color = {
-                    -- Same values as the general color option can be used here.
-                    error = 'DiagnosticError', -- Changes diagnostics' error color.
-                    warn  = 'DiagnosticWarn', -- Changes diagnostics' warn color.
-                    info  = 'DiagnosticInfo', -- Changes diagnostics' info color.
-                    hint  = 'DiagnosticHint', -- Changes diagnostics' hint color.
+                    error = 'DiagnosticError',
+                    warn  = 'DiagnosticWarn',
+                    info  = 'DiagnosticInfo',
+                    hint  = 'DiagnosticHint',
                 },
                 -- symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'},
-                colored = true, -- Displays diagnostics status in color if set to true.
-                update_in_insert = false, -- Update diagnostics in insert mode.
-                always_visible = false, -- Show diagnostics even if there are none.
+                colored = true,
+                update_in_insert = true,
+                always_visible = false,
             },
             'require("lsp-status").status()'
-        }, -- 'diagnostics', 'filename'
-        lualine_x = {}, --'filetype' , 'filesize'
-        lualine_y = { 'encoding', 'fileformat', }, -- 'buffers', 'diff'
-        lualine_z = { 'progress', 'location' }
+        },
+        lualine_x = {},
+        lualine_y = { 'encoding', 'fileformat', },
+        lualine_z = { 'progress', 'location' },
     },
     tabline = {},
     winbar = {
@@ -371,8 +385,11 @@ require('lualine').setup {
 
 
 -- NVIMTREE --
+local nvim_tree = require('nvim-tree')
+
 map('n', '<leader>nt', '<cmd>NvimTreeToggle<CR>')
-require('nvim-tree').setup {
+
+nvim_tree.setup {
     sort_by = 'case_sensitive',
     view = {
         adaptive_size = false,
@@ -386,21 +403,20 @@ require('nvim-tree').setup {
         group_empty = true,
     },
     filters = {
-        dotfiles = false,
+        dotfiles = true,
     },
 }
 
 
 -- TROUBLE --
+local trouble = require('trouble')
+
 map('n', '<leader>wd', '<cmd>TroubleToggle workspace_diagnostics<cr>')
 map('n', '<leader>dd', '<cmd>TroubleToggle document_diagnostics<cr>')
 map('n', '<leader>ll', '<cmd>TroubleToggle loclist<cr>')
 map('n', '<leader>qf', '<cmd>TroubleToggle quickfix<cr>')
--- map('n', 'gr', '<cmd>TroubleToggle lsp_references<cr>')
--- map('n', '<leader>gd', '<cmd>TroubleToggle lsp_definitions<cr>')
--- map('n', '<leader>gt', '<cmd>TroubleToggle lsp_type_definitions<cr>')
--- map('n', '<leader>gi', '<cmd>TroubleToggle lsp_implementations<cr>')
-require('trouble').setup {
+
+trouble.setup {
     position = 'bottom', -- position of the list can be: bottom, top, left, right
     height = 10, -- height of the trouble list when position is top or bottom
     width = 50, -- width of the list when position is left or right
@@ -437,19 +453,21 @@ require('trouble').setup {
     auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
     auto_fold = false, -- automatically fold a file trouble list at creation
     auto_jump = { 'lsp_definitions', 'lsp_references' }, -- for the given modes, automatically jump if there is only a single result
+    use_diagnostic_signs = true, -- enabling this will use the signs defined in your lsp client
     signs = {
-        -- icons / text used for a diagnostic
         error = '',
         warning = '',
         hint = '',
         information = '',
-        --[[   ]] other = '﫠'
+        other = '﫠'
     },
-    use_diagnostic_signs = true -- enabling this will use the signs defined in your lsp client
 }
 
 
 -- TELESCOPE--
+local telescope = require('telescope')
+local trouble_telescope = require('trouble.providers.telescope')
+
 map('n', '<leader>f/', '<cmd>Telescope find_files<CR>')
 map('n', '<leader>ff', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
 map('n', '<leader>fg', '<cmd>Telescope git_commits<CR>')
@@ -457,18 +475,9 @@ map('n', '<leader>fa', '<cmd>Telescope live_grep<CR>')
 map('n', '<leader>fb', '<cmd>Telescope buffers<CR>')
 map('n', '<leader>fh', '<cmd>Telescope help_tags<CR>')
 map('n', '<leader>fo', '<cmd>Telescope vim_options<CR>')
--- map('n', '<leader>fr', '<cmd>Telescope lsp_references<CR>')
--- map('n', '<leader>fdd', '<cmd>Telescope diagnostics<CR>')
--- map('n', '<leader>fds', '<cmd>Telescope lsp_document_symbols<CR>')
--- map('n', '<leader>fts', '<cmd>Telescope treesitter<CR>')
--- map('n', '<leader>fcm', '<cmd>Telescope commands<CR>')
--- map('n', '<leader>fh', '<cmd>Telescope help_tags<CR>')
-local telescope = require('telescope')
-local trouble_telescope = require('trouble.providers.telescope')
+
 telescope.setup {
     defaults = {
-        -- Default configuration for telescope goes here:
-        -- config_key = value,
         sorting_strategy = 'ascending',
         layout_strategy = 'horizontal',
         layout_config = {
@@ -481,9 +490,6 @@ telescope.setup {
         },
         mappings = {
             i = {
-                -- map actions.which_key to <C-h> (default: <C-/>)
-                -- actions.which_key shows the mappings for your picker,
-                -- e.g. git_{create, delete, ...}_branch for the git_branches picker
                 ['<C-h>'] = 'which_key',
                 ['<C-t>'] = trouble_telescope.open_with_trouble,
             },
@@ -494,13 +500,6 @@ telescope.setup {
         }
     },
     pickers = {
-        -- Default configuration for builtin pickers goes here:
-        -- picker_name = {
-        --   picker_config_key = value,
-        --   ...
-        -- }
-        -- Now the picker_config_key will be applied every time you call this
-        -- builtin picker
         find_files = {
             layout_config = {
                 preview_width = 0.7,
@@ -538,7 +537,6 @@ telescope.setup {
             override_generic_sorter = true, -- override the generic sorter
             override_file_sorter = true, -- override the file sorter
             case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
-            -- the default case_mode is "smart_case"
         }
     }
 }
@@ -631,7 +629,6 @@ require('gitsigns').setup {
             end,
             { expr = true }
         )
-
         map('n', '<leader>hp',
             function()
                 if vim.wo.diff then return '[c' end
@@ -731,7 +728,7 @@ map('n', '<leader>gm', '<cmd>GitMessenger<CR>')
 
 
 -- COMMENT PLUGIN --
-require('Comment').setup({
+require('Comment').setup {
     padding = true,
     sticky = true,
     ignore = nil,
@@ -739,19 +736,16 @@ require('Comment').setup({
         line = 'gcc',
         block = 'gbc',
     },
-
     opleader = {
         line = 'gc',
         block = 'gb',
     },
-
     extra = {
         above = 'gcO',
         below = 'gco',
         eol = 'gcA',
     },
 }
-)
 
 
 -- COLORIZER --
@@ -786,29 +780,19 @@ require('mason-lspconfig').setup()
 
 
 -- LSP CONFIG --
--- vim.fn.sign_define(
---     'DiagnosticSignError',
---     { texthl = 'DiagnosticSignError', text = '', numhl = 'DiagnosticSignError' }
--- )
--- vim.fn.sign_define(
---     'DiagnosticSignWarn',
---     { texthl = 'DiagnosticSignWarn', text = '', numhl = 'DiagnosticSignWarn' }
--- )
--- vim.fn.sign_define(
---     'DiagnosticSignHint',
---     { texthl = 'DiagnosticSignHint', text = '', numhl = 'DiagnosticSignHint' }
--- )
--- vim.fn.sign_define(
---     'DiagnosticSignInfo',
---     { texthl = 'DiagnosticSignInfo', text = '', numhl = 'DiagnosticSignInfo' }
--- )
-
+local lspconfig = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+    -- Get LSP progress updates on status line
     lsp_status.on_attach(client)
     lsp_status.register_progress()
+
+    if client['name'] == 'pylsp' then
+        local env = vim.env.VIRTUAL_ENV or '/usr'
+        print('Jedi Environment:', env)
+    end
 
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     map('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', bufopts)
@@ -823,58 +807,23 @@ local on_attach = function(client, bufnr)
     map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', bufopts)
     map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', bufopts)
     -- map('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
+    map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', bufopts)
+    map({'n', 'v'}, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', bufopts)
+    map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.format()<CR>', bufopts)
+    map('x', '<leader>fm', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', bufopts)
     map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', bufopts)
     map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', bufopts)
     map('n', '<leader>wls', function() P(vim.lsp.buf.list_workspace_folders()) end, bufopts)
-    map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', bufopts)
-    map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', bufopts)
-    map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', bufopts)
-    -- Set some key bindings conditional on server capabilities
-    if client.server_capabilities.documentFormattingProvider then
-        map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.format()<CR>', bufopts)
-    end
-    if client.server_capabilities.documentRangeFormattingProvider then
-        map('x', '<leader>fm', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', bufopts)
-    end
 end
 
 local lsp_flags = {
     debounce_text_changes = 150,
 }
 
--- -- Create a custom namespace. This will aggregate signs from all other
--- -- namespaces and only show the one with the highest severity on a
--- -- given line
--- local ns = vim.api.nvim_create_namespace("my_namespace")
---
--- -- Get a reference to the original signs handler
--- local orig_signs_handler = vim.diagnostic.handlers.signs
---
--- -- Override the built-in signs handler
--- vim.diagnostic.handlers.signs = {
---     show = function(_, bufnr, _, opts)
---         -- Get all diagnostics from the whole buffer rather than just the
---         -- diagnostics passed to the handler
---         local diagnostics = vim.diagnostic.get(bufnr)
---
---         -- Find the "worst" diagnostic per line
---         local max_severity_per_line = {}
---         for _, d in pairs(diagnostics) do
---             local m = max_severity_per_line[d.lnum]
---             if not m or d.severity < m.severity then
---                 max_severity_per_line[d.lnum] = d
---             end
---         end
---
---         -- Pass the filtered diagnostics (with our custom namespace) to
---         -- the original handler
---         local filtered_diagnostics = vim.tbl_values(max_severity_per_line)
---         orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
---     end,
---     hide = function(_, bufnr)
---         orig_signs_handler.hide(ns, bufnr)
---     end,
--- }
+local capabilities = require('cmp_nvim_lsp').update_capabilities(
+    vim.lsp.protocol.make_client_capabilities()
+)
+
 local handlers = {
     ['textDocument/publishDiagnostics'] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -941,22 +890,56 @@ local handlers = {
     end
 }
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(
-    vim.lsp.protocol.make_client_capabilities()
-)
--- Set default client capabilities plus window/workDoneProgress
--- capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilities)
-
-local lspconfig = require('lspconfig')
-
-
--- PYTHON LSP --
--- local function get_python_env()
---     local env = vim.env.VIRTUAL_ENV or '/usr'
+-- SIGNS
+-- vim.fn.sign_define(
+--     'DiagnosticSignError',
+--     { texthl = 'DiagnosticSignError', text = '', numhl = 'DiagnosticSignError' }
+-- )
+-- vim.fn.sign_define(
+--     'DiagnosticSignWarn',
+--     { texthl = 'DiagnosticSignWarn', text = '', numhl = 'DiagnosticSignWarn' }
+-- )
+-- vim.fn.sign_define(
+--     'DiagnosticSignHint',
+--     { texthl = 'DiagnosticSignHint', text = '', numhl = 'DiagnosticSignHint' }
+-- )
+-- vim.fn.sign_define(
+--     'DiagnosticSignInfo',
+--     { texthl = 'DiagnosticSignInfo', text = '', numhl = 'DiagnosticSignInfo' }
+-- )
+-- -- Create a custom namespace. This will aggregate signs from all other
+-- -- namespaces and only show the one with the highest severity on a
+-- -- given line
+-- local ns = vim.api.nvim_create_namespace("my_namespace")
 --
---     vim.schedule(function() print('Jedi Environment:', env) end)
---     return env
--- end
+-- -- Get a reference to the original signs handler
+-- local orig_signs_handler = vim.diagnostic.handlers.signs
+--
+-- -- Override the built-in signs handler
+-- vim.diagnostic.handlers.signs = {
+--     show = function(_, bufnr, _, opts)
+--         -- Get all diagnostics from the whole buffer rather than just the
+--         -- diagnostics passed to the handler
+--         local diagnostics = vim.diagnostic.get(bufnr)
+--
+--         -- Find the "worst" diagnostic per line
+--         local max_severity_per_line = {}
+--         for _, d in pairs(diagnostics) do
+--             local m = max_severity_per_line[d.lnum]
+--             if not m or d.severity < m.severity then
+--                 max_severity_per_line[d.lnum] = d
+--             end
+--         end
+--
+--         -- Pass the filtered diagnostics (with our custom namespace) to
+--         -- the original handler
+--         local filtered_diagnostics = vim.tbl_values(max_severity_per_line)
+--         orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
+--     end,
+--     hide = function(_, bufnr)
+--         orig_signs_handler.hide(ns, bufnr)
+--     end,
+-- }
 
 lspconfig['pylsp'].setup {
     on_attach = on_attach,
@@ -970,9 +953,6 @@ lspconfig['pylsp'].setup {
                 pyflakes = { enabled = false, },
                 mccabe = { enabled = false, },
                 jedi = {
-                    -- extra_paths = {
-                    --     '.local/lib/python3.10/site-packages',
-                    -- },
                     environment = vim.env.VIRTUAL_ENV or '/usr',
                 },
                 jedi_completion = {
@@ -1033,7 +1013,6 @@ lspconfig['pylsp'].setup {
     }
 }
 
-
 -- JEDI --
 -- lspconfig['jedi_language_server'].setup {
 --     on_attach = on_attach,
@@ -1042,7 +1021,6 @@ lspconfig['pylsp'].setup {
 --     capabilities = capabilities,
 -- }
 
-
 -- PYRIGHT --
 -- lspconfig['pyright'].setup {
 --     on_attach = on_attach,
@@ -1050,7 +1028,6 @@ lspconfig['pylsp'].setup {
 --     handlers = handlers,
 --     capabilities = capabilities,
 -- }
-
 
 -- LUA LSP --
 lspconfig['sumneko_lua'].setup {
@@ -1085,7 +1062,6 @@ lspconfig['sumneko_lua'].setup {
     },
 }
 
-
 -- JAVA LSP --
 -- lspconfig['jdtls'].setup {
 --     on_attach = on_attach,
@@ -1099,22 +1075,14 @@ lspconfig['sumneko_lua'].setup {
 local luasnip = require('luasnip')
 local types = require('luasnip.util.types')
 map({ 'i', 's' }, '<C-u>', '<cmd>lua require("luasnip.extras.select_choice")()<CR>')
-map({ 'i', 's' }, '<C-l>', function()
-    if luasnip.jumpable(1) then
-        luasnip.jump(1)
-    end
-end)
-map({ 'i', 's' }, '<C-h>', function()
-    if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-    end
-end)
-map({ 'i', 's' }, '<C-n>', '<Plug>luasnip-next-choice', {})
-map({ 'i', 's' }, '<C-p>', '<Plug>luasnip-prev-choice', {})
-
+map({ 'i', 's' }, '<C-l>', function() if luasnip.jumpable(1) then luasnip.jump(1) end end)
+map({ 'i', 's' }, '<C-h>', function() if luasnip.jumpable(-1) then luasnip.jump(-1) end end)
+map({ 'i', 's' }, '<C-n>', '<Plug>luasnip-next-choice')
+map({ 'i', 's' }, '<C-p>', '<Plug>luasnip-prev-choice')
 -- Deleting insert node default puts you back in Normal mode
 -- <C-G> changes to VISUAL, s clears and enters INSERT
 map('s', '<BS>', '<C-G>s')
+
 luasnip.config.set_config {
     history = true,
     updateevents = 'TextChanged,TextChangedI',
@@ -1122,21 +1090,21 @@ luasnip.config.set_config {
     ext_opts = {
         [types.choiceNode] = {
             active = {
-                -- virt_text = { { ' <- Current Choice', 'CmpItemKindFunction' } },
                 virt_text = { { ' ﬋ Current Choice ', 'CmpItemKindFunction' } },
             },
         },
     }
 }
 -- require('luasnip.loaders.from_vscode').lazy_load()
-require('luasnip.loaders.from_lua').lazy_load(
-    {
-        paths = '~/.config/nvim/my-snippets'
-    }
-)
+require('luasnip.loaders.from_lua').lazy_load({
+    paths = '~/.config/nvim/my-snippets'
+})
 
 
 -- NVIM CMP --
+local cmp = require('cmp')
+local lspkind = require('lspkind')
+
 -- Scrollbar
 vim.cmd([[highlight PmenuThumb guibg=#C5CDD9 guifg=NONE]])
 
@@ -1180,182 +1148,126 @@ local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 end
-local cmp = require('cmp')
-local lspkind = require('lspkind')
-if cmp ~= nil then
-    cmp.setup(
-        {
-            completion = {
-                completeopt = 'menu,menuone,noselect'
-            },
-            formatting = {
-                fields = { 'kind', 'abbr', 'menu' },
 
-                format = function(entry, vim_item)
-                    local kind = lspkind.cmp_format(
-                        {
-                            mode = 'symbol_text', -- {'text', 'text_symbol', 'symbol', 'symbol_text'}
-                            preset = 'default',
-                            maxwidth = 50,
-                            menu = ({
-                                buffer = '[Buffer]',
-                                path = '[Path]',
-                                nvim_lsp = '[LSP]',
-                                luasnip = '[Snip]',
-                                nvim_lua = '[Api]',
-                                latex_symbols = '[Latex]'
-                            }),
-                            symbol_map = {
-                                Text = '  ',
-                                Method = '  ',
-                                Function = '  ',
-                                Constructor = '  ',
-                                Field = '  ',
-                                Variable = '  ',
-                                Class = '  ',
-                                Interface = '  ',
-                                Module = '  ',
-                                Property = '  ',
-                                Unit = '  ',
-                                Value = '  ',
-                                Enum = '  ',
-                                Keyword = '  ',
-                                Snippet = '  ',
-                                Color = '  ',
-                                File = '  ',
-                                Reference = '  ',
-                                Folder = '  ',
-                                EnumMember = '  ',
-                                Constant = '  ',
-                                Struct = '  ',
-                                Event = '  ',
-                                Operator = '  ',
-                                TypeParameter = '  ',
-                            },
-                        }
-                    )(entry, vim_item)
-                    -- local strings = vim.split(kind.kind, '%s', { trimempty = true })
-                    local strings = vim.split(vim_item.kind, '%s+', { trimempty = true })
-                    kind.kind = ' ' .. string.format('[%s] %-13s', strings[1], strings[2]) .. ' '
+cmp.setup {
+    completion = {
+        completeopt = 'menu,menuone,noselect'
+    },
+    formatting = {
+        fields = { 'kind', 'abbr', 'menu' },
+        format = function(entry, vim_item)
+            local kind = lspkind.cmp_format({
+                mode = 'symbol_text', -- {'text', 'text_symbol', 'symbol', 'symbol_text'}
+                preset = 'default',
+                maxwidth = 50,
+                menu = ({
+                    buffer = '[Buffer]',
+                    path = '[Path]',
+                    nvim_lsp = '[LSP]',
+                    luasnip = '[Snip]',
+                    nvim_lua = '[Api]',
+                    latex_symbols = '[Latex]'
+                }),
+                symbol_map = {
+                    Text = '  ',
+                    Method = '  ',
+                    Function = '  ',
+                    Constructor = '  ',
+                    Field = '  ',
+                    Variable = '  ',
+                    Class = '  ',
+                    Interface = '  ',
+                    Module = '  ',
+                    Property = '  ',
+                    Unit = '  ',
+                    Value = '  ',
+                    Enum = '  ',
+                    Keyword = '  ',
+                    Snippet = '  ',
+                    Color = '  ',
+                    File = '  ',
+                    Reference = '  ',
+                    Folder = '  ',
+                    EnumMember = '  ',
+                    Constant = '  ',
+                    Struct = '  ',
+                    Event = '  ',
+                    Operator = '  ',
+                    TypeParameter = '  ',
+                },
+            })(entry, vim_item)
+            local strings = vim.split(vim_item.kind, '%s+', { trimempty = true })
+            kind.kind = ' ' .. string.format('[%s] %-13s', strings[1], strings[2]) .. ' '
 
-                    return kind
-                end,
-            },
-            snippet = {
-                -- REQUIRED - you must specify a snippet engine
-                expand = function(args)
-                    luasnip.lsp_expand(args.body) -- For `luasnip` users.
-                end,
-            },
-            window = {
-                completion = {
-                    winhighlight = 'Normal:CmpPmenu,FloatBorder:CmpPmenu,CursorLine:PmenuSel,Search:None',
-                    col_offset = -3,
-                    side_padding = 0,
-                }
-                -- documentation = cmp.config.window.bordered(),
-            },
-            view = {
-                entries = {
-                    name = 'custom',
-                    selection_order = 'near_cursor'
-                }
-            },
-            mapping = cmp.mapping.preset.insert(
-                {
-                    ['<Tab>'] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_next_item()
-                        elseif luasnip.expand_or_jumpable() then
-                            luasnip.expand_or_jump()
-                        elseif has_words_before() then
-                            cmp.complete()
-                        else
-                            fallback()
-                        end
-                    end, { 'i', 's' }),
-                    ['<S-Tab>'] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_prev_item()
-                        elseif luasnip.jumpable(-1) then
-                            luasnip.jump(-1)
-                        else
-                            fallback()
-                        end
-                    end, { 'i', 's' }),
-                    -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-                    -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                    ['<C-Space>'] = cmp.mapping.complete(),
-                    ['<C-e>'] = cmp.mapping.abort(),
-                    ['<CR>'] = cmp.mapping.confirm(
-                        {
-                            -- behavior = cmp.ConfirmBehavior.Insert,
-                            select = false
-                        }
-                    ), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                }
-            ),
-            sources = cmp.config.sources(
-                {
-                    -- Order Matters! OR explicitly set priority
-                    -- keyword_length, priority, max_item_count
-                    { name = 'nvim_lsp' },
-                    { name = 'nvim_lsp_signature_help' },
-                    { name = 'luasnip' },
-                    { name = 'path' },
-                    { name = 'buffer', keyword_length = 5 },
-                }
-            )
+            return kind
+        end,
+    },
+    snippet = {
+        expand = function(args)
+            luasnip.lsp_expand(args.body)
+        end,
+    },
+    window = {
+        completion = {
+            winhighlight = 'Normal:CmpPmenu,FloatBorder:CmpPmenu,CursorLine:PmenuSel,Search:None',
+            col_offset = -3,
+            side_padding = 0,
         }
-    )
-
-    -- Set configuration for specific filetype.
-    -- cmp.setup.filetype('gitcommit',
-    -- 	{
-    -- 		sources = cmp.config.sources(
-    -- 			{
-    -- 				{ name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-    -- 			},
-    -- 			{
-    -- 				{ name = 'buffer' },
-    -- 			}
-    -- 		)
-    -- 	}
-    -- )
-
-    -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-    -- cmp.setup.cmdline('/', {
-    -- 	mapping = cmp.mapping.preset.cmdline(),
-    -- 	sources = {
-    -- 		{ name = 'buffer' }
-    -- 	}
-    -- })
-
-    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-    -- cmp.setup.cmdline(':',
-    -- 	{
-    -- 		mapping = cmp.mapping.preset.cmdline(),
-    -- 		sources = cmp.config.sources(
-    -- 			{
-    -- 				{ name = 'path' }
-    -- 			},
-    -- 			{
-    -- 				{ name = 'cmdline' }
-    -- 			}
-    -- 		)
-    -- 	}
-    -- )
-end
+        -- documentation = cmp.config.window.bordered(),
+    },
+    view = {
+        entries = {
+            name = 'custom',
+            selection_order = 'near_cursor'
+        }
+    },
+    mapping = cmp.mapping.preset.insert({
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            elseif has_words_before() then
+                cmp.complete()
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+        -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({
+            -- behavior = cmp.ConfirmBehavior.Insert,
+            select = false -- Auto accept first result if true
+        }),
+    }),
+    sources = cmp.config.sources({
+        -- Order Matters! OR explicitly set priority
+        { name = 'nvim_lsp' },
+        { name = 'nvim_lsp_signature_help' },
+        { name = 'luasnip' },
+        { name = 'path' },
+        { name = 'buffer', keyword_length = 5 },
+    })
+}
 
 
 -- AUTOPAIRS --
 local npairs = require('nvim-autopairs')
-npairs.setup(
-    {
+npairs.setup {
         check_ts = true,
         enable_check_bracket_line = true
-    }
-)
+}
 
 
 -- MAGMA --
@@ -1376,18 +1288,11 @@ npairs.setup(
 
 
 -- KEY BINDINGS --
-
 -- Go to start and end of line
 map('i', '<C-E>', '<Esc>A')
 map('n', '<C-E>', 'A<Esc>')
 map('i', '<C-A>', '<Esc>I')
 map('n', '<C-A>', 'I<Esc>')
-
--- Insert mode movements
--- map('i', '<C-k>', '<Esc>ka')
--- map('i', '<C-j>', '<Esc>ja')
--- map('i', '<C-h>', '<Esc>i')
--- map('i', '<C-l>', '<Esc>la')
 
 -- Insert blank lines
 map('n', '<CR>', 'o<Esc>')
@@ -1429,23 +1334,11 @@ map('n', '<C-b>c', '<cmd>bdelete<CR>')
 -- map('n', '<C-t>h', '<cmd>tabprev<CR>')
 -- map('n', '<C-t>c', '<cmd>tabclose<CR>')
 
--- Toggle type of quote / bracket
-A.nvim_set_keymap('n', "'\"", "cs'\"", {})
-A.nvim_set_keymap("n", "\"'", "cs\"'", {})
-A.nvim_set_keymap('n', ')}', 'cs)}', {})
-A.nvim_set_keymap('n', ')]', 'cs)]', {})
-A.nvim_set_keymap('n', ')(', 'cs)(', {})
-A.nvim_set_keymap('n', '})', 'cs})', {})
-A.nvim_set_keymap('n', '}]', 'cs}]', {})
-A.nvim_set_keymap('n', '}{', 'cs}{', {})
-A.nvim_set_keymap('n', '])', 'cs])', {})
-A.nvim_set_keymap('n', ']}', 'cs]}', {})
-A.nvim_set_keymap('n', '][', 'cs][', {})
-
 -- Folds
 map('n', '<leader>fd', 'za')
 
 -- Reload Config
 map('n', '<F4>', '<cmd>source %<CR>')
 
+-- Terminal Mode
 map('t', '<Esc>', '<C-\\><C-n>')
