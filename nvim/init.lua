@@ -126,32 +126,27 @@ local group = A.nvim_create_augroup('MyAutocmds', { clear = true })
 -- )
 
 -- Prevent newline from starting as comment
-A.nvim_create_autocmd('BufEnter',
-    {
-        group = group,
-        callback = function()
-            o.formatoptions = string.gsub(o.formatoptions, '[cro]', '')
-        end
-    }
-)
+A.nvim_create_autocmd('BufEnter', {
+    group = group,
+    callback = function()
+        o.formatoptions = string.gsub(o.formatoptions, '[cro]', '')
+    end
+})
 
 -- Highlight yanked region
-A.nvim_create_autocmd('TextYankPost',
-    {
-        group = group,
-        callback = function()
-            vim.highlight.on_yank({ higroup = 'Visual', timeout = 3000 })
-        end
-    }
-)
+A.nvim_create_autocmd('TextYankPost', {
+    group = group,
+    callback = function()
+        vim.highlight.on_yank({ higroup = 'Visual', timeout = 3000 })
+    end
+})
 
 
 -- PLUGINS --
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 -- My Plugins
-Plug '~/my-nvim-plugins/python-treesitter-navigation.nvim'
-Plug '~/my-nvim-plugins/python-docstring-generator.nvim'
+Plug '~/.config/nvim/my-plugins/python-docstring-generator.nvim'
 
 -- Icons
 Plug 'kyazdani42/nvim-web-devicons'
@@ -402,11 +397,9 @@ map('n', '<leader>dd', '<cmd>TroubleToggle document_diagnostics<cr>')
 map('n', '<leader>ll', '<cmd>TroubleToggle loclist<cr>')
 map('n', '<leader>qf', '<cmd>TroubleToggle quickfix<cr>')
 -- map('n', 'gr', '<cmd>TroubleToggle lsp_references<cr>')
-map('n', '<leader>gd', '<cmd>TroubleToggle lsp_definitions<cr>')
+-- map('n', '<leader>gd', '<cmd>TroubleToggle lsp_definitions<cr>')
 -- map('n', '<leader>gt', '<cmd>TroubleToggle lsp_type_definitions<cr>')
 -- map('n', '<leader>gi', '<cmd>TroubleToggle lsp_implementations<cr>')
---     { silent = true, noremap = true }
--- )
 require('trouble').setup {
     position = 'bottom', -- position of the list can be: bottom, top, left, right
     height = 10, -- height of the trouble list when position is top or bottom
@@ -440,10 +433,10 @@ require('trouble').setup {
     },
     indent_lines = true, -- add an indent guide below the fold icons
     auto_open = false, -- automatically open the list when you have diagnostics
-    auto_close = false, -- automatically close the list when you have no diagnostics
+    auto_close = true, -- automatically close the list when you have no diagnostics
     auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
     auto_fold = false, -- automatically fold a file trouble list at creation
-    auto_jump = { 'lsp_definitions' }, -- for the given modes, automatically jump if there is only a single result
+    auto_jump = { 'lsp_definitions', 'lsp_references' }, -- for the given modes, automatically jump if there is only a single result
     signs = {
         -- icons / text used for a diagnostic
         error = '',
@@ -459,7 +452,7 @@ require('trouble').setup {
 -- TELESCOPE--
 map('n', '<leader>f/', '<cmd>Telescope find_files<CR>')
 map('n', '<leader>ff', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
-map('n', '<leader>gc', '<cmd>Telescope git_commits<CR>')
+map('n', '<leader>fg', '<cmd>Telescope git_commits<CR>')
 map('n', '<leader>fa', '<cmd>Telescope live_grep<CR>')
 map('n', '<leader>fb', '<cmd>Telescope buffers<CR>')
 map('n', '<leader>fh', '<cmd>Telescope help_tags<CR>')
@@ -496,6 +489,7 @@ telescope.setup {
             },
             n = {
                 ['<C-t>'] = trouble_telescope.open_with_trouble,
+                ['q'] = 'close',
             }
         }
     },
@@ -512,35 +506,28 @@ telescope.setup {
                 preview_width = 0.7,
             },
         },
+        find_buffers = {
+            layout_config = {
+                preview_width = 0.7,
+            },
+        },
+        live_grep = {
+            layout_config = {
+                preview_width = 0.7,
+            },
+        },
         git_commits = {
             layout_config = {
                 preview_width = 0.5,
             },
         },
-        treesitter = {
-            layout_config = {
-                preview_width = 0.5,
-            },
-        },
         current_buffer_fuzzy_find = {
-            -- sorting_strategy = 'ascending',
             layout_config = {
                 preview_width = 0.4,
             }
         },
-        lsp_references = {
-            -- sorting_strategy = 'ascending',
-            layout_config = {
-                preview_width = 0.5,
-            }
-        },
     },
     extensions = {
-        -- Your extension configuration goes here:
-        -- extension_name = {
-        --   extension_config_key = value,
-        -- }
-        -- please take a look at the readme of the extension you want to configure
         ['ui-select'] = {
             require('telescope.themes').get_dropdown {
                 -- even more opts
@@ -1067,14 +1054,6 @@ lspconfig['pylsp'].setup {
 
 -- LUA LSP --
 lspconfig['sumneko_lua'].setup {
-    root_dir = function(fname)
-        local root_pattern = lspconfig.util.root_pattern('.git', '*.rockspec')(fname)
-        local home = vim.fn.expand('~')
-        if root_pattern == home then
-            return nil
-        end
-        return root_pattern or fname
-    end,
     on_attach = on_attach,
     flags = lsp_flags,
     handlers = handlers,
@@ -1093,6 +1072,10 @@ lspconfig['sumneko_lua'].setup {
             workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = vim.api.nvim_get_runtime_file('', true),
+                ignoreDir = {
+                    'plugged',
+                },
+                useGitIgnore = true,
             },
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {
@@ -1416,22 +1399,16 @@ map('n', '<C-k>', '<cmd>move .-2<CR>')
 
 -- Window Splits
 vim.cmd([[highlight WinSeparator guibg=NONE guifg=#B7BDF8]])
--- map('n', '<leader>wv', '<C-w>v')
--- map('n', '<leader>ws', '<C-w>s')
--- map('n', '<leader>wq', '<C-w>c')
+-- Close window
+map('n', 'q', '<C-w>c')
 -- Move between windows
 map('n', '<C-h>', '<C-w>h')
 map('n', '<C-l>', '<C-w>l')
 map('n', '<C-j>', '<C-w>j')
 map('n', '<C-k>', '<C-w>k')
--- -- Move windows
--- map('n', '<leader>wmh', '<C-w>H')
--- map('n', '<leader>wml', '<C-w>L')
--- map('n', '<leader>wmj', '<C-w>J')
--- map('n', '<leader>wmk', '<C-w>K')
 -- Window Resize
-map('n', '<Right>', '<C-w>10>')
-map('n', '<Left>', '<C-w>10<')
+map('n', '<Right>', '<C-w>5>')
+map('n', '<Left>', '<C-w>5<')
 map('n', '<Up>', '<C-w>1+')
 map('n', '<Down>', '<C-w>1-')
 -- Buffers
@@ -1472,10 +1449,3 @@ map('n', '<leader>fd', 'za')
 map('n', '<F4>', '<cmd>source %<CR>')
 
 map('t', '<Esc>', '<C-\\><C-n>')
-
-map('n', '<leader>pfn', '<cmd>lua require("python-treesitter-navigation").goto_next("function")<CR>')
-map('n', '<leader>pcn', '<cmd>lua require("python-treesitter-navigation").goto_next("class")<CR>')
-map('n', '<leader>ptn', '<cmd>lua require("python-treesitter-navigation").goto_next("todo")<CR>')
-map('n', '<leader>pfp', '<cmd>lua require("python-treesitter-navigation").goto_prev("function")<CR>')
-map('n', '<leader>pcp', '<cmd>lua require("python-treesitter-navigation").goto_prev("class")<CR>')
-map('n', '<leader>ptp', '<cmd>lua require("python-treesitter-navigation").goto_prev("todo")<CR>')
