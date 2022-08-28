@@ -762,7 +762,24 @@ require('Comment').setup {
 require('colorizer').setup()
 
 
+-- __builtin__
 -- VIM SANDWICH --
+-- Line Text Objects
+map({'o', 'x'}, 'il', ':<C-u>normal! $v^<CR>')
+map({'o', 'x'}, 'al', ':<C-u>normal! $v0<CR>')
+
+-- Select text surrounded by brackets or user specified characters
+map({'o', 'x'}, 'is', '<Plug>(textobj-sandwich-query-i)')
+map({'o', 'x'}, 'as', '<Plug>(textobj-sandwich-query-a)')
+
+-- Select nearest surrounded text automatically
+-- map({'o', 'x'}, 'iss', '<Plug>(textobj-sandwich-auto-i)')
+-- map({'o', 'x'}, 'ass', '<Plug>(textobj-sandwich-auto-a)')
+
+-- Select text surrounded by user specified characters
+-- map({'o', 'x'}, 'im', '<Plug>(textobj-sandwich-literal-query-i)')
+-- map({'o', 'x'}, 'am', '<Plug>(textobj-sandwich-literal-query-a)')
+
 vim.cmd [[let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)]]
 vim.cmd [[let g:sandwich#recipes += [
       \   {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': ['{']},
@@ -1322,8 +1339,8 @@ map('n', '<CR>', 'o<Esc>')
 map('n', '<S-CR>', 'O<Esc>')
 
 -- Move Lines
-map('n', '<C-j>', '<cmd>move .+1<CR>')
-map('n', '<C-k>', '<cmd>move .-2<CR>')
+map('n', '<C-n>', '<cmd>move .+1<CR>')
+map('n', '<C-p>', '<cmd>move .-2<CR>')
 
 -- Window Splits
 vim.cmd([[highlight WinSeparator guibg=NONE guifg=#B7BDF8]])
@@ -1365,3 +1382,5 @@ map('n', '<F4>', '<cmd>source %<CR>')
 
 -- Terminal Mode
 map('t', '<Esc>', '<C-\\><C-n>')
+
+
