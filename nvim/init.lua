@@ -155,6 +155,7 @@ A.nvim_create_autocmd('TextYankPost', {
 -- PLUGINS --
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
+
 -- My Plugins
 Plug '~/.config/nvim/my-plugins/python-docstring-generator.nvim'
 
@@ -174,7 +175,8 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'numToStr/Comment.nvim'
 
 -- Easily surround text objects
-Plug 'machakann/vim-sandwich'
+-- Plug 'machakann/vim-sandwich'
+Plug 'kylechui/nvim-surround'
 
 -- Matching Quotes/Brackets
 Plug 'windwp/nvim-autopairs'
@@ -257,7 +259,7 @@ catppuccin.setup {
         CursorLineNr = { fg = '#00FFFF' }
     }
 }
-vim.cmd([[colorscheme catppuccin]])
+vim.cmd [[colorscheme catppuccin]]
 
 
 -- NVIM NOTIFY --
@@ -599,9 +601,9 @@ require('nvim-treesitter.configs').setup {
 
 
 -- INDENT BLANKLINE --
-vim.cmd([[highlight IndentBlanklineChar guifg=#B7BDF8 gui=nocombine]]) -- color of indent lines
-vim.cmd([[highlight IndentBlanklineContextChar guifg=#FF00FF gui=nocombine]]) -- color of current context indent line (vertical line)
-vim.cmd([[highlight IndentBlanklineContextStart guisp=#FF00FF gui=underline]]) -- color of current context start (underline)
+vim.cmd [[highlight IndentBlanklineChar guifg=#B7BDF8 gui=nocombine]] -- color of indent lines
+vim.cmd [[highlight IndentBlanklineContextChar guifg=#FF00FF gui=nocombine]] -- color of current context indent line (vertical line)
+vim.cmd [[highlight IndentBlanklineContextStart guisp=#FF00FF gui=underline]] -- color of current context start (underline)
 require('indent_blankline').setup {
     enabled = true,
     use_treesitter = false,
@@ -762,34 +764,16 @@ require('Comment').setup {
 require('colorizer').setup()
 
 
--- __builtin__
--- VIM SANDWICH --
+-- NVIM SURROUND --
+local nvim_surround = require('nvim-surround')
+
 -- Line Text Objects
 map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>')
 map({'o', 'x'}, 'al', ':<C-u>normal! 0v$<CR>')
 
--- Select text surrounded by brackets or user specified characters
-map({'o', 'x'}, 'is', '<Plug>(textobj-sandwich-query-i)')
-map({'o', 'x'}, 'as', '<Plug>(textobj-sandwich-query-a)')
+vim.cmd [[highlight default link NvimSurroundHighlight Visual]]
 
--- Select nearest surrounded text automatically
--- map({'o', 'x'}, 'iss', '<Plug>(textobj-sandwich-auto-i)')
--- map({'o', 'x'}, 'ass', '<Plug>(textobj-sandwich-auto-a)')
-
--- Select text surrounded by user specified characters
--- map({'o', 'x'}, 'im', '<Plug>(textobj-sandwich-literal-query-i)')
--- map({'o', 'x'}, 'am', '<Plug>(textobj-sandwich-literal-query-a)')
-
-vim.cmd [[let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)]]
-vim.cmd [[let g:sandwich#recipes += [
-      \   {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': ['{']},
-      \   {'buns': ['[ ', ' ]'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': ['[']},
-      \   {'buns': ['( ', ' )'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': ['(']},
-      \   {'buns': ['{\s*', '\s*}'],   'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['{']},
-      \   {'buns': ['\[\s*', '\s*\]'], 'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['[']},
-      \   {'buns': ['(\s*', '\s*)'],   'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['(']},
-      \ ]
-]]
+nvim_surround.setup()
 
 
 -- MASON --
@@ -895,7 +879,7 @@ local handlers = {
                     return
                 else
                     vim.fn.setloclist(0, {}, ' ', { title = title, items = items })
-                    vim.cmd([[Trouble loclist]])
+                    vim.cmd [[Trouble loclist]]
                 end
             else
                 util.jump_to_location(result, client.offset_encoding, config.reuse_win)
@@ -924,7 +908,7 @@ local handlers = {
                 })
             else
                 vim.fn.setloclist(0, {}, ' ', { title = title, items = items, context = ctx })
-                vim.cmd([[Trouble loclist]])
+                vim.cmd [[Trouble loclist]]
             end
         end
     end
@@ -1146,43 +1130,43 @@ local cmp = require('cmp')
 local lspkind = require('lspkind')
 
 -- Scrollbar
-vim.cmd([[highlight PmenuThumb guibg=#C5CDD9 guifg=NONE]])
+vim.cmd [[highlight PmenuThumb guibg=#C5CDD9 guifg=NONE]]
 
 -- Prompt Menu
-vim.cmd([[highlight CmpPmenu guibg=#22252A guifg=#C5CDD9]])
-vim.cmd([[highlight PmenuSel guibg=#6E738D guifg=NONE]])
+vim.cmd [[highlight CmpPmenu guibg=#22252A guifg=#C5CDD9]]
+vim.cmd [[highlight PmenuSel guibg=#6E738D guifg=NONE]]
 
 -- Completion Items
-vim.cmd([[highlight CmpItemAbbr guibg=NONE guifg=#CAD3F5]])
-vim.cmd([[highlight CmpItemAbbrDeprecated guibg=NONE guifg=#FF0000 gui=strikethrough]])
-vim.cmd([[highlight CmpItemAbbrMatch guibg=NONE guifg=#82AAFF gui=bold]])
-vim.cmd([[highlight CmpItemAbbrMatchFuzzy guibg=NONE guifg=#82AAFF gui=bold]])
-vim.cmd([[highlight CmpItemMenu guibg=NONE guifg=#C6A0F6 gui=NONE]])
-vim.cmd([[highlight CmpItemKindField guibg=#B5585F guifg=#EED8DA]])
-vim.cmd([[highlight CmpItemKindProperty guibg=#B5585F guifg=#EED8DA]])
-vim.cmd([[highlight CmpItemKindEvent guibg=#B5585F guifg=#EED8DA]])
-vim.cmd([[highlight CmpItemKindText guibg=#9FBD73 guifg=#FFFFFF]])
-vim.cmd([[highlight CmpItemKindEnum guibg=#9FBD73 guifg=#FFFFFF]])
-vim.cmd([[highlight CmpItemKindKeyword guibg=#9FBD73 guifg=#FFFFFF]])
-vim.cmd([[highlight CmpItemKindConstant guibg=#D4BB6C guifg=#FFE082]])
-vim.cmd([[highlight CmpItemKindConstructor guibg=#D4BB6C guifg=#FFE082]])
-vim.cmd([[highlight CmpItemKindReference guibg=#D4BB6C guifg=#FFE082]])
-vim.cmd([[highlight CmpItemKindFunction guibg=#A377BF guifg=#EADFF0]])
-vim.cmd([[highlight CmpItemKindStruct guibg=#A377BF guifg=#EADFF0]])
-vim.cmd([[highlight CmpItemKindClass guibg=#A377BF guifg=#EADFF0]])
-vim.cmd([[highlight CmpItemKindModule guibg=#A377BF guifg=#EADFF0]])
-vim.cmd([[highlight CmpItemKindOperator guibg=#A377BF guifg=#EADFF0]])
-vim.cmd([[highlight CmpItemKindVariable guibg=#7E8294 guifg=#C5CDD9]])
-vim.cmd([[highlight CmpItemKindFile guibg=#7E8294 guifg=#C5CDD9]])
-vim.cmd([[highlight CmpItemKindUnit guibg=#D4A959 guifg=#F5EBD9]])
-vim.cmd([[highlight CmpItemKindSnippet guibg=#D4A959 guifg=#F5EBD9]])
-vim.cmd([[highlight CmpItemKindFolder guibg=#D4A959 guifg=#F5EBD9]])
-vim.cmd([[highlight CmpItemKindMethod guibg=#6C8ED4 guifg=#DDE5F5]])
-vim.cmd([[highlight CmpItemKindValue guibg=#6C8ED4 guifg=#DDE5F5]])
-vim.cmd([[highlight CmpItemKindEnumMember guibg=#6C8ED4 guifg=#DDE5F5]])
-vim.cmd([[highlight CmpItemKindInterface guibg=#58B5A8 guifg=#D8EEEB]])
-vim.cmd([[highlight CmpItemKindColor guibg=#58B5A8 guifg=#D8EEEB]])
-vim.cmd([[highlight CmpItemKindTypeParameter guibg=#58B5A8 guifg=#D8EEEB]])
+vim.cmd [[highlight CmpItemAbbr guibg=NONE guifg=#CAD3F5]]
+vim.cmd [[highlight CmpItemAbbrDeprecated guibg=NONE guifg=#FF0000 gui=strikethrough]]
+vim.cmd [[highlight CmpItemAbbrMatch guibg=NONE guifg=#82AAFF gui=bold]]
+vim.cmd [[highlight CmpItemAbbrMatchFuzzy guibg=NONE guifg=#82AAFF gui=bold]]
+vim.cmd [[highlight CmpItemMenu guibg=NONE guifg=#C6A0F6 gui=NONE]]
+vim.cmd [[highlight CmpItemKindField guibg=#B5585F guifg=#EED8DA]]
+vim.cmd [[highlight CmpItemKindProperty guibg=#B5585F guifg=#EED8DA]]
+vim.cmd [[highlight CmpItemKindEvent guibg=#B5585F guifg=#EED8DA]]
+vim.cmd [[highlight CmpItemKindText guibg=#9FBD73 guifg=#FFFFFF]]
+vim.cmd [[highlight CmpItemKindEnum guibg=#9FBD73 guifg=#FFFFFF]]
+vim.cmd [[highlight CmpItemKindKeyword guibg=#9FBD73 guifg=#FFFFFF]]
+vim.cmd [[highlight CmpItemKindConstant guibg=#D4BB6C guifg=#FFE082]]
+vim.cmd [[highlight CmpItemKindConstructor guibg=#D4BB6C guifg=#FFE082]]
+vim.cmd [[highlight CmpItemKindReference guibg=#D4BB6C guifg=#FFE082]]
+vim.cmd [[highlight CmpItemKindFunction guibg=#A377BF guifg=#EADFF0]]
+vim.cmd [[highlight CmpItemKindStruct guibg=#A377BF guifg=#EADFF0]]
+vim.cmd [[highlight CmpItemKindClass guibg=#A377BF guifg=#EADFF0]]
+vim.cmd [[highlight CmpItemKindModule guibg=#A377BF guifg=#EADFF0]]
+vim.cmd [[highlight CmpItemKindOperator guibg=#A377BF guifg=#EADFF0]]
+vim.cmd [[highlight CmpItemKindVariable guibg=#7E8294 guifg=#C5CDD9]]
+vim.cmd [[highlight CmpItemKindFile guibg=#7E8294 guifg=#C5CDD9]]
+vim.cmd [[highlight CmpItemKindUnit guibg=#D4A959 guifg=#F5EBD9]]
+vim.cmd [[highlight CmpItemKindSnippet guibg=#D4A959 guifg=#F5EBD9]]
+vim.cmd [[highlight CmpItemKindFolder guibg=#D4A959 guifg=#F5EBD9]]
+vim.cmd [[highlight CmpItemKindMethod guibg=#6C8ED4 guifg=#DDE5F5]]
+vim.cmd [[highlight CmpItemKindValue guibg=#6C8ED4 guifg=#DDE5F5]]
+vim.cmd [[highlight CmpItemKindEnumMember guibg=#6C8ED4 guifg=#DDE5F5]]
+vim.cmd [[highlight CmpItemKindInterface guibg=#58B5A8 guifg=#D8EEEB]]
+vim.cmd [[highlight CmpItemKindColor guibg=#58B5A8 guifg=#D8EEEB]]
+vim.cmd [[highlight CmpItemKindTypeParameter guibg=#58B5A8 guifg=#D8EEEB]]
 
 local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -1343,7 +1327,7 @@ map('n', '<C-n>', '<cmd>move .+1<CR>')
 map('n', '<C-p>', '<cmd>move .-2<CR>')
 
 -- Window Splits
-vim.cmd([[highlight WinSeparator guibg=NONE guifg=#B7BDF8]])
+vim.cmd [[highlight WinSeparator guibg=NONE guifg=#B7BDF8]]
 -- Close window
 map('n', 'q', '<C-w>c')
 -- Move between windows
