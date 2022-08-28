@@ -765,8 +765,8 @@ require('colorizer').setup()
 -- __builtin__
 -- VIM SANDWICH --
 -- Line Text Objects
-map({'o', 'x'}, 'il', ':<C-u>normal! $v^<CR>')
-map({'o', 'x'}, 'al', ':<C-u>normal! $v0<CR>')
+map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>')
+map({'o', 'x'}, 'al', ':<C-u>normal! 0v$<CR>')
 
 -- Select text surrounded by brackets or user specified characters
 map({'o', 'x'}, 'is', '<Plug>(textobj-sandwich-query-i)')
