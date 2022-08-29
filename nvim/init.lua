@@ -33,7 +33,8 @@ o.termguicolors = true
 -- o.hidden = true
 
 vim.o.conceallevel = 2
-vim.o.concealcursor = ''
+-- Don't show conceal on cursor line in these modes
+vim.o.concealcursor = 'nvi'
 
 -- Decrease update time
 o.timeoutlen = 500
@@ -212,6 +213,7 @@ Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 -- Abstract Syntax Tree
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = vim.fn[':TSUpdate'] })
 Plug 'nvim-treesitter/playground'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 -- Language Server
 Plug 'neovim/nvim-lspconfig'
@@ -559,9 +561,6 @@ telescope.load_extension('fzf')
 -- TREESITTER --
 require('nvim-treesitter.configs').setup {
     auto_install = true,
-    endwise = {
-        enable = true,
-    },
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
@@ -571,13 +570,60 @@ require('nvim-treesitter.configs').setup {
         disable = { 'python' },
     },
     incremental_selection = {
-        enable = true,
+        enable = false,
         keymaps = {
             init_selection = 'gnn',
             node_incremental = 'grn',
             scope_incremental = 'grc',
             node_decremental = 'grm',
         },
+    },
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+                ['af'] = '@function.outer',
+                ['if'] = '@function.inner',
+                ['ac'] = '@class.outer',
+                ['ic'] = '@class.inner',
+            },
+            selection_modes = {
+                ['@parameter.outer'] = 'v',
+                ['@function.outer'] = 'V',
+                ['@class.outer'] = '<C-v>',
+            },
+            include_surrounding_whitespace = false,
+        },
+        swap = {
+            enable = true,
+            swap_next = {
+                ['<leader>sn'] = '@parameter.inner',
+            },
+            swap_previous = {
+                ['<leader>sp'] = '@parameter.inner',
+            },
+        },
+        move = {
+            enable = true,
+            set_jumps = false,
+            goto_next_start = {
+                [']f'] = '@function.outer',
+                [']c'] = '@class.outer',
+            },
+            goto_next_end = {
+                [']F'] = '@function.outer',
+                [']C'] = '@class.outer',
+            },
+            goto_previous_start = {
+                ['[f'] = '@function.outer',
+                ['[c'] = '@class.outer',
+            },
+            goto_previous_end = {
+                ['[F'] = '@function.outer',
+                ['[C'] = '@class.outer',
+            },
+        }
     },
     playground = {
         enable = true,
@@ -1289,8 +1335,7 @@ cmp.setup {
 -- AUTOPAIRS --
 local npairs = require('nvim-autopairs')
 npairs.setup {
-        check_ts = true,
-        enable_check_bracket_line = true
+    check_ts = true,
 }
 
 
@@ -1323,13 +1368,13 @@ map('n', '<CR>', 'o<Esc>')
 map('n', '<S-CR>', 'O<Esc>')
 
 -- Move Lines
-map('n', '<C-n>', '<cmd>move .+1<CR>')
-map('n', '<C-p>', '<cmd>move .-2<CR>')
+-- map('n', '<C-n>', '<cmd>move .+1<CR>')
+-- map('n', '<C-p>', '<cmd>move .-2<CR>')
 
 -- Window Splits
 vim.cmd [[highlight WinSeparator guibg=NONE guifg=#B7BDF8]]
 -- Close window
-map('n', 'q', '<C-w>c')
+map('n', '<C-q>', '<C-w>c')
 -- Move between windows
 map('n', '<C-h>', '<C-w>h')
 map('n', '<C-l>', '<C-w>l')
@@ -1367,4 +1412,12 @@ map('n', '<F4>', '<cmd>source %<CR>')
 -- Terminal Mode
 map('t', '<Esc>', '<C-\\><C-n>')
 
-
+map('n', '<F12>',
+    function()
+        if vim.o.conceallevel == 2 then
+            vim.o.conceallevel = 0
+        else
+            vim.o.conceallevel = 2
+        end
+    end
+)
