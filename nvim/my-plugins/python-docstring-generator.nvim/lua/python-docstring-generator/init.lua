@@ -28,6 +28,7 @@ M.generate_docstrings = function()
         local inserted_args
         local inserted_kwargs
         local parameters_end_row
+        local function_indent
         local docstring = {}
         -- print('Pattern', pattern)
         for capture_id, node in pairs(match) do
@@ -36,7 +37,11 @@ M.generate_docstrings = function()
             local node_type = node:type()
             -- print('Capture ID:', capture_id, '    Capture Name:', capture_name, '    Node Type:', node_type)
             -- print('    Node Text:', node_text)
+            -- String indentation wrt docstring
             if capture_name == 'function' then
+                local start_row = node:range()
+                local row_text = vim.api.nvim_buf_get_text(bufnr, start_row + 1, 0, start_row + 1, -1, {})[1]
+                function_indent = row_text:match('%s*')
                 local body = node:field('body')[1]
                 if body:child(0):child(0):type() == 'string' then
                     has_docstring = true
@@ -104,25 +109,25 @@ M.generate_docstrings = function()
         end
         if not has_docstring and #docstring > 0 then
             local row = parameters_end_row + 1 + num_lines_inserted
-            table.insert(lines_to_insert, {row, '"""'})
+            table.insert(lines_to_insert, {row, function_indent .. '"""'})
             num_lines_inserted = num_lines_inserted + 1
             for _, text in ipairs(docstring) do
                 row = parameters_end_row + 1 + num_lines_inserted
-                table.insert(lines_to_insert, {row, text})
+                if text == '' then
+                    table.insert(lines_to_insert, {row, text})
+                else
+                    table.insert(lines_to_insert, {row, function_indent .. text})
+                end
                 num_lines_inserted = num_lines_inserted + 1
             end
             row = parameters_end_row + 1 + num_lines_inserted
-            table.insert(lines_to_insert, {row, '"""'})
+            table.insert(lines_to_insert, {row, function_indent .. '"""'})
             num_lines_inserted = num_lines_inserted + 1
         end
     end
 
     for _, line in ipairs(lines_to_insert) do
-        if line[2] == '' then
-            vim.api.nvim_buf_set_lines(bufnr, line[1], line[1], false, {line[2]})
-        else
-            vim.api.nvim_buf_set_lines(bufnr, line[1], line[1], false, {'    ' .. line[2]})
-        end
+        vim.api.nvim_buf_set_lines(bufnr, line[1], line[1], false, {line[2]})
     end
 end
 
