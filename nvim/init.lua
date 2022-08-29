@@ -32,7 +32,7 @@ o.termguicolors = true
 -- Do not save when switching buffers
 -- o.hidden = true
 
-vim.o.conceallevel = 2
+vim.o.conceallevel = 0
 -- Don't show conceal on cursor line in these modes
 vim.o.concealcursor = 'nvi'
 
@@ -1315,7 +1315,7 @@ cmp.setup {
         -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
+        ['<C-c>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm({
             -- behavior = cmp.ConfirmBehavior.Insert,
             select = false -- Auto accept first result if true

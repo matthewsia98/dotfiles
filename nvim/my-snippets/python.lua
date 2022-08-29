@@ -27,7 +27,6 @@ return {
                 }),
                 t('')
             }),
-            -- i(1, 'function_name'),
             i(2, 'args'),
             c(3, {
                 sn(nil, {
@@ -77,13 +76,13 @@ return {
                             end
 
                             if #default > 0 then
-                                table.insert(texts, '\t\t' .. name .. ' (' .. type .. '):')
-                                table.insert(texts, '\t\t\t' .. 'Default value = ' .. default)
+                                table.insert(texts, '        ' .. name .. ' (' .. type .. '):')
+                                table.insert(texts, '            ' .. 'Default value = ' .. default)
                             elseif #type > 0 then
-                                table.insert(texts, '\t\t' .. name .. ' (' .. type .. '):')
+                                table.insert(texts, '        ' .. name .. ' (' .. type .. '):')
                             else
                                 if name ~= 'self' then
-                                    table.insert(texts, '\t\t' .. name .. ':')
+                                    table.insert(texts, '        ' .. name .. ':')
                                 end
                             end
 
@@ -92,11 +91,16 @@ return {
 
                     if #args[2][1] > 0 then
                         -- Return type specified
-                        table.insert(texts, '')
-                        table.insert(texts, '\tReturns:')
-                        table.insert(texts, '\t\t' .. args[2][1]:gsub('%s%->%s', ''):match('([%s%w%[%],]+)'))
+                        local return_type = args[2][1]:gsub(' %-> ', '')
+                        -- return_type = return_type:match('([%s%w%[%]%,]+)')
+
+                        if #return_type > 0 then
+                            table.insert(texts, '')
+                            table.insert(texts, '    Returns:')
+                            table.insert(texts, '        ' .. return_type)
+                        end
                     end
-                    table.insert(texts, '\t"""')
+                    table.insert(texts, '    """')
 
                     return sn(nil,
                         {
@@ -109,10 +113,38 @@ return {
             }),
             i(5, '# Function Body'),
             c(6, {
-                sn(nil, {
-                    t('return '),
-                    i(1, 'None')
-                }),
+                d(nil, function(args)
+                    local text = args[1][1]
+                    local return_type = text:gsub(' %-> ', '')
+                    local return_value = 'None'
+
+                    if #return_type > 0 then
+                        if return_type == 'int' then
+                            return_value = '-1'
+                        elseif return_type == 'str' then
+                            return_value = '""'
+                        elseif return_type:match('list') then
+                            return_value = '[]'
+                        elseif return_type:match('dict') then
+                            return_value = '{}'
+                        elseif return_type:match('set') then
+                            return_value = 'set()'
+                        end
+
+                        return sn(nil, {
+                            t('return '),
+                            i(1, return_value)
+                        })
+                    else
+                        return sn(nil, {
+                            t(''),
+                        })
+                    end
+                end, {3}),
+                -- sn(nil, {
+                --     t('return '),
+                --     i(1, 'None')
+                -- }),
                 t('')
             })
         })
@@ -146,7 +178,7 @@ return {
                     if idx == 1 then
                         curr = 'self.' .. split .. ' = ' .. split
                     else
-                        curr = '\t\tself.' .. split .. ' = ' .. split
+                        curr = '        self.' .. split .. ' = ' .. split
                     end
                     table.insert(texts, curr)
                 end
@@ -171,7 +203,7 @@ return {
                     if idx == 1 then
                         curr = 'self.' .. split .. ' = ' .. split
                     else
-                        curr = '\tself.' .. split .. ' = ' .. split
+                        curr = '    self.' .. split .. ' = ' .. split
                     end
                     table.insert(texts, curr)
                 end
@@ -317,7 +349,7 @@ return {
                     if idx == 1 then
                         curr = 'self.' .. split .. ' = ' .. split
                     else
-                        curr = '\t\tself.' .. split .. ' = ' .. split
+                        curr = '        self.' .. split .. ' = ' .. split
                     end
                     -- local curr = 'self.' .. split .. ' = ' .. split
                     table.insert(texts, curr)
@@ -372,7 +404,7 @@ return {
                         if idx == 2 then
                             curr = 'self.' .. split .. ' = ' .. split
                         else
-                            curr = '\t\tself.' .. split .. ' = ' .. split
+                            curr = '        self.' .. split .. ' = ' .. split
                         end
                         table.insert(texts, curr)
                     end
@@ -400,7 +432,7 @@ return {
                         if #match > 0 then
                             local res = x .. ' = ' .. match .. '(' .. x .. ')'
                             if indented then
-                                res = '\t\t' .. res
+                                res = '        ' .. res
                             end
                             table.insert(texts, res)
                             indented = true
@@ -497,13 +529,21 @@ return {
             end, { 6 }),
         })
     ),
-},
-{
+}, {
     s('printn', fmt([[
         print({}, '\n'){} 
-        ]], {
+        ]],
+        {
             i(1, ''),
             i(0),
         })
-    )
+    ),
+    s('printf', fmt([[
+        print(f'{}'){}
+        ]],
+        {
+            i(1, ''),
+            i(0)
+        })
+    ),
 }
