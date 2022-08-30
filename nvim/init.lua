@@ -587,6 +587,8 @@ require('nvim-treesitter.configs').setup {
                 ['if'] = '@function.inner',
                 ['ac'] = '@class.outer',
                 ['ic'] = '@class.inner',
+                ['ap'] = '@parameter.outer',
+                ['ip'] = '@parameter.inner',
             },
             selection_modes = {
                 ['@parameter.outer'] = 'v',
@@ -610,18 +612,22 @@ require('nvim-treesitter.configs').setup {
             goto_next_start = {
                 [']f'] = '@function.outer',
                 [']c'] = '@class.outer',
+                -- [']P'] = '@parameter.outer',
             },
             goto_next_end = {
                 [']F'] = '@function.outer',
                 [']C'] = '@class.outer',
+                [']p'] = '@parameter.outer',
             },
             goto_previous_start = {
                 ['[f'] = '@function.outer',
                 ['[c'] = '@class.outer',
+                -- ['[P'] = '@parameter.outer',
             },
             goto_previous_end = {
                 ['[F'] = '@function.outer',
                 ['[C'] = '@class.outer',
+                ['[p'] = '@parameter.outer',
             },
         }
     },

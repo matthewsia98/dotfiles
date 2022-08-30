@@ -8,14 +8,11 @@
 
 ; Comparison Operators
 ((comparison_operator operators: ">=" @TSOperator) (#set! conceal "⩾"))
-
 ((comparison_operator operators: "<=" @TSOperator) (#set! conceal "⩽"))
-
 ((comparison_operator operators: "!=" @TSOperator) (#set! conceal "≢"))
-
 ((comparison_operator operators: "==" @TSOperator) (#set! conceal "＝"))
-
 ((comparison_operator operators: "in" @keyword.operator) (#set! conceal "∈"))
+((comparison_operator operators: "not" @keyword.operator) (#set! conceal "￢"))
 
 ; Functions
 ((lambda "lambda" @keyword.function) (#set! conceal "ﬦ"))
@@ -24,7 +21,7 @@
 ((function_definition body: (block (return_statement "return" @keyword.return))) (#set! conceal "﬌"))
 ((function_definition parameters: (parameters (identifier) @parameter (#eq? @parameter "self"))) (#set! conceal ""))
 ((attribute object: (identifier) @variable (#eq? @variable "self")) (#set! conceal ""))
-((function_definition body: (block (expression_statement (string) @string))) (#set! conceal " "))
+((function_definition body: (block . (expression_statement (string) @string))) (#set! conceal " "))
 
 ; Classes
 ((class_definition "class" @keyword) (#set! conceal " "))
