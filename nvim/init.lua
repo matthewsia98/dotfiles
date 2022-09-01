@@ -1410,13 +1410,17 @@ map('n', '<C-b>c', '<cmd>bdelete<CR>')
 -- map('n', '<C-t>c', '<cmd>tabclose<CR>')
 
 -- Folds
-map('n', '<leader>fd', 'za')
+-- map('n', '<leader>fd', 'za')
 
 -- Reload Config
 map('n', '<F4>', '<cmd>source %<CR>')
 
 -- Terminal Mode
 map('t', '<Esc>', '<C-\\><C-n>')
+map('t', '<C-h>', '<C-\\><C-n><C-w>h')
+map('t', '<C-j>', '<C-\\><C-n><C-w>j')
+map('t', '<C-k>', '<C-\\><C-n><C-w>k')
+map('t', '<C-l>', '<C-\\><C-n><C-w>l')
 
 map('n', '<F12>',
     function()
@@ -1427,3 +1431,37 @@ map('n', '<F12>',
         end
     end
 )
+
+-- Colemak
+-- -- Navigation
+-- map('n', 'm', 'h')
+-- map('n', 'n', 'j')
+-- map('n', 'e', 'k')
+-- map('n', 'i', 'l')
+--
+-- -- Move between windows
+-- map('n', '<C-m>', '<C-w>h')
+-- map('n', '<C-n>', '<C-w>l')
+-- map('n', '<C-e>', '<C-w>j')
+-- map('n', '<C-i>', '<C-w>k')
+--
+-- -- Go to start and end of line
+-- map('i', '<C-f>', '<Esc>A')
+-- map('n', '<C-f>', 'A<Esc>')
+-- map('i', '<C-A>', '<Esc>I')
+-- map('n', '<C-A>', 'I<Esc>')
+--
+-- -- Buffers
+-- -- These commands will navigate through buffers in order regardless of which mode you are using
+-- -- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
+-- map('n', '<C-b>l', '<cmd>BufferLineCycleNext<CR>')
+-- map('n', '<C-b>h', '<cmd>BufferLineCyclePrev<CR>')
+-- -- These commands will move the current buffer backwards or forwards in the bufferline
+-- map('n', '<C-b>L', '<cmd>BufferLineMoveNext<CR>')
+-- map('n', '<C-b>H', '<cmd>BufferLineMovePrev<CR>')
+-- -- Terminal
+--
+-- map('t', '<C-h>', '<C-\\><C-n><C-w>h')
+-- map('t', '<C-j>', '<C-\\><C-n><C-w>j')
+-- map('t', '<C-k>', '<C-\\><C-n><C-w>k')
+-- map('t', '<C-l>', '<C-\\><C-n><C-w>l')
