@@ -5,6 +5,16 @@ set_title
 
 chpwd_functions+=(set_title)
 
+function toggle_keymap() {
+    local variant=$(setxkbmap -query | awk '/variant:/ {print $2}')
+    if [[ $variant = '' ]] then
+        setxkbmap us colemak_dh
+    else
+        setxkbmap us
+    fi
+    xmodmap ~/.Xmodmap
+}
+
 export PATH
 export BAT_THEME='OneHalfDark'
 export EDITOR='nvim'
