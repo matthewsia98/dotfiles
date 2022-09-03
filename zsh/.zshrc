@@ -15,7 +15,7 @@ function toggle_keymap() {
     xmodmap ~/.Xmodmap
 }
 
-export PATH
+export PATH=$PATH:~/.local/bin
 export BAT_THEME='OneHalfDark'
 export EDITOR='nvim'
 export VISUAL='nvim'
