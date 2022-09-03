@@ -17,6 +17,7 @@ $git_metrics\
 $git_status\
 $python\
 $lua\
+$java\
 $env_var\
 $line_break\
 $character
@@ -115,6 +116,7 @@ symbol = " "
 
 [java]
 symbol = " "
+format = '[\[$symbol$version\]]($style)'
 
 [julia]
 symbol = " "
@@ -140,7 +142,7 @@ symbol = " "
 
 [python]
 symbol = " "
-format = '[\[$symbol$version( $virtualenv)\]]($style)'
+format = '[\[$symbol$version(  $virtualenv)\]]($style)'
 
 [spack]
 symbol = "🅢 "
