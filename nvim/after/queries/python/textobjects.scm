@@ -1,5 +1,4 @@
-(comparison_operator
-    operators: "not" @_not
-    operators: "in" @_in
-    (#make-range! "not_in" @_not @_in)
-)
+(call
+    function: (identifier) @name (#eq? @name "print")
+    arguments: (argument_list "(" (_) @print.inner ")")
+) @print.outer
