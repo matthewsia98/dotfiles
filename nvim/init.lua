@@ -155,9 +155,6 @@ A.nvim_create_autocmd('BufEnter', {
         local num_lines = vim.api.nvim_buf_line_count(0)
         local first_line = vim.api.nvim_buf_get_text(0, 0, 0, 0, -1, {})[1]
         if num_lines == 1 and first_line == '' then
-            -- public Test {
-            --
-            -- }
             vim.api.nvim_buf_set_lines(0, 0, 4, false, {
                 'public ' .. classname .. ' {',
                 '',
@@ -1250,7 +1247,8 @@ vim.cmd [[highlight CmpItemKindTypeParameter guibg=#58B5A8 guifg=#D8EEEB]]
 
 cmp.setup {
     completion = {
-        completeopt = 'menu,menuone,noselect'
+        -- completeopt = 'menu,menuone,noselect' -- Don't autoselect first entry
+        completeopt = 'menu,menuone'
     },
     formatting = {
         fields = { 'kind', 'abbr', 'menu' },
@@ -1347,7 +1345,7 @@ cmp.setup {
         ['<C-c>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm({
             -- behavior = cmp.ConfirmBehavior.Insert,
-            select = false -- Auto accept first result if true
+            select = true -- Accept currently selected item. Set to false to only confirm explicitly selected items.
         }),
     }),
     sources = cmp.config.sources({
