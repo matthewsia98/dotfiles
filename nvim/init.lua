@@ -22,7 +22,7 @@ local g = vim.g
 local o = vim.opt
 local A = vim.api
 
-g.python3_host_prog = '/usr/bin/python3'
+g.python3_host_prog = vim.fn.expand('~/.virtualenvs/nvim/bin/python')
 -- cmd('syntax on')
 -- A.nvim_command('filetype plugin indent on')
 
@@ -144,6 +144,30 @@ A.nvim_create_autocmd('BufEnter', {
     end
 })
 
+
+-- Java
+A.nvim_create_autocmd('BufEnter', {
+    group = group,
+    callback = function()
+        local filepath = vim.fn.expand('%')
+        local classname = filepath:match('/?(%w+)%.java')
+        local num_lines = vim.api.nvim_buf_line_count(0)
+        local first_line = vim.api.nvim_buf_get_text(0, 0, 0, 0, -1, {})[1]
+        if num_lines == 1 and first_line == '' then
+            -- public Test {
+            --
+            -- }
+            vim.api.nvim_buf_set_lines(0, 0, 4, false, {
+                'public ' .. classname .. ' {',
+                '',
+                '}'
+            })
+            vim.api.nvim_win_set_cursor(0, {2, 0})
+        end
+    end
+})
+
+
 -- Highlight yanked region
 A.nvim_create_autocmd('TextYankPost', {
     group = group,
@@ -242,6 +266,7 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'onsails/lspkind.nvim'
 
+Plug 'akinsho/toggleterm.nvim'
 -- Plug 'goerz/jupytext.vim'
 -- Plug('dccsillag/magma-nvim', { ['do'] = vim.fn[':UpdateRemotePlugins'] })
 vim.call('plug#end')
@@ -587,8 +612,10 @@ require('nvim-treesitter.configs').setup {
                 ['if'] = '@function.inner',
                 ['ac'] = '@class.outer',
                 ['ic'] = '@class.inner',
-                ['ap'] = '@parameter.outer',
-                ['ip'] = '@parameter.inner',
+                -- ['aa'] = '@parameter.outer',
+                -- ['ia'] = '@parameter.inner',
+                -- ['ap'] = '@print.outer',
+                -- ['ip'] = '@print.inner',
             },
             selection_modes = {
                 ['@parameter.outer'] = 'v',
@@ -600,10 +627,10 @@ require('nvim-treesitter.configs').setup {
         swap = {
             enable = true,
             swap_next = {
-                ['<leader>sn'] = '@parameter.inner',
+                ['sn'] = '@parameter.inner',
             },
             swap_previous = {
-                ['<leader>sp'] = '@parameter.inner',
+                ['sp'] = '@parameter.inner',
             },
         },
         move = {
@@ -612,22 +639,22 @@ require('nvim-treesitter.configs').setup {
             goto_next_start = {
                 [']f'] = '@function.outer',
                 [']c'] = '@class.outer',
-                -- [']P'] = '@parameter.outer',
+                [']P'] = '@print.outer',
             },
             goto_next_end = {
                 [']F'] = '@function.outer',
                 [']C'] = '@class.outer',
-                [']p'] = '@parameter.outer',
+                [']p'] = '@print.outer',
             },
             goto_previous_start = {
                 ['[f'] = '@function.outer',
                 ['[c'] = '@class.outer',
-                -- ['[P'] = '@parameter.outer',
+                ['[P'] = '@print.outer',
             },
             goto_previous_end = {
                 ['[F'] = '@function.outer',
                 ['[C'] = '@class.outer',
-                ['[p'] = '@parameter.outer',
+                ['[p'] = '@print.outer',
             },
         }
     },
@@ -1345,6 +1372,32 @@ npairs.setup {
 }
 
 
+-- TOGGLETERM --
+local toggleterm = require('toggleterm')
+map('n', '<leader>tt', '<cmd>ToggleTerm<CR>')
+map('n', '<leader>tr',
+    function()
+        local winwidth = vim.fn.winwidth(0)
+        local filetype = vim.bo.filetype
+        local filepath = vim.fn.expand('%')
+        local command
+        if filetype == 'lua' then
+            command = 'lua ' .. filepath
+        elseif filetype == 'python' then
+            command = 'python ' .. filepath
+        elseif filetype == 'java' then
+            command = 'javac ' .. filepath .. '; java ' .. filepath:gsub('.java', '')
+        end
+        vim.cmd('TermExec size=' .. math.floor(winwidth / 3) .. ' cmd="' .. command .. '"')
+    end
+)
+toggleterm.setup {
+    size = 40,
+    direction = 'vertical',
+    shell = '/bin/zsh',
+}
+
+
 -- MAGMA --
 -- g.magma_automatically_open_output = true
 -- g.magma_image_provider = 'ueberzug'
@@ -1416,6 +1469,7 @@ map('n', '<C-b>c', '<cmd>bdelete<CR>')
 map('n', '<F4>', '<cmd>source %<CR>')
 
 -- Terminal Mode
+map('t', '<C-q>', '<C-\\><C-n><C-w>c')
 map('t', '<Esc>', '<C-\\><C-n>')
 map('t', '<C-h>', '<C-\\><C-n><C-w>h')
 map('t', '<C-j>', '<C-\\><C-n><C-w>j')
@@ -1433,35 +1487,25 @@ map('n', '<F12>',
 )
 
 -- Colemak
--- -- Navigation
--- map('n', 'm', 'h')
--- map('n', 'n', 'j')
--- map('n', 'e', 'k')
--- map('n', 'i', 'l')
---
--- -- Move between windows
--- map('n', '<C-m>', '<C-w>h')
--- map('n', '<C-n>', '<C-w>l')
--- map('n', '<C-e>', '<C-w>j')
--- map('n', '<C-i>', '<C-w>k')
---
--- -- Go to start and end of line
--- map('i', '<C-f>', '<Esc>A')
--- map('n', '<C-f>', 'A<Esc>')
--- map('i', '<C-A>', '<Esc>I')
--- map('n', '<C-A>', 'I<Esc>')
---
--- -- Buffers
--- -- These commands will navigate through buffers in order regardless of which mode you are using
--- -- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
--- map('n', '<C-b>l', '<cmd>BufferLineCycleNext<CR>')
--- map('n', '<C-b>h', '<cmd>BufferLineCyclePrev<CR>')
--- -- These commands will move the current buffer backwards or forwards in the bufferline
--- map('n', '<C-b>L', '<cmd>BufferLineMoveNext<CR>')
--- map('n', '<C-b>H', '<cmd>BufferLineMovePrev<CR>')
--- -- Terminal
---
--- map('t', '<C-h>', '<C-\\><C-n><C-w>h')
--- map('t', '<C-j>', '<C-\\><C-n><C-w>j')
--- map('t', '<C-k>', '<C-\\><C-n><C-w>k')
--- map('t', '<C-l>', '<C-\\><C-n><C-w>l')
+-- map('i', 'e', 'f')
+-- map('i', 'r', 'p')
+-- map('i', 't', 'b')
+-- map('i', 'y', 'j')
+-- map('i', 'u', 'l')
+-- map('i', 'i', 'u')
+-- map('i', 'o', 'y')
+-- map('i', 'p', ';')
+-- map('i', 's', 'r')
+-- map('i', 'd', 's')
+-- map('i', 'f', 't')
+-- map('i', 'h', 'm')
+-- map('i', 'j', 'n')
+-- map('i', 'k', 'e')
+-- map('i', 'l', 'i')
+-- map('i', ';', 'o')
+-- map('i', 'z', 'x')
+-- map('i', 'x', 'c')
+-- map('i', 'c', 'd')
+-- map('i', 'b', 'z')
+-- map('i', 'n', 'k')
+-- map('i', 'm', 'h')
