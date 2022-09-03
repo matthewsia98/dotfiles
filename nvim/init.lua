@@ -148,6 +148,7 @@ A.nvim_create_autocmd('BufEnter', {
 -- Java
 A.nvim_create_autocmd('BufEnter', {
     group = group,
+    pattern = '*.java',
     callback = function()
         local filepath = vim.fn.expand('%')
         local classname = filepath:match('/?(%w+)%.java')
@@ -1246,11 +1247,6 @@ vim.cmd [[highlight CmpItemKindEnumMember guibg=#6C8ED4 guifg=#DDE5F5]]
 vim.cmd [[highlight CmpItemKindInterface guibg=#58B5A8 guifg=#D8EEEB]]
 vim.cmd [[highlight CmpItemKindColor guibg=#58B5A8 guifg=#D8EEEB]]
 vim.cmd [[highlight CmpItemKindTypeParameter guibg=#58B5A8 guifg=#D8EEEB]]
-
-local has_words_before = function()
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
-end
 
 cmp.setup {
     completion = {
