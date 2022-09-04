@@ -436,7 +436,7 @@ screens = [
                     block_highlight_text_color=COLORS["selection_foreground"][0],
                     background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
                     foreground=COLORS["foreground"][POWERLINE_ENABLED],
-                    this_current_screen_border=COLORS['active_border_color'][0],
+                    this_current_screen_border=COLORS["active_border_color"][0],
                     urgent_border=COLORS["red"][0],
                     urgent_text=COLORS["foreground"][POWERLINE_ENABLED],
                     active=COLORS["foreground"][POWERLINE_ENABLED],
@@ -639,8 +639,8 @@ screens = [
                 if POWERLINE_ENABLED
                 else separator(length=4, name="clock_separator"),
                 widget.Wttr(
-                    location={'Ottawa': 'Ottawa'},
-                    format='%c%t',
+                    location={"Ottawa": "Ottawa"},
+                    format="%C %t",
                     background=COLORS["magenta"][0] if POWERLINE_ENABLED else None,
                     foreground=COLORS["foreground"][POWERLINE_ENABLED],
                     padding=10,
@@ -692,9 +692,7 @@ screens = [
                     widgets=[
                         widget.TextBox(
                             text="Powerline",
-                            background=COLORS["cyan"][0]
-                            if POWERLINE_ENABLED
-                            else None,
+                            background=COLORS["cyan"][0] if POWERLINE_ENABLED else None,
                             foreground=COLORS["foreground"][POWERLINE_ENABLED],
                             mouse_callbacks={"Button1": toggle_powerline},
                             name="powerline_text",
@@ -704,25 +702,19 @@ screens = [
                             fontsize=30,
                             width=45,
                             padding=10,
-                            background=COLORS["cyan"][0]
-                            if POWERLINE_ENABLED
-                            else None,
+                            background=COLORS["cyan"][0] if POWERLINE_ENABLED else None,
                             foreground=COLORS["foreground"][POWERLINE_ENABLED],
                             mouse_callbacks={"Button1": toggle_powerline},
                             name="powerline_toggle",
                         ),
                         widget.Spacer(
                             length=10,
-                            background=COLORS["cyan"][0]
-                            if POWERLINE_ENABLED
-                            else None,
+                            background=COLORS["cyan"][0] if POWERLINE_ENABLED else None,
                             name="powerline_spacer",
                         ),
                         widget.TextBox(
                             text="Picom",
-                            background=COLORS["cyan"][0]
-                            if POWERLINE_ENABLED
-                            else None,
+                            background=COLORS["cyan"][0] if POWERLINE_ENABLED else None,
                             foreground=COLORS["foreground"][POWERLINE_ENABLED],
                             mouse_callbacks={"Button1": toggle_picom},
                             name="picom_text",
@@ -732,18 +724,14 @@ screens = [
                             fontsize=30,
                             width=45,
                             padding=10,
-                            background=COLORS["cyan"][0]
-                            if POWERLINE_ENABLED
-                            else None,
+                            background=COLORS["cyan"][0] if POWERLINE_ENABLED else None,
                             foreground=COLORS["foreground"][POWERLINE_ENABLED],
                             mouse_callbacks={"Button1": toggle_picom},
                             name="picom_toggle",
                         ),
                         widget.Spacer(
                             length=20,
-                            background=COLORS["cyan"][0]
-                            if POWERLINE_ENABLED
-                            else None,
+                            background=COLORS["cyan"][0] if POWERLINE_ENABLED else None,
                             name="picom_spacer",
                         ),
                     ],
