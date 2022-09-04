@@ -1,6 +1,7 @@
 #!/bin/zsh
 ln -s ~/.dotfiles/conky ~/.config/conky
 ln -s ~/.dotfiles/dunst ~/.config/dunst
+ln -s ~/.dotfiles/feh ~/.config/feh
 ln -s ~/.dotfiles/gtk-3.0 ~/.config/gtk-3.0
 ln -s ~/.dotfiles/kitty ~/.config/kitty
 ln -s ~/.dotfiles/nvim ~/.config/nvim
