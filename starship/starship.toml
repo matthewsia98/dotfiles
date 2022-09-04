@@ -41,12 +41,12 @@ disabled = true
 
 [username]
 show_always = false
-format = '[\[$user\]](bold #00ffff) '
+format = '[\[$user\]](bold #00FFFF) '
 
 [directory]
 truncate_to_repo = false
 read_only = " "
-format = '[$path](#00ffff)[$read_only]($read_only_style) '
+format = '[$path](#00FFFF)[$read_only]($read_only_style) '
 
 [character]
 success_symbol = "[➜](bold #A6DA95)"
@@ -66,16 +66,31 @@ symbol = ""
 format = '[\[$symbol $branch(:$remote_branch)\]]($style) '
 
 [git_commit]
-format = '[#$hash$tag]($style) '
-only_detached = false
 disabled = false
+format = '[\[#$hash$tag\]]($style) '
+only_detached = false
 
 [git_state]
+disabled = false
 
 [git_metrics]
 disabled = false
+format = '([+$added]($added_style) )([-$deleted]($deleted_style) )'
 
 [git_status]
+disabled = false
+format = '([\[$all_status$ahead_behind\]]($style) )'
+conflicted = '='
+ahead = '⇡'
+behind = '⇣'
+diverged = '⇕'
+up_to_date = ''
+untracked = '?'
+stashed = '$'
+modified = '!'
+staged = '+'
+renamed = '»'
+deleted = '✘'
 
 [time]
 format = '[\[$time\]](bold #00ffff)'
