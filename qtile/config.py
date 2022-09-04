@@ -630,18 +630,33 @@ screens = [
                     mouse_callbacks={"Button1": toggle_info},
                     name="info_box",
                 ),
-                # widget.OpenWeather(location='Ottawa'),
-                # widget.Wttr(location={'Ottawa': 'Ottawa'}),
                 powerline(
                     "l",
                     background=COLORS["green"][0],
+                    foreground=COLORS["blue"][0],
+                    name="clock_powerline",
+                )
+                if POWERLINE_ENABLED
+                else separator(length=4, name="clock_separator"),
+                widget.Wttr(
+                    location={'Ottawa': 'Ottawa'},
+                    format='%l %c%t',
+                    background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
+                    foreground=COLORS["foreground"][POWERLINE_ENABLED],
+                    padding=10 if POWERLINE_ENABLED else 10,
+                    update_interval=60,
+                    name="weather",
+                ),
+                powerline(
+                    "l",
+                    background=COLORS["blue"][0],
                     foreground=COLORS["purple"][0],
                     name="clock_powerline",
                 )
                 if POWERLINE_ENABLED
                 else separator(length=4, name="clock_separator"),
                 widget.Clock(
-                    format="\uf5ed  %a %b %d %H:%M:%S",
+                    format="\uf5ed %a %b %d %H:%M:%S",
                     background=COLORS["purple"][0] if POWERLINE_ENABLED else None,
                     foreground=COLORS["foreground"][POWERLINE_ENABLED],
                     padding=0 if POWERLINE_ENABLED else 10,
