@@ -15,9 +15,11 @@ $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
-$python\
-$lua\
+$c\
 $java\
+$lua\
+$python\
+$rust\
 $env_var\
 $line_break\
 $character
@@ -35,20 +37,23 @@ disabled = false
 disabled = true
 
 [hostname]
+disabled = true
 ssh_only = false
 format = '\[[$ssh_symbol$hostname]($style)\] '
-disabled = true
 
 [username]
+disabled = false
 show_always = false
 format = '[\[$user\]](bold #00FFFF) '
 
 [directory]
+disabled = false
 truncate_to_repo = false
 read_only = " "
 format = '[$path](#00FFFF)[$read_only]($read_only_style) '
 
 [character]
+disabled = false
 success_symbol = "[➜](bold #A6DA95)"
 error_symbol = "[➜](bold #ED8796)" 
 vimcmd_symbol = "[](bold #C6A0F6)"
@@ -62,6 +67,7 @@ default = ""
 format = "[$env_value](bold #EED49F)"
 
 [git_branch]
+disabled = false
 symbol = ""
 format = '[\[$symbol $branch(:$remote_branch)\]]($style) '
 
@@ -93,74 +99,66 @@ renamed = '»'
 deleted = '✘'
 
 [time]
-format = '[\[$time\]](bold #00ffff)'
 disabled = false
+format = '[\[$time\]](bold #00ffff)'
 
 [aws]
+disabled = false
 symbol = "  "
 
-[buf]
-symbol = " "
-
 [c]
+disabled = false
 symbol = " "
+format = '[\[$symbol($version(-$name))\]]($style)'
 
 [conda]
+disabled = false
 symbol = " "
 
-[dart]
-symbol = " "
-
 [docker_context]
+disabled = false
 symbol = " "
 
-[elixir]
-symbol = " "
-
-[elm]
-symbol = " "
-
 [golang]
+disabled = false
 symbol = " "
 
 [haskell]
+disabled = false
 symbol = " "
 
 [hg_branch]
+disabled = false
 symbol = " "
 
 [java]
+disabled = false
 symbol = " "
 format = '[\[$symbol$version\]]($style)'
 
 [julia]
+disabled = false
 symbol = " "
 
 [lua]
+disabled = false
 symbol = " "
 format = '[\[$symbol$version\]]($style)'
 
-[memory_usage]
-symbol = " "
-
-[nim]
-symbol = " "
-
-[nix_shell]
-symbol = " "
-
 [nodejs]
+disabled = false
 symbol = " "
 
 [package]
+disabled = false
 symbol = " "
 
 [python]
+disabled = false
 symbol = " "
 format = '[\[$symbol$version(  $virtualenv)\]]($style)'
 
-[spack]
-symbol = "🅢 "
-
 [rust]
+disabled = false
 symbol = " "
+format = '[\[$symbol($version)\]]($style)'
