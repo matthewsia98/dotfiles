@@ -644,7 +644,7 @@ screens = [
                     background=COLORS["magenta"][0] if POWERLINE_ENABLED else None,
                     foreground=COLORS["foreground"][POWERLINE_ENABLED],
                     padding=10 if POWERLINE_ENABLED else 10,
-                    update_interval=60,
+                    update_interval=600,
                     name="weather",
                 ),
                 powerline(
