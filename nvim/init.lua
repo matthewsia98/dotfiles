@@ -680,6 +680,10 @@ require('treesitter-context').setup {
             'case',
         },
         -- Patterns for specific filetypes
+        python = {
+            'call',
+            'with_statement',
+        }
     },
     exact_patterns = {
         -- Example for a specific filetype with Lua patterns
