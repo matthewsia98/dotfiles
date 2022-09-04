@@ -51,7 +51,7 @@ alias suspend='systemctl suspend'
 # Programs
 alias vi='nvim'
 alias vim='nvim'
-alias feh='feh --scale-down -d -g 1920x1030+0+50 --image-bg black -C ~/.fonts -e static/RobotoMono-Bold/20'
+alias feh='feh --scale-down -d -g 1800x1020+60+10 --info "echo %wx%h" --image-bg #494D54 -C ~/.fonts -e static/RobotoMono-Bold/20'
 alias conky="conky -c ~/.config/conky/process.conf"
 
 # Git
