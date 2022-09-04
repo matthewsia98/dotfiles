@@ -608,25 +608,25 @@ screens = [
                             mouse_callbacks={"Button1": toggle_program("pavucontrol")},
                             name="volume",
                         ),
-                        widget.TextBox(
-                            text="\uF5B0",
-                            background=COLORS["green"][0]
-                            if POWERLINE_ENABLED
-                            else None,
-                            foreground=COLORS["foreground"][POWERLINE_ENABLED],
-                            padding=10,
-                            mouse_callbacks={
-                                "Button1": toggle_program("blueman-manager")
-                            },
-                            name="bluetooth",
-                        ),
+                        # widget.TextBox(
+                        #     text="\uF5B0",
+                        #     background=COLORS["green"][0]
+                        #     if POWERLINE_ENABLED
+                        #     else None,
+                        #     foreground=COLORS["foreground"][POWERLINE_ENABLED],
+                        #     padding=10,
+                        #     mouse_callbacks={
+                        #         "Button1": toggle_program("blueman-manager")
+                        #     },
+                        #     name="bluetooth",
+                        # ),
                     ],
                     close_button_location="right",
                     background=COLORS["green"][0] if POWERLINE_ENABLED else None,
                     foreground=COLORS["foreground"][POWERLINE_ENABLED],
                     fontsize=25,
-                    text_closed="\uF303".center(3),
-                    text_open="\uF303".center(3),
+                    text_closed=" \uF303 ",
+                    text_open=" \uF303 ",
                     mouse_callbacks={"Button1": toggle_info},
                     name="info_box",
                 ),
@@ -634,13 +634,13 @@ screens = [
                     "l",
                     background=COLORS["green"][0],
                     foreground=COLORS["magenta"][0],
-                    name="clock_powerline",
+                    name="weather_powerline",
                 )
                 if POWERLINE_ENABLED
-                else separator(length=4, name="clock_separator"),
+                else separator(length=4, name="weather_separator"),
                 widget.Wttr(
                     location={"Ottawa": "Ottawa"},
-                    format="%C %t",
+                    format=" %C %t",
                     background=COLORS["magenta"][0] if POWERLINE_ENABLED else None,
                     foreground=COLORS["foreground"][POWERLINE_ENABLED],
                     padding=10,
