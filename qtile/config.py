@@ -633,7 +633,7 @@ screens = [
                 powerline(
                     "l",
                     background=COLORS["green"][0],
-                    foreground=COLORS["blue"][0],
+                    foreground=COLORS["magenta"][0],
                     name="clock_powerline",
                 )
                 if POWERLINE_ENABLED
@@ -641,7 +641,7 @@ screens = [
                 widget.Wttr(
                     location={'Ottawa': 'Ottawa'},
                     format='%l %c%t',
-                    background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
+                    background=COLORS["magenta"][0] if POWERLINE_ENABLED else None,
                     foreground=COLORS["foreground"][POWERLINE_ENABLED],
                     padding=10 if POWERLINE_ENABLED else 10,
                     update_interval=60,
@@ -649,7 +649,7 @@ screens = [
                 ),
                 powerline(
                     "l",
-                    background=COLORS["blue"][0],
+                    background=COLORS["magenta"][0],
                     foreground=COLORS["purple"][0],
                     name="clock_powerline",
                 )
@@ -665,7 +665,7 @@ screens = [
                 powerline(
                     "l",
                     background=COLORS["purple"][0],
-                    foreground=COLORS["magenta"][0],
+                    foreground=COLORS["cyan"][0],
                     name="battery_powerline",
                 )
                 if POWERLINE_ENABLED
@@ -676,7 +676,7 @@ screens = [
                     charge_char="\uf583",
                     full_char="\uf583",
                     show_short_text=False,
-                    background=COLORS["magenta"][0] if POWERLINE_ENABLED else None,
+                    background=COLORS["cyan"][0] if POWERLINE_ENABLED else None,
                     foreground=COLORS["foreground"][POWERLINE_ENABLED],
                     low_foreground=COLORS["foreground"][POWERLINE_ENABLED],
                     padding=0 if POWERLINE_ENABLED else 10,
@@ -685,14 +685,14 @@ screens = [
                 ),
                 widget.Spacer(
                     length=20 if POWERLINE_ENABLED else 10,
-                    background=COLORS["magenta"][0] if POWERLINE_ENABLED else None,
+                    background=COLORS["cyan"][0] if POWERLINE_ENABLED else None,
                     name="battery_spacer",
                 ),
                 widget.WidgetBox(
                     widgets=[
                         widget.TextBox(
                             text="Powerline",
-                            background=COLORS["magenta"][0]
+                            background=COLORS["cyan"][0]
                             if POWERLINE_ENABLED
                             else None,
                             foreground=COLORS["foreground"][POWERLINE_ENABLED],
@@ -704,7 +704,7 @@ screens = [
                             fontsize=30,
                             width=45,
                             padding=10,
-                            background=COLORS["magenta"][0]
+                            background=COLORS["cyan"][0]
                             if POWERLINE_ENABLED
                             else None,
                             foreground=COLORS["foreground"][POWERLINE_ENABLED],
@@ -713,14 +713,14 @@ screens = [
                         ),
                         widget.Spacer(
                             length=10,
-                            background=COLORS["magenta"][0]
+                            background=COLORS["cyan"][0]
                             if POWERLINE_ENABLED
                             else None,
                             name="powerline_spacer",
                         ),
                         widget.TextBox(
                             text="Picom",
-                            background=COLORS["magenta"][0]
+                            background=COLORS["cyan"][0]
                             if POWERLINE_ENABLED
                             else None,
                             foreground=COLORS["foreground"][POWERLINE_ENABLED],
@@ -732,7 +732,7 @@ screens = [
                             fontsize=30,
                             width=45,
                             padding=10,
-                            background=COLORS["magenta"][0]
+                            background=COLORS["cyan"][0]
                             if POWERLINE_ENABLED
                             else None,
                             foreground=COLORS["foreground"][POWERLINE_ENABLED],
@@ -740,23 +740,23 @@ screens = [
                             name="picom_toggle",
                         ),
                         widget.Spacer(
-                            length=10,
-                            background=COLORS["magenta"][0]
+                            length=20,
+                            background=COLORS["cyan"][0]
                             if POWERLINE_ENABLED
                             else None,
                             name="picom_spacer",
                         ),
                     ],
                     close_button_location="right",
-                    text_closed="\uF992 ",
-                    text_open="\uF992 ",
-                    background=COLORS["magenta"][0] if POWERLINE_ENABLED else None,
+                    text_closed="\uF992",
+                    text_open="\uF992",
+                    background=COLORS["cyan"][0] if POWERLINE_ENABLED else None,
                     foreground=COLORS["foreground"][POWERLINE_ENABLED],
                     name="settings",
                 ),
                 widget.Spacer(
-                    length=5,
-                    background=COLORS["magenta"][0] if POWERLINE_ENABLED else None,
+                    length=10,
+                    background=COLORS["cyan"][0] if POWERLINE_ENABLED else None,
                 ),
             ],
             size=BAR_HEIGHT,  # top bar size
