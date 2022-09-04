@@ -572,7 +572,7 @@ require('nvim-treesitter.configs').setup {
     },
     indent = {
         enable = true,
-        disable = { 'python' },
+        -- disable = { 'python' },
     },
     incremental_selection = {
         enable = false,
@@ -1226,6 +1226,7 @@ require('luasnip.loaders.from_lua').lazy_load({
 
 -- NVIM CMP --
 local cmp = require('cmp')
+local cmp_types = require('cmp.types')
 local lspkind = require('lspkind')
 
 -- Scrollbar
@@ -1236,42 +1237,25 @@ vim.cmd [[highlight CmpPmenu guibg=#22252A guifg=#C5CDD9]]
 vim.cmd [[highlight PmenuSel guibg=#6E738D guifg=NONE]]
 
 -- Completion Items
-vim.cmd [[highlight CmpItemAbbr guibg=NONE guifg=#CAD3F5]]
-vim.cmd [[highlight CmpItemAbbrDeprecated guibg=NONE guifg=#FF0000 gui=strikethrough]]
-vim.cmd [[highlight CmpItemAbbrMatch guibg=NONE guifg=#82AAFF gui=bold]]
-vim.cmd [[highlight CmpItemAbbrMatchFuzzy guibg=NONE guifg=#82AAFF gui=bold]]
-vim.cmd [[highlight CmpItemMenu guibg=NONE guifg=#C6A0F6 gui=NONE]]
-vim.cmd [[highlight CmpItemKindField guibg=#B5585F guifg=#EED8DA]]
-vim.cmd [[highlight CmpItemKindProperty guibg=#B5585F guifg=#EED8DA]]
-vim.cmd [[highlight CmpItemKindEvent guibg=#B5585F guifg=#EED8DA]]
-vim.cmd [[highlight CmpItemKindText guibg=#9FBD73 guifg=#FFFFFF]]
-vim.cmd [[highlight CmpItemKindEnum guibg=#9FBD73 guifg=#FFFFFF]]
-vim.cmd [[highlight CmpItemKindKeyword guibg=#9FBD73 guifg=#FFFFFF]]
-vim.cmd [[highlight CmpItemKindConstant guibg=#D4BB6C guifg=#FFE082]]
-vim.cmd [[highlight CmpItemKindConstructor guibg=#D4BB6C guifg=#FFE082]]
-vim.cmd [[highlight CmpItemKindReference guibg=#D4BB6C guifg=#FFE082]]
-vim.cmd [[highlight CmpItemKindFunction guibg=#A377BF guifg=#EADFF0]]
-vim.cmd [[highlight CmpItemKindStruct guibg=#A377BF guifg=#EADFF0]]
-vim.cmd [[highlight CmpItemKindClass guibg=#A377BF guifg=#EADFF0]]
-vim.cmd [[highlight CmpItemKindModule guibg=#A377BF guifg=#EADFF0]]
-vim.cmd [[highlight CmpItemKindOperator guibg=#A377BF guifg=#EADFF0]]
-vim.cmd [[highlight CmpItemKindVariable guibg=#7E8294 guifg=#C5CDD9]]
-vim.cmd [[highlight CmpItemKindFile guibg=#7E8294 guifg=#C5CDD9]]
-vim.cmd [[highlight CmpItemKindUnit guibg=#D4A959 guifg=#F5EBD9]]
-vim.cmd [[highlight CmpItemKindSnippet guibg=#D4A959 guifg=#F5EBD9]]
-vim.cmd [[highlight CmpItemKindFolder guibg=#D4A959 guifg=#F5EBD9]]
-vim.cmd [[highlight CmpItemKindMethod guibg=#6C8ED4 guifg=#DDE5F5]]
-vim.cmd [[highlight CmpItemKindValue guibg=#6C8ED4 guifg=#DDE5F5]]
-vim.cmd [[highlight CmpItemKindEnumMember guibg=#6C8ED4 guifg=#DDE5F5]]
-vim.cmd [[highlight CmpItemKindInterface guibg=#58B5A8 guifg=#D8EEEB]]
-vim.cmd [[highlight CmpItemKindColor guibg=#58B5A8 guifg=#D8EEEB]]
-vim.cmd [[highlight CmpItemKindTypeParameter guibg=#58B5A8 guifg=#D8EEEB]]
+vim.cmd [[highlight CmpItemMenu guibg=NONE guifg=#C6A0F6]]
+vim.cmd [[highlight CmpItemAbbrDeprecated guibg=NONE guifg=#808080 gui=strikethrough]]
+vim.cmd [[highlight CmpItemAbbrMatch guibg=NONE guifg=#569CD6]]
+vim.cmd [[highlight CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6]]
+vim.cmd [[highlight CmpItemKindVariable guibg=NONE guifg=#9CDCFE]]
+vim.cmd [[highlight CmpItemKindInterface guibg=NONE guifg=#9CDCFE]]
+vim.cmd [[highlight CmpItemKindText guibg=NONE guifg=#9CDCFE]]
+vim.cmd [[highlight CmpItemKindFunction guibg=NONE guifg=#C586C0]]
+vim.cmd [[highlight CmpItemKindMethod guibg=NONE guifg=#C586C0]]
+vim.cmd [[highlight CmpItemKindKeyword guibg=NONE guifg=#D4D4D4]]
+vim.cmd [[highlight CmpItemKindProperty guibg=NONE guifg=#D4D4D4]]
+vim.cmd [[highlight CmpItemKindUnit guibg=NONE guifg=#D4D4D4]]
+vim.cmd [[highlight CmpItemKindSnippet guibg=NONE guifg=#D4AF37]]
 
 cmp.setup {
     completion = {
-        -- completeopt = 'menu,menuone,noselect' -- Don't autoselect first entry
-        completeopt = 'menu,menuone'
+        completeopt = 'menu,menuone,noselect' -- Don't autoselect first entry
     },
+    preselect = cmp_types.cmp.PreselectMode.None,
     formatting = {
         fields = { 'kind', 'abbr', 'menu' },
         format = function(entry, vim_item)
@@ -1328,11 +1312,18 @@ cmp.setup {
     },
     window = {
         completion = {
+            border = 'rounded',
             winhighlight = 'Normal:CmpPmenu,FloatBorder:CmpPmenu,CursorLine:PmenuSel,Search:None',
             col_offset = -3,
             side_padding = 0,
+        },
+        documentation = {
+            border = 'rounded',
+            winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None',
+            zindex = 1001,
+            col_offset = 0,
+            side_padding = 1,
         }
-        -- documentation = cmp.config.window.bordered(),
     },
     view = {
         entries = {
@@ -1341,33 +1332,11 @@ cmp.setup {
         }
     },
     mapping = cmp.mapping.preset.insert({
-        -- ['<Tab>'] = cmp.mapping(function(fallback)
-        --     if cmp.visible() then
-        --         cmp.select_next_item()
-        --     elseif luasnip.expand_or_jumpable() then
-        --         luasnip.expand_or_jump()
-        --     elseif has_words_before() then
-        --         cmp.complete()
-        --     else
-        --         fallback()
-        --     end
-        -- end, { 'i', 's' }),
-        -- ['<S-Tab>'] = cmp.mapping(function(fallback)
-        --     if cmp.visible() then
-        --         cmp.select_prev_item()
-        --     elseif luasnip.jumpable(-1) then
-        --         luasnip.jump(-1)
-        --     else
-        --         fallback()
-        --     end
-        -- end, { 'i', 's' }),
-        -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-c>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm({
-            -- behavior = cmp.ConfirmBehavior.Insert,
-            select = true -- Accept currently selected item. Set to false to only confirm explicitly selected items.
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = false -- Accept currently selected item. Set to false to only confirm explicitly selected items.
         }),
     }),
     sources = cmp.config.sources({
