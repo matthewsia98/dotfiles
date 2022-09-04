@@ -207,7 +207,6 @@ Plug 'windwp/nvim-autopairs'
 -- Status Lines
 Plug 'akinsho/bufferline.nvim'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'nvim-lua/lsp-status.nvim'
 
 -- Indent Lines
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -348,23 +347,6 @@ bufferline.setup {
     }
 }
 
--- LSPSTATUS --
-local lsp_status = require('lsp-status')
-lsp_status.config({
-    current_function = true,
-    show_filename = true,
-    diagnostics = false,
-    status_symbol = '',
-    component_separator = ' ',
-    indicator_separator = ' ',
-    indicator_errors = '',
-    indicator_warnings = '',
-    indicator_info = '',
-    indicator_hint = '',
-    indicator_ok = '',
-    kind_labels = {}
-})
-
 
 -- LUALINE --
 require('lualine').setup {
@@ -395,7 +377,6 @@ require('lualine').setup {
                 update_in_insert = true,
                 always_visible = false,
             },
-            'require("lsp-status").status()'
         },
         lualine_x = {},
         lualine_y = { 'encoding', 'fileformat', },
@@ -886,10 +867,6 @@ local lspconfig = require('lspconfig')
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-    -- Get LSP progress updates on status line
-    lsp_status.on_attach(client)
-    lsp_status.register_progress()
-
     if client['name'] == 'pylsp' then
         local env = vim.env.VIRTUAL_ENV or '/usr'
         print('Jedi Environment:', env)
