@@ -257,7 +257,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
--- Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/nvim-cmp'
@@ -1334,6 +1334,24 @@ cmp.setup {
         { name = 'buffer', keyword_length = 5 },
     })
 }
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' }
+    }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    })
+})
 
 
 -- AUTOPAIRS --
