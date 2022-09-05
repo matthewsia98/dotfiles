@@ -212,7 +212,7 @@ def toggle_info(qtile):
 
     widgetbox_powerline = qtile.widgets_map.get("widgetbox_powerline")
     widgetbox_powerline.foreground = COLORS[
-        "orange" if info_box.box_is_open else "green"
+        "orange" if info_box.box_is_open else "magenta"
     ][0]
 
 
@@ -506,7 +506,7 @@ screens = [
                 powerline(
                     "l",
                     background=COLORS["transparent"][0],
-                    foreground=COLORS["green"][0],
+                    foreground=COLORS["magenta"][0],
                     name="widgetbox_powerline",
                 )
                 if POWERLINE_ENABLED
@@ -620,32 +620,32 @@ screens = [
                         #     },
                         #     name="bluetooth",
                         # ),
+                        powerline(
+                            "l",
+                            background=COLORS["green"][0],
+                            foreground=COLORS["magenta"][0],
+                            name="weather_powerline",
+                        )
+                        if POWERLINE_ENABLED
+                        else separator(length=4, name="weather_separator"),
+                        widget.Wttr(
+                            location={"Ottawa": "Ottawa"},
+                            format=" %C %t",
+                            background=COLORS["magenta"][0] if POWERLINE_ENABLED else None,
+                            foreground=COLORS["foreground"][POWERLINE_ENABLED],
+                            padding=10,
+                            update_interval=600,
+                            name="weather",
+                        ),
                     ],
                     close_button_location="right",
-                    background=COLORS["green"][0] if POWERLINE_ENABLED else None,
-                    foreground=COLORS["foreground"][POWERLINE_ENABLED],
-                    fontsize=25,
-                    text_closed=" \uF303 ",
-                    text_open=" \uF303 ",
-                    mouse_callbacks={"Button1": toggle_info},
-                    name="info_box",
-                ),
-                powerline(
-                    "l",
-                    background=COLORS["green"][0],
-                    foreground=COLORS["magenta"][0],
-                    name="weather_powerline",
-                )
-                if POWERLINE_ENABLED
-                else separator(length=4, name="weather_separator"),
-                widget.Wttr(
-                    location={"Ottawa": "Ottawa"},
-                    format=" %C %t",
                     background=COLORS["magenta"][0] if POWERLINE_ENABLED else None,
                     foreground=COLORS["foreground"][POWERLINE_ENABLED],
-                    padding=10,
-                    update_interval=600,
-                    name="weather",
+                    fontsize=25,
+                    text_closed="\uF303",
+                    text_open=" \uF303",
+                    mouse_callbacks={"Button1": toggle_info},
+                    name="info_box",
                 ),
                 powerline(
                     "l",
