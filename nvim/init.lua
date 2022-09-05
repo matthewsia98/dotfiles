@@ -17,28 +17,27 @@ end
 -- end
 
 
--- VIM --
+-- VIM OPTIONS --
 local g = vim.g
 local o = vim.opt
 local A = vim.api
 
 g.python3_host_prog = vim.fn.expand('~/.virtualenvs/nvim/bin/python')
--- cmd('syntax on')
--- A.nvim_command('filetype plugin indent on')
+
+-- Map <leader> to space
+g.mapleader = ' '
+g.maplocalleader = ' '
+
 
 o.termguicolors = true
--- o.background = 'dark'
 
--- Do not save when switching buffers
--- o.hidden = true
-
-vim.o.conceallevel = 0
 -- Don't show conceal on cursor line in these modes
-vim.o.concealcursor = 'nvi'
+o.concealcursor = 'nvi'
+-- Don't conceal
+o.conceallevel = 0
 
--- Decrease update time
+-- Time in ms to wait for keymap
 o.timeoutlen = 500
-o.updatetime = 200
 
 -- Enable mouse
 o.mouse = 'a'
@@ -46,42 +45,42 @@ o.mouse = 'a'
 -- Number of screen lines to keep above and below the cursor
 o.scrolloff = 12
 
--- Better editor UI
+-- Line numbers
 o.number = true
 o.numberwidth = 6
 o.relativenumber = true
+
 o.signcolumn = 'yes:1'
+
+-- Highlight text on cursor line
 o.cursorline = true
--- Better editing experience
-o.expandtab = true
--- o.smarttab = true
-o.cindent = true
--- o.autoindent = true
+
+-- Text wrap
 o.wrap = false
 o.textwidth = 127
+
+-- Tabs
+o.expandtab = true
+o.cindent = true
 o.tabstop = 4
 o.shiftwidth = 0
 o.softtabstop = -1 -- If negative, shiftwidth value is used
+
 o.list = true
 o.listchars = 'lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
--- o.listchars = 'eol:↲,eol:¬,space:·,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:│   ,'
--- o.formatoptions = 'qrn1'
 
 -- Makes neovim and host OS clipboard play nicely with each other
 o.clipboard = 'unnamedplus'
 
--- Case insensitive searching UNLESS /C or capital in search
-o.ignorecase = true
-o.smartcase = true
+-- Search
+o.ignorecase = true -- /c to ignore case, /C to match case
+o.smartcase = true -- Automatically match case if Capital letters are present
 
 -- Undo and backup options
 o.backup = false
 o.writebackup = false
 o.undofile = true
 o.swapfile = false
--- o.backupdir = '/tmp/'
--- o.directory = '/tmp/'
--- o.undodir = '/tmp/'
 
 -- Remember 50 items in commandline history
 o.history = 50
@@ -93,24 +92,13 @@ o.splitbelow = true
 -- Only 1 global statusline
 o.laststatus = 3
 
--- Preserve view while jumping
--- o.jumpoptions = 'view'
-
--- BUG: this won't update the search count after pressing `n` or `N`
--- When running macros and regexes on a large file, lazy redraw tells neovim/vim not to draw the screen
--- o.lazyredraw = true
-
 -- Code Folding
 o.foldmethod = 'expr'
 o.foldexpr = 'nvim_treesitter#foldexpr()'
--- Don't fold by default
-o.foldlevelstart = 99
+o.foldlevelstart = 99 -- Don't fold by default
 o.foldnestmax = 3
 o.foldminlines = 1
 
--- Map <leader> to space
-g.mapleader = ' '
-g.maplocalleader = ' '
 
 -- AUTOCMD --
 local group = A.nvim_create_augroup('MyAutocmds', { clear = true })
@@ -128,7 +116,7 @@ local group = A.nvim_create_augroup('MyAutocmds', { clear = true })
 --     }
 -- )
 
--- Prevent newline from starting as comment
+-- Format Options
 A.nvim_create_autocmd('BufEnter', {
     group = group,
     callback = function()
@@ -143,7 +131,6 @@ A.nvim_create_autocmd('BufEnter', {
         vim.cmd [[set formatoptions=tcnjp]]
     end
 })
-
 
 -- Java
 A.nvim_create_autocmd('BufEnter', {
@@ -164,7 +151,6 @@ A.nvim_create_autocmd('BufEnter', {
         end
     end
 })
-
 
 -- Highlight yanked region
 A.nvim_create_autocmd('TextYankPost', {
@@ -198,7 +184,6 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'numToStr/Comment.nvim'
 
 -- Easily surround text objects
--- Plug 'machakann/vim-sandwich'
 Plug 'kylechui/nvim-surround'
 
 -- Matching Quotes/Brackets
@@ -225,6 +210,9 @@ Plug 'kyazdani42/nvim-tree.lua'
 
 -- Run lua jobs
 Plug 'nvim-lua/plenary.nvim'
+
+-- Terminal
+Plug 'akinsho/toggleterm.nvim'
 
 -- Fuzzy Finder
 Plug 'nvim-telescope/telescope.nvim'
@@ -264,9 +252,6 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'onsails/lspkind.nvim'
 
-Plug 'akinsho/toggleterm.nvim'
--- Plug 'goerz/jupytext.vim'
--- Plug('dccsillag/magma-nvim', { ['do'] = vim.fn[':UpdateRemotePlugins'] })
 vim.call('plug#end')
 
 
