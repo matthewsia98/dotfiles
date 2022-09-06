@@ -1,1 +1,1 @@
-require('python-docstring-generator')
+pcall(require, 'python-docstring-generator')

@@ -270,12 +270,13 @@ return packer.startup(function(use)
             require('user.plugins.mason')
         end,
     }
-    -- use {
-    --     'jose-elias-alvarez/null-ls.nvim',
-    --     config = function()
-    --         require('user.plugins.null-ls')
-    --     end,
-    -- }
+    use {
+        'jose-elias-alvarez/null-ls.nvim',
+        event = 'BufRead',
+        config = function()
+            require('user.plugins.null-ls')
+        end,
+    }
 
     -- use {
     --     'dccsillag/magma-nvim',

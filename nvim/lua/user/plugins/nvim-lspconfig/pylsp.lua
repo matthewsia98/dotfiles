@@ -41,7 +41,7 @@ lspconfig['pylsp'].setup {
                     include_import_symbols = true,
                 },
                 flake8 = {
-                    enabled = true,
+                    enabled = false,
                     ignore = {
                         'E501', -- Line too long
                         'E266', -- Too many leading # for block comment
@@ -52,20 +52,20 @@ lspconfig['pylsp'].setup {
                     executable = 'pylint',
                 },
                 pylsp_black = {
-                    enabled = true,
+                    enabled = false,
                     preview = true,
                     max_line_length = 88,
                 },
                 pylsp_mypy = {
-                    enabled = true,
+                    enabled = false,
                     live_mode = true,
                     strict = false,
                 },
                 pylsp_rope = {
-                    enabled = true,
+                    enabled = false,
                 },
                 pyls_isort = {
-                    enabled = true,
+                    enabled = false,
                 }
             }
         }

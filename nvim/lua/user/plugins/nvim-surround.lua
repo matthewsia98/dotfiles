@@ -1,9 +1,7 @@
-local nvim_surround = require('nvim-surround')
+local installed, nvim_surround = pcall(require, 'nvim-surround')
 
-nvim_surround.setup()
+if installed then
+    nvim_surround.setup()
 
-vim.cmd [[highlight default link NvimSurroundHighlight Visual]]
-
--- Line Text Objects
-map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>')
-map({'o', 'x'}, 'al', ':<C-u>normal! 0v$<CR>')
+    vim.cmd [[highlight default link NvimSurroundHighlight Visual]]
+end

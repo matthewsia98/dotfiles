@@ -1,1 +1,1 @@
-local notify = require('notify')
+local notify = pcall(require, 'notify')

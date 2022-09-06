@@ -11,6 +11,9 @@ g.maplocalleader = ' '
 
 o.termguicolors = true
 
+-- Don't show -- MODE --
+o.showmode = false
+
 -- Don't show conceal on cursor line in these modes
 o.concealcursor = 'nvi'
 -- Don't conceal

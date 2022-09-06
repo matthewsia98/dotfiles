@@ -74,3 +74,8 @@ map('n', '<F12>',
 -- map('i', 'b', 'z')
 -- map('i', 'n', 'k')
 -- map('i', 'm', 'h')
+
+
+-- Line Text Objects
+map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>')
+map({'o', 'x'}, 'al', ':<C-u>normal! 0v$<CR>')
