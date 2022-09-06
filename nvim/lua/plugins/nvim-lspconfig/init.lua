@@ -1,10 +1,25 @@
-lspconfig = require('lspconfig')
+local notify = require('notify')
 
 on_attach = function(client, bufnr)
+    local root_dir = client['config']['root_dir']
+    local filepath = vim.fn.expand("%")
+
+    local msg = { 'Language Server: ' .. client['name'] }
+    if root_dir then
+        table.insert(msg, 'Root Directory: ' .. client['config']['root_dir'])
+    else
+        table.insert(msg, 'Root Directory: ' .. filepath .. ' (Single file mode)')
+    end
+
     if client['name'] == 'pylsp' then
         local env = vim.env.VIRTUAL_ENV or '/usr'
-        print('Jedi Environment:', env)
+        table.insert(msg, 'Jedi Environment: ' .. env)
     end
+
+    notify(msg, 'info', {
+        title = ' LSP',
+        timeout = 3000,
+    })
 
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     map('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', bufopts)
@@ -29,6 +44,7 @@ on_attach = function(client, bufnr)
 end
 
 lsp_flags = {
+    allow_incremental_sync = true,
     debounce_text_changes = 150,
 }
 
@@ -49,7 +65,7 @@ handlers = {
         local util = require('vim.lsp.util')
         if result == nil or vim.tbl_isempty(result) then
             notify('No definitions found', 'info', {
-                title = 'LSP',
+                title = ' LSP',
                 timeout = 1000,
             })
         else
@@ -59,7 +75,7 @@ handlers = {
             local client = vim.lsp.get_client_by_id(ctx.client_id)
 
             if vim.tbl_islist(result) then
-              local title = 'LSP Definitions'
+              local title = ' LSP'
               local items = util.locations_to_items(result, client.offset_encoding)
 
                 if #result == 1 then
@@ -79,14 +95,14 @@ handlers = {
         local util = require('vim.lsp.util')
         if not result or vim.tbl_isempty(result) then
             notify('No references found', 'info', {
-                title = 'LSP',
+                title = ' LSP',
                 timeout = 1000,
             })
         else
             config = config or {}
             local client = vim.lsp.get_client_by_id(ctx.client_id)
 
-              local title = 'LSP References'
+              local title = ' LSP'
               local items = util.locations_to_items(result, client.offset_encoding)
 
             if #result == 1 then

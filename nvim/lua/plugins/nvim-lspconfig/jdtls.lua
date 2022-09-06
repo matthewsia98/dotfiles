@@ -1,3 +1,5 @@
+local lspconfig = require('lspconfig')
+
 lspconfig['jdtls'].setup {
     on_attach = on_attach,
     flags = lsp_flags,

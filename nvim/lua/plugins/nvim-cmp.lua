@@ -84,34 +84,46 @@ cmp.setup {
         }
     },
     mapping = {
-        ['<Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                local entry = cmp.get_selected_entry()
-                if not entry then
-                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                    cmp.confirm()
-                    cmp.close()
-                end
-            else
-                fallback()
-            end
-        end, { 'i' }),
+        -- ['<Tab>'] = cmp.mapping(function(fallback)
+        --     if cmp.visible() then
+        --         local entry = cmp.get_selected_entry()
+        --         if not entry then
+        --             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        --             cmp.confirm()
+        --             cmp.close()
+        --         end
+        --     else
+        --         fallback()
+        --     end
+        -- end, { 'i', 'c' }),
         ['<C-n>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
             else
                 fallback()
             end
-        end, { 'i' }),
+        end, { 'i', 'c' }),
         ['<C-p>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
             else
                 fallback()
             end
-        end, { 'i' }),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-c>'] = cmp.mapping.abort(),
+        end, { 'i', 'c' }),
+        ['<C-Space>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.complete()
+            else
+                fallback()
+            end
+        end, { 'i', 'c' }),
+        ['<C-c>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.abort()
+            else
+                fallback()
+            end
+        end, { 'i', 'c' }),
         ['<CR>'] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Insert,
             select = false -- Accept currently selected item. Set to false to only confirm explicitly selected items.
@@ -119,17 +131,17 @@ cmp.setup {
     },
     sources = cmp.config.sources({
         -- Order Matters! OR explicitly set priority
-        { name = 'nvim_lsp' },
+        { name = 'nvim_lsp', max_item_count = 10 },
         { name = 'nvim_lsp_signature_help' },
-        { name = 'luasnip' },
-        { name = 'path' },
-        { name = 'buffer', keyword_length = 5 },
+        { name = 'luasnip', max_item_count = 10 },
+        { name = 'path', max_item_count = 10 },
+        { name = 'buffer', max_item_count = 10 },
     })
 }
 
 -- Use buffer source for `/`
 cmp.setup.cmdline('/', {
-    mapping = cmp.mapping.preset.cmdline(),
+    -- mapping = cmp.mapping.preset.cmdline(),
     sources = {
         { name = 'buffer' }
     }
@@ -137,7 +149,7 @@ cmp.setup.cmdline('/', {
 
 -- Use cmdline & path source for ':'
 cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
+    -- mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources(
         {
             { name = 'path' }

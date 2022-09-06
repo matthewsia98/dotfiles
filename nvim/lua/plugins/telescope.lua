@@ -1,5 +1,6 @@
 local telescope = require('telescope')
-local trouble_telescope = require('trouble.providers.telescope')
+local actions = require('telescope.actions')
+-- local trouble_telescope = require('trouble.providers.telescope')
 
 telescope.setup {
     defaults = {
@@ -16,10 +17,16 @@ telescope.setup {
         mappings = {
             i = {
                 ['<C-h>'] = 'which_key',
-                ['<C-t>'] = trouble_telescope.open_with_trouble,
+                ['<C-t>'] = function(prompt_bufnr)
+                    actions.send_to_loclist(prompt_bufnr)
+                    vim.cmd [[Trouble loclist]]
+                end,
             },
             n = {
-                ['<C-t>'] = trouble_telescope.open_with_trouble,
+                ['<C-t>'] = function(prompt_bufnr)
+                    actions.send_to_loclist(prompt_bufnr)
+                    vim.cmd [[Trouble loclist]]
+                end,
                 ['q'] = 'close',
             }
         }
@@ -65,8 +72,8 @@ telescope.setup {
         }
     }
 }
-telescope.load_extension('ui-select')
-telescope.load_extension('fzf')
+-- telescope.load_extension('ui-select')
+-- telescope.load_extension('fzf')
 
 map('n', '<leader>f/', '<cmd>Telescope find_files<CR>')
 map('n', '<leader>ff', '<cmd>Telescope current_buffer_fuzzy_find<CR>')

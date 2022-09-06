@@ -18,6 +18,7 @@ o.conceallevel = 0
 
 -- Time in ms to wait for keymap
 o.timeoutlen = 500
+o.updatetime = 200
 
 -- Enable mouse
 o.mouse = 'a'
@@ -76,5 +77,6 @@ o.laststatus = 3
 o.foldmethod = 'expr'
 o.foldexpr = 'nvim_treesitter#foldexpr()'
 o.foldlevelstart = 99 -- Don't fold by default
+o.foldlevel = 99 -- Don't fold by default
 o.foldnestmax = 3
 o.foldminlines = 1
