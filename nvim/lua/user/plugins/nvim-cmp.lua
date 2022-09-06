@@ -2,6 +2,7 @@ local cmp = require('cmp')
 local cmp_types = require('cmp.types')
 local luasnip = require('luasnip')
 local lspkind = require('lspkind')
+local notify = require('notify')
 
 cmp.setup {
     completion = {
@@ -112,9 +113,14 @@ cmp.setup {
         end, { 'i', 'c' }),
         ['<C-Space>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
-                cmp.complete()
+                local entry = cmp.get_selected_entry()
+                if not entry then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                    cmp.confirm()
+                    cmp.close()
+                end
             else
-                fallback()
+                cmp.complete()
             end
         end, { 'i', 'c' }),
         ['<C-c>'] = cmp.mapping(function(fallback)

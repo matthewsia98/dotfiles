@@ -9,8 +9,8 @@ map('n', '<CR>', 'o<Esc>')
 map('n', '<S-CR>', 'O<Esc>')
 
 -- Move Lines
--- map('n', '<C-n>', '<cmd>move .+1<CR>')
--- map('n', '<C-p>', '<cmd>move .-2<CR>')
+map('n', '<C-n>', '<cmd>move .+1<CR>')
+map('n', '<C-p>', '<cmd>move .-2<CR>')
 
 -- Window Splits
 vim.cmd [[highlight WinSeparator guibg=NONE guifg=#B7BDF8]]

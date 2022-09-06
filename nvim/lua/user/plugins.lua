@@ -41,7 +41,7 @@ return packer.startup(function(use)
     use {
         'rcarriga/nvim-notify',
         config = function()
-            require('plugins.nvim-notify')
+            require('user.plugins.nvim-notify')
         end,
     }
 
@@ -49,7 +49,7 @@ return packer.startup(function(use)
     use {
         "kyazdani42/nvim-web-devicons",
         config = function()
-            require('plugins.nvim-web-devicons')
+            require('user.plugins.nvim-web-devicons')
         end
     }
 
@@ -57,7 +57,7 @@ return packer.startup(function(use)
         'catppuccin/nvim',
         event = 'BufEnter',
         config = function()
-            require('plugins.catppuccin')
+            require('user.plugins.catppuccin')
         end,
         as = 'catppuccin'
     }
@@ -66,14 +66,14 @@ return packer.startup(function(use)
         'akinsho/bufferline.nvim',
         after = 'catppuccin',
         config = function()
-            require('plugins.bufferline')
+            require('user.plugins.bufferline')
         end,
     }
     use {
         'nvim-lualine/lualine.nvim',
         after = 'catppuccin',
         config = function()
-            require('plugins.lualine')
+            require('user.plugins.lualine')
         end,
     }
 
@@ -91,12 +91,12 @@ return packer.startup(function(use)
                 "nvim-treesitter/nvim-treesitter-context",
                 after = "nvim-treesitter",
                 config = function()
-                    require('plugins.treesitter-context')
+                    require('user.plugins.treesitter-context')
                 end
             },
         },
         config = function()
-            require('plugins.treesitter')
+            require('user.plugins.treesitter')
         end,
     }
 
@@ -105,7 +105,7 @@ return packer.startup(function(use)
         'kyazdani42/nvim-tree.lua',
         event = 'CursorHold',
         config = function()
-            require('plugins.nvim-tree')
+            require('user.plugins.nvim-tree')
         end,
     }
 
@@ -113,7 +113,7 @@ return packer.startup(function(use)
         'folke/trouble.nvim',
         event = 'CursorHold',
         config = function()
-            require('plugins.trouble')
+            require('user.plugins.trouble')
         end,
     }
 
@@ -138,7 +138,7 @@ return packer.startup(function(use)
             },
         },
         config = function()
-            require('plugins.telescope')
+            require('user.plugins.telescope')
         end,
     }
 
@@ -146,7 +146,7 @@ return packer.startup(function(use)
         'karb94/neoscroll.nvim',
         event = 'WinScrolled',
         config = function()
-            require('plugins.neoscroll')
+            require('user.plugins.neoscroll')
         end,
     }
 
@@ -155,7 +155,7 @@ return packer.startup(function(use)
         'norcalli/nvim-colorizer.lua',
         event = 'CursorHold',
         config = function()
-            require('plugins.nvim-colorizer')
+            require('user.plugins.nvim-colorizer')
         end,
     }
 
@@ -164,7 +164,7 @@ return packer.startup(function(use)
         -- event = 'BufRead',
         after = 'nvim-treesitter',
         config = function()
-            require('plugins.indent-blankline')
+            require('user.plugins.indent-blankline')
         end,
     }
 
@@ -173,7 +173,7 @@ return packer.startup(function(use)
         'numToStr/Comment.nvim',
         event = 'BufRead',
         config = function()
-            require('plugins.Comment')
+            require('user.plugins.Comment')
         end,
     }
 
@@ -181,7 +181,7 @@ return packer.startup(function(use)
         'kylechui/nvim-surround',
         event = 'BufRead',
         config = function()
-            require('plugins.nvim-surround')
+            require('user.plugins.nvim-surround')
         end,
     }
 
@@ -190,7 +190,7 @@ return packer.startup(function(use)
         event = 'InsertCharPre',
         after = 'nvim-cmp',
         config = function()
-            require('plugins.nvim-autopairs')
+            require('user.plugins.nvim-autopairs')
         end,
     }
 
@@ -199,7 +199,7 @@ return packer.startup(function(use)
         'lewis6991/gitsigns.nvim',
         event = 'BufRead',
         config = function()
-            require('plugins.gitsigns')
+            require('user.plugins.gitsigns')
         end,
     }
 
@@ -207,7 +207,7 @@ return packer.startup(function(use)
         'rhysd/git-messenger.vim',
         event = 'BufRead',
         config = function()
-            require('plugins.git-messenger')
+            require('user.plugins.git-messenger')
         end,
     }
 
@@ -216,20 +216,11 @@ return packer.startup(function(use)
         'akinsho/toggleterm.nvim',
         event = 'CursorHold',
         config = function()
-            require('plugins.toggleterm')
+            require('user.plugins.toggleterm')
         end,
     }
 
     -- LSP, Completions and Snippets --
-    use {
-        'L3MON4D3/LuaSnip',
-        event = { 'InsertEnter', 'CmdlineEnter' },
-        requires = { 'rafamadriz/friendly-snippets' },
-        config = function()
-            require('plugins.luasnip')
-        end,
-    }
-
     use {
         'hrsh7th/nvim-cmp',
         -- event = 'CmdlineEnter',
@@ -242,8 +233,16 @@ return packer.startup(function(use)
             { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
             { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
             { 'onsails/lspkind.nvim' },
+            {
+                'L3MON4D3/LuaSnip',
+                event = { 'InsertEnter', 'CmdlineEnter' },
+                requires = { 'rafamadriz/friendly-snippets' },
+                config = function()
+                    require('user.plugins.luasnip')
+                end,
+            },
         },
-        config = function() require('plugins.nvim-cmp') end,
+        config = function() require('user.plugins.nvim-cmp') end,
     }
 
     use {
@@ -254,33 +253,33 @@ return packer.startup(function(use)
                 "williamboman/mason-lspconfig.nvim",
                 after = 'mason.nvim',
                 config = function()
-                    require('plugins.mason-lspconfig')
+                    require('user.plugins.mason-lspconfig')
                 end,
             },
-            { "neovim/nvim-lspconfig",
+            { 'neovim/nvim-lspconfig',
                 after = 'mason-lspconfig.nvim',
                 requires = {
                     'hrsh7th/cmp-nvim-lsp'
                 },
                 config = function()
-                    require("plugins.nvim-lspconfig")
+                    require('user.plugins.nvim-lspconfig')
                 end,
             },
         },
         config = function()
-            require('plugins.mason')
+            require('user.plugins.mason')
         end,
     }
     -- use {
     --     'jose-elias-alvarez/null-ls.nvim',
     --     config = function()
-    --         require('plugins.null-ls')
+    --         require('user.plugins.null-ls')
     --     end,
     -- }
 
     -- use {
     --     'dccsillag/magma-nvim',
-    --     config = function() require('plugins.magma-nvim')
+    --     config = function() require('user.plugins.magma-nvim')
     -- }
 
 
@@ -288,7 +287,7 @@ return packer.startup(function(use)
         '~/.config/nvim/my-plugins/python-docstring-generator.nvim',
         after = 'nvim-treesitter',
         config = function()
-            require('plugins.python-docstring-generator')
+            require('user.plugins.python-docstring-generator')
         end,
     }
 

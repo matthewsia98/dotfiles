@@ -53,6 +53,9 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(
 )
 
 handlers = {
+    -- ['$/progress'] = function(_, result, ctx, _)
+    --     P(result)
+    -- end,
     ['textDocument/publishDiagnostics'] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {
         update_in_insert = false,
@@ -169,6 +172,6 @@ handlers = {
 --     end,
 -- }
 
-require('plugins.nvim-lspconfig.pylsp')
-require('plugins.nvim-lspconfig.sumneko-lua')
-require('plugins.nvim-lspconfig.jdtls')
+require('user.plugins.nvim-lspconfig.pylsp')
+require('user.plugins.nvim-lspconfig.sumneko-lua')
+require('user.plugins.nvim-lspconfig.jdtls')

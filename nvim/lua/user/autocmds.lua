@@ -14,7 +14,7 @@ local group = vim.api.nvim_create_augroup('MyAutocmds', { clear = true })
 -- )
 
 -- Format Options
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd('FileType', {
     group = group,
     callback = function()
         -- t: Auto-wrap using textwidth

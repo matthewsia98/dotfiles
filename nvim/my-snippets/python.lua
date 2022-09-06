@@ -372,7 +372,7 @@ return {
 			def __init__(self{}):
 				super({}).__init__()
 				{}
-				{}
+		{}
 				{}
 
 			def forward(self, {}):
@@ -396,16 +396,12 @@ return {
             i(4, '# Before setting instance variables'),
             d(5, function(args)
                 local splits = vim.split(args[1][1], ', ')
+                P(splits)
                 local texts = {}
                 for idx, split in ipairs(splits) do
                     if idx > 1 then
                         split = split:match('([%w_]*)=?')
-                        local curr = ''
-                        if idx == 2 then
-                            curr = 'self.' .. split .. ' = ' .. split
-                        else
-                            curr = '        self.' .. split .. ' = ' .. split
-                        end
+                        local curr = '        self.' .. split .. ' = ' .. split
                         table.insert(texts, curr)
                     end
                 end
