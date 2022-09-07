@@ -265,8 +265,8 @@ return packer.startup(function(use)
                     'hrsh7th/cmp-nvim-lsp'
                 },
                 config = function()
-                    require('user.plugins.lsp')
                     require('user.plugins.lsp.nvim-lspconfig')
+                    require('user.plugins.lsp')
                 end,
             },
         },
@@ -278,8 +278,8 @@ return packer.startup(function(use)
         'jose-elias-alvarez/null-ls.nvim',
         event = 'BufRead',
         config = function()
-            require('user.plugins.lsp')
             require('user.plugins.lsp.null-ls')
+            require('user.plugins.lsp')
         end,
     }
 

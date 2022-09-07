@@ -51,7 +51,14 @@ if installed then
             lualine_y = { 'encoding', 'fileformat', },
             lualine_z = { 'progress', 'location' },
         },
-        tabline = {},
+        -- tabline = {
+        --   lualine_a = {'buffers'},
+        --   lualine_b = {},
+        --   lualine_c = {},
+        --   lualine_x = {},
+        --   lualine_y = {},
+        --   lualine_z = {'tabs'}
+        -- },
         -- winbar = {
         --     lualine_a = {},
         --     lualine_b = {},

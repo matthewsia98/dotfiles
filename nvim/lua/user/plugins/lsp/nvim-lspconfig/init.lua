@@ -57,7 +57,71 @@ if installed then
         vim.lsp.protocol.make_client_capabilities()
     )
 
-    require('user.plugins.lsp.nvim-lspconfig.pylsp').setup(on_attach, lsp_flags, capabilities)
-    require('user.plugins.lsp.nvim-lspconfig.sumneko-lua').setup(on_attach, lsp_flags, capabilities)
-    require('user.plugins.lsp.nvim-lspconfig.jdtls').setup(on_attach, lsp_flags, capabilities)
+    local handlers = {
+        ['textDocument/definition'] = function (err, result, ctx, config)
+            if err ~= nil then P(err) end
+            local util = require('vim.lsp.util')
+            if result == nil or vim.tbl_isempty(result) then
+                if notify_installed then
+                    notify('No definitions found', 'info', {
+                        title = ' LSP',
+                        timeout = 1000,
+                    })
+                end
+            else
+                -- textDocument/definition can return Location or Location[]
+                -- https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_definition
+                config = config or {}
+                local client = vim.lsp.get_client_by_id(ctx.client_id)
+
+                if vim.tbl_islist(result) then
+                  local title = ' LSP'
+                  local items = util.locations_to_items(result, client.offset_encoding)
+
+                    if #result == 1 then
+                        util.jump_to_location(result[1], client.offset_encoding, config.reuse_win)
+                        return
+                    else
+                        vim.fn.setloclist(0, {}, ' ', { title = title, items = items })
+                        vim.cmd [[Trouble loclist]]
+                    end
+                else
+                    util.jump_to_location(result, client.offset_encoding, config.reuse_win)
+                end
+            end
+        end,
+        ['textDocument/references'] = function(err, result, ctx, config)
+            local util = require('vim.lsp.util')
+            if not result or vim.tbl_isempty(result) then
+                if notify_installed then
+                    notify('No references found', 'info', {
+                        title = ' LSP',
+                        timeout = 1000,
+                    })
+                end
+            else
+                config = config or {}
+                local client = vim.lsp.get_client_by_id(ctx.client_id)
+
+                  local title = ' LSP'
+                  local items = util.locations_to_items(result, client.offset_encoding)
+
+                if #result == 1 then
+                    if notify_installed then
+                        notify('No other references', 'info', {
+                            title = title,
+                            timeout = 1000,
+                        })
+                    end
+                else
+                    vim.fn.setloclist(0, {}, ' ', { title = title, items = items, context = ctx })
+                    vim.cmd [[Trouble loclist]]
+                end
+            end
+        end
+    }
+
+    require('user.plugins.lsp.nvim-lspconfig.pylsp').setup(on_attach, lsp_flags, capabilities, handlers)
+    require('user.plugins.lsp.nvim-lspconfig.sumneko-lua').setup(on_attach, lsp_flags, capabilities, handlers)
+    require('user.plugins.lsp.nvim-lspconfig.jdtls').setup(on_attach, lsp_flags, capabilities, handlers)
 end

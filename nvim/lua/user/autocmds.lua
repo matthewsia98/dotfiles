@@ -40,7 +40,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
         local first_line = vim.api.nvim_buf_get_text(0, 0, 0, 0, -1, {})[1]
         if num_lines == 1 and first_line == '' then
             vim.api.nvim_buf_set_lines(0, 0, 4, false, {
-                'public ' .. classname .. ' {',
+                'public class ' .. classname .. ' {',
                 '',
                 '}'
             })
