@@ -126,7 +126,10 @@ return packer.startup(function(use)
                 "nvim-telescope/telescope-ui-select.nvim",
                 after = 'telescope.nvim',
                 config = function()
-                    require('telescope').load_extension('ui-select')
+                    local installed, telescope = pcall(require, 'telescope')
+                    if installed then
+                        telescope.load_extension('ui-select')
+                    end
                 end,
             },
             {
@@ -134,8 +137,11 @@ return packer.startup(function(use)
                 after = 'telescope.nvim',
                 run = "make",
                 config = function()
+                    local installed, telescope = pcall(require, 'telescope')
                     vim.defer_fn(function()
-                        require('telescope').load_extension('fzf')
+                        if installed then
+                            telescope.load_extension('fzf')
+                        end
                     end, 10000)
                 end,
             },
