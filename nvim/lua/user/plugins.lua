@@ -106,7 +106,7 @@ return packer.startup(function(use)
         'kyazdani42/nvim-tree.lua',
         event = 'CursorHold',
         config = function()
-            require('user.plugins.nvim-tree')
+            require('user.plugins.navigation.nvim-tree')
         end,
     }
 
@@ -114,7 +114,7 @@ return packer.startup(function(use)
         'folke/trouble.nvim',
         event = 'CursorHold',
         config = function()
-            require('user.plugins.trouble')
+            require('user.plugins.navigation.trouble')
         end,
     }
 
@@ -141,7 +141,7 @@ return packer.startup(function(use)
             },
         },
         config = function()
-            require('user.plugins.telescope')
+            require('user.plugins.navigation.telescope')
         end,
     }
 
@@ -149,7 +149,7 @@ return packer.startup(function(use)
         'karb94/neoscroll.nvim',
         event = 'WinScrolled',
         config = function()
-            require('user.plugins.neoscroll')
+            require('user.plugins.navigation.neoscroll')
         end,
     }
 
@@ -241,7 +241,7 @@ return packer.startup(function(use)
                 event = { 'InsertEnter', 'CmdlineEnter' },
                 requires = { 'rafamadriz/friendly-snippets' },
                 config = function()
-                    require('user.plugins.luasnip')
+                    require('user.plugins.lsp.luasnip')
                 end,
             },
         },
