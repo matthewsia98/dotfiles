@@ -45,6 +45,7 @@ alias ls='lsd'
 alias ll='lsd -alh'
 alias mkdir='mkdir -pv'
 alias cat='bat'
+alias rg='rg -S'
 alias logout='loginctl terminate-user $USER'
 alias suspend='systemctl suspend'
 
