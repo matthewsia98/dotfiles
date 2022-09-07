@@ -20,11 +20,3 @@ if installed then
         },
     }
 end
-
-vim.diagnostic.config({
-    update_in_insert = false,
-    virtual_text = true,
-    signs = false,
-    severity_sort = true,
-    underline = false,
-})

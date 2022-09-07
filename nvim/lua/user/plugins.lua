@@ -67,14 +67,14 @@ return packer.startup(function(use)
         'akinsho/bufferline.nvim',
         after = 'catppuccin',
         config = function()
-            require('user.plugins.bufferline')
+            require('user.plugins.statusline.bufferline')
         end,
     }
     use {
         'nvim-lualine/lualine.nvim',
         after = 'catppuccin',
         config = function()
-            require('user.plugins.lualine')
+            require('user.plugins.statusline.lualine')
         end,
     }
 
@@ -92,12 +92,12 @@ return packer.startup(function(use)
                 "nvim-treesitter/nvim-treesitter-context",
                 after = "nvim-treesitter",
                 config = function()
-                    require('user.plugins.treesitter-context')
+                    require('user.plugins.treesitter.treesitter-context')
                 end
             },
         },
         config = function()
-            require('user.plugins.treesitter')
+            require('user.plugins.treesitter.treesitter')
         end,
     }
 
@@ -202,7 +202,7 @@ return packer.startup(function(use)
         'lewis6991/gitsigns.nvim',
         event = 'BufRead',
         config = function()
-            require('user.plugins.gitsigns')
+            require('user.plugins.git.gitsigns')
         end,
     }
 
@@ -210,7 +210,7 @@ return packer.startup(function(use)
         'rhysd/git-messenger.vim',
         event = 'BufRead',
         config = function()
-            require('user.plugins.git-messenger')
+            require('user.plugins.git.git-messenger')
         end,
     }
 
@@ -245,7 +245,7 @@ return packer.startup(function(use)
                 end,
             },
         },
-        config = function() require('user.plugins.nvim-cmp') end,
+        config = function() require('user.plugins.lsp.nvim-cmp') end,
     }
 
     use {
@@ -256,7 +256,7 @@ return packer.startup(function(use)
                 "williamboman/mason-lspconfig.nvim",
                 after = 'mason.nvim',
                 config = function()
-                    require('user.plugins.mason-lspconfig')
+                    require('user.plugins.lsp.mason-lspconfig')
                 end,
             },
             { 'neovim/nvim-lspconfig',
@@ -265,19 +265,21 @@ return packer.startup(function(use)
                     'hrsh7th/cmp-nvim-lsp'
                 },
                 config = function()
-                    require('user.plugins.nvim-lspconfig')
+                    require('user.plugins.lsp')
+                    require('user.plugins.lsp.nvim-lspconfig')
                 end,
             },
         },
         config = function()
-            require('user.plugins.mason')
+            require('user.plugins.lsp.mason')
         end,
     }
     use {
         'jose-elias-alvarez/null-ls.nvim',
         event = 'BufRead',
         config = function()
-            require('user.plugins.null-ls')
+            require('user.plugins.lsp')
+            require('user.plugins.lsp.null-ls')
         end,
     }
 

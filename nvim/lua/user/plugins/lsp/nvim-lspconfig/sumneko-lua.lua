@@ -1,9 +1,12 @@
 local lspconfig = require('lspconfig')
 
+local M = {}
+
+M.setup = function(on_attach, lsp_flags, capabilities)
 lspconfig['sumneko_lua'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
-    handlers = handlers,
+    -- handlers = handlers,
     capabilities = capabilities,
     settings = {
         Lua = {
@@ -34,3 +37,6 @@ lspconfig['sumneko_lua'].setup {
         },
     },
 }
+end
+
+return M
