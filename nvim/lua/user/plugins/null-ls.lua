@@ -12,7 +12,7 @@ if installed then
             -- LUA --
             null_ls.builtins.diagnostics.luacheck.with({
                 extra_args = {
-                    '--globals', 'vim',
+                    '--globals', 'vim', 'catppuccin_palette',
                     '--std', 'luajit'
                 },
             }),
