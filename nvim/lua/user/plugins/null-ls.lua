@@ -12,7 +12,7 @@ if installed then
             -- LUA --
             null_ls.builtins.diagnostics.luacheck.with({
                 extra_args = {
-                    '--globals', 'vim', 'map',
+                    '--globals', 'vim',
                     '--std', 'luajit'
                 },
             }),
@@ -26,4 +26,5 @@ vim.diagnostic.config({
     virtual_text = true,
     signs = false,
     severity_sort = true,
+    underline = false,
 })

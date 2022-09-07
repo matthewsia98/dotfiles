@@ -4,13 +4,12 @@ if installed then
     treesitter.setup {
         auto_install = true,
         ensure_installed = {
-            "vim",
-            "c",
-            "lua",
-            "rust",
-            "python",
-            "comment",
-            "help",
+            'vim',
+            'help',
+            'lua',
+            'python',
+            'java',
+            'comment',
         },
         highlight = {
             enable = true,

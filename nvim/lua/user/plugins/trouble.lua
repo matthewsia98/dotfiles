@@ -1,4 +1,5 @@
 local installed, trouble = pcall(require, 'trouble')
+local keys = require('user.keymaps')
 
 if installed then
     trouble.setup {
@@ -42,14 +43,14 @@ if installed then
         signs = {
             error = ' ',
             warning = ' ',
-            hint = '',
+            hint = ' ',
             information = ' ',
             other = '﫠',
         },
     }
 
-    map('n', '<leader>wd', '<cmd>TroubleToggle workspace_diagnostics<cr>')
-    map('n', '<leader>dd', '<cmd>TroubleToggle document_diagnostics<cr>')
-    map('n', '<leader>ll', '<cmd>TroubleToggle loclist<cr>')
-    map('n', '<leader>qf', '<cmd>TroubleToggle quickfix<cr>')
+    keys.map('n', '<leader>wd', '<cmd>TroubleToggle workspace_diagnostics<cr>')
+    keys.map('n', '<leader>dd', '<cmd>TroubleToggle document_diagnostics<cr>')
+    keys.map('n', '<leader>ll', '<cmd>TroubleToggle loclist<cr>')
+    keys.map('n', '<leader>qf', '<cmd>TroubleToggle quickfix<cr>')
 end

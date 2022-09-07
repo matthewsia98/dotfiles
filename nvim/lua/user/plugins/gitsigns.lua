@@ -1,11 +1,12 @@
 local installed, gitsigns = pcall(require, 'gitsigns')
+local keys = require('user.keymaps')
 
 if installed then
     gitsigns.setup {
         on_attach = function()
             local gs = package.loaded.gitsigns
             -- Navigation
-            map('n', '<leader>hn',
+            keys.map('n', '<leader>hn',
                 function()
                     if vim.wo.diff then return ']c' end
                     vim.schedule(function() gs.next_hunk() end)
@@ -13,7 +14,7 @@ if installed then
                 end,
                 { expr = true }
             )
-            map('n', '<leader>hp',
+            keys.map('n', '<leader>hp',
                 function()
                     if vim.wo.diff then return '[c' end
                     vim.schedule(function() gs.prev_hunk() end)
@@ -23,20 +24,20 @@ if installed then
             )
 
             -- Actions
-            map({ 'n', 'v' }, '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>')
-            map({ 'n', 'v' }, '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>')
-            map('n', '<leader>hS', gs.stage_buffer)
-            map('n', '<leader>hu', gs.undo_stage_hunk)
-            map('n', '<leader>hR', gs.reset_buffer)
-            map('n', '<leader>hp', gs.preview_hunk)
-            map('n', '<leader>hb', function() gs.blame_line { full = true } end)
-            map('n', '<leader>tb', gs.toggle_current_line_blame)
-            map('n', '<leader>hd', gs.diffthis)
-            map('n', '<leader>hD', function() gs.diffthis('~') end)
-            map('n', '<leader>td', gs.toggle_deleted)
+            keys.map({ 'n', 'v' }, '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>')
+            keys.map({ 'n', 'v' }, '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>')
+            keys.map('n', '<leader>hS', gs.stage_buffer)
+            keys.map('n', '<leader>hu', gs.undo_stage_hunk)
+            keys.map('n', '<leader>hR', gs.reset_buffer)
+            keys.map('n', '<leader>hp', gs.preview_hunk)
+            keys.map('n', '<leader>hb', function() gs.blame_line { full = true } end)
+            keys.map('n', '<leader>tb', gs.toggle_current_line_blame)
+            keys.map('n', '<leader>hd', gs.diffthis)
+            keys.map('n', '<leader>hD', function() gs.diffthis('~') end)
+            keys.map('n', '<leader>td', gs.toggle_deleted)
 
             -- Text object
-            map({ 'o', 'x' }, 'ih', '<cmd><C-U>Gitsigns select_hunk<CR>')
+            keys.map({ 'o', 'x' }, 'ih', '<cmd><C-U>Gitsigns select_hunk<CR>')
         end,
         signs = {
             add = {

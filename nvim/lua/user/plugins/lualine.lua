@@ -26,7 +26,7 @@ if installed then
                         info  = 'DiagnosticSignInfo',
                         hint  = 'DiagnosticSignHint',
                     },
-                    symbols = {error = ' ', warn = ' ', info = ' ', hint = ''},
+                    symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
                     colored = true,
                     update_in_insert = true,
                     always_visible = false,
@@ -41,7 +41,7 @@ if installed then
                         info  = 'DiagnosticSignInfo',
                         hint  = 'DiagnosticSignHint',
                     },
-                    symbols = {error = ' ', warn = ' ', info = ' ', hint = ''},
+                    symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
                     colored = true,
                     update_in_insert = true,
                     always_visible = false,
@@ -69,4 +69,11 @@ if installed then
         --     lualine_z = { 'filename' }
         -- },
     }
+end
+
+if catppuccin_palette ~= nil then
+    vim.defer_fn(function()
+        vim.cmd('highlight lualine_c_normal guibg=' .. catppuccin_palette.base)
+        vim.cmd('highlight lualine_transitional_lualine_b_normal_to_lualine_c_normal guibg=' .. catppuccin_palette.base)
+    end, 300)
 end

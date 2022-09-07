@@ -56,6 +56,7 @@ return packer.startup(function(use)
     use {
         'catppuccin/nvim',
         event = 'BufEnter',
+        run = ':CatppuccinCompile',
         config = function()
             require('user.plugins.catppuccin')
         end,
@@ -133,7 +134,9 @@ return packer.startup(function(use)
                 after = 'telescope.nvim',
                 run = "make",
                 config = function()
-                    require('telescope').load_extension('fzf')
+                    vim.defer_fn(function()
+                        require('telescope').load_extension('fzf')
+                    end, 10000)
                 end,
             },
         },

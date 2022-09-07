@@ -1,4 +1,5 @@
 local installed, lspconfig = pcall(require, 'lspconfig')
+local keys = require('user.keymaps')
 
 if installed then
     local notify = require('notify')
@@ -21,29 +22,29 @@ if installed then
 
         notify(msg, 'info', {
             title = ' LSP',
-            timeout = 3000,
+            timeout = 1000,
         })
 
         local bufopts = { noremap = true, silent = true, buffer = bufnr }
-        map('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', bufopts)
-        map('n', '<leader>dp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', bufopts)
-        map('n', '<leader>dn', '<cmd>lua vim.diagnostic.goto_next()<CR>', bufopts)
-        map('n', '<leader>dll', '<cmd>lua vim.diagnostic.setloclist()<CR>', bufopts)
-        map('n', '<leader>dqf', '<cmd>lua vim.diagnostic.setqflist()<CR>', bufopts)
-        map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', bufopts)
-        map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', bufopts)
-        map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', bufopts)
-        map('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', bufopts)
-        map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', bufopts)
-        map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', bufopts)
+        keys.map('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', bufopts)
+        keys.map('n', '<leader>dp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', bufopts)
+        keys.map('n', '<leader>dn', '<cmd>lua vim.diagnostic.goto_next()<CR>', bufopts)
+        keys.map('n', '<leader>dll', '<cmd>lua vim.diagnostic.setloclist()<CR>', bufopts)
+        keys.map('n', '<leader>dqf', '<cmd>lua vim.diagnostic.setqflist()<CR>', bufopts)
+        keys.map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', bufopts)
+        keys.map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', bufopts)
+        keys.map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', bufopts)
+        keys.map('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', bufopts)
+        keys.map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', bufopts)
+        keys.map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', bufopts)
         -- map('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
-        map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', bufopts)
-        map({'n', 'v'}, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', bufopts)
-        map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.format()<CR>', bufopts)
-        map('x', '<leader>fm', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', bufopts)
-        map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', bufopts)
-        map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', bufopts)
-        map('n', '<leader>wls', function() P(vim.lsp.buf.list_workspace_folders()) end, bufopts)
+        keys.map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', bufopts)
+        keys.map({'n', 'v'}, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', bufopts)
+        keys.map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.format()<CR>', bufopts)
+        keys.map('x', '<leader>fm', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', bufopts)
+        keys.map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', bufopts)
+        keys.map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', bufopts)
+        keys.map('n', '<leader>wls', function() P(vim.lsp.buf.list_workspace_folders()) end, bufopts)
     end
 
     lsp_flags = {
@@ -124,60 +125,60 @@ if installed then
         end
     }
 
-    -- SIGNS
-    vim.fn.sign_define(
-        'DiagnosticSignError',
-        { texthl = 'DiagnosticSignError', text = ' ', numhl = 'DiagnosticSignError' }
-    )
-    vim.fn.sign_define(
-        'DiagnosticSignWarn',
-        { texthl = 'DiagnosticSignWarn', text = ' ', numhl = 'DiagnosticSignWarn' }
-    )
-    vim.fn.sign_define(
-        'DiagnosticSignHint',
-        { texthl = 'DiagnosticSignHint', text = '', numhl = 'DiagnosticSignHint' }
-    )
-    vim.fn.sign_define(
-        'DiagnosticSignInfo',
-        { texthl = 'DiagnosticSignInfo', text = ' ', numhl = 'DiagnosticSignInfo' }
-    )
-
-    -- Show only one sign in sign column
-    -- -- Create a custom namespace. This will aggregate signs from all other
-    -- -- namespaces and only show the one with the highest severity on a
-    -- -- given line
-    -- local ns = vim.api.nvim_create_namespace("my_namespace")
-    --
-    -- -- Get a reference to the original signs handler
-    -- local orig_signs_handler = vim.diagnostic.handlers.signs
-    --
-    -- -- Override the built-in signs handler
-    -- vim.diagnostic.handlers.signs = {
-    --     show = function(_, bufnr, _, opts)
-    --         -- Get all diagnostics from the whole buffer rather than just the
-    --         -- diagnostics passed to the handler
-    --         local diagnostics = vim.diagnostic.get(bufnr)
-    --
-    --         -- Find the "worst" diagnostic per line
-    --         local max_severity_per_line = {}
-    --         for _, d in pairs(diagnostics) do
-    --             local m = max_severity_per_line[d.lnum]
-    --             if not m or d.severity < m.severity then
-    --                 max_severity_per_line[d.lnum] = d
-    --             end
-    --         end
-    --
-    --         -- Pass the filtered diagnostics (with our custom namespace) to
-    --         -- the original handler
-    --         local filtered_diagnostics = vim.tbl_values(max_severity_per_line)
-    --         orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
-    --     end,
-    --     hide = function(_, bufnr)
-    --         orig_signs_handler.hide(ns, bufnr)
-    --     end,
-    -- }
-
     require('user.plugins.nvim-lspconfig.pylsp')
     require('user.plugins.nvim-lspconfig.sumneko-lua')
     require('user.plugins.nvim-lspconfig.jdtls')
 end
+
+-- SIGNS
+vim.fn.sign_define(
+    'DiagnosticSignError',
+    { texthl = 'DiagnosticSignError', text = ' ', numhl = 'DiagnosticSignError' }
+)
+vim.fn.sign_define(
+    'DiagnosticSignWarn',
+    { texthl = 'DiagnosticSignWarn', text = ' ', numhl = 'DiagnosticSignWarn' }
+)
+vim.fn.sign_define(
+    'DiagnosticSignHint',
+    { texthl = 'DiagnosticSignHint', text = ' ', numhl = 'DiagnosticSignHint' }
+)
+vim.fn.sign_define(
+    'DiagnosticSignInfo',
+    { texthl = 'DiagnosticSignInfo', text = ' ', numhl = 'DiagnosticSignInfo' }
+)
+
+-- Show only one sign in sign column
+-- -- Create a custom namespace. This will aggregate signs from all other
+-- -- namespaces and only show the one with the highest severity on a
+-- -- given line
+-- local ns = vim.api.nvim_create_namespace("my_namespace")
+--
+-- -- Get a reference to the original signs handler
+-- local orig_signs_handler = vim.diagnostic.handlers.signs
+--
+-- -- Override the built-in signs handler
+-- vim.diagnostic.handlers.signs = {
+--     show = function(_, bufnr, _, opts)
+--         -- Get all diagnostics from the whole buffer rather than just the
+--         -- diagnostics passed to the handler
+--         local diagnostics = vim.diagnostic.get(bufnr)
+--
+--         -- Find the "worst" diagnostic per line
+--         local max_severity_per_line = {}
+--         for _, d in pairs(diagnostics) do
+--             local m = max_severity_per_line[d.lnum]
+--             if not m or d.severity < m.severity then
+--                 max_severity_per_line[d.lnum] = d
+--             end
+--         end
+--
+--         -- Pass the filtered diagnostics (with our custom namespace) to
+--         -- the original handler
+--         local filtered_diagnostics = vim.tbl_values(max_severity_per_line)
+--         orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
+--     end,
+--     hide = function(_, bufnr)
+--         orig_signs_handler.hide(ns, bufnr)
+--     end,
+-- }

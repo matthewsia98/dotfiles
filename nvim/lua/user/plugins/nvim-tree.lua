@@ -1,4 +1,5 @@
 local installed, nvim_tree = pcall(require, 'nvim-tree')
+local keys = require('user.keymaps')
 
 if installed then
     nvim_tree.setup {
@@ -19,5 +20,5 @@ if installed then
         },
     }
 
-    map('n', '<leader>nt', '<cmd>NvimTreeToggle<CR>')
+    keys.map('n', '<leader>nt', '<cmd>NvimTreeToggle<CR>')
 end

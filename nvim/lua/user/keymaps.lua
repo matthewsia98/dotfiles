@@ -1,3 +1,16 @@
+local M = {}
+
+local function map(mode, key, value, options)
+    options = options or { silent = true, noremap = true }
+    vim.keymap.set(mode, key, value, options)
+end
+M.map = map
+
+local function unmap(mode, key, options)
+    vim.keymap.del(mode, key, options)
+end
+M.unmap = unmap
+
 -- Go to start and end of line
 map('i', '<C-E>', '<Esc>A')
 map('n', '<C-E>', 'A<Esc>')
@@ -79,3 +92,5 @@ map('n', '<F12>',
 -- Line Text Objects
 map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>')
 map({'o', 'x'}, 'al', ':<C-u>normal! 0v$<CR>')
+
+return M

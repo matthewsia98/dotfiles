@@ -7,6 +7,8 @@ if installed then
         show_current_context = true,
         show_current_context_start = true,
         show_trailing_blankline_indent = false,
+        char = '▎',
+        context_char = '▍',
         space_char_blankline = ' ',
         char_highlight_list = {
             'IndentBlanklineIndent1',
@@ -19,6 +21,9 @@ if installed then
     }
 
     -- vim.cmd [[highlight IndentBlanklineChar guifg=#B7BDF8 gui=nocombine]] -- color of indent lines
-    -- vim.cmd [[highlight IndentBlanklineContextChar guifg=#FF00FF gui=nocombine]] -- color of current context indent line (vertical line)
-    -- vim.cmd [[highlight IndentBlanklineContextStart guisp=#FF00FF gui=underline]] -- color of current context start (underline)
+    if catppuccin_palette ~= nil then
+        local context_color = catppuccin_palette['green']
+        vim.cmd('highlight IndentBlanklineContextChar guifg=' .. context_color .. ' gui=nocombine') -- color of current context indent line (vertical line)
+        vim.cmd('highlight IndentBlanklineContextStart guisp=' .. context_color .. ' gui=underline') -- color of current context start (underline)
+    end
 end

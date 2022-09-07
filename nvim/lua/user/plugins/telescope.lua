@@ -1,4 +1,5 @@
 local installed, telescope = pcall(require, 'telescope')
+local keys = require('user.keymaps')
 
 if installed then
     local actions = require('telescope.actions')
@@ -77,11 +78,11 @@ if installed then
     -- telescope.load_extension('ui-select')
     -- telescope.load_extension('fzf')
 
-    map('n', '<leader>f/', '<cmd>Telescope find_files<CR>')
-    map('n', '<leader>ff', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
-    map('n', '<leader>fg', '<cmd>Telescope git_commits<CR>')
-    map('n', '<leader>fa', '<cmd>Telescope live_grep<CR>')
-    map('n', '<leader>fb', '<cmd>Telescope buffers<CR>')
-    map('n', '<leader>fh', '<cmd>Telescope help_tags<CR>')
-    map('n', '<leader>fo', '<cmd>Telescope vim_options<CR>')
+    keys.map('n', '<leader>f/', '<cmd>Telescope find_files<CR>')
+    keys.map('n', '<leader>ff', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
+    keys.map('n', '<leader>fg', '<cmd>Telescope git_commits<CR>')
+    keys.map('n', '<leader>fa', '<cmd>Telescope live_grep<CR>')
+    keys.map('n', '<leader>fb', '<cmd>Telescope buffers<CR>')
+    keys.map('n', '<leader>fh', '<cmd>Telescope help_tags<CR>')
+    keys.map('n', '<leader>fo', '<cmd>Telescope vim_options<CR>')
 end

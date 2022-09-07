@@ -1,11 +1,9 @@
 local installed, cmp = pcall(require, 'cmp')
 
-
 if installed then
     local cmp_types = require('cmp.types')
     local luasnip = require('luasnip')
     local lspkind = require('lspkind')
-    local notify = require('notify')
 
     cmp.setup {
         completion = {
@@ -128,7 +126,12 @@ if installed then
             end, { 'i', 'c' }),
             ['<C-c>'] = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    cmp.abort()
+                    local entry = cmp.get_selected_entry()
+                    if entry ~= nil then
+                        cmp.abort()
+                    else
+                        cmp.close()
+                    end
                 else
                     fallback()
                 end

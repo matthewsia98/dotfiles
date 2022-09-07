@@ -1,4 +1,5 @@
 local installed, toggleterm = pcall(require, 'toggleterm')
+local keys = require('user.keymaps')
 
 if installed then
     toggleterm.setup {
@@ -7,8 +8,8 @@ if installed then
         shell = '/bin/zsh',
     }
 
-    map('n', '<leader>tt', '<cmd>ToggleTerm<CR>')
-    map('n', '<leader>tr',
+    keys.map('n', '<leader>tt', '<cmd>ToggleTerm<CR>')
+    keys.map('n', '<leader>tr',
         function()
             local winwidth = vim.fn.winwidth(0)
             local filetype = vim.bo.filetype
