@@ -1,3 +1,4 @@
 /nvim/plugged
 /nvim/plugin
+/nvim/.stylua.toml
 /qtile/__pycache__

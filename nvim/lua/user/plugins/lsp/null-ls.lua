@@ -21,14 +21,7 @@ if installed then
                     'luajit',
                 },
             }),
-            null_ls.builtins.formatting.stylua.with({
-                extra_args = {
-                    '--indent-type',
-                    'Spaces',
-                    '--quote-style',
-                    'AutoPreferSingle',
-                },
-            }),
+            null_ls.builtins.formatting.stylua,
         },
         -- on_attach = function(client, bufnr)
         --     local root_dir = client['config']['root_dir']
