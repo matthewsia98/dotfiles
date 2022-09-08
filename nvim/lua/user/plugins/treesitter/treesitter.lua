@@ -8,7 +8,6 @@ if installed then
             'help',
             'lua',
             'python',
-            'java',
             'comment',
         },
         highlight = {
@@ -37,6 +36,8 @@ if installed then
                     ['if'] = '@function.inner',
                     ['ac'] = '@class.outer',
                     ['ic'] = '@class.inner',
+                    ['el'] = '@assignment.left',
+                    ['er'] = '@assignment.right',
                     -- ['aa'] = '@parameter.outer',
                     -- ['ia'] = '@parameter.inner',
                     -- ['ap'] = '@print.outer',
