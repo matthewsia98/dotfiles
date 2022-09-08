@@ -17,14 +17,6 @@ if not status_ok then
     return
 end
 
-packer.init {
-    display = {
-        open_fn = function()
-            return require('packer.util').float({ border = 'rounded' })
-        end
-    }
-}
-
 -- Automatically run :PackerSync whenever plugins.lua is updated
 vim.api.nvim_create_autocmd('BufWritePost', {
     group = vim.api.nvim_create_augroup('PACKER', { clear = true }),
@@ -32,7 +24,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     command = 'source <afile> | PackerSync',
 })
 
-return packer.startup(function(use)
+packer.startup({function(use)
     -- Package Manager --
     use 'wbthomason/packer.nvim'
 
@@ -278,6 +270,14 @@ return packer.startup(function(use)
         },
         config = function()
             require('user.plugins.lsp.mason')
+            vim.schedule(function()
+                local exists = vim.fn.isdirectory(vim.fn.expand('~/.local/share/nvim/mason'))
+                if exists == 0 then
+                    vim.cmd [[MasonInstall python-lsp-server black flake8 isort mypy]]
+                    vim.cmd [[MasonInstall lua-language-server luacheck stylua]]
+                    vim.cmd [[MasonInstall jdtls]]
+                end
+            end)
         end,
     }
     use {
@@ -294,7 +294,6 @@ return packer.startup(function(use)
     --     config = function() require('user.plugins.magma-nvim')
     -- }
 
-
     use {
         '~/.config/nvim/my-plugins/python-docstring-generator.nvim',
         after = 'nvim-treesitter',
@@ -306,4 +305,15 @@ return packer.startup(function(use)
     if packer_bootstrap then
         packer.sync()
     end
-end)
+end, 
+config = {
+    profile = {
+        enable = true,
+        threshold = 0 -- the amount in ms that a plugins load time must be over for it to be included in the profile
+    },
+    display = {
+        open_fn = function()
+            return require('packer.util').float({ border = 'rounded' })
+        end
+    }
+}})
