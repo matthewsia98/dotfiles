@@ -1,5 +1,4 @@
 local installed, _ = pcall(require, 'lspconfig')
-local keys = require('user.keymaps')
 
 if installed then
     local notify_installed, notify = pcall(require, 'notify')
@@ -27,6 +26,7 @@ if installed then
         -- 	})
         -- end
 
+        local keys = require('user.keymaps')
         local bufopts = { noremap = true, silent = true, buffer = bufnr }
         keys.map('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', bufopts)
         keys.map('n', '<leader>dp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', bufopts)
@@ -43,7 +43,7 @@ if installed then
         keys.map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', bufopts)
         keys.map({ 'n', 'v' }, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', bufopts)
         keys.map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.format()<CR>', bufopts)
-        -- keys.map("v", "<leader>fm", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", bufopts)
+        -- keys.map('v', '<leader>fm', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', bufopts)
         keys.map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', bufopts)
         keys.map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', bufopts)
         keys.map('n', '<leader>wls', function()

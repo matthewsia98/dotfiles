@@ -1,9 +1,6 @@
 local installed, catppuccin = pcall(require, 'catppuccin')
 
 if installed then
-    catppuccin_palette = require('catppuccin.palettes').get_palette()
-
-    vim.g.catppuccin_flavour = 'macchiato'
     catppuccin.setup {
         transparent_background = false,
         term_colors = false,
@@ -56,5 +53,7 @@ if installed then
             -- CursorLineNr = { fg = '#00FFFF' },
         }
     }
+
+    vim.g.catppuccin_flavour = 'mocha'
     vim.cmd [[colorscheme catppuccin]]
 end

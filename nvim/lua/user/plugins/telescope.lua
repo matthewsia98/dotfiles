@@ -1,9 +1,7 @@
 local installed, telescope = pcall(require, 'telescope')
-local keys = require('user.keymaps')
 
 if installed then
     local actions = require('telescope.actions')
-    -- local trouble_telescope = require('trouble.providers.telescope')
 
     telescope.setup {
         defaults = {
@@ -34,33 +32,7 @@ if installed then
                 }
             }
         },
-        pickers = {
-            find_files = {
-                layout_config = {
-                    preview_width = 0.7,
-                },
-            },
-            buffers = {
-                layout_config = {
-                    preview_width = 0.5,
-                },
-            },
-            live_grep = {
-                layout_config = {
-                    preview_width = 0.7,
-                },
-            },
-            git_commits = {
-                layout_config = {
-                    preview_width = 0.5,
-                },
-            },
-            current_buffer_fuzzy_find = {
-                layout_config = {
-                    preview_width = 0.4,
-                }
-            },
-        },
+        pickers = {},
         extensions = {
             ['ui-select'] = {
                 require('telescope.themes').get_dropdown {
@@ -75,9 +47,8 @@ if installed then
             }
         }
     }
-    -- telescope.load_extension('ui-select')
-    -- telescope.load_extension('fzf')
 
+    local keys = require('user.keymaps')
     keys.map('n', '<leader>ff', '<cmd>Telescope find_files<CR>')
     keys.map('n', '<leader>fr', '<cmd>Telescope oldfiles<CR>')
     keys.map('n', '<leader>fc', '<cmd>Telescope current_buffer_fuzzy_find<CR>')

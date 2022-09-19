@@ -1,5 +1,4 @@
 local installed, toggleterm = pcall(require, 'toggleterm')
-local keys = require('user.keymaps')
 
 if installed then
     toggleterm.setup {
@@ -9,11 +8,12 @@ if installed then
         float_opts = {
             border = 'curved',
             width = 150,
-            height = 30,
+            height = 32,
             winblend = 3,
         },
     }
 
+    local keys = require('user.keymaps')
     keys.map('n', '<leader>tt', '<cmd>ToggleTerm<CR>')
     keys.map('n', '<leader>tr',
         function()

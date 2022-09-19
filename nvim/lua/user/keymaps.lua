@@ -25,8 +25,7 @@ map('n', '<S-CR>', 'O<Esc>')
 map('n', '<C-n>', '<cmd>move .+1<CR>')
 map('n', '<C-p>', '<cmd>move .-2<CR>')
 
--- Window Splits
-vim.cmd [[highlight WinSeparator guibg=NONE guifg=#B7BDF8]]
+-- Windows
 -- Close window
 map('n', '<C-q>', '<C-w>c')
 -- Move between windows
@@ -43,17 +42,11 @@ map('n', '<Down>', '<C-w>1-')
 -- Folds
 -- map('n', '<leader>fd', 'za')
 
--- Reload Config
-map('n', '<F4>', '<cmd>source %<CR>')
-
 -- Terminal Mode
 map('t', '<C-q>', '<C-\\><C-n><C-w>c')
 map('t', '<Esc>', '<C-\\><C-n>')
-map('t', '<C-h>', '<C-\\><C-n><C-w>h')
-map('t', '<C-j>', '<C-\\><C-n><C-w>j')
-map('t', '<C-k>', '<C-\\><C-n><C-w>k')
-map('t', '<C-l>', '<C-\\><C-n><C-w>l')
 
+-- Toggle conceal
 map('n', '<F12>',
     function()
         if vim.o.conceallevel == 2 then

@@ -1,13 +1,11 @@
 local installed, bufferline = pcall(require, 'bufferline')
-local keys = require('user.keymaps')
 
 if installed then
     bufferline.setup {
         options = {
             mode = "buffers", -- set to "tabs" to only show tabpages instead
-            numbers = function(tbl)
-                -- ordinal, id
-                return tbl['id'] .. '.'
+            numbers = function(opts)
+                return opts.ordinal .. '.'
             end,
             close_command = "bdelete! %d",
             right_mouse_command = "bdelete! %d",
@@ -60,21 +58,26 @@ if installed then
         highlights = require('catppuccin.groups.integrations.bufferline').get()
     }
 
-    -- Buffers
-    -- These commands will navigate through buffers in order regardless of which mode you are using
-    -- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
-    keys.map('n', '<C-b>l', '<cmd>BufferLineCycleNext<CR>')
-    keys.map('n', '<C-b>h', '<cmd>BufferLineCyclePrev<CR>')
+    local keys = require('user.keymaps')
+    keys.map('n', '<leader>1', '<cmd>lua require("bufferline").go_to_buffer(1, true)<CR>')
+    keys.map('n', '<leader>2', '<cmd>lua require("bufferline").go_to_buffer(2, true)<CR>')
+    keys.map('n', '<leader>3', '<cmd>lua require("bufferline").go_to_buffer(3, true)<CR>')
+    keys.map('n', '<leader>4', '<cmd>lua require("bufferline").go_to_buffer(4, true)<CR>')
+    keys.map('n', '<leader>5', '<cmd>lua require("bufferline").go_to_buffer(5, true)<CR>')
+    keys.map('n', '<leader>6', '<cmd>lua require("bufferline").go_to_buffer(6, true)<CR>')
+    keys.map('n', '<leader>7', '<cmd>lua require("bufferline").go_to_buffer(7, true)<CR>')
+    keys.map('n', '<leader>8', '<cmd>lua require("bufferline").go_to_buffer(8, true)<CR>')
+    keys.map('n', '<leader>9', '<cmd>lua require("bufferline").go_to_buffer(9, true)<CR>')
 
-    -- These commands will move the current buffer backwards or forwards in the bufferline
-    keys.map('n', '<C-b>L', '<cmd>BufferLineMoveNext<CR>')
-    keys.map('n', '<C-b>H', '<cmd>BufferLineMovePrev<CR>')
-    keys.map('n', '<C-b>b', '<cmd>ls<CR><cmd>buffer<Space>')
+    -- keys.map('n', '<C-b>l', '<cmd>BufferLineCycleNext<CR>')
+    -- keys.map('n', '<C-b>h', '<cmd>BufferLineCyclePrev<CR>')
+    -- keys.map('n', '<C-b>L', '<cmd>BufferLineMoveNext<CR>')
+    -- keys.map('n', '<C-b>H', '<cmd>BufferLineMovePrev<CR>')
     keys.map('n', '<C-b>c', '<cmd>bdelete<CR>')
 
     -- Tabs
-    keys.map('n', '<C-t>v', '<cmd>tabnew<CR>')
-    keys.map('n', '<C-t>l', '<cmd>tabnext<CR>')
-    keys.map('n', '<C-t>h', '<cmd>tabprev<CR>')
-    keys.map('n', '<C-t>c', '<cmd>tabclose<CR>')
+    -- keys.map('n', '<C-t>v', '<cmd>tabnew<CR>')
+    -- keys.map('n', '<C-t>l', '<cmd>tabnext<CR>')
+    -- keys.map('n', '<C-t>h', '<cmd>tabprev<CR>')
+    -- keys.map('n', '<C-t>c', '<cmd>tabclose<CR>')
 end

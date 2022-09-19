@@ -12,8 +12,8 @@ end
 local packer_bootstrap = ensure_packer()
 
 -- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
+local packer_installed, packer = pcall(require, "packer")
+if not packer_installed then
     return
 end
 
@@ -21,7 +21,11 @@ end
 vim.api.nvim_create_autocmd('BufWritePost', {
     group = vim.api.nvim_create_augroup('PACKER', { clear = true }),
     pattern = 'plugins.lua',
-    command = 'source <afile> | PackerSync',
+    callback = function()
+        vim.cmd [[source %]]
+        vim.cmd [[PackerCompile]]
+        vim.cmd [[PackerSync]]
+    end
 })
 
 packer.startup({function(use)

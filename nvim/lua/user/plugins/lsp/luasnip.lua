@@ -1,5 +1,4 @@
 local installed, luasnip = pcall(require, 'luasnip')
-local keys = require('user.keymaps')
 
 if installed then
     local types = require('luasnip.util.types')
@@ -16,11 +15,13 @@ if installed then
             },
         }
     }
-    require('luasnip.loaders.from_vscode').lazy_load()
+
+    -- require('luasnip.loaders.from_vscode').lazy_load()
     require('luasnip.loaders.from_lua').lazy_load({
         paths = '~/.config/nvim/my-snippets'
     })
 
+    local keys = require('user.keymaps')
     keys.map({ 'i', 's' }, '<C-u>', '<cmd>lua require("luasnip.extras.select_choice")()<CR>')
     keys.map({ 'i', 's' }, '<C-l>', function() if luasnip.jumpable(1) then luasnip.jump(1) end end)
     keys.map({ 'i', 's' }, '<C-h>', function() if luasnip.jumpable(-1) then luasnip.jump(-1) end end)

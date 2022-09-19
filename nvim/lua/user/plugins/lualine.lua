@@ -76,11 +76,14 @@ if installed then
         --     lualine_z = { 'filename' }
         -- },
     }
+
+    local cp_installed, cp = pcall(require, 'catppuccin.palettes')
+    if cp_installed then
+        cp = cp.get_palette()
+        vim.defer_fn(function()
+            vim.cmd('highlight lualine_c_normal guibg=' .. cp.base)
+            vim.cmd('highlight lualine_transitional_lualine_b_normal_to_lualine_c_normal guibg=' .. cp.base)
+        end, 300)
+    end
 end
 
-if catppuccin_palette ~= nil then
-    vim.defer_fn(function()
-        vim.cmd('highlight lualine_c_normal guibg=' .. catppuccin_palette.base)
-        vim.cmd('highlight lualine_transitional_lualine_b_normal_to_lualine_c_normal guibg=' .. catppuccin_palette.base)
-    end, 300)
-end

@@ -16,7 +16,6 @@ if installed then
                     'vim',
                     'P',
                     'R',
-                    'catppuccin_palette',
                     '--std',
                     'luajit',
                 },

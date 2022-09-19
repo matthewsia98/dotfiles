@@ -1,4 +1,5 @@
 local group = vim.api.nvim_create_augroup('MyAutocmds', { clear = true })
+
 -- Format before save
 -- A.nvim_create_autocmd('BufWritePre', {
 --         group = group,

@@ -21,9 +21,10 @@ if installed then
     }
 
     -- vim.cmd [[highlight IndentBlanklineChar guifg=#B7BDF8 gui=nocombine]] -- color of indent lines
-    if catppuccin_palette ~= nil then
-        local context_color = catppuccin_palette['green']
-        vim.cmd('highlight IndentBlanklineContextChar guifg=' .. context_color .. ' gui=nocombine') -- color of current context indent line (vertical line)
-        vim.cmd('highlight IndentBlanklineContextStart guisp=' .. context_color .. ' gui=underline') -- color of current context start (underline)
+    local cp_installed, cp = pcall(require, 'catppuccin.palettes')
+    if cp_installed then
+        cp = cp.get_palette()
+        vim.cmd('highlight IndentBlanklineContextChar guifg=' .. cp['green'] .. ' gui=nocombine') -- color of current context indent line (vertical line)
+        vim.cmd('highlight IndentBlanklineContextStart guisp=' .. cp['green'] .. ' gui=underline') -- color of current context start (underline)
     end
 end
