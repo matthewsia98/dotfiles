@@ -4,14 +4,19 @@ local keys = require('user.keymaps')
 if installed then
     toggleterm.setup {
         size = 40,
-        direction = 'vertical',
+        direction = 'float',
         shell = '/bin/zsh',
+        float_opts = {
+            border = 'curved',
+            width = 150,
+            height = 30,
+            winblend = 3,
+        },
     }
 
     keys.map('n', '<leader>tt', '<cmd>ToggleTerm<CR>')
     keys.map('n', '<leader>tr',
         function()
-            local winwidth = vim.fn.winwidth(0)
             local filetype = vim.bo.filetype
             local filepath = vim.fn.expand('%')
             local command
@@ -22,7 +27,9 @@ if installed then
             elseif filetype == 'java' then
                 command = 'javac ' .. filepath .. '; java ' .. filepath:gsub('.java', '')
             end
-            vim.cmd('TermExec size=' .. math.floor(winwidth / 3) .. ' cmd="' .. command .. '"')
+            -- local winwidth = vim.fn.winwidth(0)
+            -- vim.cmd('TermExec size=' .. math.floor(winwidth / 3) .. ' cmd="' .. command .. '"')
+            vim.cmd('TermExec cmd="' .. command .. '"')
         end
     )
 end

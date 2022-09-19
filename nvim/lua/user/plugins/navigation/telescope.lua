@@ -40,9 +40,9 @@ if installed then
                     preview_width = 0.7,
                 },
             },
-            find_buffers = {
+            buffers = {
                 layout_config = {
-                    preview_width = 0.7,
+                    preview_width = 0.5,
                 },
             },
             live_grep = {
@@ -78,8 +78,9 @@ if installed then
     -- telescope.load_extension('ui-select')
     -- telescope.load_extension('fzf')
 
-    keys.map('n', '<leader>f/', '<cmd>Telescope find_files<CR>')
-    keys.map('n', '<leader>ff', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
+    keys.map('n', '<leader>ff', '<cmd>Telescope find_files<CR>')
+    keys.map('n', '<leader>fr', '<cmd>Telescope oldfiles<CR>')
+    keys.map('n', '<leader>fc', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
     keys.map('n', '<leader>fg', '<cmd>Telescope git_commits<CR>')
     keys.map('n', '<leader>fa', '<cmd>Telescope live_grep<CR>')
     keys.map('n', '<leader>fb', '<cmd>Telescope buffers<CR>')

@@ -6,7 +6,7 @@ if installed then
         on_attach = function()
             local gs = package.loaded.gitsigns
             -- Navigation
-            keys.map('n', '<leader>hn',
+            keys.map('n', ']h',
                 function()
                     if vim.wo.diff then return ']c' end
                     vim.schedule(function() gs.next_hunk() end)
@@ -14,7 +14,7 @@ if installed then
                 end,
                 { expr = true }
             )
-            keys.map('n', '<leader>hp',
+            keys.map('n', '[h',
                 function()
                     if vim.wo.diff then return '[c' end
                     vim.schedule(function() gs.prev_hunk() end)
@@ -38,6 +38,53 @@ if installed then
 
             -- Text object
             keys.map({ 'o', 'x' }, 'ih', '<cmd><C-U>Gitsigns select_hunk<CR>')
+
+            -- wk.register({
+            --     ['['] = {
+            --         h = {
+            --             function()
+            --                 if vim.wo.diff then return '[c' end
+            --                 vim.schedule(function() gs.prev_hunk() end)
+            --                 return '<Ignore>'
+            --             end, 'Previous hunk'
+            --         }
+            --     },
+            --     [']'] = {
+            --         h = {
+            --             function()
+            --                 if vim.wo.diff then return ']c' end
+            --                 vim.schedule(function() gs.next_hunk() end)
+            --                 return '<Ignore>'
+            --             end, 'Next hunk'
+            --         }
+            --     },
+            --     ['<leader>h'] = {
+            --         name = '+gitsigns',
+            --         s = { '<cmd>Gitsigns stage_hunk<CR>', 'Stage hunk', mode = 'n' },
+            --         r = { '<cmd>Gitsigns reset_hunk<CR>', 'Reset hunk', mode = 'n' },
+            --         S = { gs.stage_buffer, 'Stage buffer' },
+            --         u = { gs.undo_stage_hunk, 'Undo stage hunk' },
+            --         R = { gs.reset_buffer, 'Reset buffer' },
+            --         p = { gs.preview_hunk, 'Preview hunk' },
+            --         b = { function() gs.blame_line { full = true } end, 'Blame line' },
+            --         d = { gs.diffthis, 'Diff' },
+            --         D = { function() gs.diffthis('~') end, 'Diff ~' },
+            --         td = { gs.toggle_deleted, 'Toggle deleted' },
+            --     },
+            -- })
+            -- wk.register({
+            --     ['<leader>h'] = {
+            --         name = '+gitsigns',
+            --         s = { '<cmd>Gitsigns stage_hunk<CR>', 'Stage hunk', mode = 'v' },
+            --         r = { '<cmd>Gitsigns reset_hunk<CR>', 'Reset hunk', mode = 'v' },
+            --     }
+            -- }, { mode = 'v' })
+            -- wk.register({
+            --     ['ih'] = { '<cmd><C-U>Gitsigns select_hunk<CR>', 'Git hunk', mode = 'o' },
+            -- }, { mode = 'o' })
+            -- wk.register({
+            --     ['ih'] = { '<cmd><C-U>Gitsigns select_hunk<CR>', 'Git hunk', mode = 'x' },
+            -- }, { mode = 'x' })
         end,
         signs = {
             add = {

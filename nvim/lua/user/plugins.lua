@@ -30,10 +30,18 @@ packer.startup({function(use)
 
     -- Required Plugins --
     use 'nvim-lua/plenary.nvim'
+
     use {
         'rcarriga/nvim-notify',
         config = function()
             require('user.plugins.nvim-notify')
+        end,
+    }
+
+    use {
+        'folke/which-key.nvim',
+        config = function()
+            require('user.plugins.which-key')
         end,
     }
 
@@ -291,7 +299,11 @@ packer.startup({function(use)
 
     -- use {
     --     'dccsillag/magma-nvim',
-    --     config = function() require('user.plugins.magma-nvim')
+    --     event = 'BufRead',
+    --     run = ':UpdateRemotePlugins',
+    --     config = function()
+    --         require('user.plugins.magma-nvim')
+    --     end
     -- }
 
     use {
@@ -305,7 +317,7 @@ packer.startup({function(use)
     if packer_bootstrap then
         packer.sync()
     end
-end, 
+end,
 config = {
     profile = {
         enable = true,
