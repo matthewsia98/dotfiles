@@ -67,14 +67,14 @@ packer.startup({function(use)
         'akinsho/bufferline.nvim',
         after = 'catppuccin',
         config = function()
-            require('user.plugins.statusline.bufferline')
+            require('user.plugins.bufferline')
         end,
     }
     use {
         'nvim-lualine/lualine.nvim',
         after = 'catppuccin',
         config = function()
-            require('user.plugins.statusline.lualine')
+            require('user.plugins.lualine')
         end,
     }
 
@@ -92,12 +92,12 @@ packer.startup({function(use)
                 "nvim-treesitter/nvim-treesitter-context",
                 after = "nvim-treesitter",
                 config = function()
-                    require('user.plugins.treesitter.treesitter-context')
+                    require('user.plugins.treesitter-context')
                 end
             },
         },
         config = function()
-            require('user.plugins.treesitter.treesitter')
+            require('user.plugins.treesitter')
         end,
     }
 
@@ -106,7 +106,7 @@ packer.startup({function(use)
         'kyazdani42/nvim-tree.lua',
         event = 'CursorHold',
         config = function()
-            require('user.plugins.navigation.nvim-tree')
+            require('user.plugins.nvim-tree')
         end,
     }
 
@@ -114,7 +114,7 @@ packer.startup({function(use)
         'folke/trouble.nvim',
         event = 'CursorHold',
         config = function()
-            require('user.plugins.navigation.trouble')
+            require('user.plugins.trouble')
         end,
     }
 
@@ -138,16 +138,16 @@ packer.startup({function(use)
                 run = "make",
                 config = function()
                     local installed, telescope = pcall(require, 'telescope')
-                    vim.defer_fn(function()
-                        if installed then
-                            telescope.load_extension('fzf')
-                        end
-                    end, 10000)
+                    -- vim.defer_fn(function()
+                    if installed then
+                        telescope.load_extension('fzf')
+                    end
+                    -- end, 5000)
                 end,
             },
         },
         config = function()
-            require('user.plugins.navigation.telescope')
+            require('user.plugins.telescope')
         end,
     }
 
@@ -155,7 +155,7 @@ packer.startup({function(use)
         'karb94/neoscroll.nvim',
         event = 'WinScrolled',
         config = function()
-            require('user.plugins.navigation.neoscroll')
+            require('user.plugins.neoscroll')
         end,
     }
 
@@ -208,7 +208,7 @@ packer.startup({function(use)
         'lewis6991/gitsigns.nvim',
         event = 'BufRead',
         config = function()
-            require('user.plugins.git.gitsigns')
+            require('user.plugins.gitsigns')
         end,
     }
 
@@ -216,7 +216,7 @@ packer.startup({function(use)
         'rhysd/git-messenger.vim',
         event = 'BufRead',
         config = function()
-            require('user.plugins.git.git-messenger')
+            require('user.plugins.git-messenger')
         end,
     }
 
