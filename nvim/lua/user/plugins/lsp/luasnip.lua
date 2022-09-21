@@ -10,7 +10,7 @@ if installed then
         ext_opts = {
             [types.choiceNode] = {
                 active = {
-                    virt_text = { { ' ﬋ Current Choice ', 'CmpItemKindFunction' } },
+                    virt_text = { { ' ﬋ Current Choice ', 'Search' } },
                 },
             },
         }

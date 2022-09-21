@@ -5,6 +5,7 @@ if installed then
     local lspkind = require('lspkind')
 
     cmp.setup {
+        -- preselect = cmp.PreselectMode.None, -- breaks cmp signature help
         completion = {
             completeopt = 'menu,menuone,noselect'
         },
@@ -68,7 +69,7 @@ if installed then
         window = {
             completion = {
                 border = 'rounded',
-                winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel',
+                winhighlight = 'Normal:CmpPmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel',
                 col_offset = -3,
                 side_padding = 0,
             },
@@ -159,7 +160,8 @@ if installed then
     -- vim.cmd [[highlight PmenuThumb guibg=#C5CDD9 guifg=NONE]]
     --
     -- -- Prompt Menu
-    -- vim.cmd [[highlight CmpPmenu guibg=#C6A0F6 guifg=#FF0000]] -- completion menu background (guibg) and border (guifg)
+    vim.cmd [[highlight default link CmpPmenu NormalFloat]]
+    -- vim.cmd [[highlight CmpPmenu guibg=#1E1E2E guifg=#89B4FA]] -- completion menu background (guibg) and border (guifg)
     -- vim.cmd [[highlight PmenuSel guibg=#6E738D guifg=NONE]]
 
     -- -- Completion Items

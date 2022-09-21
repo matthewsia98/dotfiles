@@ -10,4 +10,11 @@ if installed then
             },
         }
     }
+
+    local exists = vim.fn.isdirectory(vim.fn.expand('~/.local/share/nvim/mason'))
+    if exists == 0 then
+        vim.cmd [[MasonInstall python-lsp-server black flake8 isort mypy]]
+        vim.cmd [[MasonInstall lua-language-server luacheck stylua]]
+        vim.cmd [[MasonInstall jdtls]]
+    end
 end

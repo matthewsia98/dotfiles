@@ -396,7 +396,6 @@ return {
             i(4, '# Before setting instance variables'),
             d(5, function(args)
                 local splits = vim.split(args[1][1], ', ')
-                P(splits)
                 local texts = {}
                 for idx, split in ipairs(splits) do
                     if idx > 1 then
