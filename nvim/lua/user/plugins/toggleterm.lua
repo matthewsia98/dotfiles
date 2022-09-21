@@ -30,6 +30,6 @@ if installed then
             -- local winwidth = vim.fn.winwidth(0)
             -- vim.cmd('TermExec size=' .. math.floor(winwidth / 3) .. ' cmd="' .. command .. '"')
             vim.cmd('TermExec cmd="' .. command .. '"')
-        end
+        end, { desc = 'run file' }
     )
 end

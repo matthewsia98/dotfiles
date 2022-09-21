@@ -39,7 +39,7 @@ if installed then
         keys.map('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', bufopts)
         keys.map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', bufopts)
         keys.map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', bufopts)
-        -- keys.map('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
+        keys.map('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', bufopts)
         keys.map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', bufopts)
         keys.map({ 'n', 'v' }, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', bufopts)
         keys.map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.format()<CR>', bufopts)
@@ -48,7 +48,7 @@ if installed then
         keys.map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', bufopts)
         keys.map('n', '<leader>wls', function()
             P(vim.lsp.buf.list_workspace_folders())
-        end, bufopts)
+        end, vim.tbl_extend('keep', bufopts, { desc = 'vim.lsp.buf.list_workspace_folders()' }))
     end
 
     local lsp_flags = {

@@ -49,7 +49,7 @@ if installed then
             },
             lualine_x = {},
             lualine_y = { 'encoding', 'fileformat', },
-            lualine_z = { 'progress', 'location' },
+            lualine_z = { 'location', 'progress' },
         },
         -- tabline = {
         --   lualine_a = {'buffers'},

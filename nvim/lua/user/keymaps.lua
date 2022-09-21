@@ -1,7 +1,12 @@
 local M = {}
 
 local function map(mode, key, value, options)
-    options = options or { silent = true, noremap = true }
+    local default_options = { silent = true, noremap = true }
+    if options ~= nil then
+        options = vim.tbl_extend('keep', options, default_options)
+    else
+        options = default_options
+    end
     vim.keymap.set(mode, key, value, options)
 end
 M.map = map
@@ -57,6 +62,10 @@ map('n', '<F12>',
     end
 )
 
+-- Line Text Objects
+map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>', { desc = 'inner line' })
+map({'o', 'x'}, 'al', ':<C-u>normal! 0v$<CR>', { desc = 'a line (with whitespace)' })
+
 -- Colemak
 -- map('i', 'e', 'f')
 -- map('i', 'r', 'p')
@@ -80,10 +89,5 @@ map('n', '<F12>',
 -- map('i', 'b', 'z')
 -- map('i', 'n', 'k')
 -- map('i', 'm', 'h')
-
-
--- Line Text Objects
-map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>')
-map({'o', 'x'}, 'al', ':<C-u>normal! 0v$<CR>')
 
 return M

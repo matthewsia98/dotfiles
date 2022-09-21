@@ -12,7 +12,7 @@ if installed then
                     vim.schedule(function() gs.next_hunk() end)
                     return '<Ignore>'
                 end,
-                { expr = true }
+                { expr = true, desc = 'Next git hunk' }
             )
             keys.map('n', '[h',
                 function()
@@ -20,82 +20,35 @@ if installed then
                     vim.schedule(function() gs.prev_hunk() end)
                     return '<Ignore>'
                 end,
-                { expr = true }
+                { expr = true, desc = 'Previous git hunk' }
             )
 
             -- Actions
-            keys.map({ 'n', 'v' }, '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>')
-            keys.map({ 'n', 'v' }, '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>')
-            keys.map('n', '<leader>hS', gs.stage_buffer)
-            keys.map('n', '<leader>hu', gs.undo_stage_hunk)
-            keys.map('n', '<leader>hR', gs.reset_buffer)
-            keys.map('n', '<leader>hp', gs.preview_hunk)
-            keys.map('n', '<leader>hb', function() gs.blame_line { full = true } end)
-            keys.map('n', '<leader>tb', gs.toggle_current_line_blame)
-            keys.map('n', '<leader>hd', gs.diffthis)
-            keys.map('n', '<leader>hD', function() gs.diffthis('~') end)
-            keys.map('n', '<leader>td', gs.toggle_deleted)
+            keys.map({ 'n', 'v' }, '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>', { desc = 'stage hunk' })
+            keys.map({ 'n', 'v' }, '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>', { desc = 'reset hunk' })
+            keys.map('n', '<leader>hS', gs.stage_buffer, { desc = 'stage buffer' })
+            keys.map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'undo stage hunk' })
+            keys.map('n', '<leader>hR', gs.reset_buffer, { desc = 'reset buffer' })
+            keys.map('n', '<leader>hp', gs.preview_hunk, { desc = 'preview hunk' })
+            keys.map('n', '<leader>hb', function() gs.blame_line { full = true } end, { desc = 'blame line' })
+            -- keys.map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'toggle line blame' })
+            keys.map('n', '<leader>hd', gs.diffthis, { desc = 'diff' })
+            keys.map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = 'diff ~' })
+            keys.map('n', '<leader>td', gs.toggle_deleted, { desc = 'toggle deleted' })
 
             -- Text object
-            keys.map({ 'o', 'x' }, 'ih', '<cmd><C-U>Gitsigns select_hunk<CR>')
-
-            -- wk.register({
-            --     ['['] = {
-            --         h = {
-            --             function()
-            --                 if vim.wo.diff then return '[c' end
-            --                 vim.schedule(function() gs.prev_hunk() end)
-            --                 return '<Ignore>'
-            --             end, 'Previous hunk'
-            --         }
-            --     },
-            --     [']'] = {
-            --         h = {
-            --             function()
-            --                 if vim.wo.diff then return ']c' end
-            --                 vim.schedule(function() gs.next_hunk() end)
-            --                 return '<Ignore>'
-            --             end, 'Next hunk'
-            --         }
-            --     },
-            --     ['<leader>h'] = {
-            --         name = '+gitsigns',
-            --         s = { '<cmd>Gitsigns stage_hunk<CR>', 'Stage hunk', mode = 'n' },
-            --         r = { '<cmd>Gitsigns reset_hunk<CR>', 'Reset hunk', mode = 'n' },
-            --         S = { gs.stage_buffer, 'Stage buffer' },
-            --         u = { gs.undo_stage_hunk, 'Undo stage hunk' },
-            --         R = { gs.reset_buffer, 'Reset buffer' },
-            --         p = { gs.preview_hunk, 'Preview hunk' },
-            --         b = { function() gs.blame_line { full = true } end, 'Blame line' },
-            --         d = { gs.diffthis, 'Diff' },
-            --         D = { function() gs.diffthis('~') end, 'Diff ~' },
-            --         td = { gs.toggle_deleted, 'Toggle deleted' },
-            --     },
-            -- })
-            -- wk.register({
-            --     ['<leader>h'] = {
-            --         name = '+gitsigns',
-            --         s = { '<cmd>Gitsigns stage_hunk<CR>', 'Stage hunk', mode = 'v' },
-            --         r = { '<cmd>Gitsigns reset_hunk<CR>', 'Reset hunk', mode = 'v' },
-            --     }
-            -- }, { mode = 'v' })
-            -- wk.register({
-            --     ['ih'] = { '<cmd><C-U>Gitsigns select_hunk<CR>', 'Git hunk', mode = 'o' },
-            -- }, { mode = 'o' })
-            -- wk.register({
-            --     ['ih'] = { '<cmd><C-U>Gitsigns select_hunk<CR>', 'Git hunk', mode = 'x' },
-            -- }, { mode = 'x' })
+            keys.map({ 'o', 'x' }, 'ih', '<cmd><C-U>Gitsigns select_hunk<CR>', { desc = 'git hunk' })
         end,
         signs = {
             add = {
                 hl = 'GitSignsAdd',
-                text = '▎',
+                text = '▍',
                 numhl = 'GitSignsAddNr',
                 linehl = 'GitSignsAddLn'
             },
             change = {
                 hl = 'GitSignsChange',
-                text = '▎',
+                text = '▍',
                 numhl = 'GitSignsChangeNr',
                 linehl = 'GitSignsChangeLn'
             },

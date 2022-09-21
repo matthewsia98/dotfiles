@@ -142,11 +142,11 @@ packer.startup({function(use)
                 run = "make",
                 config = function()
                     local installed, telescope = pcall(require, 'telescope')
-                    -- vim.defer_fn(function()
-                    if installed then
-                        telescope.load_extension('fzf')
-                    end
-                    -- end, 5000)
+                    vim.defer_fn(function()
+                        if installed then
+                            telescope.load_extension('fzf')
+                        end
+                    end, 10000)
                 end,
             },
         },

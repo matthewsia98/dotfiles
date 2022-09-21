@@ -1,20 +1,18 @@
 local installed, cmp = pcall(require, 'cmp')
 
 if installed then
-    local cmp_types = require('cmp.types')
     local luasnip = require('luasnip')
     local lspkind = require('lspkind')
 
     cmp.setup {
         completion = {
-            completeopt = 'menu,menuone,noselect' -- Don't autoselect first entry
+            completeopt = 'menu,menuone,noselect'
         },
-        preselect = cmp_types.cmp.PreselectMode.None,
         formatting = {
             fields = { 'kind', 'abbr', 'menu' },
             format = function(entry, vim_item)
                 local kind = lspkind.cmp_format({
-                    mode = 'symbol_text', -- {'text', 'text_symbol', 'symbol', 'symbol_text'}
+                    mode = 'symbol_text',
                     preset = 'default',
                     maxwidth = 50,
                     menu = ({
@@ -64,19 +62,20 @@ if installed then
                 luasnip.lsp_expand(args.body)
             end,
         },
+        experimental = {
+            ghost_text = true,
+        },
         window = {
             completion = {
                 border = 'rounded',
-                winhighlight = 'Normal:CmpPmenu,FloatBorder:CmpPmenu,CursorLine:PmenuSel,Search:None',
+                winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel',
                 col_offset = -3,
                 side_padding = 0,
             },
             documentation = {
                 border = 'rounded',
-                winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None',
+                winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder',
                 zindex = 1001,
-                col_offset = 0,
-                side_padding = 1,
             }
         },
         view = {
@@ -86,18 +85,6 @@ if installed then
             }
         },
         mapping = {
-            -- ['<Tab>'] = cmp.mapping(function(fallback)
-            --     if cmp.visible() then
-            --         local entry = cmp.get_selected_entry()
-            --         if not entry then
-            --             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-            --             cmp.confirm()
-            --             cmp.close()
-            --         end
-            --     else
-            --         fallback()
-            --     end
-            -- end, { 'i', 'c' }),
             ['<C-n>'] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
@@ -112,7 +99,7 @@ if installed then
                     fallback()
                 end
             end, { 'i', 'c' }),
-            ['<C-Space>'] = cmp.mapping(function(fallback)
+            ['<C-Space>'] = cmp.mapping(function()
                 if cmp.visible() then
                     local entry = cmp.get_selected_entry()
                     if not entry then
@@ -137,18 +124,18 @@ if installed then
                 end
             end, { 'i', 'c' }),
             ['<CR>'] = cmp.mapping.confirm({
-                behavior = cmp.ConfirmBehavior.Insert,
-                select = false -- Accept currently selected item. Set to false to only confirm explicitly selected items.
+                -- behavior = cmp.ConfirmBehavior.Insert,
+                select = false
             }),
         },
-        sources = cmp.config.sources({
+        sources = {
             -- Order Matters! OR explicitly set priority
-            { name = 'nvim_lsp', max_item_count = 10 },
+            { name = 'nvim_lsp' },
             { name = 'nvim_lsp_signature_help' },
-            { name = 'luasnip', max_item_count = 10 },
-            { name = 'path', max_item_count = 10 },
-            { name = 'buffer', max_item_count = 10 },
-        })
+            { name = 'luasnip' },
+            { name = 'path' },
+            { name = 'buffer' },
+        }
     }
 
     -- Use buffer source for `/`
@@ -163,12 +150,8 @@ if installed then
     cmp.setup.cmdline(':', {
         -- mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources(
-            {
-                { name = 'path' }
-            },
-            {
-                { name = 'cmdline' }
-            }
+            { { name = 'path' } },
+            { { name = 'cmdline' } }
         )
     })
 
@@ -176,9 +159,9 @@ if installed then
     -- vim.cmd [[highlight PmenuThumb guibg=#C5CDD9 guifg=NONE]]
     --
     -- -- Prompt Menu
-    -- vim.cmd [[highlight CmpPmenu guibg=#22252A guifg=#C5CDD9]]
+    -- vim.cmd [[highlight CmpPmenu guibg=#C6A0F6 guifg=#FF0000]] -- completion menu background (guibg) and border (guifg)
     -- vim.cmd [[highlight PmenuSel guibg=#6E738D guifg=NONE]]
-    --
+
     -- -- Completion Items
     -- vim.cmd [[highlight CmpItemMenu guibg=NONE guifg=#C6A0F6]]
     -- vim.cmd [[highlight CmpItemAbbrDeprecated guibg=NONE guifg=#808080 gui=strikethrough]]
