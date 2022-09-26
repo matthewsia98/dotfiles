@@ -64,4 +64,40 @@ return {
             i(4, '-- Function body')
         }
     )),
+},
+{
+    s('ptbl', fmt([[
+        for {}, {} in {}({}) do
+            {}
+        end
+        ]],
+        {
+            i(1, 'k'),
+            i(2, 'v'),
+            c(3, {
+                t('pairs'),
+                t('ipairs')
+            }),
+            i(4, 'table_name'),
+            d(5, function(args)
+                local key =  args[1][1]
+                local value = args[2][1]
+
+                if key == '_' then
+                    return sn(nil, {
+                        t('print('),
+                        t(value),
+                        t(')')
+                    })
+                else
+                    return sn(nil, {
+                        t('print('),
+                        t(string.format('tostring(%s)', key)),
+                        t(" .. ' = ' .. "),
+                        t(string.format('tostring(%s)', value)),
+                        t(')')
+                    })
+                end
+            end, { 1, 2 })
+        })),
 }

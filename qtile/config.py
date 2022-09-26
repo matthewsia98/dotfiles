@@ -755,6 +755,12 @@ screens = [
             opacity=1.0,
             name="bar",
         ),
+        # bottom=bar.Bar(
+        #     widgets=[
+        #         widget.Spacer(length=100, background=COLORS['cyan'][0])
+        #     ],
+        #     size=BAR_HEIGHT
+        # ),
         wallpaper="~/.config/qtile/wallpapers/space2.jpg",
         wallpaper_mode="stretch",
     ),
