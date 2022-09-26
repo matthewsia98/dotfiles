@@ -5,6 +5,21 @@ set_title
 
 chpwd_functions+=(set_title)
 
+# Yank to the system clipboard
+function vi-yank-xclip {
+   zle vi-yank
+   echo "$CUTBUFFER" | xclip -i -selection clipboard
+}
+zle -N vi-yank-xclip
+bindkey -M vicmd 'y' vi-yank-xclip
+
+# Paste from system clipboard
+function vi-paste-xclip () {
+    RBUFFER=$(xclip -o -selection clipboard)$RBUFFER
+}
+zle -N vi-paste-xclip
+bindkey -M vicmd 'p' vi-paste-xclip
+
 function toggle_keymap() {
     local variant=$(setxkbmap -query | awk '/variant:/ {print $2}')
     if [[ $variant = '' ]] then
@@ -15,6 +30,7 @@ function toggle_keymap() {
     xmodmap ~/.Xmodmap
 }
 
+# Environment Variables
 export PATH=$PATH:~/.local/bin
 export BAT_THEME='OneHalfDark'
 export EDITOR='nvim'
@@ -30,14 +46,14 @@ export HISTTIMEFORMAT='[%F %T]'
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 
+# Prompt
 ZLE_RPROMPT_INDENT=0
-
 #PS1='%F{cyan}%~ > %f'
 #RPS1='[%*]'
 
 
 # Aliases
-# Zsh
+# Shell
 alias ..='cd ..'
 alias hg='history 1 | grep'
 alias grep='grep --color=auto'
@@ -75,41 +91,22 @@ alias pacg='pacman -Q | grep'
 alias pacls='pacman -Q'
 
 
-autoload -Uz compinit
-compinit
-zstyle ':completion:*' menu select
-zmodload zsh/complist
-
-
-# neofetch
-
-
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-
+# Autosuggest and Syntax highlighting
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="bg=#494D64,fg=#CAD3F5,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+
+# Key Bindings
 # Shell emacs/vim mode
 bindkey -v
-
-# Yank to the system clipboard
-function vi-yank-xclip {
-   zle vi-yank
-   echo "$CUTBUFFER" | xclip -i -selection clipboard
-}
-zle -N vi-yank-xclip
-bindkey -M vicmd 'y' vi-yank-xclip
-
-# Paste from system clipboard
-function vi-paste-xclip () {
-    RBUFFER=$(xclip -o -selection clipboard)$RBUFFER
-}
-zle -N vi-paste-xclip
-bindkey -M vicmd 'p' vi-paste-xclip
 
 bindkey '^?' backward-delete-char
 bindkey '^p' up-line-or-search
@@ -123,6 +120,8 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
+
+# Starship
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship.toml
 
@@ -151,3 +150,6 @@ _fzf_compgen_dir() {
 
 source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+
+
+neofetch
