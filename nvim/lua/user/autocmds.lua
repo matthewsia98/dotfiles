@@ -15,20 +15,20 @@ local group = vim.api.nvim_create_augroup('MyAutocmds', { clear = true })
 -- )
 
 -- Format Options
-vim.api.nvim_create_autocmd('FileType', {
-    group = group,
-    callback = function()
-        -- t: Auto-wrap using textwidth
-        -- c: Auto-wrap comments using textwidth and insert comment leader automatically
-        -- r: BAD!!! Automatically insert comment leader when hitting <Enter> in Insert mode
-        -- o: BAD!!! Automatically insert comment leader when hitting o/O in Normal mode
-        -- n: Recognize numbered lists
-        -- l: Long lines are not broken in insert mode
-        -- j: Remove comment leader when joining lines
-        -- p: Don't break lines at single spaces that follow periods e.g. Mr. John
-        vim.cmd [[set formatoptions=tcnjp]]
-    end
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+--     group = group,
+--     callback = function()
+--         -- t: Auto-wrap using textwidth
+--         -- c: Auto-wrap comments using textwidth and insert comment leader automatically
+--         -- r: BAD!!! Automatically insert comment leader when hitting <Enter> in Insert mode
+--         -- o: BAD!!! Automatically insert comment leader when hitting o/O in Normal mode
+--         -- n: Recognize numbered lists
+--         -- l: Long lines are not broken in insert mode
+--         -- j: Remove comment leader when joining lines
+--         -- p: Don't break lines at single spaces that follow periods e.g. Mr. John
+--         vim.cmd [[set formatoptions=tcnjp]]
+--     end
+-- })
 
 -- Java
 vim.api.nvim_create_autocmd('BufEnter', {

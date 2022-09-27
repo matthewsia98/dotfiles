@@ -1,7 +1,6 @@
 local g = vim.g
 local o = vim.opt
 
-
 g.python3_host_prog = vim.fn.expand('~/.virtualenvs/nvim/bin/python')
 
 -- Map <leader> to space
@@ -87,4 +86,17 @@ o.foldenable = false
 -- o.foldminlines = 1
 
 -- Set window title
+vim.o.titlestring = '%t'
 o.title = true
+
+-- Format Options
+vim.cmd [[filetype plugin off]]
+-- t: Auto-wrap using textwidth
+-- c: Auto-wrap comments using textwidth and insert comment leader automatically
+-- r: BAD!!! Automatically insert comment leader when hitting <Enter> in Insert mode
+-- o: BAD!!! Automatically insert comment leader when hitting o/O in Normal mode
+-- n: Recognize numbered lists
+-- l: Long lines are not broken in insert mode
+-- j: Remove comment leader when joining lines
+-- p: Don't break lines at single spaces that follow periods e.g. Mr. John
+vim.o.formatoptions = 'tcnjp'
