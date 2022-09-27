@@ -1,5 +1,6 @@
 local g = vim.g
-local o = vim.opt
+local o = vim.o
+local opt = vim.opt
 
 g.python3_host_prog = vim.fn.expand('~/.virtualenvs/nvim/bin/python')
 
@@ -8,76 +9,76 @@ g.mapleader = ' '
 g.maplocalleader = ' '
 
 -- Enable RGB colors
-o.termguicolors = true
+opt.termguicolors = true
 
 -- Don't show -- MODE --
-o.showmode = false
+opt.showmode = false
 
 -- Don't show conceal on cursor line in these modes
-o.concealcursor = 'nvi'
+opt.concealcursor = 'nvi'
 -- Don't conceal
-o.conceallevel = 0
+opt.conceallevel = 0
 
 -- Time to wait for keymap
-o.timeoutlen = 500
+opt.timeoutlen = 500
 -- Time for CursorHold
-o.updatetime = 200
+opt.updatetime = 200
 
 -- Enable mouse
-o.mouse = 'a'
+opt.mouse = 'a'
 
 -- Number of screen lines to keep above and below the cursor
-o.scrolloff = 12
+opt.scrolloff = 12
 
 -- Line numbers
-o.number = true
-o.relativenumber = true
+opt.number = true
+opt.relativenumber = true
 
 -- Sign column
-o.signcolumn = 'yes:1'
+opt.signcolumn = 'yes:1'
 
 -- Highlight text on cursor line
-o.cursorline = true
+opt.cursorline = true
 
 -- Text wrap
-o.wrap = false
-o.textwidth = 127
+opt.wrap = false
+opt.textwidth = 127
 
 -- Tabs
-o.expandtab = true
-o.tabstop = 4
-o.shiftround = true -- Round indent to multiple of shiftwidth when indenting with > and <
-o.shiftwidth = 0 -- If 0, tabstop value if used
-o.softtabstop = -1 -- If negative, shiftwidth value is used
+opt.expandtab = true
+opt.tabstop = 4
+opt.shiftround = true -- Round indent to multiple of shiftwidth when indenting with > and <
+opt.shiftwidth = 0 -- If 0, tabstop value if used
+opt.softtabstop = -1 -- If negative, shiftwidth value is used
 
-o.list = true
-o.listchars = 'lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
+opt.list = true
+opt.listchars = 'lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
 
 -- Makes neovim and host OS clipboard play nicely with each other
-o.clipboard = 'unnamedplus'
+opt.clipboard = 'unnamedplus'
 
 -- Search
-o.ignorecase = true -- \c to ignore case, \C to match case
-o.smartcase = true -- Automatically match case if Capital letters are present
+opt.ignorecase = true -- \c to ignore case, \C to match case
+opt.smartcase = true -- Automatically match case if Capital letters are present
 
 -- Undo and backup options
-o.backup = false
-o.writebackup = false
-o.undofile = true
-o.swapfile = false
+opt.backup = false
+opt.writebackup = false
+opt.undofile = true
+opt.swapfile = false
 
 -- Remember 50 items in commandline history
-o.history = 50
+opt.history = 50
 
 -- Better buffer splitting
-o.splitright = true
-o.splitbelow = true
+opt.splitright = true
+opt.splitbelow = true
 
 -- Only 1 global statusline
-o.laststatus = 3
+opt.laststatus = 3
 
 -- Code Folding
-o.foldenable = false
+opt.foldenable = false
 -- o.foldmethod = 'expr'
 -- o.foldexpr = 'nvim_treesitter#foldexpr()'
 -- o.foldlevelstart = 99 -- Don't fold by default
@@ -86,8 +87,8 @@ o.foldenable = false
 -- o.foldminlines = 1
 
 -- Set window title
-vim.o.titlestring = '%t'
-o.title = true
+o.titlestring = '%t'
+opt.title = true
 
 -- Format Options
 vim.cmd [[filetype plugin off]]
@@ -99,4 +100,4 @@ vim.cmd [[filetype plugin off]]
 -- l: Long lines are not broken in insert mode
 -- j: Remove comment leader when joining lines
 -- p: Don't break lines at single spaces that follow periods e.g. Mr. John
-vim.o.formatoptions = 'tcnjp'
+o.formatoptions = 'tcnjp'
