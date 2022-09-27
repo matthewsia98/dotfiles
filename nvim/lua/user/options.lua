@@ -44,6 +44,11 @@ opt.cursorline = true
 opt.wrap = false
 opt.textwidth = 127
 
+-- Indent
+opt.autoindent = false
+opt.cindent = false
+opt.smartindent = false
+
 -- Tabs
 opt.expandtab = true
 opt.tabstop = 4
@@ -79,12 +84,12 @@ opt.laststatus = 3
 
 -- Code Folding
 opt.foldenable = false
--- o.foldmethod = 'expr'
--- o.foldexpr = 'nvim_treesitter#foldexpr()'
--- o.foldlevelstart = 99 -- Don't fold by default
--- o.foldlevel = 99 -- Don't fold by default
--- o.foldnestmax = 3
--- o.foldminlines = 1
+o.foldmethod = 'expr'
+o.foldexpr = 'nvim_treesitter#foldexpr()'
+o.foldlevelstart = 99 -- Don't fold by default
+o.foldlevel = 99 -- Don't fold by default
+o.foldnestmax = 3
+o.foldminlines = 1
 
 -- Set window title
 o.titlestring = '%t'
