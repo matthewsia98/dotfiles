@@ -35,12 +35,12 @@ packer.startup({function(use)
     -- Required Plugins --
     use 'nvim-lua/plenary.nvim'
 
-    use {
-        'rcarriga/nvim-notify',
-        config = function()
-            require('user.plugins.nvim-notify')
-        end,
-    }
+    -- use {
+    --     'rcarriga/nvim-notify',
+    --     config = function()
+    --         require('user.plugins.nvim-notify')
+    --     end,
+    -- }
 
     use {
         'folke/which-key.nvim',
@@ -48,6 +48,23 @@ packer.startup({function(use)
             require('user.plugins.which-key')
         end,
     }
+
+    -- use {
+    --     'folke/noice.nvim',
+    --     requires = {
+    --         'MunifTanjim/nui.nvim',
+    --         {
+    --             'rcarriga/nvim-notify',
+    --             config = function()
+    --                 require('user.plugins.nvim-notify')
+    --             end
+    --         }
+    --     },
+    --     after = 'nvim-cmp',
+    --     config = function()
+    --         require('user.plugins.noice')
+    --     end
+    -- }
 
     -- Theme, Icons, Statusbar, Bufferbar --
     use {
@@ -60,7 +77,6 @@ packer.startup({function(use)
     use {
         'catppuccin/nvim',
         event = 'BufEnter',
-        run = ':CatppuccinCompile',
         config = function()
             require('user.plugins.catppuccin')
         end,

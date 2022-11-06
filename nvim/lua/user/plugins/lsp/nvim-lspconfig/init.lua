@@ -29,8 +29,8 @@ if installed then
         local keys = require('user.keymaps')
         local bufopts = { noremap = true, silent = true, buffer = bufnr }
         keys.map('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', bufopts)
-        keys.map('n', '<leader>dp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', bufopts)
-        keys.map('n', '<leader>dn', '<cmd>lua vim.diagnostic.goto_next()<CR>', bufopts)
+        keys.map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', bufopts)
+        keys.map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', bufopts)
         keys.map('n', '<leader>dll', '<cmd>lua vim.diagnostic.setloclist()<CR>', bufopts)
         keys.map('n', '<leader>dqf', '<cmd>lua vim.diagnostic.setqflist()<CR>', bufopts)
         keys.map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', bufopts)
@@ -56,7 +56,7 @@ if installed then
         debounce_text_changes = 150,
     }
 
-    local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
     -- local progress_ns_id = vim.api.nvim_create_namespace("")
     --    local progress_hl_group = 'DiagnosticVirtualTextInfo'

@@ -35,7 +35,7 @@ opt.number = true
 opt.relativenumber = true
 
 -- Sign column
-opt.signcolumn = 'yes:1'
+opt.signcolumn = 'yes:2'
 
 -- Highlight text on cursor line
 opt.cursorline = true
@@ -92,8 +92,8 @@ o.foldnestmax = 3
 o.foldminlines = 1
 
 -- Set window title
-o.titlestring = '%t'
-opt.title = true
+-- o.titlestring = '%t'
+-- opt.title = true
 
 -- Format Options
 vim.cmd [[filetype plugin off]]

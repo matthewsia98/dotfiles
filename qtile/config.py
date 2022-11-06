@@ -608,18 +608,18 @@ screens = [
                             mouse_callbacks={"Button1": toggle_program("pavucontrol")},
                             name="volume",
                         ),
-                        # widget.TextBox(
-                        #     text="\uF5B0",
-                        #     background=COLORS["green"][0]
-                        #     if POWERLINE_ENABLED
-                        #     else None,
-                        #     foreground=COLORS["foreground"][POWERLINE_ENABLED],
-                        #     padding=10,
-                        #     mouse_callbacks={
-                        #         "Button1": toggle_program("blueman-manager")
-                        #     },
-                        #     name="bluetooth",
-                        # ),
+                        widget.TextBox(
+                            text="\uF5B0",
+                            background=COLORS["green"][0]
+                            if POWERLINE_ENABLED
+                            else None,
+                            foreground=COLORS["foreground"][POWERLINE_ENABLED],
+                            padding=10,
+                            mouse_callbacks={
+                                "Button1": toggle_program("blueman-manager")
+                            },
+                            name="bluetooth",
+                        ),
                         powerline(
                             "l",
                             background=COLORS["green"][0],

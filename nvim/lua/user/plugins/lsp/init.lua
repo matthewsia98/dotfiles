@@ -1,5 +1,3 @@
-local notify_installed, notify = pcall(require, 'notify')
-
 -- SIGNS --
 vim.fn.sign_define(
     'DiagnosticSignError',
@@ -59,8 +57,8 @@ vim.fn.sign_define(
 
 vim.diagnostic.config({
     update_in_insert = false,
-    virtual_text = true,
-    signs = false,
+    virtual_text = false,
+    signs = true,
     severity_sort = true,
     underline = false,
 })

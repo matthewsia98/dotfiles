@@ -26,6 +26,8 @@ if installed then
                 command = 'python ' .. filepath
             elseif filetype == 'java' then
                 command = 'javac ' .. filepath .. '; java ' .. filepath:gsub('.java', '')
+            elseif filetype == 'zsh' then
+                command = filepath
             end
             -- local winwidth = vim.fn.winwidth(0)
             -- vim.cmd('TermExec size=' .. math.floor(winwidth / 3) .. ' cmd="' .. command .. '"')
