@@ -15,7 +15,7 @@ if installed then
                 local kind = lspkind.cmp_format({
                     mode = 'symbol_text',
                     preset = 'default',
-                    maxwidth = 50,
+                    maxwidth = 60,
                     menu = ({
                         buffer = '[Buffer]',
                         path = '[Path]',
@@ -54,6 +54,8 @@ if installed then
                 })(entry, vim_item)
                 local strings = vim.split(vim_item.kind, '%s+', { trimempty = true })
                 kind.kind = ' ' .. string.format('[%s] %-13s', strings[1], strings[2]) .. ' '
+                -- local n = 37 - #strings[1] -1
+                -- kind.kind = ' ' .. string.format('[%s] %-' .. n .. 's', strings[1], strings[2]) .. ' '
 
                 return kind
             end,

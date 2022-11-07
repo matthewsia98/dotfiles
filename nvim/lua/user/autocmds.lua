@@ -54,6 +54,6 @@ vim.api.nvim_create_autocmd('BufEnter', {
 vim.api.nvim_create_autocmd('TextYankPost', {
     group = group,
     callback = function()
-        vim.highlight.on_yank({ higroup = 'Visual', timeout = 3000 })
+        vim.highlight.on_yank({ higroup = 'Visual', timeout = 2000 })
     end
 })

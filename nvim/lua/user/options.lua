@@ -14,6 +14,9 @@ opt.termguicolors = true
 -- Don't show -- MODE --
 opt.showmode = false
 
+-- Disable commandline completion
+opt.wildmenu = false
+
 -- Don't show conceal on cursor line in these modes
 opt.concealcursor = 'nvi'
 -- Don't conceal
