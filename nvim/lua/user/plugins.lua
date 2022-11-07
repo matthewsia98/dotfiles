@@ -254,6 +254,9 @@ packer.startup({function(use)
     use {
         'github/copilot.vim',
         event = 'BufRead',
+        config = function()
+            require('user.plugins.copilot')
+        end,
     }
 
     use {
