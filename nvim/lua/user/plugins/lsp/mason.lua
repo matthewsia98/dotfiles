@@ -15,6 +15,6 @@ if installed then
     if exists == 0 then
         vim.cmd [[MasonInstall python-lsp-server black flake8 isort mypy]]
         vim.cmd [[MasonInstall lua-language-server luacheck stylua]]
-        vim.cmd [[MasonInstall jdtls]]
+        -- vim.cmd [[MasonInstall jdtls]]
     end
 end

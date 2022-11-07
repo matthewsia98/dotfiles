@@ -1,45 +1,29 @@
 local installed, noice = pcall(require, 'noice')
 
 if installed then
-    require('noice.util.hacks').enable()
     noice.setup({
         views = {
-            cmdline_popup = {
+            mini = {
                 position = {
-                    row = 5,
-                    col = '50%',
-                },
-                size = {
-                    width = 60,
-                    height = 'auto',
+                    row = '90%',
+                    col = '100%',
                 },
             },
-            popupmenu = {
-                relative = 'editor',
-                position = {
-                    row = 8,
-                    col = '50%',
-                },
-                size = {
-                    width = 60,
-                    height = 10,
-                },
-                border = {
-                    style = 'rounded',
-                    padding = { 0, 1 },
-                },
-                win_options = {
-                    winhighlight = { Normal = 'Normal', FloatBorder = 'DiagnosticInfo' },
-                },
-            },
+        },
+        cmdline = {
+            enabled = false,
+            view = 'cmdline',
         },
         messages = {
             enabled = false,
         },
         lsp = {
             progress = {
-                enabled = false,
+                enabled = true,
             },
+            signature = {
+                enabled = false,
+            }
         },
     })
 end

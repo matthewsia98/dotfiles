@@ -143,17 +143,17 @@ if installed then
     cmp.setup.cmdline('/', {
         -- mapping = cmp.mapping.preset.cmdline(),
         sources = {
-            { name = 'buffer' }
+            { name = 'buffer', max_item_count = 10 }
         }
     })
 
     -- Use cmdline & path source for ':'
     cmp.setup.cmdline(':', {
         -- mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources(
-            { { name = 'path' } },
-            { { name = 'cmdline' } }
-        )
+        sources = {
+            { name = 'path', max_item_count = 10 },
+            { name = 'cmdline', max_item_count = 10 },
+        }
     })
 
     -- -- Scrollbar
