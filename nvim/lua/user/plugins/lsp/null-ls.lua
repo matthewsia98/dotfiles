@@ -12,12 +12,7 @@ if installed then
             -- LUA --
             null_ls.builtins.diagnostics.luacheck.with({
                 extra_args = {
-                    '--globals',
-                    'vim',
-                    'P',
-                    'R',
-                    '--std',
-                    'luajit',
+                    '--config', vim.fn.expand('~/.config/nvim/.luacheckrc')
                 },
             }),
             null_ls.builtins.formatting.stylua,

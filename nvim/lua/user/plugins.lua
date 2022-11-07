@@ -60,6 +60,7 @@ packer.startup({function(use)
                 end
             },
         },
+        rocks = 'luautf8',
         after = 'nvim-cmp',
         config = function()
             require('user.plugins.noice')

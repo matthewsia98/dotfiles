@@ -15,7 +15,7 @@ if installed then
                     col = '50%',
                 },
                 size = {
-                    width = 60,
+                    width = '40%',
                     height = 'auto',
                 }
             },

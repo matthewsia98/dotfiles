@@ -88,6 +88,13 @@ if installed then
             }
         },
         mapping = {
+            ['<Tab>'] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item()
+                else
+                    fallback()
+                end
+            end, {'c'}),
             ['<C-n>'] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
@@ -116,12 +123,13 @@ if installed then
             end, { 'i', 'c' }),
             ['<C-c>'] = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    local entry = cmp.get_selected_entry()
-                    if entry ~= nil then
-                        cmp.abort()
-                    else
-                        cmp.close()
-                    end
+                    -- local entry = cmp.get_selected_entry()
+                    -- if entry ~= nil then
+                    --     cmp.abort()
+                    -- else
+                    --     cmp.close()
+                    -- end
+                    cmp.abort()
                 else
                     fallback()
                 end
