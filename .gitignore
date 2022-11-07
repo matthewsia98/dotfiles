@@ -1,5 +1,6 @@
 /nvim/plugged
 /nvim/plugin
+/nvim/.luarc.json
 /nvim/.stylua.toml
 /nvim/.luacheckrc
 /qtile/__pycache__
