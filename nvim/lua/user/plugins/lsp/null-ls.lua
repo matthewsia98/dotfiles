@@ -4,7 +4,11 @@ if installed then
     null_ls.setup({
         sources = {
             -- PYTHON --
-            null_ls.builtins.diagnostics.flake8,
+            null_ls.builtins.diagnostics.flake8.with({
+                extra_args = {
+                    '--config', vim.fn.expand('~/.config/nvim/.flake8')
+                }
+            }),
             null_ls.builtins.diagnostics.mypy,
             null_ls.builtins.formatting.black,
             null_ls.builtins.formatting.isort,

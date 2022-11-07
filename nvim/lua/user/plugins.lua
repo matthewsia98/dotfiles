@@ -252,6 +252,11 @@ packer.startup({function(use)
 
     -- LSP, Completions and Snippets --
     use {
+        'github/copilot.vim',
+        event = 'BufRead',
+    }
+
+    use {
         'hrsh7th/nvim-cmp',
         -- event = 'CmdlineEnter',
         after = 'LuaSnip',

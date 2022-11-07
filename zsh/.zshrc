@@ -151,6 +151,7 @@ _fzf_compgen_dir() {
 source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
+source /usr/share/nvm/init-nvm.sh
 
 # neofetch
 pfetch

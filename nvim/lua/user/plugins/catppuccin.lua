@@ -5,8 +5,8 @@ if installed then
         transparent_background = false,
         term_colors = false,
         styles = {
-            comments = { "italic" },
-            conditionals = { "italic" },
+            comments = {},
+            conditionals = {},
             loops = {},
             functions = {},
             keywords = {},
@@ -21,6 +21,7 @@ if installed then
         integrations = {
             gitsigns = true,
             cmp = true,
+            noice = true,
             notify = true,
             nvimtree = true,
             treesitter_context = true,
@@ -40,10 +41,10 @@ if installed then
                     information = { "italic" },
                 },
                 underlines = {
-                    -- errors = { "underline" },
-                    -- hints = { "underline" },
-                    -- warnings = { "underline" },
-                    -- information = { "underline" },
+                    errors = { "underline" },
+                    hints = { "underline" },
+                    warnings = { "underline" },
+                    information = { "underline" },
                 },
             },
         },

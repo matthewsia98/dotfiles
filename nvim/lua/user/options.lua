@@ -38,7 +38,7 @@ opt.number = true
 opt.relativenumber = true
 
 -- Sign column
-opt.signcolumn = 'yes:2'
+opt.signcolumn = 'yes:1'
 
 -- Highlight text on cursor line
 opt.cursorline = true
