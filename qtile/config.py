@@ -433,6 +433,7 @@ screens = [
                 # widget.TextBox(text=right_arrow, fontsize=40, padding=0, background=colors[5], foreground=colors[6]),
                 widget.GroupBox(
                     disable_drag=True,
+                    hide_unused=True,
                     highlight_method="text",
                     # fontsize=30,
                     borderwidth=0,
