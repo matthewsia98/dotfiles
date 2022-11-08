@@ -16,16 +16,24 @@ if installed then
             numbers = {},
             booleans = {},
             properties = {},
-            types = {}, operators = {}, }, integrations = {
-            gitsigns = true,
+            types = {},
+            operators = {},
+        },
+        integrations = {
             cmp = true,
+            gitsigns = true,
+            leap = true,
+            lsp_trouble = true,
+            mason = true,
             noice = true,
             notify = true,
             nvimtree = true,
             treesitter_context = true,
             treesitter = true,
             telescope = true,
-            lsp_trouble = true,
+            -- which_key = true,
+
+            -- Special Integrations
             indent_blankline = {
                 enabled = true,
                 colored_indent_levels = true,

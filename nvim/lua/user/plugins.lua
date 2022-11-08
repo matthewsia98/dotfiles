@@ -180,6 +180,14 @@ packer.startup({function(use)
         end,
     }
 
+    use {
+        'ggandor/leap.nvim',
+        event = 'BufRead',
+        config = function()
+            require('user.plugins.leap')
+        end,
+    }
+
     -- Visuals --
     use {
         'norcalli/nvim-colorizer.lua',
