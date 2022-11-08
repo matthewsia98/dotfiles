@@ -11,6 +11,17 @@ local function map(mode, key, value, options)
 end
 M.map = map
 
+local function nvim_map(mode, key, value, options)
+    local default_options = { silent = true, noremap = true }
+    if options ~= nil then
+        options = vim.tbl_extend('keep', options, default_options)
+    else
+        options = default_options
+    end
+    vim.api.nvim_set_keymap(mode, key, value, options)
+end
+M.nvim_map = nvim_map
+
 local function unmap(mode, key, options)
     vim.keymap.del(mode, key, options)
 end

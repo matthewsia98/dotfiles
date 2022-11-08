@@ -254,6 +254,10 @@ packer.startup({function(use)
     use {
         'github/copilot.vim',
         event = 'BufRead',
+        setup = function()
+            vim.g.copilot_no_tab_map = true
+            vim.g.copilot_assume_mapped = true
+        end,
         config = function()
             require('user.plugins.copilot')
         end,
