@@ -76,10 +76,10 @@ def separator(length=None, padding=None, background=None, foreground=None, name=
     length = 1 if length is None else length
     padding = 40 if padding is None else padding
     background = COLORS["transparent"][0] if background is None else background
-    foreground = COLORS["transparent"][0] if foreground is None else foreground
+    foreground = COLORS["white"][0] if foreground is None else foreground
 
     return widget.Sep(
-        linewidth=length, padding=padding, background=background, name=name
+        linewidth=length, padding=padding, background=background, foreground=foreground, name=name
     )
 
 
@@ -249,7 +249,7 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    #Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    # Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key([mod, "control"], "h", lazy.layout.swap_left(), desc="Move window to the left"),
@@ -274,7 +274,7 @@ keys = [
         desc="Swap current window to main pane",
     ),
     Key([mod, "control"], "space", lazy.layout.flip(), desc="Flip main side"),
-    Key([mod, "shift"], "n", lazy.window.toggle_minimize(), desc="Toggle minimize"),
+    Key([mod], "m", lazy.window.toggle_minimize(), desc="Toggle minimize"),
     Key([mod, "shift"], "m", lazy.window.toggle_maximize(), desc="Toggle maximize"),
     Key([mod, "control"], "f", center_and_resize_floating(), desc="Toggle floating"),
     # Toggle between split and unsplit sides of stack.
@@ -359,12 +359,14 @@ mouse = [
 
 #### LAYOUTS####
 layouts = [
-    # layout.Columns(margin_on_single=10,
-    #                margin=5,
-    #                border_width=4,
-    #                border_normal=COLORS['inactive_border_color'][0],
-    #                border_focus=COLORS['active_border_color'][0],
-    #                ),
+    layout.Columns(
+        insert_position=1,  # insert below
+        margin_on_single=0,
+        margin=5,
+        border_width=1,
+        border_normal=COLORS['inactive_border_color'][0],
+        border_focus=COLORS['active_border_color'][0],
+    ),
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
@@ -402,20 +404,22 @@ screens = [
     Screen(
         top=bar.Bar(
             widgets=[
-                # spacer(length=0,
-                #        background=COLORS['blue'][0] if POWERLINE_ENABLED else None,
-                #        name='layout_spacer'
-                #        ),
+                spacer(length=0,
+                       background=COLORS['blue'][0] if POWERLINE_ENABLED else None,
+                       name='layout_spacer'
+                       ),
                 # widget.CurrentLayout(),
-                # widget.CurrentLayoutIcon(
-                #     background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
-                #     scale=0.6,
-                # ),
-                # separator(
-                #     length=4,
-                #     padding=0,
-                #     background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
-                # ),
+                widget.CurrentLayoutIcon(
+                    background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
+                    scale=0.6,
+                    padding=2,
+                ),
+                separator(
+                    length=4,
+                    padding=0,
+                    background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
+                    foreground=COLORS["black"][0] if POWERLINE_ENABLED else None,
+                ),
                 # spacer(
                 #     length=5,
                 #     background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
