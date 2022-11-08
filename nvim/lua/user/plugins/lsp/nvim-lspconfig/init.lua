@@ -172,6 +172,14 @@ if installed then
         --           end
         --       end,
 
+        ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+            border = 'rounded',
+        }),
+
+        ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+            border = 'rounded',
+        }),
+
         ['textDocument/definition'] = function(err, result, ctx, config)
             if err ~= nil then
                 P(err)

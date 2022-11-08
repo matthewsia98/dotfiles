@@ -17,23 +17,7 @@ if installed then
                 size = {
                     width = '40%',
                     height = 'auto',
-                }
-            },
-        },
-        routes = {
-            {
-                filter = {
-                    event = 'msg_show',
-                    find = 'more lines?',
                 },
-                opts = { skip = true },
-            },
-            {
-                filter = {
-                    event = 'msg_show',
-                    find = 'fewer lines?',
-                },
-                opts = { skip = true },
             },
         },
         cmdline = {
@@ -42,14 +26,53 @@ if installed then
         },
         messages = {
             enabled = false,
+            -- view = 'messages',
         },
         lsp = {
             progress = {
                 enabled = true,
+                view = 'mini',
             },
             signature = {
                 enabled = false,
-            }
+            },
+            hover = {
+                enabled = false,
+            },
+        },
+        routes = {
+            {
+                filter = {
+                    event = 'msg_show',
+                    kind = '',
+                    find = 'written',
+                },
+                opts = { skip = true },
+            },
+            {
+                filter = {
+                    event = 'msg_show',
+                    kind = '',
+                    find = 'changes?',
+                },
+                opts = { skip = true },
+            },
+            {
+                filter = {
+                    event = 'msg_show',
+                    kind = '',
+                    find = 'yank',
+                },
+                opts = { skip = true },
+            },
+            {
+                filter = {
+                    event = 'msg_show',
+                    kind = '',
+                    find = 'lines?',
+                },
+                opts = { skip = true },
+            },
         },
     })
     vim.defer_fn(function()

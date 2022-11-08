@@ -59,6 +59,7 @@ alias hg='history 1 | grep'
 alias grep='grep --color=auto'
 alias ls='lsd'
 alias ll='lsd -alh'
+alias lll='lsd -alhL'
 alias mkdir='mkdir -pv'
 alias cat='bat'
 alias rg='rg -S'
@@ -71,6 +72,7 @@ alias vi='nvim'
 alias vim='nvim'
 alias feh='feh --scale-down -d -g 1800x1020+60+10 --info "echo %wx%h" --image-bg #494D54 -C ~/.fonts -e static/RobotoMono-Bold/20'
 alias conky="conky -c ~/.config/conky/process.conf"
+alias uomfa='python ~/Miscellaneous/uottawa_otp.py'
 
 # Git
 alias gcl='git clone'
