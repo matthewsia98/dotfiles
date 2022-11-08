@@ -62,6 +62,7 @@ alias ll='lsd -alh'
 alias mkdir='mkdir -pv'
 alias cat='bat'
 alias rg='rg -S'
+alias tree='tree -CF'
 alias logout='loginctl terminate-user $USER'
 alias suspend='systemctl suspend'
 
@@ -151,7 +152,10 @@ _fzf_compgen_dir() {
 source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
+
+# Node Version Manager
 source /usr/share/nvm/init-nvm.sh
+
 
 # neofetch
 pfetch
