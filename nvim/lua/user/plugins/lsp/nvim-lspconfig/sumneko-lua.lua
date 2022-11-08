@@ -29,6 +29,7 @@ lspconfig['sumneko_lua'].setup {
                     'plugged',
                 },
                 useGitIgnore = true,
+                checkThirdParty = false,
             },
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {
