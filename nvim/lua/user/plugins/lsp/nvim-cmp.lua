@@ -1,6 +1,7 @@
 local installed, cmp = pcall(require, 'cmp')
 
 if installed then
+    local keys = require('user.keymaps')
     local luasnip = require('luasnip')
     local lspkind = require('lspkind')
 
@@ -109,7 +110,7 @@ if installed then
                     fallback()
                 end
             end, { 'i', 'c' }),
-            ['<C-Space>'] = cmp.mapping(function()
+            ['<C-Space>'] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     local entry = cmp.get_selected_entry()
                     if not entry then
@@ -118,7 +119,8 @@ if installed then
                         cmp.close()
                     end
                 else
-                    cmp.complete()
+                    -- vim.cmd [[ call copilot#Accept() ]]
+                    fallback()
                 end
             end, { 'i', 'c' }),
             ['<C-c>'] = cmp.mapping(function(fallback)
@@ -131,6 +133,7 @@ if installed then
                     -- end
                     cmp.abort()
                 else
+                    -- vim.cmd [[ call copilot#Dismiss() ]]
                     fallback()
                 end
             end, { 'i', 'c' }),

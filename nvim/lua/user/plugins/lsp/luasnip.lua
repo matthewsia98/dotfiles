@@ -22,11 +22,33 @@ if installed then
     })
 
     local keys = require('user.keymaps')
-    keys.map({ 'i', 's' }, '<C-u>', '<cmd>lua require("luasnip.extras.select_choice")()<CR>')
-    keys.map({ 'i', 's' }, '<C-l>', function() if luasnip.jumpable(1) then luasnip.jump(1) end end)
-    keys.map({ 'i', 's' }, '<C-h>', function() if luasnip.jumpable(-1) then luasnip.jump(-1) end end)
-    keys.map({ 'i', 's' }, '<C-n>', '<Plug>luasnip-next-choice')
-    keys.map({ 'i', 's' }, '<C-p>', '<Plug>luasnip-prev-choice')
+    keys.map({ 'i', 's' }, '<C-u>', function()
+        require('luasnip.extras.select_choice')()
+    end)
+    keys.map({ 'i', 's' }, '<C-l>', function()
+        if luasnip.jumpable(1) then
+            luasnip.jump(1)
+        end
+    end)
+    keys.map({ 'i', 's' }, '<C-h>', function()
+        if luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+        end
+    end)
+    keys.map({ 'i', 's' }, '<C-n>', function()
+        if luasnip.choice_active() then
+            luasnip.change_choice(1)
+        else
+            vim.cmd [[ call copilot#Next() ]]
+        end
+    end)
+    keys.map({ 'i', 's' }, '<C-p>',function()
+        if luasnip.choice_active() then
+            luasnip.change_choice(-1)
+        else
+            vim.cmd [[ call copilot#Previous() ]]
+        end
+    end)
     -- Deleting insert node default puts you back in Normal mode
     -- <C-G> changes to VISUAL, s clears and enters INSERT
     keys.map('s', '<BS>', '<C-G>s')

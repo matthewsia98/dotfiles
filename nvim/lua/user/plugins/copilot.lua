@@ -1,5 +1,8 @@
 local keys = require('user.keymaps')
 
-keys.map('i', '<M-[>', '<Plug>(copilot-previous)')
-keys.map('i', '<M-]>', '<Plug>(copilot-next)')
-keys.map('i', '<M-Space>', '<Plug>(copilot-dismiss)')
+-- Next and Prev mappings in ~/.config/nvim/lua/user/plugins/lsp/luasnip.lua
+vim.cmd [[ imap <silent><script><expr> <C-Space> copilot#Accept("\<CR>") ]]
+keys.map('i', '<C-c>', function()
+    vim.cmd [[ call copilot#Dismiss() ]]
+end)
+vim.g.copilot_no_tab_map = true
