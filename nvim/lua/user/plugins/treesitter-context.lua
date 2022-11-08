@@ -43,10 +43,10 @@ if installed then
         separator = nil,
     }
 
-    vim.cmd [[highlight TreesitterContext guibg=#5B6078]]
-    local cp_installed, cp = pcall(require, 'catppuccin.palettes')
-    if cp_installed then
-        cp = cp.get_palette()
-        vim.cmd('highlight TreesitterContextLineNumber guibg=#5B6078 guifg=' .. cp.lavender)
+    local palettes_installed, palettes = pcall(require, 'catppuccin.palettes')
+    if palettes_installed then
+        local palette = palettes.get_palette()
+    --     vim.cmd('highlight TreesitterContext guibg=' .. palette.crust)
+        vim.cmd('highlight TreesitterContextLineNumber guibg='.. palette.crust .. ' guifg=' .. palette.lavender)
     end
 end
