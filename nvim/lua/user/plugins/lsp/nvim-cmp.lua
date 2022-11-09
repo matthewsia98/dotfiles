@@ -1,7 +1,6 @@
 local installed, cmp = pcall(require, 'cmp')
 
 if installed then
-    local keys = require('user.keymaps')
     local luasnip = require('luasnip')
     local lspkind = require('lspkind')
 
@@ -171,9 +170,9 @@ if installed then
 
     -- -- Scrollbar
     -- vim.cmd [[highlight PmenuThumb guibg=#C5CDD9 guifg=NONE]]
-    --
+
     -- -- Prompt Menu
-    vim.cmd [[highlight default link CmpPmenu NormalFloat]]
+    -- vim.cmd [[highlight default link CmpPmenu NormalFloat]]
     -- vim.cmd [[highlight CmpPmenu guibg=#1E1E2E guifg=#89B4FA]] -- completion menu background (guibg) and border (guifg)
     -- vim.cmd [[highlight PmenuSel guibg=#6E738D guifg=NONE]]
 

@@ -53,12 +53,12 @@ if installed then
             swap = {
                 enable = true,
                 swap_next = {
-                    ['snp'] = '@parameter.inner',
-                    ['snf'] = '@function.outer',
+                    ['mm'] = '@parameter.inner',
+                    -- ['snf'] = '@function.outer',
                 },
                 swap_previous = {
-                    ['spp'] = '@parameter.inner',
-                    ['spf'] = '@function.outer',
+                    ['nn'] = '@parameter.inner',
+                    -- ['spf'] = '@function.outer',
                 },
             },
             move = {
