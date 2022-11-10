@@ -99,6 +99,8 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="bg=#494D64,fg=#CAD3F5,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
+# source ~/repos/zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+
 autoload -Uz compinit
 compinit
 zstyle ':completion:*' menu select
@@ -159,5 +161,5 @@ source /usr/share/fzf/key-bindings.zsh
 source /usr/share/nvm/init-nvm.sh
 
 
-# neofetch
-pfetch
+neofetch
+# pfetch

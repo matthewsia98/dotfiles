@@ -17,6 +17,9 @@ opt.showmode = false
 -- Disable commandline completion
 opt.wildmenu = false
 
+-- Make _ a word boundary
+opt.iskeyword = '@,48-57,192-255'
+
 -- Don't show conceal on cursor line in these modes
 opt.concealcursor = 'nvi'
 -- Don't conceal

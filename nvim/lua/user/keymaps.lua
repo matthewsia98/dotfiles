@@ -74,8 +74,8 @@ map('n', '<F12>',
 )
 
 -- Line Text Objects
-map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>', { desc = 'inner line' })
-map({'o', 'x'}, 'al', ':<C-u>normal! 0v$<CR>', { desc = 'a line (with whitespace)' })
+-- map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>', { desc = 'inner line' })
+-- map({'o', 'x'}, 'al', ':<C-u>normal! 0v$<CR>', { desc = 'a line (with whitespace)' })
 
 -- Colemak
 -- map('i', 'e', 'f')

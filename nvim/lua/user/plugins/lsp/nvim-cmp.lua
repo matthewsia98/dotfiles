@@ -136,10 +136,13 @@ if installed then
                     fallback()
                 end
             end, { 'i', 'c' }),
-            ['<CR>'] = cmp.mapping.confirm({
-                -- behavior = cmp.ConfirmBehavior.Insert,
-                select = false
-            }),
+            ['<CR>'] = cmp.mapping(function(fallback)
+                -- if cmp.visible() then
+                --     cmp.confirm({ select = false })
+                fallback()
+                -- end
+            end
+            ),
         },
         sources = {
             -- Order Matters! OR explicitly set priority

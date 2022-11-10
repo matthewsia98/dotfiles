@@ -191,7 +191,7 @@ packer.startup({function(use)
     -- Visuals --
     use {
         'norcalli/nvim-colorizer.lua',
-        event = 'CursorHold',
+        event = 'BufRead',
         config = function()
             require('user.plugins.nvim-colorizer')
         end,
