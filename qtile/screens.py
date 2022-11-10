@@ -5,11 +5,12 @@ from libqtile.config import Screen
 from libqtile.bar import Bar
 from qtile_extras import widget
 from qtile_extras.widget.decorations import RectDecoration
+# from libqtile.log_utils import logger
 
 
 widget_defaults = dict(
     font='Roboto Mono Medium',
-    fontsize=18,
+    fontsize=20,
     padding=0,
     margin=0,
     # background=COLORS["transparent"],
@@ -24,7 +25,7 @@ screens = [
     Screen(
         top=Bar(
             widgets=[
-                widget.Spacer(length=20),
+                widget.Spacer(length=5),
                 widget.CurrentLayoutIcon(
                     scale=0.7,
                     use_mask=True,
@@ -73,6 +74,9 @@ screens = [
                     this_current_screen_border=COLORS["crust"],  # block fill color
                     block_highlight_text_color=COLORS["text"],  # block text color
                     active=COLORS['crust'],  # text color
+                    urgent_alert_method='block',
+                    urgent_border=COLORS['red'],
+                    urgent_text=COLORS['crust'],
                     spacing=4,
                     margin_x=6,
                     margin_y=3,  # push labels down
@@ -82,7 +86,8 @@ screens = [
                         RectDecoration(
                             colour=COLORS['lavender'],
                             radius=6,
-                            filled=True
+                            filled=True,
+                            group=True
                         )
                     ]
                 ),
@@ -90,17 +95,20 @@ screens = [
                 widget.CheckUpdates(
                     display_format='\ueb9a {updates}',
                     no_update_string="\ueaa2 0",
-                    colour_have_updates=COLORS['crust'],
-                    colour_no_updates=COLORS['crust'],
+                    colour_have_updates=COLORS['red'],
+                    colour_no_updates=COLORS['green'],
                     update_interval=60,
+                    execute='~/.shell-scripts/qtile/check_updates.sh',
                     padding=8,
                     decorations=[
                         RectDecoration(
-                            colour=COLORS['red'],
+                            colour=COLORS['surface2'],
                             radius=6,
-                            filled=True
+                            filled=True,
+                            group=True
                         )
-                    ]
+                    ],
+                    name='updateswidget'
                 ),
                 widget.Spacer(),
                 widget.Clock(
@@ -279,7 +287,7 @@ screens = [
                     mouse_callbacks={'Button1': toggle_widgetbox(2)},
                     name='widgetbox2'
                 ),
-                widget.Spacer(length=20),
+                widget.Spacer(length=5),
             ],
             size=40,
             # margin=[0, 10, 0, 10],

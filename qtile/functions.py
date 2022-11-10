@@ -15,9 +15,9 @@ def startup():
         widgetbox2.cmd_toggle()
 
     if widgetbox1.box_is_open:
-        widgetbox_spacer.width = 0
+        widgetbox_spacer.length = 0
     else:
-        widgetbox_spacer.width = 20
+        widgetbox_spacer.length = 20
 
 
 def is_muted():
