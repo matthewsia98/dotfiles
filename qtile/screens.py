@@ -336,7 +336,10 @@ screens = [
                             ],
                             name='wifiwidget',
                             expanded_timeout=3,
-                            mouse_callbacks={'Button1': toggle_program('connman-gtk'), 'Button3': show_wifi_text()}
+                            mouse_callbacks={
+                                'Button1': show_wifi_text(),
+                                'Button3': toggle_program('connman-gtk'),
+                            }
                         ),
                         widget.Spacer(length=10),
                         widget.UPowerWidget(
@@ -363,8 +366,8 @@ screens = [
                             ],
                             name='batterywidget',
                             mouse_callbacks={
-                                'Button1': lazy.spawn(os.path.expanduser("~/.shell-scripts/qtile/check_battery.sh")),
-                                'Button3': show_battery_text(),
+                                'Button1': show_battery_text(),
+                                'Button3': lazy.spawn(os.path.expanduser("~/.shell-scripts/qtile/check_battery.sh")),
                             }
                         ),
                         # widget.Battery(
@@ -416,6 +419,6 @@ screens = [
             opacity=1.0,
         ),
         wallpaper='~/.config/qtile/wallpapers/cat-sound.png',
-        wallpaper_mode='stretch',
+        wallpaper_mode='fill',
     )
 ]
