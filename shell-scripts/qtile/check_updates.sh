@@ -1,4 +1,5 @@
 #!/bin/zsh
 
-updates=$(pacman -Qu)
-dunstify "Updates" "$updates" -t 3000
+updates=$(checkupdates)
+n=$(echo "$updates" | wc -l)
+dunstify "$updates" -t $((n * 1000))
