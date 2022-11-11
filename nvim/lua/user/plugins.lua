@@ -77,7 +77,7 @@ packer.startup({function(use)
 
     use {
         'catppuccin/nvim',
-        event = 'BufEnter',
+        -- event = 'BufEnter',
         config = function()
             require('user.plugins.catppuccin')
         end,
@@ -102,7 +102,7 @@ packer.startup({function(use)
     -- Treesitter --
     use {
         'nvim-treesitter/nvim-treesitter',
-        event = "CursorHold",
+        event = "BufRead",
         run = function()
             require('nvim-treesitter.install').update({ with_sync = true })
         end,
@@ -209,7 +209,7 @@ packer.startup({function(use)
     -- Editing --
     use {
         'numToStr/Comment.nvim',
-        event = 'BufRead',
+        event = 'CursorHold',
         config = function()
             require('user.plugins.Comment')
         end,
@@ -217,7 +217,7 @@ packer.startup({function(use)
 
     use {
         'kylechui/nvim-surround',
-        event = 'BufRead',
+        event = 'CursorHold',
         config = function()
             require('user.plugins.nvim-surround')
         end,
@@ -235,7 +235,7 @@ packer.startup({function(use)
     -- Git --
     use {
         'lewis6991/gitsigns.nvim',
-        event = 'BufRead',
+        event = 'CursorHold',
         config = function()
             require('user.plugins.gitsigns')
         end,
@@ -243,7 +243,7 @@ packer.startup({function(use)
 
     use {
         'rhysd/git-messenger.vim',
-        event = 'BufRead',
+        event = 'CursorHold',
         config = function()
             require('user.plugins.git-messenger')
         end,

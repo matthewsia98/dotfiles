@@ -63,6 +63,7 @@ opt.shiftwidth = 0 -- If 0, tabstop value if used
 opt.softtabstop = -1 -- If negative, shiftwidth value is used
 
 opt.list = true
+-- opt.listchars = 'trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
 opt.listchars = 'lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
 
 -- Makes neovim and host OS clipboard play nicely with each other

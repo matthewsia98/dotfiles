@@ -2,44 +2,6 @@ local installed, noice = pcall(require, 'noice')
 
 if installed then
     noice.setup({
-        views = {
-            mini = {
-                position = {
-                    row = '90%',
-                    col = '100%',
-                },
-            },
-            cmdline_popup = {
-                position = {
-                    row = '30%',
-                    col = '50%',
-                },
-                size = {
-                    width = '40%',
-                    height = 'auto',
-                },
-            },
-        },
-        cmdline = {
-            enabled = true,
-            view = 'cmdline_popup',
-        },
-        messages = {
-            enabled = false,
-            -- view = 'messages',
-        },
-        lsp = {
-            progress = {
-                enabled = true,
-                view = 'mini',
-            },
-            signature = {
-                enabled = false,
-            },
-            hover = {
-                enabled = false,
-            },
-        },
         routes = {
             {
                 filter = {
@@ -72,6 +34,48 @@ if installed then
                     find = 'lines?',
                 },
                 opts = { skip = true },
+            },
+        },
+        views = {
+            mini = {
+                position = {
+                    row = '90%',
+                    col = '100%',
+                },
+            },
+            cmdline_popup = {
+                position = {
+                    row = '30%',
+                    col = '50%',
+                },
+                size = {
+                    width = '40%',
+                    height = 'auto',
+                },
+            },
+        },
+        cmdline = {
+            enabled = true,
+            view = 'cmdline_popup',
+        },
+        messages = {
+            enabled = true,
+            view = 'messages',
+            view_warn = 'messages',
+            view_error = 'messages',
+            view_history = 'messages',
+            view_search = 'virtualtext',
+        },
+        lsp = {
+            progress = {
+                enabled = true,
+                view = 'mini',
+            },
+            signature = {
+                enabled = false,
+            },
+            hover = {
+                enabled = false,
             },
         },
     })
