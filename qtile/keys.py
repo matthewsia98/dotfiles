@@ -37,6 +37,8 @@ keys = [
     Key([mod], 'l', lazy.layout.right(), desc='Move focus to right'),
     Key([mod], 'j', lazy.layout.down(), desc='Move focus down'),
     Key([mod], 'k', lazy.layout.up(), desc='Move focus up'),
+    Key([mod], 'n', lazy.layout.group.next_window(), desc='Move focus to next window'),
+    Key([mod], 'p', lazy.layout.group.prev_window(), desc='Move focus to previous window'),
 
     # Toggle WidgetBoxes
     Key([mod, 'shift'], '1', toggle_widgetbox(1)),

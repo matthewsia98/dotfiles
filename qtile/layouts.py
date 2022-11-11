@@ -6,10 +6,11 @@ from libqtile.config import Match
 layouts = [
     layout.Columns(
         insert_position=1,  # insert below
+        num_columns=2,
         margin_on_single=0,
-        margin=5,
-        border_width=2,
-        border_normal=COLORS['base'],
+        margin=10,
+        border_width=4,
+        border_normal=COLORS['text'],
         border_focus=COLORS['blue'],
         name='Columns'
     ),
@@ -20,7 +21,7 @@ layouts = [
         single_border_width=0,
         single_margin=0,
         margin=10,
-        border_width=2,
+        border_width=4,
         border_normal=COLORS['base'],
         border_focus=COLORS['blue'],
         name='MonadTall'
@@ -53,5 +54,5 @@ floating_layout = layout.Floating(
     ],
     border_normal=COLORS['base'],
     border_focus=COLORS['blue'],
-    border_width=1,
+    border_width=4,
 )

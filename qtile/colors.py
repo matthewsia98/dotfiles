@@ -12,6 +12,7 @@ COLORS = {
     'sky': '#89DCEB',
     'sapphire': '#74C7EC',
     'blue': '#89B4FA',
+    'darkblue': '#545AA7',
     'lavender': '#B4BEFE',
     'text': '#CDD6F4',
     'subtext1': '#BAC2DE',
