@@ -1,8 +1,9 @@
-/nvim/plugged
-/nvim/plugin
+/nvim/plugged/
+/nvim/plugin/
+/pcmanfm/
 # .flake8
 # .luacheckrc
 # .luarc.json
 # .mypy.ini
 # .stylua.toml
-/qtile/__pycache__
+/qtile/__pycache__/
