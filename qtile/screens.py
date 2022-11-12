@@ -1,6 +1,6 @@
 import os
 from colors import COLORS
-from functions import toggle_program, toggle_widgetbox, show_text, show_text, toggle_conky
+from functions import toggle_program, toggle_widgetbox, show_text, toggle_conky
 from libqtile.config import Screen
 from libqtile.bar import Bar
 from qtile_extras import widget
@@ -181,6 +181,13 @@ screens = [
                     ],
                     name='updateswidget'
                 ),
+                # widget.Spacer(length=10),
+                # widget.Prompt(
+                #     prompt='> ',
+                #     foreground=COLORS['text'],
+                #     cursor_color=COLORS['text'],
+                #     name='promptwidget'
+                # ),
                 widget.Spacer(),
                 widget.Clock(
                     format="%A, %B %-d %H:%M:%S",

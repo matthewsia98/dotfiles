@@ -23,6 +23,17 @@ def startup():
         musicwidget.text = '\uf001 No Music Playing \uf001'
 
 
+# @hook.subscribe.client_new
+# def client_new(window):
+#     logger.warning(dir(window))
+#     logger.warning(window.floating)
+#     wm_class = window.get_wm_class()
+#     if wm_class == "Conky" and not window.floating:
+#         window.toggle_floating()
+#         window.cmd_set_size_floating(800, 800)
+#     logger.warning(window.floating)
+
+
 def is_muted():
     output = str(subprocess.check_output(["pactl", "get-sink-mute", "@DEFAULT_SINK@"]))
     return "yes" in output
@@ -124,3 +135,12 @@ def toggle_conky(qtile):
         qtile.cmd_spawn(os.path.expanduser("~/.shell-scripts/conky/launch-all.sh"))
     else:
         subprocess.run(["killall", 'conky'])
+
+
+@lazy.function
+def open_prompt(qtile):
+    def callback(text):
+        qtile.cmd_spawn(text)
+
+    promptwidget = qtile.widgets_map.get('promptwidget')
+    promptwidget.start_input('', callback)

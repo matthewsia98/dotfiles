@@ -1,4 +1,4 @@
-from libqtile.config import Group
+from libqtile.config import Group, Match
 
 
 groups = [

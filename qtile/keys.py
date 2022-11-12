@@ -1,7 +1,7 @@
 from groups import groups
 from libqtile.config import Key
 from libqtile.lazy import lazy
-from functions import grow_window, toggle_floating, toggle_widgetbox
+from functions import grow_window, toggle_floating, toggle_widgetbox, open_prompt
 
 
 # 1: alt    4: super
@@ -50,6 +50,7 @@ keys = [
     Key([mod], "r", lazy.spawn("rofi -show drun"), desc="Spawn a command using a prompt widget"),
     Key([mod], 'f', lazy.spawn('pcmanfm'), desc='Launch file manager'),
 
+    Key([mod], '0', open_prompt(), desc='Open prompt'),
     Key([mod], 'Tab', lazy.next_layout(), desc='Toggle through layouts'),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
 ]
