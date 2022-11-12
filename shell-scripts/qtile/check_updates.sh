@@ -2,4 +2,4 @@
 
 updates=$(checkupdates)
 n=$(echo "$updates" | wc -l)
-dunstify "$updates" -t $((n * 1000))
+dunstify "UPDATES" "$updates" -t $((n * 1000))
