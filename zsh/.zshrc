@@ -85,6 +85,7 @@ alias gpl='git pull'
 alias gp='git push'
 alias gco='git checkout'
 alias gd='git diff'
+alias grm='git rm -r --cached'
 
 # Pacman
 alias pac='sudo pacman'
