@@ -226,10 +226,18 @@ packer.startup({function(use)
 
     use {
         'windwp/nvim-autopairs',
-        event = 'InsertCharPre',
-        after = 'nvim-cmp',
+        -- event = 'InsertCharPre',
+        -- after = 'nvim-cmp',
         config = function()
             require('user.plugins.nvim-autopairs')
+        end,
+    }
+
+    use {
+        'Vimjas/vim-python-pep8-indent',
+        ft = 'python',
+        config = function()
+            require('user.plugins.vim-python-pep8-indent')
         end,
     }
 
@@ -307,7 +315,8 @@ packer.startup({function(use)
                     require('user.plugins.lsp.mason-lspconfig')
                 end,
             },
-            { 'neovim/nvim-lspconfig',
+            {
+                'neovim/nvim-lspconfig',
                 after = 'mason-lspconfig.nvim',
                 requires = {
                     'hrsh7th/cmp-nvim-lsp'
@@ -340,13 +349,14 @@ packer.startup({function(use)
     --     end
     -- }
 
-    use {
-        '~/.config/nvim/my-plugins/python-docstring-generator.nvim',
-        after = 'nvim-treesitter',
-        config = function()
-            require('user.plugins.python-docstring-generator')
-        end,
-    }
+    -- use {
+    --     '~/.config/nvim/my-plugins/python-docstring-generator.nvim',
+    --     after = 'nvim-treesitter',
+    --     -- ft = 'python',
+    --     config = function()
+    --         require('user.plugins.python-docstring-generator')
+    --     end,
+    -- }
 
     if packer_bootstrap then
         packer.sync()

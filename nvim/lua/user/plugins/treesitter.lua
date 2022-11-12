@@ -9,13 +9,14 @@ if installed then
             'lua',
             'python',
             'comment',
+            'bash',
         },
         highlight = {
             enable = true,
             additional_vim_regex_highlighting = false,
         },
         indent = {
-            enable = true,
+            enable = false,
             disable = { 'python' },
         },
         incremental_selection = {

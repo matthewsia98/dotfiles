@@ -4,6 +4,11 @@ if installed then
     local luasnip = require('luasnip')
     local lspkind = require('lspkind')
 
+    cmp.event:on(
+        'confirm_done',
+        require('nvim-autopairs.completion.cmp').on_confirm_done()
+    )
+
     cmp.setup {
         -- preselect = cmp.PreselectMode.None, -- breaks cmp signature help
         completion = {
@@ -137,10 +142,11 @@ if installed then
                 end
             end, { 'i', 'c' }),
             ['<CR>'] = cmp.mapping(function(fallback)
-                -- if cmp.visible() then
-                --     cmp.confirm({ select = false })
-                fallback()
-                -- end
+                if cmp.visible() and cmp.get_selected_entry() then
+                    cmp.confirm({ select = false })
+                else
+                    fallback()
+                end
             end
             ),
         },
