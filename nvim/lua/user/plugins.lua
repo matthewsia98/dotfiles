@@ -50,7 +50,8 @@ packer.startup({function(use)
     }
 
     use {
-        'folke/noice.nvim',
+        -- 'folke/noice.nvim',
+        '~/repos/noice.nvim',
         requires = {
             'MunifTanjim/nui.nvim',
             {
@@ -60,7 +61,7 @@ packer.startup({function(use)
                 end
             },
         },
-        rocks = 'luautf8',
+        -- rocks = 'luautf8',
         after = 'nvim-cmp',
         config = function()
             require('user.plugins.noice')

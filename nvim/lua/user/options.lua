@@ -14,6 +14,8 @@ opt.termguicolors = true
 -- Don't show -- MODE --
 opt.showmode = false
 
+opt.cmdheight = 1
+
 -- Disable commandline completion
 opt.wildmenu = false
 

@@ -89,11 +89,11 @@ if installed then
         },
         mapping = {
             ['<Tab>'] = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    cmp.select_next_item()
-                else
-                    fallback()
-                end
+                -- if cmp.visible() then
+                --     cmp.select_next_item()
+                -- else
+                fallback()
+                -- end
             end, {'c'}),
             ['<C-n>'] = cmp.mapping(function(fallback)
                 if cmp.visible() then
@@ -110,17 +110,17 @@ if installed then
                 end
             end, { 'i', 'c' }),
             ['<C-Space>'] = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    local entry = cmp.get_selected_entry()
-                    if not entry then
-                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                        cmp.confirm()
-                        cmp.close()
-                    end
-                else
+                -- if cmp.visible() then
+                --     local entry = cmp.get_selected_entry()
+                --     if not entry then
+                --         cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                --         cmp.confirm()
+                --         cmp.close()
+                --     end
+                -- else
                     -- vim.cmd [[ call copilot#Accept() ]]
-                    fallback()
-                end
+                fallback()
+                -- end
             end, { 'i', 'c' }),
             ['<C-c>'] = cmp.mapping(function(fallback)
                 if cmp.visible() then
