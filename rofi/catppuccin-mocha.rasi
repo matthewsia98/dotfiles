@@ -1,12 +1,12 @@
 * {
-    bg-col:  #24273a;
-    bg-col-light: #24273a;
-    border-col: #24273a;
-    selected-col: #24273a;
-    blue: #8aadf4;
-    fg-col: #cad3f5;
-    fg-col2: #ed8796;
-    grey: #6e738d;
+    bg-col:  #1e1e2e;
+    bg-col-light: #1e1e2e;
+    border-col: #1e1e2e;
+    selected-col: #1e1e2e;
+    blue: #89b4fa;
+    fg-col: #cdd6f4;
+    fg-col2: #f38ba8;
+    grey: #6c7086;
 
     width: 1400px;
     font: "RobotoMono Nerd Font 24";
@@ -65,13 +65,13 @@ listview {
 }
 
 element {
-    padding: 20px;
+    padding: 5px;
     background-color: @bg-col;
     text-color: @fg-col  ;
 }
 
 element-icon {
-    size: 40px;
+    size: 25px;
 }
 
 element selected {
@@ -81,7 +81,7 @@ element selected {
 
 mode-switcher {
     spacing: 0;
-}
+  }
 
 button {
     padding: 10px;
@@ -92,6 +92,6 @@ button {
 }
 
 button selected {
-  background-color: @blue;
-  text-color: @fg-col;
+  background-color: @bg-col;
+  text-color: @blue;
 }
