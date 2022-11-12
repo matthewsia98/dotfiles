@@ -109,15 +109,12 @@ def toggle_widgetbox(qtile, n):
 
 
 @lazy.function
-def show_wifi_text(qtile):
-    wifiwidget = qtile.widgets_map.get("wifiwidget")
-    wifiwidget.cmd_show_text()
-
-
-@lazy.function
-def show_battery_text(qtile):
-    batterywidget = qtile.widgets_map.get("batterywidget")
-    batterywidget.toggle_text()
+def show_text(qtile, name):
+    widget = qtile.widgets_map.get(name)
+    if name == 'wifiwidget':
+        widget.cmd_show_text()
+    elif name == 'batterywidget':
+        widget.toggle_text()
 
 
 @lazy.function

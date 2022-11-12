@@ -1,6 +1,6 @@
 import os
 from colors import COLORS
-from functions import toggle_program, toggle_widgetbox, show_wifi_text, show_battery_text, toggle_conky
+from functions import toggle_program, toggle_widgetbox, show_text, show_text, toggle_conky
 from libqtile.config import Screen
 from libqtile.bar import Bar
 from qtile_extras import widget
@@ -21,6 +21,7 @@ widget_defaults = dict(
 WIDGETBOX1_COLOR = 'pink'
 WIDGETBOX2_COLOR = 'peach'
 BAR_BACKGROUND_COLOR = 'surface0'
+RECT_DECORATION_RADIUS = 8
 
 screens = [
     Screen(
@@ -30,12 +31,12 @@ screens = [
                 widget.CurrentLayoutIcon(
                     scale=0.7,
                     use_mask=True,
-                    # foreground=[COLORS['green']],
+                    foreground=[COLORS['text']],
                     padding=8,
                     decorations=[
                         RectDecoration(
-                            colour=COLORS['blue'],
-                            radius=6,
+                            colour=COLORS[BAR_BACKGROUND_COLOR],
+                            radius=RECT_DECORATION_RADIUS,
                             filled=True,
                             group=True,
                         )
@@ -46,7 +47,7 @@ screens = [
                 #     decorations=[
                 #         RectDecoration(
                 #             colour=COLORS['blue'],
-                #             radius=6,
+                #             radius=RECT_DECORATION_RADIUS,
                 #             filled=True,
                 #             group=True,
                 #         )
@@ -54,16 +55,18 @@ screens = [
                 # ),
                 widget.WindowCount(
                     text_format='{num}',
-                    show_zero=False,
+                    show_zero=True,
+                    foreground=COLORS['text'],
                     padding=8,
                     decorations=[
                         RectDecoration(
-                            colour=COLORS['blue'],
-                            radius=6,
+                            colour=COLORS[BAR_BACKGROUND_COLOR],
+                            radius=RECT_DECORATION_RADIUS,
                             filled=True,
                             group=True,
                         )
-                    ]
+                    ],
+                    name='windowcountwidget',
                 ),
                 # widget.WindowName(
                 #     format='{state} {name}',
@@ -74,21 +77,21 @@ screens = [
                 #     decorations=[
                 #         RectDecoration(
                 #             colour=COLORS['blue'],
-                #             radius=6,
+                #             radius=RECT_DECORATION_RADIUS,
                 #             filled=True,
                 #             group=True,
                 #         )
                 #     ]
                 # ),
-                widget.Spacer(length=20),
+                widget.Spacer(length=10),
                 widget.GroupBox(
                     hide_unused=True,
                     disable_drag=True,
                     toggle=False,
                     highlight_method='block',
                     borderwidth=4,
-                    this_current_screen_border=COLORS["green"],  # block fill color
-                    block_highlight_text_color=COLORS["crust"],  # block text color
+                    this_current_screen_border=COLORS[BAR_BACKGROUND_COLOR],  # block fill color
+                    block_highlight_text_color=COLORS["text"],  # block text color
                     active=COLORS['crust'],  # text color
                     urgent_alert_method='block',
                     urgent_border=COLORS['red'],
@@ -101,7 +104,7 @@ screens = [
                     decorations=[
                         RectDecoration(
                             colour=COLORS['lavender'],
-                            radius=6,
+                            radius=RECT_DECORATION_RADIUS,
                             filled=True,
                             # group=True
                         )
@@ -128,7 +131,7 @@ screens = [
                 #     decorations=[
                 #         RectDecoration(
                 #             colour=COLORS['yellow'],
-                #             radius=6,
+                #             radius=RECT_DECORATION_RADIUS,
                 #             filled=True
                 #         )
                 #     ]
@@ -152,7 +155,7 @@ screens = [
                     decorations=[
                         RectDecoration(
                             colour=COLORS['yellow'],
-                            radius=6,
+                            radius=RECT_DECORATION_RADIUS,
                             filled=True
                         )
                     ],
@@ -171,7 +174,7 @@ screens = [
                     decorations=[
                         RectDecoration(
                             colour=COLORS[BAR_BACKGROUND_COLOR],
-                            radius=6,
+                            radius=RECT_DECORATION_RADIUS,
                             filled=True,
                             # group=True
                         )
@@ -185,7 +188,7 @@ screens = [
                     decorations=[
                         RectDecoration(
                             colour=COLORS['mauve'],
-                            radius=6,
+                            radius=RECT_DECORATION_RADIUS,
                             filled=True
                         )
                     ]
@@ -201,7 +204,7 @@ screens = [
                             decorations=[
                                 RectDecoration(
                                     colour=COLORS['green'],
-                                    radius=6,
+                                    radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
@@ -215,7 +218,7 @@ screens = [
                             decorations=[
                                 RectDecoration(
                                     colour=COLORS['peach'],
-                                    radius=6,
+                                    radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
@@ -231,7 +234,7 @@ screens = [
                             decorations=[
                                 RectDecoration(
                                     colour=COLORS['lavender'],
-                                    radius=6,
+                                    radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
@@ -248,7 +251,7 @@ screens = [
                             decorations=[
                                 RectDecoration(
                                     colour=COLORS['yellow'],
-                                    radius=6,
+                                    radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
@@ -263,7 +266,7 @@ screens = [
                     decorations=[
                         RectDecoration(
                             colour=COLORS[WIDGETBOX1_COLOR],
-                            radius=6,
+                            radius=RECT_DECORATION_RADIUS,
                             filled=True,
                             # group=True
                         )
@@ -281,7 +284,7 @@ screens = [
                             decorations=[
                                 RectDecoration(
                                     colour=COLORS['peach'],
-                                    radius=6,
+                                    radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
@@ -296,7 +299,7 @@ screens = [
                             decorations=[
                                 RectDecoration(
                                     colour=COLORS['lavender'],
-                                    radius=6,
+                                    radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
@@ -311,7 +314,7 @@ screens = [
                             decorations=[
                                 RectDecoration(
                                     colour=COLORS[BAR_BACKGROUND_COLOR],
-                                    radius=6,
+                                    radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
@@ -329,7 +332,7 @@ screens = [
                             decorations=[
                                 RectDecoration(
                                     colour=COLORS[BAR_BACKGROUND_COLOR],
-                                    radius=6,
+                                    radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
@@ -337,7 +340,7 @@ screens = [
                             name='wifiwidget',
                             expanded_timeout=3,
                             mouse_callbacks={
-                                'Button1': show_wifi_text(),
+                                'Button1': show_text('wifiwidget'),
                                 'Button3': toggle_program('connman-gtk'),
                             }
                         ),
@@ -346,7 +349,7 @@ screens = [
                             battery_height=16,
                             battery_width=32,
                             text_discharging='({percentage:.0f}%) {tte} remaining',
-                            text_charging='({percentage:.0f}%) {ttf} remaining',
+                            text_charging='({percentage:.0f}%) {ttf} to full',
                             foreground=COLORS['text'],
                             fill_normal=COLORS['green'],
                             fill_low=COLORS['yellow'],
@@ -359,14 +362,14 @@ screens = [
                             decorations=[
                                 RectDecoration(
                                     colour=COLORS[BAR_BACKGROUND_COLOR],
-                                    radius=6,
+                                    radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
                             ],
                             name='batterywidget',
                             mouse_callbacks={
-                                'Button1': show_battery_text(),
+                                'Button1': show_text('batterywidget'),
                                 'Button3': lazy.spawn(os.path.expanduser("~/.shell-scripts/qtile/check_battery.sh")),
                             }
                         ),
@@ -381,7 +384,7 @@ screens = [
                         #     decorations=[
                         #         RectDecoration(
                         #             colour=COLORS['pink'],
-                        #             radius=6,
+                        #             radius=RECT_DECORATION_RADIUS,
                         #             filled=True,
                         #             group=True
                         #         )
@@ -397,7 +400,7 @@ screens = [
                     decorations=[
                         RectDecoration(
                             colour=COLORS[WIDGETBOX2_COLOR],
-                            radius=6,
+                            radius=RECT_DECORATION_RADIUS,
                             filled=True,
                             # group=True
                         )
@@ -408,10 +411,10 @@ screens = [
                 widget.Spacer(length=5),
             ],
             size=40,
-            # margin=[0, 10, 0, 10],
-            margin=10,
-            # border_width=[20, 20, 20, 20],
-            border_width=10,
+            margin=[10, 10, 10, 10],
+            # margin=10,
+            border_width=[10, 10, 10, 10],
+            # border_width=10,
             border_color=COLORS[BAR_BACKGROUND_COLOR],
             background=COLORS[BAR_BACKGROUND_COLOR],
             # border_color=COLORS['transparent'],
