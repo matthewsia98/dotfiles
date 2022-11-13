@@ -51,6 +51,10 @@ if [[ ! -d "$HOME/.config/sxhkd" ]] then
     ln -s ~/.dotfiles/sxhkd/ ~/.config/sxhkd
 fi
 
+if [[ ! -d "$HOME/.config/cava" ]] then
+    ln -s ~/.dotfiles/cava/ ~/.config/cava
+fi
+
 if [[ ! -a "$HOME/.Xmodmap" ]] then
     ln -s ~/.dotfiles/X/.Xmodmap ~/.Xmodmap
 fi
