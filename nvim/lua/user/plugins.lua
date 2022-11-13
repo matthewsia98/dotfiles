@@ -281,7 +281,8 @@ packer.startup({function(use)
     }
 
     use {
-        'hrsh7th/nvim-cmp',
+        -- 'hrsh7th/nvim-cmp',
+        'repos/nvim-cmp',
         -- event = 'CmdlineEnter',
         after = 'LuaSnip',
         requires = {
