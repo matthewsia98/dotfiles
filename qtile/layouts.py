@@ -3,27 +3,34 @@ from libqtile import layout
 from libqtile.config import Match
 
 
+BORDER_NORMAL_COLOR = 'text'
+BORDER_FOCUS_COLOR = 'blue'
+BORDER_WIDTH = 4
+MARGIN_WIDTH = 10
+
 layouts = [
     layout.Columns(
         insert_position=1,  # insert below
         num_columns=2,
+        border_on_single=True,
         margin_on_single=0,
-        margin=10,
-        border_width=4,
-        border_normal=COLORS['text'],
-        border_focus=COLORS['blue'],
+        margin=[0, 0, MARGIN_WIDTH, MARGIN_WIDTH],
+        border_width=BORDER_WIDTH,
+        border_normal=COLORS[BORDER_NORMAL_COLOR],
+        border_focus=COLORS[BORDER_FOCUS_COLOR],
         name='Columns'
     ),
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
     layout.MonadTall(
-        single_border_width=0,
+        new_client_position='after_current',
+        single_border_width=BORDER_WIDTH,
         single_margin=0,
-        margin=10,
-        border_width=4,
-        border_normal=COLORS['base'],
-        border_focus=COLORS['blue'],
+        margin=MARGIN_WIDTH,
+        border_width=BORDER_WIDTH,
+        border_normal=COLORS[BORDER_NORMAL_COLOR],
+        border_focus=COLORS[BORDER_FOCUS_COLOR],
         name='MonadTall'
     ),
     # layout.MonadWide(),
@@ -31,7 +38,14 @@ layouts = [
     # layout.RatioTile(),
     # layout.Tile(),
     # layout.TreeTab(),
-    # layout.VerticalTile(),
+    layout.VerticalTile(
+        border_focus=COLORS[BORDER_FOCUS_COLOR],
+        border_normal=COLORS[BORDER_NORMAL_COLOR],
+        border_width=BORDER_WIDTH,
+        single_border_width=BORDER_WIDTH,
+        single_margin=0,
+        margin=[0, 0, MARGIN_WIDTH, 0],
+    ),
     # layout.Zoomy(),
 ]
 
@@ -51,8 +65,9 @@ floating_layout = layout.Floating(
         Match(wm_class="Pavucontrol"),  # Audio Manager
         Match(wm_class="Conky"),  # System Monitor
         Match(wm_class="blueman-manager"),  # Bluetooth Manager
+        Match(wm_class="rofi"),
     ],
-    border_normal=COLORS['base'],
-    border_focus=COLORS['blue'],
-    border_width=4,
+    border_normal=COLORS[BORDER_NORMAL_COLOR],
+    border_focus=COLORS[BORDER_FOCUS_COLOR],
+    border_width=BORDER_WIDTH,
 )

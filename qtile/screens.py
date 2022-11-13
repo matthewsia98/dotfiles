@@ -18,9 +18,10 @@ widget_defaults = dict(
     foreground=COLORS['crust'],
 )
 
-WIDGETBOX1_COLOR = 'pink'
-WIDGETBOX2_COLOR = 'peach'
+WIDGETBOX1_COLOR = 'lavender'
+# WIDGETBOX2_COLOR = 'peach'
 BAR_BACKGROUND_COLOR = 'surface0'
+BAR_TEXT_COLOR = 'text'
 RECT_DECORATION_RADIUS = 8
 
 screens = [
@@ -31,7 +32,7 @@ screens = [
                 widget.CurrentLayoutIcon(
                     scale=0.7,
                     use_mask=True,
-                    foreground=[COLORS['text']],
+                    foreground=[COLORS[BAR_TEXT_COLOR]],
                     padding=8,
                     decorations=[
                         RectDecoration(
@@ -56,7 +57,7 @@ screens = [
                 widget.WindowCount(
                     text_format='{num}',
                     show_zero=True,
-                    foreground=COLORS['text'],
+                    foreground=COLORS[BAR_TEXT_COLOR],
                     padding=8,
                     decorations=[
                         RectDecoration(
@@ -184,8 +185,8 @@ screens = [
                 # widget.Spacer(length=10),
                 # widget.Prompt(
                 #     prompt='> ',
-                #     foreground=COLORS['text'],
-                #     cursor_color=COLORS['text'],
+                #     foreground=COLORS[BAR_TEXT_COLOR],
+                #     cursor_color=COLORS[BAR_TEXT_COLOR],
                 #     name='promptwidget'
                 # ),
                 widget.Spacer(),
@@ -240,7 +241,7 @@ screens = [
                             padding=8,
                             decorations=[
                                 RectDecoration(
-                                    colour=COLORS['lavender'],
+                                    colour=COLORS['blue'],
                                     radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
@@ -251,7 +252,7 @@ screens = [
                         widget.Spacer(length=10),
                         widget.DF(
                             format="\uf7c9 {uf}/{s}{m}",
-                            # foreground=COLORS['text'],
+                            # foreground=COLORS[BAR_TEXT_COLOR],
                             visible_on_warn=False,
                             update_interval=60,
                             padding=8,
@@ -305,7 +306,7 @@ screens = [
                             padding=16,
                             decorations=[
                                 RectDecoration(
-                                    colour=COLORS['lavender'],
+                                    colour=COLORS['blue'],
                                     radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
@@ -332,7 +333,7 @@ screens = [
                         widget.WiFiIcon(
                             interface='wlan0',
                             wifi_arc=75,
-                            foreground=COLORS['text'],
+                            foreground=COLORS[BAR_TEXT_COLOR],
                             active_colour=COLORS['blue'],
                             inactive_colour=COLORS['crust'],
                             padding=10,
@@ -357,7 +358,7 @@ screens = [
                             battery_width=32,
                             text_discharging='({percentage:.0f}%) {tte} remaining',
                             text_charging='({percentage:.0f}%) {ttf} to full',
-                            foreground=COLORS['text'],
+                            foreground=COLORS[BAR_TEXT_COLOR],
                             fill_normal=COLORS['green'],
                             fill_low=COLORS['yellow'],
                             fill_critical=COLORS['red'],
@@ -404,14 +405,14 @@ screens = [
                     text_closed="",
                     text_open="",
                     padding=8,
-                    decorations=[
-                        RectDecoration(
-                            colour=COLORS[WIDGETBOX2_COLOR],
-                            radius=RECT_DECORATION_RADIUS,
-                            filled=True,
-                            # group=True
-                        )
-                    ],
+                    # decorations=[
+                    #     RectDecoration(
+                    #         colour=COLORS[WIDGETBOX2_COLOR],
+                    #         radius=RECT_DECORATION_RADIUS,
+                    #         filled=True,
+                    #         # group=True
+                    #     )
+                    # ],
                     mouse_callbacks={'Button1': toggle_widgetbox(2)},
                     name='widgetbox2'
                 ),
