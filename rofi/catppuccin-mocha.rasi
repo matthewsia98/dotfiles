@@ -9,7 +9,6 @@
     grey: #6c7086;
 
     width: 1400px;
-    font: "RobotoMono Nerd Font 24";
 }
 
 element-text, element-icon , mode-switcher {
