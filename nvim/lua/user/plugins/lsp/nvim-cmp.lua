@@ -71,7 +71,7 @@ if installed then
             end,
         },
         experimental = {
-            ghost_text = true,
+            ghost_text = false,
         },
         window = {
             completion = {
@@ -115,17 +115,19 @@ if installed then
                 end
             end, { 'i', 'c' }),
             ['<C-Space>'] = cmp.mapping(function(fallback)
-                -- if cmp.visible() then
+                if cmp.visible() then
+                    cmp.close()
+                    fallback()
                 --     local entry = cmp.get_selected_entry()
                 --     if not entry then
                 --         cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
                 --         cmp.confirm()
                 --         cmp.close()
                 --     end
-                -- else
+                else
                     -- vim.cmd [[ call copilot#Accept() ]]
-                fallback()
-                -- end
+                    fallback()
+                end
             end, { 'i', 'c' }),
             ['<C-c>'] = cmp.mapping(function(fallback)
                 if cmp.visible() then

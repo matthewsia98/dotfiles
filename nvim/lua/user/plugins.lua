@@ -92,6 +92,7 @@ packer.startup({function(use)
             require('user.plugins.bufferline')
         end,
     }
+
     use {
         'nvim-lualine/lualine.nvim',
         after = 'catppuccin',
@@ -283,7 +284,6 @@ packer.startup({function(use)
     use {
         -- 'hrsh7th/nvim-cmp',
         'repos/nvim-cmp',
-        -- event = 'CmdlineEnter',
         after = 'LuaSnip',
         requires = {
             { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
