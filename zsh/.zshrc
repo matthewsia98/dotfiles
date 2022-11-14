@@ -71,7 +71,7 @@ alias suspend='systemctl suspend'
 # Programs
 alias vi='nvim'
 alias vim='nvim'
-alias feh='feh --scale-down -d -g 1800x1020+60+10 --info "echo %wx%h" --image-bg #494D54 -C ~/.fonts -e static/RobotoMono-Bold/20'
+alias feh='feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info "echo %wx%h" --image-bg #494D54 -C ~/.fonts -e static/RobotoMono-Bold/20'
 alias conky="conky -c ~/.config/conky/process.conf"
 alias uomfa='python ~/Miscellaneous/uottawa_otp.py'
 
