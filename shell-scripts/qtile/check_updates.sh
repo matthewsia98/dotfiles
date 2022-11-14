@@ -1,5 +1,4 @@
 #!/bin/zsh
 
 updates=$(checkupdates)
-n=$(echo "$updates" | wc -l)
-dunstify "UPDATES" "$updates" -t $((n * 1000))
+dunstify "UPDATES" "$updates" -t 5000

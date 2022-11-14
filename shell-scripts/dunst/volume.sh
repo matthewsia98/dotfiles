@@ -8,6 +8,8 @@ then
     then
         dunstify -h string:x-dunst-stack-tag:audio " Muted" -t 3000
         # dunstify -h string:x-dunst-stack-tag:audio -i "/usr/share/icons/Papirus/16x16/actions/audio-volume-muted.svg" "Muted" -t 3000
+    else
+        dunstify -h string:x-dunst-stack-tag:audio " Unmuted" -t 3000
     fi
 elif [[ $1 == "raise" ]]
 then
