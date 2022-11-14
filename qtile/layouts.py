@@ -6,18 +6,22 @@ from libqtile.config import Match
 BORDER_NORMAL_COLOR = 'text'
 BORDER_FOCUS_COLOR = 'blue'
 BORDER_WIDTH = 4
+SINGLE_BORDER_WIDTH = 1
 MARGIN_WIDTH = 10
+SINGLE_MARGIN_WIDTH = 10
 
 layouts = [
     layout.Columns(
         insert_position=1,  # insert below
         num_columns=2,
-        border_on_single=True,
-        margin_on_single=0,
-        margin=[0, 0, MARGIN_WIDTH, MARGIN_WIDTH],
-        border_width=BORDER_WIDTH,
-        border_normal=COLORS[BORDER_NORMAL_COLOR],
         border_focus=COLORS[BORDER_FOCUS_COLOR],
+        border_normal=COLORS[BORDER_NORMAL_COLOR],
+        border_on_single=SINGLE_BORDER_WIDTH != 0,
+        single_border_width=SINGLE_BORDER_WIDTH,
+        border_width=BORDER_WIDTH,
+        margin_on_single=[0, SINGLE_MARGIN_WIDTH, SINGLE_MARGIN_WIDTH, SINGLE_MARGIN_WIDTH],
+        # margin_on_single=SINGLE_MARGIN_WIDTH,
+        margin=[0, MARGIN_WIDTH, MARGIN_WIDTH, MARGIN_WIDTH],
         name='Columns'
     ),
     # layout.Stack(num_stacks=2),
@@ -25,12 +29,13 @@ layouts = [
     # layout.Matrix(),
     layout.MonadTall(
         new_client_position='after_current',
-        single_border_width=BORDER_WIDTH,
-        single_margin=0,
-        margin=MARGIN_WIDTH,
-        border_width=BORDER_WIDTH,
-        border_normal=COLORS[BORDER_NORMAL_COLOR],
         border_focus=COLORS[BORDER_FOCUS_COLOR],
+        border_normal=COLORS[BORDER_NORMAL_COLOR],
+        single_border_width=SINGLE_BORDER_WIDTH,
+        border_width=BORDER_WIDTH,
+        single_margin=[0, SINGLE_MARGIN_WIDTH, SINGLE_MARGIN_WIDTH, SINGLE_MARGIN_WIDTH],
+        # single_margin=SINGLE_MARGIN_WIDTH,
+        margin=MARGIN_WIDTH,
         name='MonadTall'
     ),
     # layout.MonadWide(),
@@ -41,10 +46,11 @@ layouts = [
     layout.VerticalTile(
         border_focus=COLORS[BORDER_FOCUS_COLOR],
         border_normal=COLORS[BORDER_NORMAL_COLOR],
+        single_border_width=SINGLE_BORDER_WIDTH,
         border_width=BORDER_WIDTH,
-        single_border_width=BORDER_WIDTH,
-        single_margin=0,
-        margin=[0, 0, MARGIN_WIDTH, 0],
+        single_margin=[0, SINGLE_MARGIN_WIDTH, SINGLE_MARGIN_WIDTH, SINGLE_MARGIN_WIDTH],
+        # single_margin=SINGLE_MARGIN_WIDTH,
+        margin=[0, MARGIN_WIDTH, MARGIN_WIDTH, MARGIN_WIDTH],
     ),
     # layout.Zoomy(),
 ]

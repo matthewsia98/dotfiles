@@ -138,7 +138,8 @@ screens = [
                 #     ]
                 # ),
                 widget.Mpris2(
-                    objname='org.mpris.MediaPlayer2.spotify',
+                    # objname='org.mpris.MediaPlayer2.spotify',
+                    objname=None,
                     display_metadata=['xesam:title', 'xesam:artist'],
                     # objname=None,
                     paused_text='\uf001 (\uead1) {track} \uf001',

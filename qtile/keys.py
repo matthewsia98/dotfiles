@@ -1,5 +1,5 @@
 from groups import groups
-from libqtile.config import Key
+from libqtile.config import Key, Drag
 from libqtile.lazy import lazy
 from functions import grow_window, toggle_floating, toggle_widgetbox, open_prompt
 
@@ -54,6 +54,13 @@ keys = [
     Key([mod], 'Tab', lazy.next_layout(), desc='Toggle through layouts'),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
 ]
+
+
+mouse = [
+    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag([mod], "Button2", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+]
+
 
 for group in groups:
     keys.extend(

@@ -1,10 +1,11 @@
-from keys import keys, groups
+from keys import groups, keys, mouse
 from layouts import layouts, floating_layout
 from screens import widget_defaults, screens
 
 
-keys = keys
 groups = groups
+keys = keys
+mouse = mouse
 widget_defaults = widget_defaults
 screens = screens
 layouts = layouts
