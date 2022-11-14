@@ -1,7 +1,7 @@
 from groups import groups
 from libqtile.config import Key, Drag
 from libqtile.lazy import lazy
-from functions import grow_window, toggle_floating, toggle_widgetbox, open_prompt
+from functions import grow_window, toggle_floating, toggle_widgetbox, open_prompt, move_floating
 
 
 # 1: alt    4: super
@@ -19,6 +19,10 @@ keys = [
     Key([mod, "control"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
     Key([mod, "control"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "control"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([mod, "control"], 'i', move_floating('k'), desc='Move floating window up'),
+    Key([mod, "control"], 'u', move_floating('j'), desc='Move floating window down'),
+    Key([mod, "control"], 'y', move_floating('h'), desc='Move floating window left'),
+    Key([mod, "control"], 'o', move_floating('l'), desc='Move floating window right'),
     Key([mod, 'control'], 'f', toggle_floating(), desc='Toggle floating'),
 
     # Resize Windows

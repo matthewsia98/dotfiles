@@ -58,8 +58,25 @@ def toggle_floating(qtile, resolution=(1920, 1080), scale=0.8):
     window.toggle_floating()
 
     if window.floating:
-        window.cmd_set_size_floating(resolution[0] * scale, resolution[1] * scale)
+        window.cmd_set_size_floating(int(resolution[0] * scale), int(resolution[1] * scale))
         window.cmd_center()
+        # bar height + margin + border
+        window.cmd_set_position_floating(window.x, window.y + (40 + 10 + 10) // 2)
+
+
+@lazy.function
+def move_floating(qtile, direction, x_step=32, y_step=32):
+    window = qtile.current_window
+    if window.floating:
+        match direction:
+            case 'k':
+                window.cmd_set_position_floating(window.x, window.y - y_step)
+            case 'j':
+                window.cmd_set_position_floating(window.x, window.y + y_step)
+            case 'h':
+                window.cmd_set_position_floating(window.x - x_step, window.y)
+            case 'l':
+                window.cmd_set_position_floating(window.x + x_step, window.y)
 
 
 @lazy.function

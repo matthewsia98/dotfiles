@@ -22,6 +22,7 @@ WIDGETBOX1_COLOR = 'lavender'
 # WIDGETBOX2_COLOR = 'peach'
 BAR_BACKGROUND_COLOR = 'surface0'
 BAR_TEXT_COLOR = 'text'
+BAR_HEIGHT = 40
 RECT_DECORATION_RADIUS = 8
 
 screens = [
@@ -419,7 +420,7 @@ screens = [
                 ),
                 widget.Spacer(length=5),
             ],
-            size=40,
+            size=BAR_HEIGHT,
             margin=[10, 10, 10, 10],
             # margin=10,
             border_width=[10, 10, 10, 10],
