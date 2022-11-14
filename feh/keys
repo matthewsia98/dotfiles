@@ -1,2 +1,10 @@
-zoom_in  C-k
-zoom_out C-j
+zoom_in  plus
+zoom_out underscore
+
+next_img C-n
+prev_img C-p
+
+scroll_up C-k
+scroll_down C-j
+scroll_left C-h
+scroll_right C-l
