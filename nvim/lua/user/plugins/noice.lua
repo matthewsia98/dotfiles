@@ -25,11 +25,11 @@ if installed then
             },
         },
         cmdline = {
-            enabled = false,
+            enabled = true,
             view = 'cmdline_popup',
         },
         messages = {
-            enabled = false,
+            enabled = true,
             view = 'notify',
             view_warn = 'notify',
             view_error = 'notify',

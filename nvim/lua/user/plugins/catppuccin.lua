@@ -55,7 +55,7 @@ if installed then
             },
         },
         custom_highlights = {
-            -- Comment = { fg = palette.blue },
+            Comment = { fg = palette.overlay1 },
             LineNr = { fg = palette.lavender },
             -- CursorLineNr = { fg = palette.lavender },
         }
