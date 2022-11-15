@@ -1,10 +1,16 @@
 zoom_in  plus
 zoom_out underscore
 
-next_img C-n
-prev_img C-p
+next_img n C-n
+prev_img p C-p
 
-scroll_up C-k
-scroll_down C-j
-scroll_left C-h
-scroll_right C-l
+scroll_up k C-k
+scroll_down j C-j
+scroll_left h C-h
+scroll_right l C-l
+
+# remove from list
+remove d
+
+# remove from list and delete from filesystem
+delete D
