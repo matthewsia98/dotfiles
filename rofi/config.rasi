@@ -1,7 +1,7 @@
 configuration {
     font: "RobotoMono Nerd Font Medium 24";
 
-    sidebar-mode: false;
+    sidebar-mode: true;
     hide-scrollbar: true;
     disable-history: false;
     location: 0;
@@ -14,6 +14,11 @@ configuration {
     display-window: "﩯 Window";
     display-run: " Run";
     drun-display-format: "{icon} {name}";
+    
+    drun {
+        parse-user: true;
+        parse-system: true;
+    }
 
     kb-remove-to-eol: "Control+Shift+e";
     kb-accept-entry: "Return";
