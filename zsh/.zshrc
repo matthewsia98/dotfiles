@@ -31,7 +31,7 @@ function toggle_keymap() {
 }
 
 # Environment Variables
-export PATH=$PATH:~/.local/bin
+export PATH=$PATH:~/.local/bin:~/.local/share/nvim/mason/bin
 export BAT_THEME='OneHalfDark'
 export EDITOR='nvim'
 export VISUAL='nvim'
@@ -73,7 +73,7 @@ alias vi='nvim'
 alias vim='nvim'
 alias feh='feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info "echo %wx%h" --image-bg #494D54 -C ~/.fonts -e static/RobotoMono-Bold/20'
 alias conky="conky -c ~/.config/conky/process.conf"
-alias uomfa='python ~/Miscellaneous/uottawa_otp.py'
+alias uomfa='python ~/Misc/uottawa_otp.py'
 
 # Git
 alias gcl='git clone'
@@ -190,5 +190,5 @@ source /usr/share/fzf/key-bindings.zsh
 source /usr/share/nvm/init-nvm.sh
 
 
-# neofetch
-pfetch
+neofetch --ascii ~/.config/neofetch/ascii/bat_ascii --ascii_colors 4
+# pfetch
