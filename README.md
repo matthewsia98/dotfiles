@@ -1,4 +1,4 @@
-##
+## Details
 * **Window Manager**: Qtile
 * **OS**: Arch Linux
 * **Terminal**: Kitty
