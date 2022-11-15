@@ -91,7 +91,7 @@ def grow_window(qtile, direction, width_step=32, height_step=32):
         else:
             grow_height = height_step if direction == "k" else -height_step
             window.cmd_set_size_floating(window.width, window.height + grow_height)
-        window.cmd_center()
+        # window.cmd_center()
     else:
         if layout_name == 'Columns':
             match direction:

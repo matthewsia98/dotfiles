@@ -49,7 +49,7 @@ keys = [
     Key([mod, 'shift'], '2', toggle_widgetbox(2)),
 
     # Launch Programs
-    Key([], "Print", lazy.spawn("flameshot gui"), desc="Take a screenshot"),
+    # Key([], "Print", lazy.spawn("flameshot gui"), desc="Take a screenshot"),
     Key([mod], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
     Key([mod], "r", lazy.spawn("rofi -show drun"), desc="Spawn a command using a prompt widget"),
     Key([mod], 'f', lazy.spawn('pcmanfm'), desc='Launch file manager'),

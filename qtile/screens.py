@@ -9,6 +9,14 @@ from qtile_extras.widget.decorations import RectDecoration
 from libqtile.lazy import lazy
 
 
+WIDGETBOX1_COLOR = 'lavender'
+# WIDGETBOX2_COLOR = 'peach'
+BAR_BACKGROUND_COLOR = 'surface0'
+BAR_TEXT_COLOR = 'text'
+BAR_HEIGHT = 40
+RECT_DECORATION_RADIUS = 8
+
+
 widget_defaults = dict(
     font='Roboto Mono Medium',
     fontsize=20,
@@ -18,15 +26,21 @@ widget_defaults = dict(
     foreground=COLORS['crust'],
 )
 
-WIDGETBOX1_COLOR = 'lavender'
-# WIDGETBOX2_COLOR = 'peach'
-BAR_BACKGROUND_COLOR = 'surface0'
-BAR_TEXT_COLOR = 'text'
-BAR_HEIGHT = 40
-RECT_DECORATION_RADIUS = 8
 
 screens = [
     Screen(
+        # right=Bar(
+        #     widgets=[
+        #         widget.Spacer(),
+        #         widget.WindowTabs(
+        #             foreground=COLORS['text'],
+        #         ),
+        #         widget.Spacer(),
+        #     ],
+        #     size=BAR_HEIGHT,
+        #     border_color=COLORS[BAR_BACKGROUND_COLOR],
+        #     background=COLORS[BAR_BACKGROUND_COLOR],
+        # ),
         top=Bar(
             widgets=[
                 widget.Spacer(length=5),
@@ -96,7 +110,7 @@ screens = [
                     block_highlight_text_color=COLORS["text"],  # block text color
                     active=COLORS['crust'],  # text color
                     urgent_alert_method='block',
-                    urgent_border=COLORS['red'],
+                    urgent_border=COLORS['lavender'],
                     urgent_text=COLORS['crust'],
                     spacing=4,
                     margin_x=6,
@@ -150,9 +164,9 @@ screens = [
                     # stopped_text='\uead7',
                     scroll=True,
                     scroll_step=4,
-                    scroll_interval=0.1,
+                    scroll_interval=0.2,
                     scroll_clear=False,
-                    scroll_delay=1,
+                    scroll_delay=2,
                     width=200,
                     padding=8,
                     decorations=[
@@ -431,7 +445,7 @@ screens = [
             # background=COLORS['transparent'],
             opacity=1.0,
         ),
-        wallpaper='~/.config/qtile/wallpapers/cat-sound.png',
+        wallpaper='~/.config/qtile/wallpapers/catppuccin-cat.png',
         wallpaper_mode='fill',
     )
 ]
