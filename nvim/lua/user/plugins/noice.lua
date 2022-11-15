@@ -5,7 +5,48 @@ if installed then
         hacks = {
             cmp_popup_row_offset = 1,
         },
-        routes = {},
+        routes = {
+            {
+                filter = {
+                    event = 'msg_show',
+                    kind = '',
+                    find = '%d+B written',
+                },
+                opts = { skip = true },
+            },
+            {
+                filter = {
+                    event = 'msg_show',
+                    kind = '',
+                    find = 'before #%d+',
+                },
+                opts = { skip = true },
+            },
+            {
+                filter = {
+                    event = 'msg_show',
+                    kind = '',
+                    find = 'fewer lines?',
+                },
+                opts = { skip = true },
+            },
+            {
+                filter = {
+                    event = 'msg_show',
+                    kind = '',
+                    find = 'more lines?',
+                },
+                opts = { skip = true },
+            },
+            {
+                filter = {
+                    event = 'msg_show',
+                    kind = '',
+                    find = 'lines? yank',
+                },
+                opts = { skip = true },
+            },
+        },
         views = {
             mini = {
                 position = {

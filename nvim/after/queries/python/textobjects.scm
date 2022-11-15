@@ -7,3 +7,11 @@
     left: (identifier) @assignment.left
     right: (_) @assignment.right
 ) @assignment.outer
+
+
+(call
+    function: (identifier)
+    arguments: (argument_list
+        (_) @argument.inner
+    )
+)
