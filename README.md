@@ -1,3 +1,6 @@
+## Screenshots
+<img src="screenshots/combine_images.png">
+
 ## Details
 * **Window Manager**: Qtile
 * **OS**: Arch Linux
@@ -7,6 +10,3 @@
 * **Notifications**: Dunst
 * **System Monitor**: Conky
 * **Editor**: Neovim
-
-## Screenshots
-<img src="screenshots/combine_images.png">
