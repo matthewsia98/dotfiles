@@ -10,11 +10,17 @@ from qtile_extras.widget.decorations import RectDecoration
 from libqtile.lazy import lazy
 
 
+WALLPAPER = "~/.config/qtile/wallpapers/catppuccin-cat.png"
+
 WIDGETBOX1_COLOR = "lavender"
 # WIDGETBOX2_COLOR = 'peach'
+
 BAR_BACKGROUND_COLOR = "surface0"
 BAR_TEXT_COLOR = "text"
 BAR_HEIGHT = 40
+BAR_MARGIN = 10
+BAR_BORDER_WIDTH = 10
+
 RECT_DECORATION_RADIUS = 8
 
 
@@ -447,17 +453,13 @@ screens = [
                 widget.Spacer(length=5),
             ],
             size=BAR_HEIGHT,
-            margin=[10, 10, 10, 10],
-            # margin=10,
-            border_width=[10, 10, 10, 10],
-            # border_width=10,
+            margin=BAR_MARGIN,
+            border_width=BAR_BORDER_WIDTH,
             border_color=CATPPUCCIN[BAR_BACKGROUND_COLOR],
             background=CATPPUCCIN[BAR_BACKGROUND_COLOR],
-            # border_color=COLORS['transparent'],
-            # background=COLORS['transparent'],
             opacity=1.0,
         ),
-        wallpaper="~/.config/qtile/wallpapers/catppuccin-cat.png",
+        wallpaper=WALLPAPER,
         wallpaper_mode="fill",
     )
 ]
