@@ -1,5 +1,5 @@
 ## Screenshots
-<img src="screenshots/combine.png">
+<img src="screenshots/combined.png">
 
 ## Details
 * **Window Manager**: Qtile
