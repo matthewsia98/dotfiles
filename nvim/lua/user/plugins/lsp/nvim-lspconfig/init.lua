@@ -4,6 +4,11 @@ if installed then
     local notify_installed, notify = pcall(require, 'notify')
 
     local on_attach = function(client, bufnr)
+        local name = client['name']
+        if name == 'pylsp' then
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+        end
         -- local root_dir = client["config"]["root_dir"]
         -- local filepath = vim.fn.expand("%")
         --

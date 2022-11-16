@@ -14,6 +14,8 @@ M.setup = function(on_attach, lsp_flags, capabilities, handlers)
                     pycodestyle = { enabled = false, },
                     pyflakes = { enabled = false, },
                     mccabe = { enabled = false, },
+                    yapf = { enabled = false },
+                    autopep8 = { enabled = false },
                     jedi = {
                         environment = vim.env.VIRTUAL_ENV or '/usr',
                     },
@@ -54,7 +56,7 @@ M.setup = function(on_attach, lsp_flags, capabilities, handlers)
                         enabled = false,
                         executable = 'pylint',
                     },
-                    pylsp_black = {
+                    black = {
                         enabled = false,
                         preview = true,
                         max_line_length = 88,
