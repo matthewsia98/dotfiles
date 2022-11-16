@@ -13,10 +13,6 @@ echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting sxhkd' >> $LOGFILE
 sxhkd &
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started sxhkd' >> $LOGFILE
 
-echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting dunst' >> $LOGFILE
-dunst &
-echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started dunst' >> $LOGFILE
-
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting libinput-gestures' >> $LOGFILE
 libinput-gestures-setup start
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started libinput-gestures' >> $LOGFILE
