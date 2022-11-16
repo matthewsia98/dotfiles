@@ -1,7 +1,6 @@
 from keys import groups, keys, mouse
-from layouts import layouts, floating_layout
-from screens import widget_defaults, screens
-
+from layouts import floating_layout, layouts
+from screens import screens, widget_defaults
 
 groups = groups
 keys = keys

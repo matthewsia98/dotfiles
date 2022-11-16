@@ -79,7 +79,11 @@ def separator(length=None, padding=None, background=None, foreground=None, name=
     foreground = COLORS["white"][0] if foreground is None else foreground
 
     return widget.Sep(
-        linewidth=length, padding=padding, background=background, foreground=foreground, name=name
+        linewidth=length,
+        padding=padding,
+        background=background,
+        foreground=foreground,
+        name=name,
     )
 
 
@@ -364,8 +368,8 @@ layouts = [
         margin_on_single=0,
         margin=5,
         border_width=1,
-        border_normal=COLORS['inactive_border_color'][0],
-        border_focus=COLORS['active_border_color'][0],
+        border_normal=COLORS["inactive_border_color"][0],
+        border_focus=COLORS["active_border_color"][0],
     ),
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -404,10 +408,11 @@ screens = [
     Screen(
         top=bar.Bar(
             widgets=[
-                spacer(length=0,
-                       background=COLORS['blue'][0] if POWERLINE_ENABLED else None,
-                       name='layout_spacer'
-                       ),
+                spacer(
+                    length=0,
+                    background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
+                    name="layout_spacer",
+                ),
                 # widget.CurrentLayout(),
                 widget.CurrentLayoutIcon(
                     background=COLORS["blue"][0] if POWERLINE_ENABLED else None,
@@ -636,7 +641,9 @@ screens = [
                         widget.Wttr(
                             location={"Ottawa": "Ottawa"},
                             format=" %C %t",
-                            background=COLORS["magenta"][0] if POWERLINE_ENABLED else None,
+                            background=COLORS["magenta"][0]
+                            if POWERLINE_ENABLED
+                            else None,
                             foreground=COLORS["foreground"][POWERLINE_ENABLED],
                             padding=10,
                             update_interval=600,
