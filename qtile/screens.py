@@ -1,29 +1,30 @@
 import os
-from colors import COLORS
+from colors import CATPPUCCIN
 from functions import toggle_program, toggle_widgetbox, show_text, toggle_conky
 from libqtile.config import Screen
 from libqtile.bar import Bar
 from qtile_extras import widget
 from qtile_extras.widget.decorations import RectDecoration
+
 # from libqtile.log_utils import logger
 from libqtile.lazy import lazy
 
 
-WIDGETBOX1_COLOR = 'lavender'
+WIDGETBOX1_COLOR = "lavender"
 # WIDGETBOX2_COLOR = 'peach'
-BAR_BACKGROUND_COLOR = 'surface0'
-BAR_TEXT_COLOR = 'text'
+BAR_BACKGROUND_COLOR = "surface0"
+BAR_TEXT_COLOR = "text"
 BAR_HEIGHT = 40
 RECT_DECORATION_RADIUS = 8
 
 
 widget_defaults = dict(
-    font='Roboto Mono Medium',
+    font="Roboto Mono Medium",
     fontsize=20,
     padding=0,
     margin=0,
     # background=COLORS["transparent"],
-    foreground=COLORS['crust'],
+    foreground=CATPPUCCIN["crust"],
 )
 
 
@@ -47,16 +48,16 @@ screens = [
                 widget.CurrentLayoutIcon(
                     scale=0.7,
                     use_mask=True,
-                    foreground=[COLORS[BAR_TEXT_COLOR]],
+                    foreground=[CATPPUCCIN[BAR_TEXT_COLOR]],
                     padding=8,
                     decorations=[
                         RectDecoration(
-                            colour=COLORS[BAR_BACKGROUND_COLOR],
+                            colour=CATPPUCCIN[BAR_BACKGROUND_COLOR],
                             radius=RECT_DECORATION_RADIUS,
                             filled=True,
                             group=True,
                         )
-                    ]
+                    ],
                 ),
                 # widget.CurrentLayout(
                 #     padding=8,
@@ -70,29 +71,30 @@ screens = [
                 #     ]
                 # ),
                 widget.WindowCount(
-                    text_format='{num}',
+                    text_format="{num}",
                     show_zero=True,
-                    foreground=COLORS[BAR_TEXT_COLOR],
+                    foreground=CATPPUCCIN[BAR_TEXT_COLOR],
                     padding=8,
                     decorations=[
                         RectDecoration(
-                            colour=COLORS[BAR_BACKGROUND_COLOR],
+                            colour=CATPPUCCIN[BAR_BACKGROUND_COLOR],
                             radius=RECT_DECORATION_RADIUS,
                             filled=True,
                             group=True,
                         )
                     ],
-                    name='windowcountwidget',
+                    name="windowcountwidget",
                 ),
                 # widget.WindowName(
-                #     format='{state} {name}',
-                #     scroll=True,
-                #     scroll_step=4,
-                #     width=100,
-                #     padding=8,
+                #     format='{state}',
+                #     # scroll=True,
+                #     # scroll_step=4,
+                #     foreground=CATPPUCCIN[BAR_TEXT_COLOR],
+                #     width=10,
+                #     padding=0,
                 #     decorations=[
                 #         RectDecoration(
-                #             colour=COLORS['blue'],
+                #             colour=CATPPUCCIN[BAR_BACKGROUND_COLOR],
                 #             radius=RECT_DECORATION_RADIUS,
                 #             filled=True,
                 #             group=True,
@@ -104,14 +106,16 @@ screens = [
                     hide_unused=True,
                     disable_drag=True,
                     toggle=False,
-                    highlight_method='block',
+                    highlight_method="block",
                     borderwidth=4,
-                    this_current_screen_border=COLORS[BAR_BACKGROUND_COLOR],  # block fill color
-                    block_highlight_text_color=COLORS["text"],  # block text color
-                    active=COLORS['crust'],  # text color
-                    urgent_alert_method='block',
-                    urgent_border=COLORS['lavender'],
-                    urgent_text=COLORS['crust'],
+                    this_current_screen_border=CATPPUCCIN[
+                        BAR_BACKGROUND_COLOR
+                    ],  # block fill color
+                    block_highlight_text_color=CATPPUCCIN["text"],  # block text color
+                    active=CATPPUCCIN["crust"],  # text color
+                    urgent_alert_method="block",
+                    urgent_border=CATPPUCCIN["lavender"],
+                    urgent_text=CATPPUCCIN["crust"],
                     spacing=4,
                     margin_x=6,
                     margin_y=3,  # push labels down
@@ -119,12 +123,12 @@ screens = [
                     padding_y=2,
                     decorations=[
                         RectDecoration(
-                            colour=COLORS['lavender'],
+                            colour=CATPPUCCIN["lavender"],
                             radius=RECT_DECORATION_RADIUS,
                             filled=True,
                             # group=True
                         )
-                    ]
+                    ],
                 ),
                 widget.Spacer(length=20),
                 # widget.Mpd2(
@@ -155,10 +159,10 @@ screens = [
                 widget.Mpris2(
                     # objname='org.mpris.MediaPlayer2.spotify',
                     objname=None,
-                    display_metadata=['xesam:title', 'xesam:artist'],
+                    display_metadata=["xesam:title", "xesam:artist"],
                     # objname=None,
-                    paused_text='\uf001 (\uead1) {track} \uf001',
-                    playing_text='\uf001 (\ueb2c) {track} \uf001',
+                    paused_text="\uf001 (\uead1) {track} \uf001",
+                    playing_text="\uf001 (\ueb2c) {track} \uf001",
                     # paused_text='\uead1 {track}',
                     # playing_text='\ueb2c {track}',
                     # stopped_text='\uead7',
@@ -171,32 +175,32 @@ screens = [
                     padding=8,
                     decorations=[
                         RectDecoration(
-                            colour=COLORS['yellow'],
+                            colour=CATPPUCCIN["yellow"],
                             radius=RECT_DECORATION_RADIUS,
-                            filled=True
+                            filled=True,
                         )
                     ],
-                    name='musicwidget'
+                    name="musicwidget",
                 ),
                 widget.Spacer(length=20),
                 widget.CheckUpdates(
-                    distro='Arch_checkupdates',
-                    display_format='\ueb9a {updates}',
+                    distro="Arch_checkupdates",
+                    display_format="\ueb9a {updates}",
                     no_update_string="\ueaa2 0",
-                    colour_have_updates=COLORS['maroon'],
-                    colour_no_updates=COLORS['green'],
+                    colour_have_updates=CATPPUCCIN["maroon"],
+                    colour_no_updates=CATPPUCCIN["green"],
                     update_interval=60,
-                    execute='~/.shell-scripts/qtile/check_updates.sh',
+                    execute="~/.shell-scripts/qtile/check_updates.sh",
                     padding=8,
                     decorations=[
                         RectDecoration(
-                            colour=COLORS[BAR_BACKGROUND_COLOR],
+                            colour=CATPPUCCIN[BAR_BACKGROUND_COLOR],
                             radius=RECT_DECORATION_RADIUS,
                             filled=True,
                             # group=True
                         )
                     ],
-                    name='updateswidget'
+                    name="updateswidget",
                 ),
                 # widget.Spacer(length=10),
                 # widget.Prompt(
@@ -211,11 +215,11 @@ screens = [
                     padding=64,
                     decorations=[
                         RectDecoration(
-                            colour=COLORS['mauve'],
+                            colour=CATPPUCCIN["mauve"],
                             radius=RECT_DECORATION_RADIUS,
-                            filled=True
+                            filled=True,
                         )
-                    ]
+                    ],
                 ),
                 widget.Spacer(),
                 widget.WidgetBox(
@@ -227,12 +231,12 @@ screens = [
                             padding=8,
                             decorations=[
                                 RectDecoration(
-                                    colour=COLORS['green'],
+                                    colour=CATPPUCCIN["green"],
                                     radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
-                            ]
+                            ],
                         ),
                         widget.Spacer(length=10),
                         widget.CPU(
@@ -241,7 +245,7 @@ screens = [
                             padding=8,
                             decorations=[
                                 RectDecoration(
-                                    colour=COLORS['peach'],
+                                    colour=CATPPUCCIN["peach"],
                                     radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
@@ -257,7 +261,7 @@ screens = [
                             padding=8,
                             decorations=[
                                 RectDecoration(
-                                    colour=COLORS['blue'],
+                                    colour=CATPPUCCIN["blue"],
                                     radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
@@ -274,12 +278,12 @@ screens = [
                             padding=8,
                             decorations=[
                                 RectDecoration(
-                                    colour=COLORS['yellow'],
+                                    colour=CATPPUCCIN["yellow"],
                                     radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
-                            ]
+                            ],
                         ),
                     ],
                     close_button_location="left",
@@ -289,16 +293,16 @@ screens = [
                     padding=8,
                     decorations=[
                         RectDecoration(
-                            colour=COLORS[WIDGETBOX1_COLOR],
+                            colour=CATPPUCCIN[WIDGETBOX1_COLOR],
                             radius=RECT_DECORATION_RADIUS,
                             filled=True,
                             # group=True
                         )
                     ],
-                    mouse_callbacks={'Button1': toggle_widgetbox(1)},
-                    name='widgetbox1'
+                    mouse_callbacks={"Button1": toggle_widgetbox(1)},
+                    name="widgetbox1",
                 ),
-                widget.Spacer(length=0, name='widgetbox_spacer'),
+                widget.Spacer(length=0, name="widgetbox_spacer"),
                 widget.WidgetBox(
                     widgets=[
                         widget.Backlight(
@@ -307,95 +311,103 @@ screens = [
                             padding=16,
                             decorations=[
                                 RectDecoration(
-                                    colour=COLORS['peach'],
+                                    colour=CATPPUCCIN["peach"],
                                     radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
-                            ]
+                            ],
                         ),
                         widget.Spacer(length=20),
                         widget.Volume(
-                            get_volume_command=os.path.expanduser("~/.shell-scripts/qtile/get-volume.sh"),
+                            get_volume_command=os.path.expanduser(
+                                "~/.shell-scripts/qtile/get-volume.sh"
+                            ),
                             fmt="\ufa7d {:>4}",
                             mouse_callbacks={"Button1": toggle_program("pavucontrol")},
                             padding=16,
                             decorations=[
                                 RectDecoration(
-                                    colour=COLORS['blue'],
+                                    colour=CATPPUCCIN["blue"],
                                     radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
-                            ]
+                            ],
                         ),
                         widget.Spacer(length=20),
                         widget.TextBox(
-                            text='\uf294',
+                            text="\uf294",
                             fontsize=24,
-                            foreground=COLORS['yellow'],
+                            foreground=CATPPUCCIN["yellow"],
                             padding=0,
                             decorations=[
                                 RectDecoration(
-                                    colour=COLORS[BAR_BACKGROUND_COLOR],
+                                    colour=CATPPUCCIN[BAR_BACKGROUND_COLOR],
                                     radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
                             ],
-                            mouse_callbacks={'Button1': toggle_program('blueman-manager')}
+                            mouse_callbacks={
+                                "Button1": toggle_program("blueman-manager")
+                            },
                         ),
                         widget.Spacer(length=10),
                         widget.WiFiIcon(
-                            interface='wlan0',
+                            interface="wlan0",
                             wifi_arc=75,
-                            foreground=COLORS[BAR_TEXT_COLOR],
-                            active_colour=COLORS['blue'],
-                            inactive_colour=COLORS['crust'],
+                            foreground=CATPPUCCIN[BAR_TEXT_COLOR],
+                            active_colour=CATPPUCCIN["blue"],
+                            inactive_colour=CATPPUCCIN["crust"],
                             padding=10,
                             decorations=[
                                 RectDecoration(
-                                    colour=COLORS[BAR_BACKGROUND_COLOR],
+                                    colour=CATPPUCCIN[BAR_BACKGROUND_COLOR],
                                     radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
                             ],
-                            name='wifiwidget',
+                            name="wifiwidget",
                             expanded_timeout=3,
                             mouse_callbacks={
-                                'Button1': show_text('wifiwidget'),
-                                'Button3': toggle_program('connman-gtk'),
-                            }
+                                "Button1": show_text("wifiwidget"),
+                                "Button3": toggle_program("connman-gtk"),
+                            },
                         ),
                         widget.Spacer(length=10),
                         widget.UPowerWidget(
                             battery_height=16,
                             battery_width=32,
-                            text_discharging='({percentage:.0f}%) {tte} remaining',
-                            text_charging='({percentage:.0f}%) {ttf} to full',
-                            foreground=COLORS[BAR_TEXT_COLOR],
-                            fill_normal=COLORS['green'],
-                            fill_low=COLORS['yellow'],
-                            fill_critical=COLORS['red'],
+                            text_discharging="({percentage:.0f}%) {tte} remaining",
+                            text_charging="({percentage:.0f}%) {ttf} to full",
+                            foreground=CATPPUCCIN[BAR_TEXT_COLOR],
+                            fill_normal=CATPPUCCIN["green"],
+                            fill_low=CATPPUCCIN["yellow"],
+                            fill_critical=CATPPUCCIN["red"],
                             text_displaytime=3,
-                            border_colour=COLORS['crust'],
-                            border_charge_colour=COLORS['crust'],
-                            border_critical_colour=COLORS['crust'],
+                            border_colour=CATPPUCCIN["crust"],
+                            border_charge_colour=CATPPUCCIN["crust"],
+                            border_critical_colour=CATPPUCCIN["crust"],
                             margin=0,
                             decorations=[
                                 RectDecoration(
-                                    colour=COLORS[BAR_BACKGROUND_COLOR],
+                                    colour=CATPPUCCIN[BAR_BACKGROUND_COLOR],
                                     radius=RECT_DECORATION_RADIUS,
                                     filled=True,
                                     # group=True
                                 )
                             ],
-                            name='batterywidget',
+                            name="batterywidget",
                             mouse_callbacks={
-                                'Button1': show_text('batterywidget'),
-                                'Button3': lazy.spawn(os.path.expanduser("~/.shell-scripts/qtile/check_battery.sh")),
-                            }
+                                "Button1": show_text("batterywidget"),
+                                "Button3": lazy.spawn(
+                                    os.path.expanduser(
+                                        "~/.shell-scripts/qtile/check_battery.sh"
+                                    )
+                                ),
+                            },
                         ),
                         # widget.Battery(
                         #     format="{char} {percent:2.0%}",
@@ -429,8 +441,8 @@ screens = [
                     #         # group=True
                     #     )
                     # ],
-                    mouse_callbacks={'Button1': toggle_widgetbox(2)},
-                    name='widgetbox2'
+                    mouse_callbacks={"Button1": toggle_widgetbox(2)},
+                    name="widgetbox2",
                 ),
                 widget.Spacer(length=5),
             ],
@@ -439,13 +451,13 @@ screens = [
             # margin=10,
             border_width=[10, 10, 10, 10],
             # border_width=10,
-            border_color=COLORS[BAR_BACKGROUND_COLOR],
-            background=COLORS[BAR_BACKGROUND_COLOR],
+            border_color=CATPPUCCIN[BAR_BACKGROUND_COLOR],
+            background=CATPPUCCIN[BAR_BACKGROUND_COLOR],
             # border_color=COLORS['transparent'],
             # background=COLORS['transparent'],
             opacity=1.0,
         ),
-        wallpaper='~/.config/qtile/wallpapers/catppuccin-cat.png',
-        wallpaper_mode='fill',
+        wallpaper="~/.config/qtile/wallpapers/catppuccin-cat.png",
+        wallpaper_mode="fill",
     )
 ]
