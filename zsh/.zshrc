@@ -83,9 +83,12 @@ alias ga.='git add .'
 alias gc='git commit -m'
 alias gpl='git pull'
 alias gp='git push'
+alias gb='git branch'
 alias gco='git checkout'
 alias gd='git diff'
 alias grm='git rm -r --cached'
+alias gRM='git rm -r'
+alias gl='git log --graph --decorate --pretty=oneline --abbrev-commit'
 
 # Pacman
 alias pac='sudo pacman'
