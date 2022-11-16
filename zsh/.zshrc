@@ -31,7 +31,7 @@ function toggle_keymap() {
 }
 
 # Environment Variables
-export PATH=$PATH:~/.local/bin:~/.local/share/nvim/mason/bin
+export PATH=$PATH:~/.local/bin
 export BAT_THEME='OneHalfDark'
 export EDITOR='nvim'
 export VISUAL='nvim'
