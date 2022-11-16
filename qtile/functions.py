@@ -85,6 +85,12 @@ def move_window(qtile, direction, x_step=32, y_step=32):
 
 
 @lazy.function
+def kill_all(qtile):
+    for window in qtile.current_group.windows:
+        window.cmd_kill()
+
+
+@lazy.function
 def grow_window(qtile, direction, x_step=32, y_step=32):
     layout = qtile.current_layout
     layout_name = layout.name
@@ -118,6 +124,27 @@ def grow_window(qtile, direction, x_step=32, y_step=32):
                     layout.cmd_shrink_main()
                 case "l":
                     layout.cmd_grow_main()
+        elif layout_name == "MonadWide":
+            match direction:
+                case "k":
+                    layout.cmd_shrink_main()
+                case "j":
+                    layout.cmd_grow_main()
+                case "h":
+                    layout.cmd_shrink()
+                case "l":
+                    layout.cmd_grow()
+        elif layout_name == "MonadThreeCol":
+            logger.warning(dir(layout))
+            match direction:
+                case "k":
+                    layout.cmd_grow()
+                case "j":
+                    layout.cmd_shrink()
+                case "h":
+                    layout.cmd_shrink()
+                case "l":
+                    layout.cmd_grow()
         elif layout_name == "VerticalTile":
             match direction:
                 case "k":
@@ -146,6 +173,16 @@ def normalize(qtile):
 
     layout = qtile.current_layout
     layout.cmd_normalize()
+
+
+@lazy.function
+def flip_layout(qtile):
+    layout = qtile.current_layout
+    layout_name = layout.name
+    if layout_name == "Columns":
+        layout.cmd_swap_column_right()
+    elif layout_name in {"MonadTall", "MonadWide"}:
+        layout.cmd_flip()
 
 
 @lazy.function

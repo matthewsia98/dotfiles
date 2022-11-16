@@ -5,6 +5,8 @@ from functions import (
     toggle_floating,
     toggle_widgetbox,
     toggle_minmax,
+    flip_layout,
+    kill_all,
 )
 from groups import groups
 from libqtile.config import Drag, Key
@@ -15,6 +17,7 @@ mod = "mod1"
 
 keys = [
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod, "shift"], "w", kill_all(), desc="Kill all windows"),
     # Control Window Size
     Key([mod], "m", toggle_minmax("min"), desc="Toggle minimize"),
     Key([mod, "shift"], "m", toggle_minmax("max"), desc="Toggle maximize"),
@@ -30,6 +33,7 @@ keys = [
         desc="Toggle floating and center",
     ),
     Key([mod, "control"], "f", toggle_floating(), desc="Toggle floating"),
+    Key([mod], "space", flip_layout(), desc="Flip layout"),
     # Resize Windows
     Key([mod, "shift"], "h", grow_window("h"), desc="Grow window to the left"),
     Key([mod, "shift"], "l", grow_window("l"), desc="Grow window to the right"),
