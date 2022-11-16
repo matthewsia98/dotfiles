@@ -1,4 +1,4 @@
-local installed, notify = pcall(require, 'notify')
+local installed, notify = pcall(require, "notify")
 
 if installed then
     notify.setup({

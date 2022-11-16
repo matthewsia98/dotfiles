@@ -1,8 +1,8 @@
-local installed, catppuccin = pcall(require, 'catppuccin')
+local installed, catppuccin = pcall(require, "catppuccin")
 
 if installed then
-    local palette = require('catppuccin.palettes').get_palette()
-    catppuccin.setup {
+    local palette = require("catppuccin.palettes").get_palette()
+    catppuccin.setup({
         transparent_background = false,
         term_colors = false,
         styles = {
@@ -58,10 +58,10 @@ if installed then
             Comment = { fg = palette.overlay1 },
             LineNr = { fg = palette.lavender },
             -- CursorLineNr = { fg = palette.lavender },
-        }
-    }
+        },
+    })
 
-    vim.g.catppuccin_flavour = 'mocha'
-    vim.cmd [[colorscheme catppuccin]]
-    vim.cmd [[ highlight WinSeparator guibg=NONE guifg=#FFFFFF ]]
+    vim.g.catppuccin_flavour = "mocha"
+    vim.cmd([[colorscheme catppuccin]])
+    vim.cmd([[ highlight WinSeparator guibg=NONE guifg=#FFFFFF ]])
 end

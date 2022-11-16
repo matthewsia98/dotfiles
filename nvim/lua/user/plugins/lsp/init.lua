@@ -1,23 +1,14 @@
 -- SIGNS --
 vim.fn.sign_define(
-    'DiagnosticSignError',
-    { texthl = 'DiagnosticSignError', text = ' ', numhl = 'DiagnosticSignError' }
+    "DiagnosticSignError",
+    { texthl = "DiagnosticSignError", text = " ", numhl = "DiagnosticSignError" }
 )
 
-vim.fn.sign_define(
-    'DiagnosticSignWarn',
-    { texthl = 'DiagnosticSignWarn', text = ' ', numhl = 'DiagnosticSignWarn' }
-)
+vim.fn.sign_define("DiagnosticSignWarn", { texthl = "DiagnosticSignWarn", text = " ", numhl = "DiagnosticSignWarn" })
 
-vim.fn.sign_define(
-    'DiagnosticSignHint',
-    { texthl = 'DiagnosticSignHint', text = ' ', numhl = 'DiagnosticSignHint' }
-)
+vim.fn.sign_define("DiagnosticSignHint", { texthl = "DiagnosticSignHint", text = " ", numhl = "DiagnosticSignHint" })
 
-vim.fn.sign_define(
-    'DiagnosticSignInfo',
-    { texthl = 'DiagnosticSignInfo', text = ' ', numhl = 'DiagnosticSignInfo' }
-)
+vim.fn.sign_define("DiagnosticSignInfo", { texthl = "DiagnosticSignInfo", text = " ", numhl = "DiagnosticSignInfo" })
 
 -- Show only one sign in sign column
 -- -- Create a custom namespace. This will aggregate signs from all other
@@ -54,12 +45,11 @@ vim.fn.sign_define(
 --     end,
 -- }
 
-
 vim.diagnostic.config({
     update_in_insert = false,
     virtual_text = true,
     signs = false,
     severity_sort = true,
     underline = true,
-    float = { border = 'rounded' },
+    float = { border = "rounded" },
 })

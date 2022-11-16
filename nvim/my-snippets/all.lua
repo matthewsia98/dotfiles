@@ -1,6 +1,6 @@
-local ls = require('luasnip')
-local e = require('luasnip.extras')
-local fmt = require('luasnip.extras.fmt').fmt
+local ls = require("luasnip")
+local e = require("luasnip.extras")
+local fmt = require("luasnip.extras.fmt").fmt
 local s = ls.s
 local i = ls.insert_node
 local t = ls.text_node
@@ -12,24 +12,23 @@ local dl = e.dynamic_lambda
 local sn = ls.sn
 local rep = e.rep
 
-
 return {
-    s('timenow',
+    s(
+        "timenow",
         f(function()
-            return os.date('%H:%M:%S')
-        end
-        )
+            return os.date("%H:%M:%S")
+        end)
     ),
-    s('today',
+    s(
+        "today",
         f(function()
-            return os.date('%A %B %d, %Y')
-        end
-        )
+            return os.date("%A %B %d, %Y")
+        end)
     ),
-    s('datetimenow',
+    s(
+        "datetimenow",
         f(function()
-            return os.date('%A %B %d, %Y\t%H:%M:%S')
-        end
-        )
+            return os.date("%A %B %d, %Y\t%H:%M:%S")
+        end)
     ),
 }

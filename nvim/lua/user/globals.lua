@@ -3,6 +3,6 @@ function P(item)
 end
 
 function R(name)
-    require('plenary.reload').reload_module(name)
+    require("plenary.reload").reload_module(name)
     return require(name)
 end

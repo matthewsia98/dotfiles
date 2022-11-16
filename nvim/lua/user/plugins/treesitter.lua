@@ -1,15 +1,15 @@
-local installed, treesitter = pcall(require, 'nvim-treesitter.configs')
+local installed, treesitter = pcall(require, "nvim-treesitter.configs")
 
 if installed then
-    treesitter.setup {
+    treesitter.setup({
         auto_install = true,
         ensure_installed = {
-            'vim',
-            'help',
-            'lua',
-            'python',
-            'comment',
-            'bash',
+            "vim",
+            "help",
+            "lua",
+            "python",
+            "comment",
+            "bash",
         },
         highlight = {
             enable = true,
@@ -17,15 +17,15 @@ if installed then
         },
         indent = {
             enable = false,
-            disable = { 'python' },
+            disable = { "python" },
         },
         incremental_selection = {
             enable = false,
             keymaps = {
-                init_selection = 'gnn',
-                node_incremental = 'grn',
-                scope_incremental = 'grc',
-                node_decremental = 'grm',
+                init_selection = "gnn",
+                node_incremental = "grn",
+                scope_incremental = "grc",
+                node_decremental = "grm",
             },
         },
         textobjects = {
@@ -33,12 +33,12 @@ if installed then
                 enable = true,
                 lookahead = true,
                 keymaps = {
-                    ['af'] = '@function.outer',
-                    ['if'] = '@function.inner',
-                    ['ac'] = '@class.outer',
-                    ['ic'] = '@class.inner',
-                    ['ia'] = '@parameter.inner',
-                    ['aa'] = '@parameter.outer',
+                    ["af"] = "@function.outer",
+                    ["if"] = "@function.inner",
+                    ["ac"] = "@class.outer",
+                    ["ic"] = "@class.inner",
+                    ["ia"] = "@parameter.inner",
+                    ["aa"] = "@parameter.outer",
                 },
                 -- selection_modes = {
                 --     ['@parameter.outer'] = 'v',
@@ -50,36 +50,36 @@ if installed then
             swap = {
                 enable = true,
                 swap_next = {
-                    ['<leader>sn'] = '@parameter.inner',
+                    ["<leader>sn"] = "@parameter.inner",
                 },
                 swap_previous = {
-                    ['<leader>sp'] = '@parameter.inner',
+                    ["<leader>sp"] = "@parameter.inner",
                 },
             },
             move = {
                 enable = true,
                 set_jumps = false,
                 goto_next_start = {
-                    [']f'] = '@function.outer',
-                    [']c'] = '@class.outer',
-                    [']P'] = '@print.outer',
+                    ["]f"] = "@function.outer",
+                    ["]c"] = "@class.outer",
+                    ["]P"] = "@print.outer",
                 },
                 goto_next_end = {
-                    [']F'] = '@function.outer',
-                    [']C'] = '@class.outer',
-                    [']p'] = '@print.outer',
+                    ["]F"] = "@function.outer",
+                    ["]C"] = "@class.outer",
+                    ["]p"] = "@print.outer",
                 },
                 goto_previous_start = {
-                    ['[f'] = '@function.outer',
-                    ['[c'] = '@class.outer',
-                    ['[P'] = '@print.outer',
+                    ["[f"] = "@function.outer",
+                    ["[c"] = "@class.outer",
+                    ["[P"] = "@print.outer",
                 },
                 goto_previous_end = {
-                    ['[F'] = '@function.outer',
-                    ['[C'] = '@class.outer',
-                    ['[p'] = '@print.outer',
+                    ["[F"] = "@function.outer",
+                    ["[C"] = "@class.outer",
+                    ["[p"] = "@print.outer",
                 },
-            }
+            },
         },
         playground = {
             enable = true,
@@ -87,17 +87,17 @@ if installed then
             updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
             persist_queries = false, -- Whether the query persists across vim sessions
             keybindings = {
-                toggle_query_editor = 'o',
-                toggle_hl_groups = 'i',
-                toggle_injected_languages = 't',
-                toggle_anonymous_nodes = 'a',
-                toggle_language_display = 'I',
-                focus_language = 'f',
-                unfocus_language = 'F',
-                update = 'R',
-                goto_node = '<cr>',
-                show_help = '?',
+                toggle_query_editor = "o",
+                toggle_hl_groups = "i",
+                toggle_injected_languages = "t",
+                toggle_anonymous_nodes = "a",
+                toggle_language_display = "I",
+                focus_language = "f",
+                unfocus_language = "F",
+                update = "R",
+                goto_node = "<cr>",
+                show_help = "?",
             },
-        }
-    }
+        },
+    })
 end

@@ -3,7 +3,7 @@ local M = {}
 local function map(mode, key, value, options)
     local default_options = { silent = true, noremap = true }
     if options ~= nil then
-        options = vim.tbl_extend('keep', options, default_options)
+        options = vim.tbl_extend("keep", options, default_options)
     else
         options = default_options
     end
@@ -14,7 +14,7 @@ M.map = map
 local function nvim_map(mode, key, value, options)
     local default_options = { silent = true, noremap = true }
     if options ~= nil then
-        options = vim.tbl_extend('keep', options, default_options)
+        options = vim.tbl_extend("keep", options, default_options)
     else
         options = default_options
     end
@@ -28,50 +28,48 @@ end
 M.unmap = unmap
 
 -- Go to start and end of line
-map('i', '<C-E>', '<Esc>A')
-map('n', '<C-E>', 'A<Esc>')
-map('i', '<C-A>', '<Esc>I')
-map('n', '<C-A>', 'I<Esc>')
+map("i", "<C-E>", "<Esc>A")
+map("n", "<C-E>", "A<Esc>")
+map("i", "<C-A>", "<Esc>I")
+map("n", "<C-A>", "I<Esc>")
 
 -- Insert blank lines
-map('n', '<CR>', 'o<Esc>')
-map('n', '<S-CR>', 'O<Esc>')
+map("n", "<CR>", "o<Esc>")
+map("n", "<S-CR>", "O<Esc>")
 
 -- Move Lines
-map('n', '<C-n>', '<cmd>move .+1<CR>')
-map('n', '<C-p>', '<cmd>move .-2<CR>')
+map("n", "<C-n>", "<cmd>move .+1<CR>")
+map("n", "<C-p>", "<cmd>move .-2<CR>")
 
 -- Windows
 -- Close window
-map('n', '<C-q>', '<C-w>c')
+map("n", "<C-q>", "<C-w>c")
 -- Move between windows
-map('n', '<C-h>', '<C-w>h')
-map('n', '<C-l>', '<C-w>l')
-map('n', '<C-j>', '<C-w>j')
-map('n', '<C-k>', '<C-w>k')
+map("n", "<C-h>", "<C-w>h")
+map("n", "<C-l>", "<C-w>l")
+map("n", "<C-j>", "<C-w>j")
+map("n", "<C-k>", "<C-w>k")
 -- Window Resize
-map('n', '<Right>', '<C-w>5>')
-map('n', '<Left>', '<C-w>5<')
-map('n', '<Up>', '<C-w>1+')
-map('n', '<Down>', '<C-w>1-')
+map("n", "<Right>", "<C-w>5>")
+map("n", "<Left>", "<C-w>5<")
+map("n", "<Up>", "<C-w>1+")
+map("n", "<Down>", "<C-w>1-")
 
 -- Folds
 -- map('n', '<leader>fd', 'za')
 
 -- Terminal Mode
-map('t', '<C-q>', '<C-\\><C-n><C-w>c')
-map('t', '<Esc>', '<C-\\><C-n>')
+map("t", "<C-q>", "<C-\\><C-n><C-w>c")
+map("t", "<Esc>", "<C-\\><C-n>")
 
 -- Toggle conceal
-map('n', '<F12>',
-    function()
-        if vim.o.conceallevel == 2 then
-            vim.o.conceallevel = 0
-        else
-            vim.o.conceallevel = 2
-        end
+map("n", "<F12>", function()
+    if vim.o.conceallevel == 2 then
+        vim.o.conceallevel = 0
+    else
+        vim.o.conceallevel = 2
     end
-)
+end)
 
 -- Line Text Objects
 -- map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>', { desc = 'inner line' })

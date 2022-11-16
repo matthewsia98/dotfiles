@@ -1,4 +1,4 @@
-local installed, noice = pcall(require, 'noice')
+local installed, noice = pcall(require, "noice")
 
 if installed then
     noice.setup({
@@ -8,41 +8,41 @@ if installed then
         routes = {
             {
                 filter = {
-                    event = 'msg_show',
-                    kind = '',
-                    find = '%d+B written',
+                    event = "msg_show",
+                    kind = "",
+                    find = "%d+B written",
                 },
                 opts = { skip = true },
             },
             {
                 filter = {
-                    event = 'msg_show',
-                    kind = '',
-                    find = 'before #%d+',
+                    event = "msg_show",
+                    kind = "",
+                    find = "before #%d+",
                 },
                 opts = { skip = true },
             },
             {
                 filter = {
-                    event = 'msg_show',
-                    kind = '',
-                    find = 'fewer lines?',
+                    event = "msg_show",
+                    kind = "",
+                    find = "fewer lines?",
                 },
                 opts = { skip = true },
             },
             {
                 filter = {
-                    event = 'msg_show',
-                    kind = '',
-                    find = 'more lines?',
+                    event = "msg_show",
+                    kind = "",
+                    find = "more lines?",
                 },
                 opts = { skip = true },
             },
             {
                 filter = {
-                    event = 'msg_show',
-                    kind = '',
-                    find = 'lines? yank',
+                    event = "msg_show",
+                    kind = "",
+                    find = "lines? yank",
                 },
                 opts = { skip = true },
             },
@@ -50,43 +50,49 @@ if installed then
         views = {
             mini = {
                 position = {
-                    row = '90%',
-                    col = '100%',
+                    row = "90%",
+                    col = "100%",
                 },
             },
             cmdline_popup = {
                 position = {
-                    row = '30%',
-                    col = '50%',
+                    row = "30%",
+                    col = "50%",
                 },
                 size = {
-                    width = '40%',
-                    height = 'auto',
+                    width = "40%",
+                    height = "auto",
                 },
             },
         },
         cmdline = {
             enabled = true,
-            view = 'cmdline_popup',
+            view = "cmdline_popup",
         },
         messages = {
             enabled = true,
-            view = 'notify',
-            view_warn = 'notify',
-            view_error = 'notify',
-            view_history = 'messages',
-            view_search = 'virtualtext',
+            view = "notify",
+            view_warn = "notify",
+            view_error = "notify",
+            view_history = "messages",
+            view_search = "virtualtext",
         },
         lsp = {
             progress = {
                 enabled = true,
-                view = 'mini',
+                view = "mini",
             },
             signature = {
                 enabled = false,
             },
             hover = {
                 enabled = false,
+            },
+            -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+            override = {
+                ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                ["vim.lsp.util.stylize_markdown"] = true,
+                ["cmp.entry.get_documentation"] = true,
             },
         },
     })

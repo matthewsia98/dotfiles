@@ -1,4 +1,4 @@
-local group = vim.api.nvim_create_augroup('MyAutocmds', { clear = true })
+local group = vim.api.nvim_create_augroup("MyAutocmds", { clear = true })
 
 -- Format before save
 -- A.nvim_create_autocmd('BufWritePre', {
@@ -31,29 +31,29 @@ local group = vim.api.nvim_create_augroup('MyAutocmds', { clear = true })
 -- })
 
 -- Java
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd("BufEnter", {
     group = group,
-    pattern = '*.java',
+    pattern = "*.java",
     callback = function()
-        local filepath = vim.fn.expand('%')
-        local classname = filepath:match('/?(%w+)%.java')
+        local filepath = vim.fn.expand("%")
+        local classname = filepath:match("/?(%w+)%.java")
         local num_lines = vim.api.nvim_buf_line_count(0)
         local first_line = vim.api.nvim_buf_get_text(0, 0, 0, 0, -1, {})[1]
-        if num_lines == 1 and first_line == '' then
+        if num_lines == 1 and first_line == "" then
             vim.api.nvim_buf_set_lines(0, 0, 4, false, {
-                'public class ' .. classname .. ' {',
-                '',
-                '}'
+                "public class " .. classname .. " {",
+                "",
+                "}",
             })
-            vim.api.nvim_win_set_cursor(0, {2, 0})
+            vim.api.nvim_win_set_cursor(0, { 2, 0 })
         end
-    end
+    end,
 })
 
 -- Highlight yanked region
-vim.api.nvim_create_autocmd('TextYankPost', {
+vim.api.nvim_create_autocmd("TextYankPost", {
     group = group,
     callback = function()
-        vim.highlight.on_yank({ higroup = 'Visual', timeout = 2000 })
-    end
+        vim.highlight.on_yank({ higroup = "Visual", timeout = 2000 })
+    end,
 })

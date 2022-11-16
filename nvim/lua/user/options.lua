@@ -2,11 +2,11 @@ local g = vim.g
 local o = vim.o
 local opt = vim.opt
 
-g.python3_host_prog = vim.fn.expand('~/.virtualenvs/nvim/bin/python')
+g.python3_host_prog = vim.fn.expand("~/.virtualenvs/nvim/bin/python")
 
 -- Map <leader> to space
-g.mapleader = ' '
-g.maplocalleader = ' '
+g.mapleader = " "
+g.maplocalleader = " "
 
 -- Enable RGB colors
 opt.termguicolors = true
@@ -21,13 +21,13 @@ opt.cmdheight = 1
 opt.wildmenu = false
 
 -- Get rid of t flag. Prevents < message
-opt.shortmess = 'filnxToOF'
+opt.shortmess = "filnxToOF"
 
 -- Make _ a word boundary
-opt.iskeyword = '@,48-57,192-255'
+opt.iskeyword = "@,48-57,192-255"
 
 -- Don't show conceal on cursor line in these modes
-opt.concealcursor = 'nvi'
+opt.concealcursor = "nvi"
 -- Don't conceal
 opt.conceallevel = 0
 
@@ -37,7 +37,7 @@ opt.timeoutlen = 500
 opt.updatetime = 200
 
 -- Enable mouse
-opt.mouse = 'a'
+opt.mouse = "a"
 
 -- Number of screen lines to keep above and below the cursor
 opt.scrolloff = 12
@@ -47,7 +47,7 @@ opt.number = true
 opt.relativenumber = true
 
 -- Sign column
-opt.signcolumn = 'yes:1'
+opt.signcolumn = "yes:1"
 
 -- Highlight text on cursor line
 opt.cursorline = true
@@ -70,10 +70,10 @@ opt.softtabstop = -1 -- If negative, shiftwidth value is used
 
 opt.list = true
 -- opt.listchars = 'trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
-opt.listchars = 'lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
+opt.listchars = "lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂"
 
 -- Makes neovim and host OS clipboard play nicely with each other
-opt.clipboard = 'unnamedplus'
+opt.clipboard = "unnamedplus"
 
 -- Search
 opt.ignorecase = true -- \c to ignore case, \C to match case
@@ -97,8 +97,8 @@ opt.laststatus = 3
 
 -- Code Folding
 opt.foldenable = false
-o.foldmethod = 'expr'
-o.foldexpr = 'nvim_treesitter#foldexpr()'
+o.foldmethod = "expr"
+o.foldexpr = "nvim_treesitter#foldexpr()"
 o.foldlevelstart = 99 -- Don't fold by default
 o.foldlevel = 99 -- Don't fold by default
 o.foldnestmax = 3
@@ -109,7 +109,7 @@ o.foldminlines = 1
 -- opt.title = true
 
 -- Format Options
-vim.cmd [[filetype plugin off]]
+vim.cmd([[filetype plugin off]])
 -- t: Auto-wrap using textwidth
 -- c: Auto-wrap comments using textwidth and insert comment leader automatically
 -- r: BAD!!! Automatically insert comment leader when hitting <Enter> in Insert mode
@@ -118,4 +118,4 @@ vim.cmd [[filetype plugin off]]
 -- l: Long lines are not broken in insert mode
 -- j: Remove comment leader when joining lines
 -- p: Don't break lines at single spaces that follow periods e.g. Mr. John
-o.formatoptions = 'tcnjp'
+o.formatoptions = "tcnjp"

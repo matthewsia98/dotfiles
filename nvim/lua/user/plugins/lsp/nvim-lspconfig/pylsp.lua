@@ -1,9 +1,9 @@
-local lspconfig = require('lspconfig')
+local lspconfig = require("lspconfig")
 
 local M = {}
 
 M.setup = function(on_attach, lsp_flags, capabilities, handlers)
-    lspconfig['pylsp'].setup {
+    lspconfig["pylsp"].setup({
         on_attach = on_attach,
         flags = lsp_flags,
         capabilities = capabilities,
@@ -11,20 +11,20 @@ M.setup = function(on_attach, lsp_flags, capabilities, handlers)
         settings = {
             pylsp = {
                 plugins = {
-                    pycodestyle = { enabled = false, },
-                    pyflakes = { enabled = false, },
-                    mccabe = { enabled = false, },
+                    pycodestyle = { enabled = false },
+                    pyflakes = { enabled = false },
+                    mccabe = { enabled = false },
                     yapf = { enabled = false },
                     autopep8 = { enabled = false },
                     jedi = {
-                        environment = vim.env.VIRTUAL_ENV or '/usr',
+                        environment = vim.env.VIRTUAL_ENV or "/usr",
                     },
                     jedi_completion = {
                         enabled = true,
                         fuzzy = true,
                         eager = true,
                         resolve_at_most = 25,
-                        cache_for = {'numpy', 'pandas', 'torch', 'matplotlib'}
+                        cache_for = { "numpy", "pandas", "torch", "matplotlib" },
                     },
                     jedi_definition = {
                         enabled = true,
@@ -48,13 +48,13 @@ M.setup = function(on_attach, lsp_flags, capabilities, handlers)
                     flake8 = {
                         enabled = false,
                         ignore = {
-                            'E501', -- Line too long
-                            'E266', -- Too many leading # for block comment
-                        }
+                            "E501", -- Line too long
+                            "E266", -- Too many leading # for block comment
+                        },
                     },
                     pylint = {
                         enabled = false,
-                        executable = 'pylint',
+                        executable = "pylint",
                     },
                     black = {
                         enabled = false,
@@ -71,11 +71,11 @@ M.setup = function(on_attach, lsp_flags, capabilities, handlers)
                     },
                     pyls_isort = {
                         enabled = false,
-                    }
-                }
-            }
-        }
-    }
+                    },
+                },
+            },
+        },
+    })
 end
 
 return M
