@@ -45,8 +45,9 @@ def toggle_program(qtile, program):
 @lazy.function
 def toggle_floating(qtile, center=False, resolution=(1920, 1080), scale=0.8):
     window = qtile.current_window
-    if center and not window.floating:
-        window.toggle_floating()
+    if center:
+        if not window.floating:
+            window.toggle_floating()
         window.cmd_set_size_floating(
             int(resolution[0] * scale), int(resolution[1] * scale)
         )
@@ -93,7 +94,7 @@ def grow_window(qtile, direction, x_step=32, y_step=32):
             grow_width = x_step if direction == "l" else -x_step
             window.cmd_set_size_floating(window.width + grow_width, window.height)
         else:
-            grow_height = y_step if direction == "k" else -y_step
+            grow_height = y_step if direction == "j" else -y_step
             window.cmd_set_size_floating(window.width, window.height + grow_height)
         # window.cmd_center()
     else:
@@ -117,6 +118,24 @@ def grow_window(qtile, direction, x_step=32, y_step=32):
                     layout.cmd_shrink_main()
                 case "l":
                     layout.cmd_grow_main()
+        elif layout_name == "VerticalTile":
+            match direction:
+                case "k":
+                    layout.shrink()
+                case "j":
+                    layout.grow()
+
+
+@lazy.function
+def toggle_minmax(qtile, m):
+    layout = qtile.current_layout
+    layout_name = layout.name
+    window = qtile.current_window
+
+    if layout_name == "VerticalTile":
+        layout.cmd_maximize() if m == "max" else layout.cmd_minimize()
+    else:
+        window.cmd_toggle_maximize() if m == "max" else window.cmd_toggle_minimize()
 
 
 @lazy.function

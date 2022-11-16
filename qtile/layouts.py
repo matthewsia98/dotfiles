@@ -7,7 +7,7 @@ BORDER_NORMAL_COLOR = "text"
 BORDER_FOCUS_COLOR = "blue"
 BORDER_FLOAT_COLOR = "green"
 BORDER_WIDTH = 4
-SINGLE_BORDER_WIDTH = 1
+SINGLE_BORDER_WIDTH = 2
 MARGIN_WIDTH = 10
 SINGLE_MARGIN_WIDTH = 0
 
@@ -67,6 +67,7 @@ layouts = [
         ],
         # single_margin=SINGLE_MARGIN_WIDTH,
         margin=[0, MARGIN_WIDTH, MARGIN_WIDTH, MARGIN_WIDTH],
+        name="VerticalTile",
     ),
     # layout.Zoomy(),
 ]

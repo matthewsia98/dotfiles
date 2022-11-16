@@ -4,6 +4,7 @@ from functions import (
     normalize,
     toggle_floating,
     toggle_widgetbox,
+    toggle_minmax,
 )
 from groups import groups
 from libqtile.config import Drag, Key
@@ -15,8 +16,8 @@ mod = "mod1"
 keys = [
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     # Control Window Size
-    Key([mod], "m", lazy.window.toggle_minimize(), desc="Toggle minimize"),
-    Key([mod, "shift"], "m", lazy.window.toggle_maximize(), desc="Toggle maximize"),
+    Key([mod], "m", toggle_minmax("min"), desc="Toggle minimize"),
+    Key([mod, "shift"], "m", toggle_minmax("max"), desc="Toggle maximize"),
     # Move Windows
     Key([mod, "control"], "k", move_window("k"), desc="Move floating window up"),
     Key([mod, "control"], "j", move_window("j"), desc="Move floating window down"),
