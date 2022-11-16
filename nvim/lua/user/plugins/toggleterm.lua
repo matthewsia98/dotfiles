@@ -25,9 +25,14 @@ if installed then
             elseif filetype == 'python' then
                 command = 'python ' .. filepath
             elseif filetype == 'java' then
-                command = 'javac ' .. filepath .. '; java ' .. filepath:gsub('.java', '')
-            elseif filetype == 'zsh' then
-                command = filepath
+                local splits = vim.split(filepath, '/')
+                local prefix = ''
+                for i = 1, #splits - 1 do
+                    prefix = prefix .. splits[i] .. '/'
+                end
+                command = 'javac ' .. filepath .. '; java -cp ' .. prefix .. ' ' .. splits[#splits]:gsub('.java', '')
+            elseif filetype == 'sh' then
+                command = 'chmod +x ' .. filepath .. '; ' .. filepath
             end
             -- local winwidth = vim.fn.winwidth(0)
             -- vim.cmd('TermExec size=' .. math.floor(winwidth / 3) .. ' cmd="' .. command .. '"')
