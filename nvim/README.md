@@ -5,7 +5,7 @@
 <img src="screenshots/noice.png">
 
 ## <a href="https://github.com/nvim-telescope/telescope.nvim">Fuzzy Finder</a>
-<img src="screenshots/telescop.png">
+<img src="screenshots/telescope.png">
 
 ## <a href="https://github.com/akinsho/toggleterm.nvim">Terminal</a>
 <img src="screenshots/toggleterm.png">
