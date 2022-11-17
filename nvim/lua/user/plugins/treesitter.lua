@@ -10,6 +10,9 @@ if installed then
             "python",
             "comment",
             "bash",
+            "markdown",
+            "markdown_inline",
+            "regex",
         },
         highlight = {
             enable = true,

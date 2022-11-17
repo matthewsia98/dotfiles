@@ -283,8 +283,8 @@ packer.startup({
         })
 
         use({
-            -- 'hrsh7th/nvim-cmp',
-            "repos/nvim-cmp",
+            'hrsh7th/nvim-cmp',
+            -- "~/repos/nvim-cmp",
             after = "LuaSnip",
             requires = {
                 { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
