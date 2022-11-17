@@ -113,7 +113,8 @@ floating_layout = layout.Floating(
         Match(wm_class="Pavucontrol"),  # Audio Manager
         Match(wm_class="Conky"),  # System Monitor
         Match(wm_class="blueman-manager"),  # Bluetooth Manager
-        Match(wm_class="rofi"),
+        Match(wm_class="rofi"),  # Run Launcher
+        Match(wm_class="Zathura"),  # PDF Viewer
     ],
     border_normal=CATPPUCCIN[BORDER_NORMAL_COLOR],
     border_focus=CATPPUCCIN[BORDER_FLOAT_COLOR],
