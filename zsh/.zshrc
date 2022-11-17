@@ -37,14 +37,19 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 export HISTFILE=~/.zsh_history
 # Session History
-export HISTSIZE=10000
+export HISTSIZE=100000
 # Max history file size
-export SAVEHIST=1000000
+export SAVEHIST=1000000000
 
+# Add to history immediately, not on exit
 setopt INC_APPEND_HISTORY
+
+# Add timestamps
 export HISTTIMEFORMAT='[%F %T]'
 setopt EXTENDED_HISTORY
+
 setopt HIST_IGNORE_ALL_DUPS
+
 
 # Prompt
 ZLE_RPROMPT_INDENT=0
