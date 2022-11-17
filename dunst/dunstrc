@@ -7,7 +7,7 @@
     # width = 300
 
     # The maximum height of a single notification, excluding the frame.
-    height = 400
+    height = 600
 
     # Position the notification in the top right corner
     origin = top-right
@@ -30,16 +30,16 @@
 
     # Set the progress bar height. This includes the frame, so make sure
     # it's at least twice as big as the frame width.
-    progress_bar_height = 20
+    progress_bar_height = 22
 
     # Set the frame width of the progress bar
     progress_bar_frame_width = 4
 
     # Set the minimum width for the progress bar
-    progress_bar_min_width = 150
+    progress_bar_min_width = 100
 
     # Set the maximum width for the progress bar
-    progress_bar_max_width = 300
+    progress_bar_max_width = 200
 
     # Show how many messages are currently hidden (because of
     # notification_limit).
@@ -64,7 +64,7 @@
     horizontal_padding = 8
 
     # Padding between text and icon.
-    text_icon_padding = 8
+    text_icon_padding = 0
 
     # Defines width in pixels of frame around the notification window.
     # Set to 0 to disable.
@@ -111,7 +111,7 @@
 
     ### Text ###
 
-    font = RobotoMono 15
+    font = RobotoMono 12
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
