@@ -3,3 +3,6 @@
 
 ## <a href="https://github.com/folke/noice.nvim">Cmdline Popup</a>
 <img src="screenshots/noice.png">
+
+## <a href="https://github.com/folke/which-key.nvim">Keybinds</a>
+<img src="screenshots/whichkey.png">
