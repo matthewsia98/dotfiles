@@ -2,14 +2,14 @@ local installed, toggleterm = pcall(require, "toggleterm")
 
 if installed then
     toggleterm.setup({
-        size = 40,
+        -- size = 100,
         direction = "float",
         shell = "/bin/zsh",
         float_opts = {
             border = "curved",
-            width = 150,
+            width = 140,
             height = 32,
-            winblend = 3,
+            winblend = 6,
         },
     })
 
