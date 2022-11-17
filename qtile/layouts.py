@@ -17,6 +17,7 @@ layouts = [
         num_columns=2,
         border_focus=CATPPUCCIN[BORDER_FOCUS_COLOR],
         border_normal=CATPPUCCIN[BORDER_NORMAL_COLOR],
+        border_normal_width=0,
         border_on_single=SINGLE_BORDER_WIDTH != 0,
         single_border_width=SINGLE_BORDER_WIDTH,
         border_width=BORDER_WIDTH,
