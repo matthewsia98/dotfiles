@@ -55,6 +55,10 @@ if [[ ! -d "$HOME/.config/cava" ]] then
     ln -s ~/.dotfiles/cava/ ~/.config/cava
 fi
 
+if [[ ! -d "$HOME/.config/zathura" ]] then
+    ln -s ~/.dotfiles/zathura/ ~/.config/zathura
+fi
+
 if [[ ! -a "$HOME/.Xmodmap" ]] then
     ln -s ~/.dotfiles/X/.Xmodmap ~/.Xmodmap
 fi
