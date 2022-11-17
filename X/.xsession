@@ -1,20 +1,20 @@
 LOGFILE=.xsession-log
-echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Running .xsession' >> $LOGFILE
+echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Running .xsession' > $LOGFILE
 
 xrandr --output eDP-1 --mode 1920x1080
 xrdb -merge ~/.Xresources
 xmodmap ~/.Xmodmap
 
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting picom' >> $LOGFILE
-picom --experimental-backends -b
+picom -b 2>> $LOGFILE
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started picom' >> $LOGFILE
 
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting sxhkd' >> $LOGFILE
-sxhkd &
+sxhkd & 2>> $LOGFILE
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started sxhkd' >> $LOGFILE
 
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting libinput-gestures' >> $LOGFILE
-libinput-gestures-setup start
+libinput-gestures-setup start 2>> $LOGFILE
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started libinput-gestures' >> $LOGFILE
 
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting qtile' >> $LOGFILE
