@@ -198,5 +198,6 @@ source /usr/share/fzf/key-bindings.zsh
 source /usr/share/nvm/init-nvm.sh
 
 
-neofetch --ascii ~/.config/neofetch/ascii/bat_ascii --ascii_colors 4
+# neofetch --ascii ~/.config/neofetch/ascii/bat_ascii --ascii_colors 4
 # pfetch
+colorscript -r
