@@ -2,26 +2,19 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 # Inserts a blank line between shell prompts
-add_newline = false
+add_newline = true
 
 continuation_prompt = ''
 
+# format = """
+# ╭─◯ $username$hostname
+# ├─◯ $c$java$lua$python$rust
+# ├─◯ [Directory:](bold green) $directory
+# ╰─◯ $character
+# """
+
 format = """
-$hostname\
-$username\
-$directory\
-$git_branch\
-$git_commit\
-$git_state\
-$git_metrics\
-$git_status\
-$c\
-$java\
-$lua\
-$python\
-$rust\
-$env_var\
-$line_break\
+$directory$git_branch$git_commit$git_state$git_metrics$git_status$c$java$lua$python$rust$env_var
 $character
 """
 
@@ -31,23 +24,24 @@ $time
 
 # One line prompt
 [line_break]
-disabled = false
+disabled = true
 
 [cmd_duration]
 disabled = true
 
 [hostname]
-disabled = true
+disabled = false
 ssh_only = false
-format = '\[[$ssh_symbol$hostname]($style)\] '
+format = '[$ssh_symbol$hostname](bold #F9E2AF)'
 
 [username]
 disabled = false
-show_always = false
-format = '[\[$user\]](bold #00FFFF) '
+show_always = true
+format = '[$user](bold #F9E2AF)'
 
 [directory]
 disabled = false
+home_symbol = "~"
 truncate_to_repo = false
 read_only = " "
 format = '[$path](#00FFFF)[$read_only]($read_only_style) '
