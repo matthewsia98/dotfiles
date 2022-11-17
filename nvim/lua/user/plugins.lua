@@ -346,8 +346,8 @@ packer.startup({
 
         -- use {
         --     'dccsillag/magma-nvim',
-        --     event = 'BufRead',
         --     run = ':UpdateRemotePlugins',
+        --     event = 'BufRead',
         --     config = function()
         --         require('user.plugins.magma-nvim')
         --     end
