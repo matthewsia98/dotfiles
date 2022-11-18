@@ -5,12 +5,25 @@ if installed then
     nvim_tree.setup({
         sort_by = "case_sensitive",
         view = {
-            adaptive_size = true,
+            adaptive_size = false,
+            width = 24,
+            float = {
+                enable = false,
+            },
             mappings = {
                 list = {
                     { key = "u", action = "dir_up" },
                 },
             },
+        },
+        git = {
+            enable = true,
+            ignore = true,
+            show_on_dirs = true,
+            timeout = 400,
+        },
+        diagnostics = {
+            enable = false,
         },
         renderer = {
             group_empty = true,
