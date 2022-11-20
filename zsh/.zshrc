@@ -30,6 +30,8 @@ function toggle_keymap() {
     xmodmap ~/.Xmodmap
 }
 
+PROMPT_EOL_MARK=""
+
 # Environment Variables
 export PATH=$PATH:~/.local/bin
 export BAT_THEME='OneHalfDark'
@@ -201,3 +203,4 @@ source /usr/share/nvm/init-nvm.sh
 # neofetch --ascii ~/.config/neofetch/ascii/bat_ascii --ascii_colors 4
 # pfetch
 colorscript -r
+export PATH=$PATH:/home/msia/.spicetify
