@@ -14,13 +14,46 @@ continuation_prompt = ''
 # """
 
 format = """
-$directory$git_branch$git_commit$git_state$git_metrics$git_status$c$java$lua$python$rust$env_var
+$directory\
+$git_branch$git_commit$git_state$git_metrics$git_status\
+$c$java$lua$python$rust$env_var
 $character
 """
 
 right_format = """
 $time
 """
+
+
+palette = "catppuccin-mocha"
+[palettes.catppuccin-mocha]
+rosewater = "#F5E0DC"
+flamingo = "#F2CDCD"
+pink = "#F5C2E7"
+mauve = "#CBA6F7"
+red = "#F38BA8"
+maroon = "#EBA0AC"
+peach = "#FAB387"
+yellow = "#F9E2AF"
+green = "#A6E3A1"
+teal = "#94E2D5"
+sky = "#89DCEB"
+sapphire = "#74C7EC"
+blue = "#89B4FA"
+darkblue = "#545AA7"
+lavender = "#B4BEFE"
+text = "#CDD6F4"
+subtext1 = "#BAC2DE"
+subtext0 = "#A6ADC8"
+overlay2 = "#9399b2"
+overlay1 = "#7F849C"
+surface2 = "#585B70"
+surface1 = "#45475A"
+surface0 = "#313244"
+base = "#1E1E2E"
+mantle = "#181825"
+crust = "#11111B"
+
 
 # One line prompt
 [line_break]
@@ -32,42 +65,35 @@ disabled = true
 [hostname]
 disabled = false
 ssh_only = false
-format = '[$ssh_symbol$hostname](bold #F9E2AF)'
+format = '[$ssh_symbol$hostname](bold fg:yellow)'
 
 [username]
 disabled = false
 show_always = true
-format = '[$user](bold #F9E2AF)'
+format = '[$user](bold fg:yellow)'
 
 [directory]
 disabled = false
 home_symbol = "~"
 truncate_to_repo = false
 read_only = " "
-format = '[$path](#00FFFF)[$read_only]($read_only_style) '
-
-[character]
-disabled = false
-success_symbol = "[➜](bold #A6DA95)"
-error_symbol = "[➜](bold #ED8796)" 
-vimcmd_symbol = "[](bold #C6A0F6)"
-vimcmd_visual_symbol = "[](bold #C6A0F6)"
+format = '[$path$readonly](bold fg:mauve) '
 
 [env_var]
 disabled = true
 variable = "VIRTUAL_ENV"
 symbol = ""
 default = ""
-format = "[$env_value](bold #EED49F)"
+format = "[$env_value](bold fg:yellow)"
 
 [git_branch]
 disabled = false
 symbol = ""
-format = '[\[$symbol $branch(:$remote_branch)\]]($style) '
+format = '[\[$symbol $branch(:$remote_branch)\]](bold fg:pink) '
 
 [git_commit]
 disabled = false
-format = '[\[#$hash$tag\]]($style) '
+format = '[\[#$hash$tag\]](bold fg:green) '
 only_detached = false
 
 [git_state]
@@ -75,11 +101,11 @@ disabled = false
 
 [git_metrics]
 disabled = false
-format = '([+$added]($added_style) )([-$deleted]($deleted_style) )'
+format = '([+$added](bold fg:green) )([-$deleted](bold fg:red) )'
 
 [git_status]
 disabled = false
-format = '([\[$all_status$ahead_behind\]]($style) )'
+format = '([\[$all_status$ahead_behind\]](bold fg:red) )'
 conflicted = '='
 ahead = '⇡'
 behind = '⇣'
@@ -94,7 +120,7 @@ deleted = '✘'
 
 [time]
 disabled = false
-format = '[\[$time\]](bold #00ffff)'
+format = '[\[$time\]](bold fg:rosewater)'
 
 [aws]
 disabled = false
@@ -156,3 +182,11 @@ format = '[\[$symbol$version(  $virtualenv)\]]($style)'
 disabled = false
 symbol = " "
 format = '[\[$symbol($version)\]]($style)'
+
+[character]
+disabled = false
+success_symbol = "[➜](bold fg:green)"
+error_symbol = "[➜](bold fg:red)" 
+vimcmd_symbol = "[](bold fg:yellow)"
+vimcmd_visual_symbol = "[](bold fg:yellow)"
+
