@@ -33,7 +33,7 @@ function toggle_keymap() {
 PROMPT_EOL_MARK=""
 
 # Environment Variables
-export PATH=$PATH:~/.local/bin
+export PATH=$PATH:~/.local/bin:~/.local/share/nvim/mason/bin
 export BAT_THEME='OneHalfDark'
 export EDITOR='nvim'
 export VISUAL='nvim'
