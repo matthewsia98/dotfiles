@@ -217,7 +217,7 @@ screens = [
                 # ),
                 widget.Spacer(),
                 widget.Clock(
-                    format="%A, %B %-d %H:%M:%S",
+                    format="%A, %B %-d, %H:%M:%S",
                     padding=64,
                     decorations=[
                         RectDecoration(
@@ -330,6 +330,7 @@ screens = [
                                 "~/.shell-scripts/qtile/get-volume.sh"
                             ),
                             fmt="\ufa7d {:>4}",
+                            # mute_text="Mute",
                             mouse_callbacks={"Button1": toggle_program("pavucontrol")},
                             padding=16,
                             decorations=[
@@ -417,18 +418,18 @@ screens = [
                         ),
                         # widget.Battery(
                         #     format="{char} {percent:2.0%}",
+                        #     foreground=CATPPUCCIN[BAR_TEXT_COLOR],
                         #     discharge_char="\uf58b",
                         #     charge_char="\uf583",
                         #     full_char="\uf583",
                         #     update_interval=60,
                         #     show_short_text=False,
-                        #     padding=16,
+                        #     padding=0,
                         #     decorations=[
                         #         RectDecoration(
-                        #             colour=COLORS['pink'],
+                        #             colour=CATPPUCCIN[BAR_BACKGROUND_COLOR],
                         #             radius=RECT_DECORATION_RADIUS,
                         #             filled=True,
-                        #             group=True
                         #         )
                         #     ]
                         # ),
@@ -453,7 +454,7 @@ screens = [
                 widget.Spacer(length=5),
             ],
             size=BAR_HEIGHT,
-            margin=[BAR_MARGIN, BAR_MARGIN, 0, BAR_MARGIN],
+            margin=[BAR_MARGIN, BAR_MARGIN, BAR_MARGIN, BAR_MARGIN],
             border_width=BAR_BORDER_WIDTH,
             border_color=CATPPUCCIN[BAR_BACKGROUND_COLOR],
             background=CATPPUCCIN[BAR_BACKGROUND_COLOR],

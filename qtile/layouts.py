@@ -6,8 +6,8 @@ from libqtile.config import Match
 BORDER_NORMAL_COLOR = "text"
 BORDER_FOCUS_COLOR = "blue"
 BORDER_FLOAT_COLOR = "green"
-BORDER_WIDTH = 4
-SINGLE_BORDER_WIDTH = 2
+BORDER_WIDTH = 2
+SINGLE_BORDER_WIDTH = 0
 MARGIN_WIDTH = 10
 SINGLE_MARGIN_WIDTH = 0
 
@@ -23,7 +23,7 @@ layouts = [
         border_width=BORDER_WIDTH,
         # margin_on_single=SINGLE_MARGIN_WIDTH,
         margin_on_single=[
-            MARGIN_WIDTH,
+            SINGLE_MARGIN_WIDTH,
             SINGLE_MARGIN_WIDTH,
             SINGLE_MARGIN_WIDTH,
             SINGLE_MARGIN_WIDTH,
@@ -43,7 +43,7 @@ layouts = [
         single_border_width=SINGLE_BORDER_WIDTH,
         border_width=BORDER_WIDTH,
         single_margin=[
-            0,
+            SINGLE_MARGIN_WIDTH,
             SINGLE_MARGIN_WIDTH,
             SINGLE_MARGIN_WIDTH,
             SINGLE_MARGIN_WIDTH,

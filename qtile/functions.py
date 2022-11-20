@@ -46,14 +46,15 @@ def toggle_program(qtile, program):
 def toggle_floating(qtile, center=False, resolution=(1920, 1080), scale=0.8):
     window = qtile.current_window
     if center:
-        if not window.floating:
-            window.toggle_floating()
-        window.cmd_set_size_floating(
-            int(resolution[0] * scale), int(resolution[1] * scale)
-        )
-        window.cmd_center()
-        # bar height + margin + border
-        window.cmd_set_position_floating(window.x, window.y + (40 + 10 + 10) // 2)
+        # if not window.floating:
+        window.toggle_floating()
+        if window.floating:
+            window.cmd_set_size_floating(
+                int(resolution[0] * scale), int(resolution[1] * scale)
+            )
+            window.cmd_center()
+            # bar height + margin + border
+            window.cmd_set_position_floating(window.x, window.y + (40 + 10 + 10) // 2)
     else:
         window.toggle_floating()
 

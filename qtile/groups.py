@@ -2,7 +2,7 @@ from libqtile.config import Group, Match
 
 
 groups = [
-    Group(name="1", label="1", spawn=None),
+    Group(name="1", label="1", spawn="kitty"),
     Group(name="2", label="2", spawn="discord"),
     Group(name="3", label="3", spawn="thunderbird"),
     Group(name="4", label="4", spawn="firefox", matches=[Match(wm_class=["firefox"])]),

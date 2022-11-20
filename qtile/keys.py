@@ -26,13 +26,13 @@ keys = [
     Key([mod, "control"], "j", move_window("j"), desc="Move floating window down"),
     Key([mod, "control"], "h", move_window("h"), desc="Move floating window left"),
     Key([mod, "control"], "l", move_window("l"), desc="Move floating window right"),
-    Key(
-        [mod, "control"],
-        "c",
-        toggle_floating(center=True),
-        desc="Toggle floating and center",
-    ),
-    Key([mod, "control"], "f", toggle_floating(), desc="Toggle floating"),
+    # Key(
+    #     [mod, "control"],
+    #     "c",
+    #     toggle_floating(center=True),
+    #     desc="Toggle floating and center",
+    # ),
+    Key([mod, "control"], "f", toggle_floating(center=True), desc="Toggle floating and center"),
     Key([mod], "space", flip_layout(), desc="Flip layout"),
     # Resize Windows
     Key([mod, "shift"], "h", grow_window("h"), desc="Grow window to the left"),
