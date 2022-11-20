@@ -17,8 +17,12 @@ echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting libinput-gestures' >> $LOGFILE
 libinput-gestures-setup start 2>> $LOGFILE
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started libinput-gestures' >> $LOGFILE
 
-echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting qtile' >> $LOGFILE
-qtile start -c ~/.config/qtile/config.py 2>> $LOGFILE
-echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started qtile' >> $LOGFILE
+# echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting qtile' >> $LOGFILE
+# qtile start -c ~/.config/qtile/config.py 2>> $LOGFILE
+# echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started qtile' >> $LOGFILE
+
+# echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Starting awesome' >> $LOGFILE
+# awesome 2>> $LOGFILE
+# echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Started awesome' >> $LOGFILE
 
 echo $(date +'[%b %e %Y %H:%M:%S %Z]') 'Finished running xession' >> $LOGFILE
