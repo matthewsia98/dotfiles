@@ -51,7 +51,7 @@ packer.startup({
         })
 
         use({
-            'folke/noice.nvim',
+            "folke/noice.nvim",
             -- "~/repos/noice.nvim",
             requires = {
                 "MunifTanjim/nui.nvim",
@@ -252,8 +252,8 @@ packer.startup({
         })
 
         use({
-            'echasnovski/mini.nvim',
-            event = 'BufRead',
+            "echasnovski/mini.nvim",
+            event = "BufRead",
             config = function()
                 require("user.plugins.mini")
             end,
@@ -299,7 +299,7 @@ packer.startup({
         })
 
         use({
-            'hrsh7th/nvim-cmp',
+            "hrsh7th/nvim-cmp",
             -- "~/repos/nvim-cmp",
             after = "LuaSnip",
             requires = {
@@ -378,12 +378,12 @@ packer.startup({
         --     end,
         -- }
 
-        use {
-            '~/.config/nvim/my-plugins/test.nvim',
+        use({
+            "~/.config/nvim/my-plugins/test.nvim",
             config = function()
-                require('test')
-            end
-        }
+                require("test")
+            end,
+        })
 
         if packer_bootstrap then
             packer.sync()

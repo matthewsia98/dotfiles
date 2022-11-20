@@ -32,7 +32,7 @@ if installed then
             command = "javac " .. filepath .. "; java -cp " .. prefix .. " " .. splits[#splits]:gsub(".java", "")
         elseif filetype == "sh" or filetype == "zsh" then
             local splits = vim.split(filepath, "/")
-            local prefix = #splits == 1 and  "./" or ""
+            local prefix = #splits == 1 and "./" or ""
             command = "chmod +x " .. filepath .. "; " .. prefix .. filepath
         end
         -- local winwidth = vim.fn.winwidth(0)

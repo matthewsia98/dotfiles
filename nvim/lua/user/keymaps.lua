@@ -52,7 +52,7 @@ map("n", "<Up>", "<C-w>1+")
 map("n", "<Down>", "<C-w>1-")
 
 -- Delete buffer
-map('n', '<leader>bd', '<cmd>bdelete<CR>')
+map("n", "<leader>bd", "<cmd>bdelete<CR>")
 
 -- Folds
 -- map('n', '<leader>fd', 'za')
@@ -71,7 +71,7 @@ map("n", "<F12>", function()
 end)
 
 -- Reverse Selection
-map('v', '<leader>rv', '<ESC><cmd>lua require("user.functions").reverse_lines()<CR>')
+map("v", "<leader>rv", '<ESC><cmd>lua require("user.functions").reverse_lines()<CR>')
 
 -- Line Text Objects
 -- map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>', { desc = 'inner line' })

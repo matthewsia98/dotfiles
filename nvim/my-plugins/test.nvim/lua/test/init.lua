@@ -1,6 +1,5 @@
 local M = {}
 
-
 local function get_max_line_width(lines)
     if #lines == 0 then
         return -1
@@ -16,13 +15,11 @@ local function get_max_line_width(lines)
     return max_width
 end
 
-
 M.init = function()
-    vim.api.nvim_set_hl(0, 'MyFloatBorder', { bg = '#000000', fg = '#FF00FF' })
-    vim.api.nvim_set_hl(0, 'MyNormalFloat', { bg = '#FF0000', fg = '#00FF00' })
-    vim.api.nvim_set_hl(0, 'MyFloatTitle', { bg = '#FFFF00', fg = '#00FFFF' })
+    vim.api.nvim_set_hl(0, "MyFloatBorder", { bg = "#000000", fg = "#FF00FF" })
+    vim.api.nvim_set_hl(0, "MyNormalFloat", { bg = "#FF0000", fg = "#00FF00" })
+    vim.api.nvim_set_hl(0, "MyFloatTitle", { bg = "#FFFF00", fg = "#00FFFF" })
 end
-
 
 M.open = function(lines)
     local win_opts = {
@@ -46,13 +43,13 @@ M.open = function(lines)
     if not M.buf then
         if lines == nil then
             lines = {
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                'Sed non risus. Suspendisse lectus tortor, dignissim sit amet,',
-                'adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.',
-                'Maecenas ligula massa, varius a, semper congue, euismod non, mi.',
-                'Proin porttitor, orci nec nonummy molestie, enim est eleifend mi,',
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "Sed non risus. Suspendisse lectus tortor, dignissim sit amet,",
+                "adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.",
+                "Maecenas ligula massa, varius a, semper congue, euismod non, mi.",
+                "Proin porttitor, orci nec nonummy molestie, enim est eleifend mi,",
             }
-                -- return
+            -- return
         end
 
         M.max_width = get_max_line_width(lines)
@@ -82,12 +79,15 @@ M.open = function(lines)
     M.win = vim.api.nvim_open_win(M.buf, true, win_opts)
     M.is_open = true
     vim.api.nvim_win_set_option(M.win, "cursorline", true)
-    vim.api.nvim_win_set_option(M.win, "winhl", "NormalFloat:MyNormalFloat,FloatBorder:MyFloatBorder,FloatTitle:MyFloatTitle")
+    vim.api.nvim_win_set_option(
+        M.win,
+        "winhl",
+        "NormalFloat:MyNormalFloat,FloatBorder:MyFloatBorder,FloatTitle:MyFloatTitle"
+    )
     -- vim.api.nvim_win_set_option(M.win, "winhl", "FloatBorder:MyFloatBorder")
 
     return M.win, M.buf
 end
-
 
 M.close = function()
     if M.is_open then
@@ -95,7 +95,6 @@ M.close = function()
         M.is_open = false
     end
 end
-
 
 M.update_buffer = function(lines)
     if not lines or #lines < 1 then
@@ -119,8 +118,6 @@ M.update_buffer = function(lines)
     end
 end
 
-
 M.init()
-
 
 return M

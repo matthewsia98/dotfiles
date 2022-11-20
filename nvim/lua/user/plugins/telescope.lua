@@ -15,6 +15,14 @@ if installed then
                     prompt_position = "top",
                 },
             },
+            default_mappings = {
+                i = {
+                    ["<C-q>"] = actions.close,
+                },
+                n = {
+                    ["<C-q>"] = actions.close,
+                },
+            },
             mappings = {
                 i = {
                     ["<C-h>"] = "which_key",
@@ -28,7 +36,7 @@ if installed then
                         actions.send_to_loclist(prompt_bufnr)
                         vim.cmd([[Trouble loclist]])
                     end,
-                    ["q"] = "close",
+                    ["q"] = actions.close,
                 },
             },
         },
@@ -50,6 +58,9 @@ if installed then
 
     local keys = require("user.keymaps")
     keys.map("n", "<leader>ff", "<cmd>Telescope find_files<CR>")
+    keys.map("n", "<leader>fwd", function()
+        require("telescope.builtin").find_files({ cwd = vim.fn.getcwd() })
+    end)
     keys.map("n", "<leader>fr", "<cmd>Telescope oldfiles<CR>")
     keys.map("n", "<leader>fc", "<cmd>Telescope current_buffer_fuzzy_find<CR>")
     keys.map("n", "<leader>fg", "<cmd>Telescope git_commits<CR>")
