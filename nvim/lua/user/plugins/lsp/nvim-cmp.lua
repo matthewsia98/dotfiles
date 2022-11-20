@@ -91,12 +91,12 @@ if installed then
         },
         mapping = {
             ["<Tab>"] = cmp.mapping(function(fallback)
-                -- if cmp.visible() then
-                --     cmp.select_next_item()
-                -- else
-                fallback()
-                -- end
-            end, { "c" }),
+                if cmp.visible() then
+                    cmp.select_next_item()
+                else
+                    fallback()
+                end
+            end, { "i", "c" }),
             ["<C-n>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()

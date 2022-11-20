@@ -37,23 +37,22 @@ map("n", "<C-A>", "I<Esc>")
 map("n", "<CR>", "o<Esc>")
 map("n", "<S-CR>", "O<Esc>")
 
--- Move Lines
-map("n", "<C-n>", "<cmd>move .+1<CR>")
-map("n", "<C-p>", "<cmd>move .-2<CR>")
-
 -- Windows
--- Close window
+-- Close Window
 map("n", "<C-q>", "<C-w>c")
 -- Move between windows
 map("n", "<C-h>", "<C-w>h")
 map("n", "<C-l>", "<C-w>l")
 map("n", "<C-j>", "<C-w>j")
+-- Resize Windows
 map("n", "<C-k>", "<C-w>k")
--- Window Resize
 map("n", "<Right>", "<C-w>5>")
 map("n", "<Left>", "<C-w>5<")
 map("n", "<Up>", "<C-w>1+")
 map("n", "<Down>", "<C-w>1-")
+
+-- Delete buffer
+map('n', '<leader>bd', '<cmd>bdelete<CR>')
 
 -- Folds
 -- map('n', '<leader>fd', 'za')
@@ -70,6 +69,9 @@ map("n", "<F12>", function()
         vim.o.conceallevel = 2
     end
 end)
+
+-- Reverse Selection
+map('v', '<leader>rv', '<ESC><cmd>lua require("user.functions").reverse_lines()<CR>')
 
 -- Line Text Objects
 -- map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>', { desc = 'inner line' })

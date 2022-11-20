@@ -30,8 +30,10 @@ if installed then
                 prefix = prefix .. splits[i] .. "/"
             end
             command = "javac " .. filepath .. "; java -cp " .. prefix .. " " .. splits[#splits]:gsub(".java", "")
-        elseif filetype == "sh" then
-            command = "chmod +x " .. filepath .. "; " .. filepath
+        elseif filetype == "sh" or filetype == "zsh" then
+            local splits = vim.split(filepath, "/")
+            local prefix = #splits == 1 and  "./" or ""
+            command = "chmod +x " .. filepath .. "; " .. prefix .. filepath
         end
         -- local winwidth = vim.fn.winwidth(0)
         -- vim.cmd('TermExec size=' .. math.floor(winwidth / 3) .. ' cmd="' .. command .. '"')

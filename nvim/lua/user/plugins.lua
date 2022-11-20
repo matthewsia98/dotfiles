@@ -51,8 +51,8 @@ packer.startup({
         })
 
         use({
-            -- 'folke/noice.nvim',
-            "~/repos/noice.nvim",
+            'folke/noice.nvim',
+            -- "~/repos/noice.nvim",
             requires = {
                 "MunifTanjim/nui.nvim",
                 {
@@ -209,6 +209,14 @@ packer.startup({
             end,
         })
 
+        -- use({
+        --     "folke/twilight.nvim",
+        --     after = "nvim-treesitter",
+        --     config = function()
+        --         require("user.plugins.twilight")
+        --     end,
+        -- })
+
         -- Editing --
         use({
             "numToStr/Comment.nvim",
@@ -240,6 +248,14 @@ packer.startup({
             ft = "python",
             config = function()
                 require("user.plugins.vim-python-pep8-indent")
+            end,
+        })
+
+        use({
+            'echasnovski/mini.nvim',
+            event = 'BufRead',
+            config = function()
+                require("user.plugins.mini")
             end,
         })
 
@@ -361,6 +377,13 @@ packer.startup({
         --         require('user.plugins.python-docstring-generator')
         --     end,
         -- }
+
+        use {
+            '~/.config/nvim/my-plugins/test.nvim',
+            config = function()
+                require('test')
+            end
+        }
 
         if packer_bootstrap then
             packer.sync()

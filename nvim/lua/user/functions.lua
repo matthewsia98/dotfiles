@@ -107,4 +107,17 @@ F.open_buf = function(buf)
     end, { buffer = buf })
 end
 
+F.reverse_lines = function()
+    local _, r1, _, _ = unpack(vim.fn.getpos("'<"))
+    local _, r2, _, _ = unpack(vim.fn.getpos("'>"))
+    local lines = vim.api.nvim_buf_get_lines(0, r1 - 1, r2, false)
+
+    local reversed_lines = {}
+    for i = #lines, 1, -1 do
+        table.insert(reversed_lines, lines[i])
+    end
+
+    vim.api.nvim_buf_set_lines(0, r1 - 1, r2, false, reversed_lines)
+end
+
 return F

@@ -38,8 +38,8 @@ if installed then
                 keymaps = {
                     ["af"] = "@function.outer",
                     ["if"] = "@function.inner",
-                    ["ac"] = "@class.outer",
-                    ["ic"] = "@class.inner",
+                    ["ac"] = "@call.outer",
+                    ["ic"] = "@call.inner",
                     ["ia"] = "@parameter.inner",
                     ["aa"] = "@parameter.outer",
                 },
@@ -64,22 +64,22 @@ if installed then
                 set_jumps = false,
                 goto_next_start = {
                     ["]f"] = "@function.outer",
-                    ["]c"] = "@class.outer",
+                    ["]c"] = "@call.outer",
                     ["]P"] = "@print.outer",
                 },
                 goto_next_end = {
                     ["]F"] = "@function.outer",
-                    ["]C"] = "@class.outer",
+                    ["]C"] = "@call.outer",
                     ["]p"] = "@print.outer",
                 },
                 goto_previous_start = {
                     ["[f"] = "@function.outer",
-                    ["[c"] = "@class.outer",
+                    ["[c"] = "@call.outer",
                     ["[P"] = "@print.outer",
                 },
                 goto_previous_end = {
                     ["[F"] = "@function.outer",
-                    ["[C"] = "@class.outer",
+                    ["[C"] = "@call.outer",
                     ["[p"] = "@print.outer",
                 },
             },

@@ -28,7 +28,7 @@ return {
     s(
         "datetimenow",
         f(function()
-            return os.date("%A %B %d, %Y\t%H:%M:%S")
+            return os.date("%A, %B %d %Y, %H:%M:%S")
         end)
     ),
 }
