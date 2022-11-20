@@ -18,9 +18,20 @@ if installed then
             default_mappings = {
                 i = {
                     ["<C-q>"] = actions.close,
+                    ["<C-n>"] = actions.move_selection_next,
+                    ["<C-p>"] = actions.move_selection_previous,
+                    ["<C-u>"] = actions.preview_scrolling_up,
+                    ["<C-d>"] = actions.preview_scrolling_down,
+                    ["<CR>"] = actions.select_default,
                 },
                 n = {
                     ["<C-q>"] = actions.close,
+                    ["gg"] = actions.move_to_top,
+                    ["G"] = actions.move_to_bottom,
+                    ["<C-u>"] = actions.preview_scrolling_up,
+                    ["<C-d>"] = actions.preview_scrolling_down,
+                    ["<CR>"] = actions.select_default,
+                    ["?"] = actions.which_key,
                 },
             },
             mappings = {
@@ -62,7 +73,8 @@ if installed then
     keys.map("n", "<leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<CR>")
     keys.map("n", "<leader>fc", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>")
     keys.map("n", "<leader>fg", "<cmd>lua require('telescope.builtin').git_commits()<CR>")
-    keys.map("n", "<leader>fa", "<cmd>lua require('telescope.builtin').live_grep())<CR>")
+    -- keys.map("n", "<leader>fa", "<cmd>lua require('telescope.builtin').live_grep()<CR>")
+    keys.map("n", "<leader>fa", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
     keys.map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>")
     keys.map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
     keys.map("n", "<leader>fo", "<cmd>lua require('telescope.builtin').vim_options()<CR>")

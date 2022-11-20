@@ -169,6 +169,16 @@ packer.startup({
                         end, 10000)
                     end,
                 },
+                {
+                    "nvim-telescope/telescope-live-grep-args.nvim",
+                    after = "telescope.nvim",
+                    config = function()
+                        local installed, telescope = pcall(require, "telescope")
+                        if installed then
+                            telescope.load_extension("live_grep_args")
+                        end
+                    end,
+                },
             },
             config = function()
                 require("user.plugins.telescope")
