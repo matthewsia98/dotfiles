@@ -14,6 +14,7 @@ continuation_prompt = ''
 # """
 
 format = """
+$sudo($username[@](bold fg:yellow)$hostname )\
 $directory\
 $git_branch$git_commit$git_state$git_metrics$git_status\
 $c$java$lua$python$rust$env_var
@@ -23,6 +24,21 @@ $character
 right_format = """
 $time
 """
+
+
+# # Style String Options
+# bold
+# italic
+# underline
+# dimmed
+# inverted  # Inverts the foreground and background colors
+# blink
+# hidden
+# strikethrough
+# bg:<color>
+# fg:<color>
+# <color>
+# none
 
 
 palette = "catppuccin-mocha"
@@ -39,6 +55,7 @@ green = "#A6E3A1"
 teal = "#94E2D5"
 sky = "#89DCEB"
 sapphire = "#74C7EC"
+cyan = "#00FFFF"
 blue = "#89B4FA"
 darkblue = "#545AA7"
 lavender = "#B4BEFE"
@@ -57,27 +74,32 @@ crust = "#11111B"
 
 # One line prompt
 [line_break]
-disabled = true
+disabled = false
 
 [cmd_duration]
 disabled = true
 
 [hostname]
-disabled = false
+disabled = true
 ssh_only = false
 format = '[$ssh_symbol$hostname](bold fg:yellow)'
 
 [username]
-disabled = false
+disabled = true
 show_always = true
 format = '[$user](bold fg:yellow)'
+
+[sudo]
+disabled = false
+format = '[$symbol](bold fg:blue)'
+symbol = "🥷 " 
 
 [directory]
 disabled = false
 home_symbol = "~"
 truncate_to_repo = false
 read_only = " "
-format = '[$path$readonly](bold fg:mauve) '
+format = '[$path$readonly](bold fg:lavender) '
 
 [env_var]
 disabled = true
@@ -120,7 +142,7 @@ deleted = '✘'
 
 [time]
 disabled = false
-format = '[\[$time\]](bold fg:rosewater)'
+format = '[\[$time\]](bold fg:cyan)'
 
 [aws]
 disabled = false
@@ -185,8 +207,16 @@ format = '[\[$symbol($version)\]]($style)'
 
 [character]
 disabled = false
-success_symbol = "[➜](bold fg:green)"
-error_symbol = "[➜](bold fg:red)" 
-vimcmd_symbol = "[](bold fg:yellow)"
-vimcmd_visual_symbol = "[](bold fg:yellow)"
-
+# success_symbol = "[╰─◯ ](bold fg:green)"
+success_symbol = """
+[\
+│
+╰─◯](bold fg:lavender) """
+error_symbol = """
+[\
+│
+╰─◯](bold fg:red) """
+vimcmd_symbol = """
+[\
+│
+╰─◯](bold fg:mauve) """
