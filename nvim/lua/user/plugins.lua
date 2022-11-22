@@ -23,8 +23,8 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     pattern = "plugins.lua",
     callback = function()
         vim.cmd([[source %]])
-        vim.cmd([[PackerCompile]])
         vim.cmd([[PackerSync]])
+        vim.cmd([[PackerCompile]])
     end,
 })
 
@@ -380,6 +380,7 @@ packer.startup({
 
         if packer_bootstrap then
             packer.sync()
+            packer.compile()
         end
     end,
     config = {

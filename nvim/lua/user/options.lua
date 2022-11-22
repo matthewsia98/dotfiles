@@ -15,7 +15,7 @@ opt.termguicolors = true
 opt.showmode = false
 
 -- Set commandline height
-opt.cmdheight = 1
+opt.cmdheight = 0
 
 -- Disable commandline completion
 opt.wildmenu = false
@@ -23,8 +23,8 @@ opt.wildmenu = false
 -- Get rid of t flag. Prevents < message
 opt.shortmess = "filnxToOF"
 
--- Make _ a word boundary
-opt.iskeyword = "@,48-57,192-255"
+-- Get rid of _. Make _ a word boundary
+-- opt.iskeyword = "@,48-57,192-255"
 
 -- Don't show conceal on cursor line in these modes
 opt.concealcursor = "nvi"

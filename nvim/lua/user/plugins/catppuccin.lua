@@ -1,8 +1,12 @@
 local installed, catppuccin = pcall(require, "catppuccin")
 
 if installed then
-    local palette = require("catppuccin.palettes").get_palette()
     catppuccin.setup({
+        flavour = "mocha",
+        background = {
+            light = "frappe",
+            dark = "mocha",
+        },
         transparent_background = false,
         term_colors = false,
         styles = {
@@ -23,15 +27,16 @@ if installed then
             cmp = true,
             gitsigns = true,
             leap = true,
-            lsp_trouble = true,
             mason = true,
+            mini = true,
             noice = true,
             notify = true,
             nvimtree = true,
             treesitter_context = true,
             treesitter = true,
             telescope = true,
-            -- which_key = true,
+            lsp_trouble = true,
+            which_key = true,
 
             -- Special Integrations
             indent_blankline = {
@@ -41,10 +46,10 @@ if installed then
             native_lsp = {
                 enabled = true,
                 virtual_text = {
-                    errors = { "italic" },
-                    hints = { "italic" },
-                    warnings = { "italic" },
-                    information = { "italic" },
+                    errors = { "bold", "italic" },
+                    hints = { "bold", "italic" },
+                    warnings = { "bold", "italic" },
+                    information = { "bold", "italic" },
                 },
                 underlines = {
                     errors = { "underline" },
@@ -54,14 +59,19 @@ if installed then
                 },
             },
         },
-        custom_highlights = {
-            Comment = { fg = palette.overlay1 },
-            LineNr = { fg = palette.lavender },
-            -- CursorLineNr = { fg = palette.lavender },
-        },
+        custom_highlights = function(colors)
+            return {
+                Comment = { fg = colors.overlay1 },
+                LineNr = { fg = colors.lavender },
+                CursorLineNr = { fg = colors.lavender },
+                WinSeparator = { fg = colors.text },
+                TreesitterContext = { bg = colors.surface0 },
+                TreesitterContextLineNumber = { bg = colors.surface0, fg = colors.lavender },
+                IndentBlanklineContextChar = { fg = colors.green },
+                IndentBlanklineContextStart = { sp = colors.green },
+            }
+        end,
     })
 
-    vim.g.catppuccin_flavour = "mocha"
     vim.cmd([[colorscheme catppuccin]])
-    vim.cmd([[ highlight WinSeparator guibg=NONE guifg=#FFFFFF ]])
 end

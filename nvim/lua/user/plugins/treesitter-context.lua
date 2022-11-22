@@ -42,11 +42,4 @@ if installed then
         -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
         separator = nil,
     })
-
-    local palettes_installed, palettes = pcall(require, "catppuccin.palettes")
-    if palettes_installed then
-        local palette = palettes.get_palette()
-        --     vim.cmd('highlight TreesitterContext guibg=' .. palette.crust)
-        vim.cmd("highlight TreesitterContextLineNumber guibg=" .. palette.crust .. " guifg=" .. palette.lavender)
-    end
 end

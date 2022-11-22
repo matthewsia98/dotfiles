@@ -73,6 +73,9 @@ end)
 -- Reverse Selection
 map("v", "<leader>rv", '<ESC><cmd>lua require("user.functions").reverse_lines()<CR>')
 
+-- Toggle Highlight Search
+map("n", "<leader>sh", "<cmd>set hlsearch!<CR>", { desc = "Toggle highlight search" })
+
 -- Line Text Objects
 -- map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>', { desc = 'inner line' })
 -- map({'o', 'x'}, 'al', ':<C-u>normal! 0v$<CR>', { desc = 'a line (with whitespace)' })

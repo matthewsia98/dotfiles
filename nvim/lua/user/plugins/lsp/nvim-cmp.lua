@@ -46,13 +46,13 @@ if installed then
         window = {
             completion = {
                 border = "rounded",
-                winhighlight = "Normal:NormalFloat,CursorLine:PmenuSel",
+                winhighlight = "NormalFloat:Normal,CursorLine:PmenuSel",
                 col_offset = 0,
                 side_padding = 0,
             },
             documentation = {
                 border = "rounded",
-                winhighlight = "Normal:NormalFloat",
+                winhighlight = "NormalFloat:Normal",
                 zindex = 1001,
             },
         },
