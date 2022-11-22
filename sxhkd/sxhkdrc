@@ -1,17 +1,17 @@
 XF86MonBrightnessUp
-    ~/.shell-scripts/dunst/brightness.sh raise
+    ~/.config/dunst/scripts/brightness.sh raise
 
 XF86MonBrightnessDown
-    ~/.shell-scripts/dunst/brightness.sh lower
+    ~/.config/dunst/scripts/brightness.sh lower
 
 XF86AudioRaiseVolume
-    ~/.shell-scripts/dunst/volume.sh raise
+    ~/.config/dunst/scripts/volume.sh raise
 
 XF86AudioLowerVolume
-    ~/.shell-scripts/dunst/volume.sh lower
+    ~/.config/dunst/scripts/volume.sh lower
 
 XF86AudioMute
-    ~/.shell-scripts/dunst/volume.sh mute
+    ~/.config/dunst/scripts/volume.sh mute
 
 Print
     flameshot gui
