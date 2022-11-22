@@ -196,7 +196,7 @@ screens = [
                     colour_have_updates=CATPPUCCIN["maroon"],
                     colour_no_updates=CATPPUCCIN["green"],
                     update_interval=60,
-                    execute="~/.shell-scripts/qtile/check_updates.sh",
+                    execute="~/.config/qtile/scripts/check_updates.sh",
                     padding=8,
                     decorations=[
                         RectDecoration(
@@ -327,7 +327,7 @@ screens = [
                         widget.Spacer(length=20),
                         widget.Volume(
                             get_volume_command=os.path.expanduser(
-                                "~/.shell-scripts/qtile/get-volume.sh"
+                                "~/.config/qtile/scripts/get-volume.sh"
                             ),
                             fmt="\ufa7d {:>4}",
                             # mute_text="Mute",
@@ -411,7 +411,7 @@ screens = [
                                 "Button1": show_text("batterywidget"),
                                 "Button3": lazy.spawn(
                                     os.path.expanduser(
-                                        "~/.shell-scripts/qtile/check_battery.sh"
+                                        "~/.config/qtile/scripts/check_battery.sh"
                                     )
                                 ),
                             },

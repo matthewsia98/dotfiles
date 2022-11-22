@@ -26,7 +26,7 @@
 
     # Turn on the progess bar. It appears when a progress hint is passed with
     # for example dunstify -h int:value:12
-    progress_bar = true
+    progress_bar = false
 
     # Set the progress bar height. This includes the frame, so make sure
     # it's at least twice as big as the frame width.

@@ -220,6 +220,6 @@ def show_text(qtile, name):
 def toggle_conky(qtile):
     return_code = subprocess.run(["pgrep", "conky"]).returncode
     if return_code == 1:
-        qtile.cmd_spawn(os.path.expanduser("~/.shell-scripts/conky/launch-all.sh"))
+        qtile.cmd_spawn(os.path.expanduser("~/.config/conky/scripts/launch-all.sh"))
     else:
         subprocess.run(["killall", "conky"])
