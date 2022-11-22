@@ -36,13 +36,6 @@ packer.startup({
         -- Required Plugins --
         use("nvim-lua/plenary.nvim")
 
-        -- use {
-        --     'rcarriga/nvim-notify',
-        --     config = function()
-        --         require('user.plugins.nvim-notify')
-        --     end,
-        -- }
-
         use({
             "folke/which-key.nvim",
             config = function()
@@ -79,7 +72,6 @@ packer.startup({
 
         use({
             "catppuccin/nvim",
-            -- event = 'BufEnter',
             config = function()
                 require("user.plugins.catppuccin")
             end,
@@ -162,11 +154,9 @@ packer.startup({
                     run = "make",
                     config = function()
                         local installed, telescope = pcall(require, "telescope")
-                        vim.defer_fn(function()
-                            if installed then
-                                telescope.load_extension("fzf")
-                            end
-                        end, 10000)
+                        if installed then
+                            telescope.load_extension("fzf")
+                        end
                     end,
                 },
                 {
@@ -212,20 +202,11 @@ packer.startup({
 
         use({
             "lukas-reineke/indent-blankline.nvim",
-            -- event = 'BufRead',
             after = "nvim-treesitter",
             config = function()
                 require("user.plugins.indent-blankline")
             end,
         })
-
-        -- use({
-        --     "folke/twilight.nvim",
-        --     after = "nvim-treesitter",
-        --     config = function()
-        --         require("user.plugins.twilight")
-        --     end,
-        -- })
 
         -- Editing --
         use({
@@ -246,8 +227,7 @@ packer.startup({
 
         use({
             "windwp/nvim-autopairs",
-            -- event = 'InsertCharPre',
-            -- after = 'nvim-cmp',
+            after = "nvim-treesitter",
             config = function()
                 require("user.plugins.nvim-autopairs")
             end,
@@ -256,6 +236,7 @@ packer.startup({
         use({
             "Vimjas/vim-python-pep8-indent",
             ft = "python",
+            event = "CursorHold",
             config = function()
                 require("user.plugins.vim-python-pep8-indent")
             end,
@@ -263,7 +244,7 @@ packer.startup({
 
         use({
             "echasnovski/mini.nvim",
-            event = "BufRead",
+            event = "CursorHold",
             config = function()
                 require("user.plugins.mini")
             end,
@@ -311,12 +292,13 @@ packer.startup({
         use({
             "hrsh7th/nvim-cmp",
             -- "~/repos/nvim-cmp",
-            after = "LuaSnip",
+            after = { "nvim-autopairs", "LuaSnip" },
             requires = {
                 { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
                 { "hrsh7th/cmp-path", after = "nvim-cmp" },
                 { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
                 { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
+                { "dmitmel/cmp-cmdline-history", after = "nvim-cmp" },
                 { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
                 { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
                 { "onsails/lspkind.nvim" },
@@ -379,14 +361,15 @@ packer.startup({
         --     end
         -- }
 
-        -- use {
-        --     '~/.config/nvim/my-plugins/python-docstring-generator.nvim',
-        --     after = 'nvim-treesitter',
-        --     -- ft = 'python',
-        --     config = function()
-        --         require('user.plugins.python-docstring-generator')
-        --     end,
-        -- }
+        use({
+            "~/.config/nvim/my-plugins/python-docstring-generator.nvim",
+            ft = "python",
+            -- event = "BufRead",
+            -- after = 'nvim-treesitter',
+            config = function()
+                require("user.plugins.python-docstring-generator")
+            end,
+        })
 
         use({
             "~/.config/nvim/my-plugins/test.nvim",

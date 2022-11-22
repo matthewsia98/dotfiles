@@ -4,6 +4,7 @@ if installed then
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
 
+    -- insert ( after choosing function from completion menu
     cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
 
     cmp.setup({
@@ -16,49 +17,21 @@ if installed then
             format = function(entry, vim_item)
                 local kind = lspkind.cmp_format({
                     mode = "symbol_text",
-                    preset = "default",
+                    preset = "default", -- "default" | "codicons"
                     maxwidth = 60,
                     menu = {
-                        buffer = "[Buffer]",
-                        path = "[Path]",
+                        buffer = "[BUFFER]",
+                        path = "[PATH]",
                         nvim_lsp = "[LSP]",
-                        luasnip = "[Snip]",
-                        nvim_lua = "[Api]",
-                        latex_symbols = "[Latex]",
-                    },
-                    symbol_map = {
-                        Text = "  ",
-                        Method = "  ",
-                        Function = "  ",
-                        Constructor = "  ",
-                        Field = "  ",
-                        Variable = "  ",
-                        Class = "  ",
-                        Interface = "  ",
-                        Module = "  ",
-                        Property = "  ",
-                        Unit = "  ",
-                        Value = "  ",
-                        Enum = "  ",
-                        Keyword = "  ",
-                        Snippet = "  ",
-                        Color = "  ",
-                        File = "  ",
-                        Reference = "  ",
-                        Folder = "  ",
-                        EnumMember = "  ",
-                        Constant = "  ",
-                        Struct = "  ",
-                        Event = "  ",
-                        Operator = "  ",
-                        TypeParameter = "  ",
+                        nvim_lsp_signature_help = "[SIGN]",
+                        luasnip = "[SNIP]",
+                        nvim_lua = "[NVIM]",
+                        cmdline_history = "[HIST]",
+                        cmdline = "[CMD]",
                     },
                 })(entry, vim_item)
                 local strings = vim.split(vim_item.kind, "%s+", { trimempty = true })
-                kind.kind = " " .. string.format("[%s] %-13s", strings[1], strings[2]) .. " "
-                -- local n = 37 - #strings[1] -1
-                -- kind.kind = ' ' .. string.format('[%s] %-' .. n .. 's', strings[1], strings[2]) .. ' '
-
+                kind.kind = " " .. string.format("[%s] %s", strings[1], strings[2]) .. " "
                 return kind
             end,
         },
@@ -73,13 +46,13 @@ if installed then
         window = {
             completion = {
                 border = "rounded",
-                winhighlight = "Normal:CmpPmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel",
-                col_offset = -3,
+                winhighlight = "Normal:NormalFloat,CursorLine:PmenuSel",
+                col_offset = 0,
                 side_padding = 0,
             },
             documentation = {
                 border = "rounded",
-                winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+                winhighlight = "Normal:NormalFloat",
                 zindex = 1001,
             },
         },
@@ -155,23 +128,24 @@ if installed then
             { name = "luasnip", max_item_count = 10 },
             { name = "path", max_item_count = 10 },
             { name = "buffer", max_item_count = 10 },
+            { name = "nvim_lua", max_item_count = 10 },
         },
     })
-
     -- Use buffer source for `/`
     cmp.setup.cmdline("/", {
-        -- mapping = cmp.mapping.preset.cmdline(),
         sources = {
             { name = "buffer", max_item_count = 10 },
+            { name = "cmdline_history", max_item_count = 10 },
         },
     })
 
     -- Use cmdline & path source for ':'
     cmp.setup.cmdline(":", {
-        -- mapping = cmp.mapping.preset.cmdline(),
         sources = {
-            { name = "path", max_item_count = 10 },
             { name = "cmdline", max_item_count = 10 },
+            { name = "cmdline_history", max_item_count = 10 },
+            { name = "path", max_item_count = 10 },
+            { name = "nvim_lua", max_item_count = 10 },
         },
     })
 
