@@ -188,7 +188,7 @@ screens = [
                     ],
                     name="musicwidget",
                 ),
-                widget.Spacer(length=20, name="musicspacerright"),
+                widget.Spacer(length=10, name="musicspacerright"),
                 widget.CheckUpdates(
                     distro="Arch_checkupdates",
                     display_format="\ueb9a {updates}",

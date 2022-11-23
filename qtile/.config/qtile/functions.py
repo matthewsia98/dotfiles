@@ -211,12 +211,20 @@ def toggle_widgetbox(qtile, n):
 def toggle_musicwidget(qtile):
     musicwidget = qtile.widgets_map.get("musicwidget")
     musicspacerleft = qtile.widgets_map.get("musicspacerleft")
-    if musicwidget.length > 0:
-        musicwidget.length = 0
-        musicspacerleft.length = 0
+    musicspacerright = qtile.widgets_map.get("musicspacerright")
+
+    if musicwidget.player == "None":
+        if musicwidget.length > 0:
+            musicwidget.length = 0
+            musicspacerleft.length = 10
+            musicspacerright.length = 0
+        else:
+            musicwidget.length = 200
+            musicspacerleft.length = 20
+            musicspacerright.length = 10
     else:
-        musicwidget.length = 200
         musicspacerleft.length = 20
+        musicspacerright.length = 10
 
     for screen in qtile.screens:
         screen.top.draw()
