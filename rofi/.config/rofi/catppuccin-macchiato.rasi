@@ -4,9 +4,11 @@
     border-col: #89b4fa;
     selected-col: #24273a;
     blue: #8aadf4;
+    green: #a6e3a1;
     fg-col: #cad3f5;
     fg-col2: #ed8796;
     grey: #6e738d;
+    base: #1e1e2e;
 
     width: 1400px;
 }
@@ -18,7 +20,7 @@ element-text, element-icon , mode-switcher {
 
 window {
     height: 800px;
-    border: 6px;
+    border: 4px;
     border-color: @border-col;
     border-radius: 20px;
     background-color: @bg-col;
@@ -93,5 +95,5 @@ button {
 
 button selected {
   background-color: @blue;
-  text-color: @fg-col;
+  text-color: @bg-col;
 }

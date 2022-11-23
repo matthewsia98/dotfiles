@@ -44,8 +44,8 @@ map("n", "<C-q>", "<C-w>c")
 map("n", "<C-h>", "<C-w>h")
 map("n", "<C-l>", "<C-w>l")
 map("n", "<C-j>", "<C-w>j")
--- Resize Windows
 map("n", "<C-k>", "<C-w>k")
+-- Resize Windows
 map("n", "<Right>", "<C-w>5>")
 map("n", "<Left>", "<C-w>5<")
 map("n", "<Up>", "<C-w>1+")
@@ -58,8 +58,12 @@ map("n", "<leader>bd", "<cmd>bdelete<CR>")
 -- map('n', '<leader>fd', 'za')
 
 -- Terminal Mode
-map("t", "<C-q>", "<C-\\><C-n><C-w>c")
 map("t", "<Esc>", "<C-\\><C-n>")
+map("t", "<C-q>", "<C-\\><C-n><C-w>c")
+map("t", "<C-h>", "<C-\\><C-n><C-w>h")
+map("t", "<C-l>", "<C-\\><C-n><C-w>l")
+map("t", "<C-j>", "<C-\\><C-n><C-w>j")
+map("t", "<C-k>", "<C-\\><C-n><C-w>k")
 
 -- Toggle conceal
 map("n", "<F12>", function()

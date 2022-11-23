@@ -6,7 +6,7 @@ if installed then
         direction = "float",
         shell = "/bin/zsh",
         float_opts = {
-            border = "curved",
+            border = "rounded",
             width = 140,
             height = 32,
             winblend = 6,
@@ -14,7 +14,7 @@ if installed then
     })
 
     local keys = require("user.keymaps")
-    keys.map("n", "<leader>tt", "<cmd>ToggleTerm<CR>")
+    keys.map("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
     keys.map("n", "<leader>tr", function()
         local filetype = vim.bo.filetype
         local filepath = vim.fn.expand("%")
@@ -38,5 +38,5 @@ if installed then
         -- local winwidth = vim.fn.winwidth(0)
         -- vim.cmd('TermExec size=' .. math.floor(winwidth / 3) .. ' cmd="' .. command .. '"')
         vim.cmd('TermExec cmd="' .. command .. '"')
-    end, { desc = "run file" })
+    end, { desc = "Run File" })
 end

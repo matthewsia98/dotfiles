@@ -343,6 +343,7 @@ packer.startup({
                 require("user.plugins.lsp.mason")
             end,
         })
+
         use({
             "jose-elias-alvarez/null-ls.nvim",
             event = "BufRead",
@@ -361,22 +362,15 @@ packer.startup({
         --     end
         -- }
 
-        use({
-            "~/.config/nvim/my-plugins/python-docstring-generator.nvim",
-            ft = "python",
-            -- event = "BufRead",
-            -- after = 'nvim-treesitter',
-            config = function()
-                require("user.plugins.python-docstring-generator")
-            end,
-        })
-
-        use({
-            "~/.config/nvim/my-plugins/test.nvim",
-            config = function()
-                require("test")
-            end,
-        })
+        -- use({
+        --     "~/.config/nvim/my-plugins/python-docstring-generator.nvim",
+        --     ft = "python",
+        --     -- event = "BufRead",
+        --     -- after = 'nvim-treesitter',
+        --     config = function()
+        --         require("user.plugins.python-docstring-generator")
+        --     end,
+        -- })
 
         if packer_bootstrap then
             packer.sync()

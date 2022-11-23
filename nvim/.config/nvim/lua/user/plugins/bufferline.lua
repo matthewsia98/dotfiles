@@ -129,8 +129,8 @@ if installed then
     keys.map("n", "<C-b>H", "<cmd>BufferLineMovePrev<CR>", { desc = "Move buffer to the left" })
 
     -- Tabs
-    -- keys.map('n', '<C-t>v', '<cmd>tabnew<CR>')
-    -- keys.map('n', '<C-t>l', '<cmd>tabnext<CR>')
-    -- keys.map('n', '<C-t>h', '<cmd>tabprev<CR>')
-    -- keys.map('n', '<C-t>c', '<cmd>tabclose<CR>')
+    keys.map('n', '<C-t>v', '<cmd>$tabnew %<CR>')
+    keys.map('n', '<C-t>l', '<cmd>tabnext<CR>')
+    keys.map('n', '<C-t>h', '<cmd>tabprev<CR>')
+    keys.map('n', '<C-t>c', '<cmd>tabclose<CR>')
 end
