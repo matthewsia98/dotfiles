@@ -6,25 +6,23 @@ add_newline = true
 
 continuation_prompt = ''
 
-# format = """
-# ╭─◯ $username$hostname
-# ├─◯ $c$java$lua$python$rust
-# ├─◯ [Directory:](bold green) $directory
-# ╰─◯ $character
-# """
 
 format = """
 $sudo($username[@](bold fg:yellow)$hostname )\
-$directory\
-$git_branch$git_commit$git_state$git_metrics$git_status\
-$c$java$lua$python$rust$env_var
+$directory \
+$git_branch $git_commit ($git_state )$git_metrics$git_status\
+$c$java$lua$python$rust\
+$fill\
+$time
 $character
 """
 
-right_format = """
-$time
-"""
-
+# format = """
+# ╭──◯  $username$hostname
+# ├──◯  $c$java$lua$python$rust
+# ├──◯  [Directory:](bold green) $directory
+# ╰──◯  $character
+# """
 
 # # Style String Options
 # bold
@@ -99,7 +97,7 @@ disabled = false
 home_symbol = "~"
 truncate_to_repo = false
 read_only = " "
-format = '[$path$readonly](bold fg:lavender) '
+format = '[$path$readonly](bold fg:cyan)'
 
 [env_var]
 disabled = true
@@ -111,11 +109,11 @@ format = "[$env_value](bold fg:yellow)"
 [git_branch]
 disabled = false
 symbol = ""
-format = '[\[$symbol $branch(:$remote_branch)\]](bold fg:pink) '
+format = '[\[$symbol $branch(:$remote_branch)\]](bold fg:pink)'
 
 [git_commit]
 disabled = false
-format = '[\[#$hash$tag\]](bold fg:green) '
+format = '[\[#$hash$tag\]](bold fg:pink)'
 only_detached = false
 
 [git_state]
@@ -142,7 +140,8 @@ deleted = '✘'
 
 [time]
 disabled = false
-format = '[\[$time\]](bold fg:cyan)'
+format = '[$time](bold fg:yellow)'
+time_format = "%b %d, %T"
 
 [aws]
 disabled = false
@@ -205,18 +204,25 @@ disabled = false
 symbol = " "
 format = '[\[$symbol($version)\]]($style)'
 
+[fill]
+disabled = false
+symbol = " "
+
 [character]
 disabled = false
-# success_symbol = "[╰─◯ ](bold fg:green)"
+format = "$symbol "
+# success_symbol = "[➜](bold fg:green)"
+# error_symbol = "[➜](bold fg:red)"
+# vicmd_symbol = "[➜](bold fg:mauve)"
 success_symbol = """
 [\
-│
-╰─◯](bold fg:lavender) """
+╷ 
+╰─◯](fg:green)"""
 error_symbol = """
 [\
-│
-╰─◯](bold fg:red) """
+╷ 
+╰─◯](fg:red)"""
 vimcmd_symbol = """
 [\
-│
-╰─◯](bold fg:mauve) """
+╷ 
+╰─◯](fg:mauve)"""
