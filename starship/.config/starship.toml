@@ -10,7 +10,7 @@ continuation_prompt = ''
 format = """
 $sudo($username[@](bold fg:yellow)$hostname )\
 $directory \
-$git_branch $git_commit ($git_state )$git_metrics$git_status\
+($git_branch $git_commit ($git_state )$git_metrics$git_status)\
 $c$java$lua$python$rust\
 $fill\
 $time
@@ -109,11 +109,12 @@ format = "[$env_value](bold fg:yellow)"
 [git_branch]
 disabled = false
 symbol = ""
-format = '[\[$symbol $branch(:$remote_branch)\]](bold fg:pink)'
+# symbol = ""
+format = '[$symbol $branch(:$remote_branch)](bold fg:pink)'
 
 [git_commit]
 disabled = false
-format = '[\[#$hash$tag\]](bold fg:pink)'
+format = '[#$hash$tag](bold fg:pink)'
 only_detached = false
 
 [git_state]
