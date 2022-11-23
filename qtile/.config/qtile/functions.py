@@ -208,6 +208,26 @@ def toggle_widgetbox(qtile, n):
 
 
 @lazy.function
+def toggle_musicwidget(qtile):
+    musicwidget = qtile.widgets_map.get("musicwidget")
+    musicspacerleft = qtile.widgets_map.get("musicspacerleft")
+    if musicwidget.length > 0:
+        musicwidget.length = 0
+        musicspacerleft.length = 0
+    else:
+        musicwidget.length = 200
+        musicspacerleft.length = 20
+
+    for screen in qtile.screens:
+        screen.top.draw()
+
+
+@lazy.function
+def toggle_bar(qtile):
+    qtile.cmd_hide_show_bar("top")
+
+
+@lazy.function
 def show_text(qtile, name):
     widget = qtile.widgets_map.get(name)
     if name == "wifiwidget":

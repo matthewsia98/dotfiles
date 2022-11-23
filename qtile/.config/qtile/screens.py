@@ -136,7 +136,7 @@ screens = [
                         )
                     ],
                 ),
-                widget.Spacer(length=20),
+                widget.Spacer(length=20, name="musicspacerleft"),
                 # widget.Mpd2(
                 #     idle_message='Idle',
                 #     idle_format='\uf886 {idle_message}',
@@ -188,7 +188,7 @@ screens = [
                     ],
                     name="musicwidget",
                 ),
-                widget.Spacer(length=20),
+                widget.Spacer(length=20, name="musicspacerright"),
                 widget.CheckUpdates(
                     distro="Arch_checkupdates",
                     display_format="\ueb9a {updates}",
@@ -293,9 +293,10 @@ screens = [
                         ),
                     ],
                     close_button_location="left",
-                    text_closed=" \uEBE2 ",
-                    text_open=" \uEBE2 ",
-                    # text_open="",
+                    # text_closed=" \uEBE2 ",
+                    # text_open=" \uEBE2 ",
+                    text_closed="",
+                    text_open="",
                     padding=8,
                     decorations=[
                         RectDecoration(
@@ -459,6 +460,7 @@ screens = [
             border_color=CATPPUCCIN[BAR_BACKGROUND_COLOR],
             background=CATPPUCCIN[BAR_BACKGROUND_COLOR],
             opacity=1.0,
+            name="topbar",
         ),
         wallpaper=WALLPAPER,
         wallpaper_mode="fill",

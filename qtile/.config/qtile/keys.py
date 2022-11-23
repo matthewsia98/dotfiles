@@ -3,6 +3,8 @@ from functions import (
     move_window,
     normalize,
     toggle_floating,
+    toggle_bar,
+    toggle_musicwidget,
     toggle_widgetbox,
     toggle_minmax,
     flip_layout,
@@ -32,7 +34,12 @@ keys = [
     #     toggle_floating(center=True),
     #     desc="Toggle floating and center",
     # ),
-    Key([mod, "control"], "f", toggle_floating(center=True), desc="Toggle floating and center"),
+    Key(
+        [mod, "control"],
+        "f",
+        toggle_floating(center=True),
+        desc="Toggle floating and center",
+    ),
     Key([mod], "space", flip_layout(), desc="Flip layout"),
     # Resize Windows
     Key([mod, "shift"], "h", grow_window("h"), desc="Grow window to the left"),
@@ -52,9 +59,12 @@ keys = [
         lazy.layout.group.prev_window(),
         desc="Move focus to previous window",
     ),
+    # Toggle Bar
+    Key([mod, "shift"], "0", toggle_bar(), desc="Toggle bar"),
     # Toggle WidgetBoxes
-    Key([mod, "shift"], "1", toggle_widgetbox(1), desc="Toggle widgetbox 1"),
-    Key([mod, "shift"], "2", toggle_widgetbox(2), desc="Toggle widgetbox 2"),
+    Key([mod, "shift"], "1", toggle_musicwidget(), desc="Toggle music widget"),
+    Key([mod, "shift"], "2", toggle_widgetbox(1), desc="Toggle widgetbox 1"),
+    Key([mod, "shift"], "3", toggle_widgetbox(2), desc="Toggle widgetbox 2"),
     # Launch Programs
     Key([mod], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
     Key(
