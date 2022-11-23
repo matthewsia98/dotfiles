@@ -25,7 +25,7 @@ RECT_DECORATION_RADIUS = 8
 
 
 widget_defaults = dict(
-    font="Roboto Mono Medium",
+    font="RobotoMono Nerd Font Medium",
     fontsize=20,
     padding=0,
     margin=0,

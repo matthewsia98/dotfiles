@@ -6,4 +6,4 @@
 # .luarc.json
 # .mypy.ini
 # .stylua.toml
-/qtile/__pycache__/
+/qtile/.config/qtile/__pycache__/
