@@ -270,6 +270,7 @@ packer.startup({
         -- Terminal --
         use({
             "akinsho/toggleterm.nvim",
+            -- "repos/toggleterm.nvim",
             event = "CursorHold",
             config = function()
                 require("user.plugins.toggleterm")
