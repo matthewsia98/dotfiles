@@ -107,10 +107,16 @@ F.open_buf = function(buf)
     end, { buffer = buf })
 end
 
-F.reverse_lines = function()
+F.get_visual_lines = function()
     local _, r1, _, _ = unpack(vim.fn.getpos("'<"))
     local _, r2, _, _ = unpack(vim.fn.getpos("'>"))
     local lines = vim.api.nvim_buf_get_lines(0, r1 - 1, r2, false)
+
+    return lines, r1, r2
+end
+
+F.reverse_lines = function()
+    local lines, r1, r2 = F.get_visual_lines()
 
     local reversed_lines = {}
     for i = #lines, 1, -1 do
@@ -118,6 +124,56 @@ F.reverse_lines = function()
     end
 
     vim.api.nvim_buf_set_lines(0, r1 - 1, r2, false, reversed_lines)
+end
+
+F.get_cmd_output = function(cmd)
+    vim.validate({
+        cmd = { cmd, "string" },
+    })
+
+    local lines = {}
+    vim.fn.jobstart(
+        cmd,
+        {
+            on_stdout = function(_, data, _)
+                lines = { unpack(data, 1, #data - 1) }
+            end,
+            stdout_buffered = true,
+        }
+    )
+    return lines
+end
+
+F.send_visual_lines_to_terminal = function()
+    local filetype = vim.bo.filetype
+
+    local t = require('toggleterm.terminal')
+    if not vim.g.toggleterm_pid then
+        -- local win = vim.api.nvim_get_current_win()
+        t.get_or_create_term(t.get_toggled_id(), nil, nil):open(nil, nil)
+        local term = t.get_all()[t.get_toggled_id()]
+        local job = term.job_id
+        local pid = vim.fn.jobpid(job)
+        vim.g.toggleterm_pid = pid
+        -- vim.api.nvim_set_current_win(win)
+    else
+        vim.g.toggleterm_pid = vim.fn.jobpid(t.get(1).job_id)
+    end
+
+    if filetype == "python" then
+        local ipython = vim.fn.system("ps -f -u $USER | grep '" .. vim.g.toggleterm_pid .. ".*[i]python --no-autoindent'")
+        if ipython == "" then
+            vim.cmd('TermExec cmd="ipython --no-autoindent"')
+        end
+    end
+
+    local lines = F.get_visual_lines()
+    for _, line in ipairs(lines) do
+        require("toggleterm").exec(line, 1, nil, nil, nil, true)
+    end
+    if lines[#lines]:sub(1, 1) == " " then
+        require("toggleterm").exec("", 1, nil, nil, nil, true)
+    end
 end
 
 return F
