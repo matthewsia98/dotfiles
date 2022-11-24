@@ -44,8 +44,18 @@ if installed then
         vim.cmd('TermExec cmd="' .. command .. '"')
     end, { desc = "Run File" })
     keys.map("v", "<leader>tr", function()
-        if vim.bo.filetype == "python" then
-            local ipython = vim.fn.system("ps -f -u $USER | grep '[i]python --no-autoindent'")
+        local filetype = vim.bo.filetype
+        local t = require('toggleterm.terminal')
+        if #t.get_all() == 0 then
+            t.get_or_create_term(t.get_toggled_id(), nil, nil):open(nil, nil)
+            local term = t.get_all()[t.get_toggled_id()]
+            local job = term.job_id
+            local pid = vim.fn.jobpid(job)
+            vim.g.toggleterm_pid = pid
+        end
+
+        if filetype == "python" then
+            local ipython = vim.fn.system("ps -f -u $USER | grep '" .. vim.g.toggleterm_pid .. ".*[i]python --no-autoindent'")
             if ipython == "" then
                 vim.cmd('TermExec cmd="ipython --no-autoindent"')
             end
