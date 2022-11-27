@@ -136,7 +136,7 @@ screens = [
                         )
                     ],
                 ),
-                widget.Spacer(length=20, name="musicspacerleft"),
+                # widget.Spacer(length=20, name="musicspacerleft"),
                 # widget.Mpd2(
                 #     idle_message='Idle',
                 #     idle_format='\uf886 {idle_message}',
@@ -162,32 +162,32 @@ screens = [
                 #         )
                 #     ]
                 # ),
-                widget.Mpris2(
-                    # objname='org.mpris.MediaPlayer2.spotify',
-                    objname=None,
-                    display_metadata=["xesam:title", "xesam:artist"],
-                    # objname=None,
-                    paused_text="\uf001 (\uead1) {track} \uf001",
-                    playing_text="\uf001 (\ueb2c) {track} \uf001",
-                    # paused_text='\uead1 {track}',
-                    # playing_text='\ueb2c {track}',
-                    # stopped_text='\uead7',
-                    scroll=True,
-                    scroll_step=4,
-                    scroll_interval=0.2,
-                    scroll_clear=False,
-                    scroll_delay=2,
-                    width=200,
-                    padding=8,
-                    decorations=[
-                        RectDecoration(
-                            colour=CATPPUCCIN["yellow"],
-                            radius=RECT_DECORATION_RADIUS,
-                            filled=True,
-                        )
-                    ],
-                    name="musicwidget",
-                ),
+                # widget.Mpris2(
+                #     # objname='org.mpris.MediaPlayer2.spotify',
+                #     objname=None,
+                #     display_metadata=["xesam:title", "xesam:artist"],
+                #     # objname=None,
+                #     paused_text="\uf001 (\uead1) {track} \uf001",
+                #     playing_text="\uf001 (\ueb2c) {track} \uf001",
+                #     # paused_text='\uead1 {track}',
+                #     # playing_text='\ueb2c {track}',
+                #     # stopped_text='\uead7',
+                #     scroll=True,
+                #     scroll_step=4,
+                #     scroll_interval=0.2,
+                #     scroll_clear=False,
+                #     scroll_delay=2,
+                #     width=200,
+                #     padding=8,
+                #     decorations=[
+                #         RectDecoration(
+                #             colour=CATPPUCCIN["yellow"],
+                #             radius=RECT_DECORATION_RADIUS,
+                #             filled=True,
+                #         )
+                #     ],
+                #     name="musicwidget",
+                # ),
                 widget.Spacer(length=10, name="musicspacerright"),
                 widget.CheckUpdates(
                     distro="Arch_checkupdates",
