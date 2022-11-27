@@ -1,8 +1,8 @@
 XF86MonBrightnessUp
-    ~/.config/dunst/scripts/brightness.sh raise
+    ~/.config/dunst/scripts/brightness.sh up
 
 XF86MonBrightnessDown
-    ~/.config/dunst/scripts/brightness.sh lower
+    ~/.config/dunst/scripts/brightness.sh down
 
 XF86AudioRaiseVolume
     ~/.config/dunst/scripts/volume.sh raise
