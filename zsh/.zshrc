@@ -86,7 +86,7 @@ alias suspend='systemctl suspend'
 # Programs
 alias vi='nvim'
 alias vim='nvim'
-alias feh='feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info "echo %wx%h" --image-bg #494D54 -C ~/.fonts -e static/RobotoMono-Bold/20'
+alias feh='feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info "echo %wx%h" --image-bg #494D54'
 alias conky="conky -c ~/.config/conky/process.conf"
 alias uotp='python ~/Misc/uottawa_otp.py'
 
@@ -200,6 +200,9 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
+
+# For WSL Ubuntu
+# source /usr/share/doc/fzf/examples/key-bindings.zsh
 
 source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
