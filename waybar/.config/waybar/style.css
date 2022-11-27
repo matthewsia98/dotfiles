@@ -1,0 +1,128 @@
+@import "macchiato.css";
+
+
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: FontAwesome, JetBrainsMono Nerd Font Mono;
+    font-size: 14px;
+    /* Normal: 400    Bold: 700 */
+    font-weight: 600;
+    border-radius: 8px;
+    color: @base;
+}
+
+
+window#waybar {
+    background-color: @surface0;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+.modules-left {
+    margin: 8px 0px;
+    margin-left: 8px;
+}
+.modules-center {
+    margin: 8px 0px;
+}
+.modules-right {
+    margin: 8px 0px;
+    margin-right: 8px;
+}
+
+#workspaces {
+    background-color: @lavender;
+}
+#workspaces button:first-child {
+    margin-left: 2px;
+}
+#workspaces button:last-child {
+    margin-right: 2px;
+}
+#workspaces button {
+    padding: 0px 2px;
+}
+#workspaces button.active {
+    background-color: @green;
+    /* border: 2px solid @surface0; */
+}
+
+
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber {
+    padding: 4px 12px;
+}
+
+
+#clock {
+    background-color: @mauve;
+    padding: 4 32px;
+}
+
+#battery {
+    background-color: @yellow;
+}
+#battery.charging, #battery.plugged {
+    background-color: @yellow;
+}
+@keyframes blink {
+    to {
+        background-color: @peach;
+    }
+}
+#battery.critical:not(.charging) {
+    background-color: @red;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+
+#cpu {
+    background-color: @peach;
+}
+
+#memory {
+    background-color: @blue;
+}
+
+#disk {
+    background-color: @yellow;
+}
+
+#backlight {
+    background-color: @peach;
+}
+
+#network {
+    background-color: @green;
+}
+#network.disconnected {
+    background-color: @red;
+}
+
+#pulseaudio {
+    background-color: @blue;
+}
+#wireplumber {
+    background-color: @blue;
+}
+
+#temperature {
+    background-color: @red;
+}
+#temperature.critical {
+    background-color: @red;
+}
