@@ -1,0 +1,34 @@
+configuration {
+    font: "RobotoMono Nerd Font Medium 20";
+
+    sidebar-mode: true;
+    hide-scrollbar: true;
+    disable-history: false;
+    location: 0;
+
+    show-icons: true;
+    icon-theme: "Papirus";
+
+    modi: "drun,window,run";
+    display-drun: " Applications";
+    display-window: "﩯 Window";
+    display-run: " Run";
+    drun-display-format: "{icon} {name}";
+    
+    drun {
+        parse-user: true;
+        parse-system: true;
+    }
+
+    kb-remove-to-eol: "Control+Shift+e";
+    kb-accept-entry: "Return";
+    kb-row-up: "Up,Control+k";
+    kb-row-down: "Down,Control+j";
+    kb-remove-char-back: "BackSpace";
+    kb-mode-complete: "Control+Shift+space";
+    kb-row-left: "Control+h";
+    kb-row-right: "Control+l";
+}
+
+
+@theme "catppuccin-macchiato"
