@@ -7,15 +7,23 @@ chpwd_functions+=(set_title)
 
 # Yank to the system clipboard
 function vi-yank-xclip {
-   zle vi-yank
-   echo "$CUTBUFFER" | xclip -i -selection clipboard
+    zle vi-yank
+    if [[ $XDG_SESSION_TYPE -eq "wayland" ]] then
+        echo "$CUTBUFFER" | wl-copy
+    else
+        echo "$CUTBUFFER" | xclip -i -selection clipboard
+    fi
 }
 zle -N vi-yank-xclip
 bindkey -M vicmd 'y' vi-yank-xclip
 
 # Paste from system clipboard
 function vi-paste-xclip () {
-    RBUFFER=$(xclip -o -selection clipboard)$RBUFFER
+    if [[ $XDG_SESSION_TYPE -eq "wayland" ]] then
+        RBUFFER=$(wl-paste)$RBUFFER
+    else
+        RBUFFER=$(xclip -o -selection clipboard)$RBUFFER
+    fi
 }
 zle -N vi-paste-xclip
 bindkey -M vicmd 'p' vi-paste-xclip
