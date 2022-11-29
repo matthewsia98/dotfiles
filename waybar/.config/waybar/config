@@ -2,28 +2,23 @@
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
 
-    "height": 40, // Waybar height (to be removed for auto height)
+    "height": 48, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
 
     "spacing": 16, // Gaps between modules (4px)
     "margin": "10 10 0 10",
 
     // Choose the order of the modules
-    "modules-left": ["wlr/workspaces"],
+    "modules-left": ["wlr/workspaces", "hyprland/window"],
     "modules-center": ["clock"],
     "modules-right": ["network", "backlight", "pulseaudio", "battery"],
 
     // Modules configuration
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-    "tray": {
-        // "icon-size": 21,
-        "spacing": 10
+    "hyprland/window": {
+        "format": "{}",
+        "separate-outputs": false,
+        "min-length": 35,
+        "max-length": 35,
     },
     "clock": {
         // "timezone": "America/New_York",

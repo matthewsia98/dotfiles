@@ -37,10 +37,10 @@ window#waybar.hidden {
     background-color: @lavender;
 }
 #workspaces button:first-child {
-    margin-left: 2px;
+    margin-left: 0px;
 }
 #workspaces button:last-child {
-    margin-right: 2px;
+    margin-right: 0px;
 }
 #workspaces button {
     padding: 0px 2px;
@@ -51,6 +51,7 @@ window#waybar.hidden {
 }
 
 
+#window,
 #battery,
 #cpu,
 #memory,
@@ -63,10 +64,14 @@ window#waybar.hidden {
     padding: 4px 12px;
 }
 
+#window {
+    background-color: @base;
+    color: @text;
+}
 
 #clock {
     background-color: @mauve;
-    padding: 4 32px;
+    padding: 4px 32px;
 }
 
 #battery {
