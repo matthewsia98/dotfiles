@@ -25,7 +25,7 @@ RECT_DECORATION_RADIUS = 8
 
 
 widget_defaults = dict(
-    font="RobotoMono Nerd Font Medium",
+    font="JetBrainsMono Nerd Font Mono Medium",
     fontsize=20,
     padding=0,
     margin=0,
@@ -455,7 +455,7 @@ screens = [
                 widget.Spacer(length=5),
             ],
             size=BAR_HEIGHT,
-            margin=[BAR_MARGIN, BAR_MARGIN, BAR_MARGIN, BAR_MARGIN],
+            margin=[BAR_MARGIN, BAR_MARGIN, 0, BAR_MARGIN],
             border_width=BAR_BORDER_WIDTH,
             border_color=CATPPUCCIN[BAR_BACKGROUND_COLOR],
             background=CATPPUCCIN[BAR_BACKGROUND_COLOR],
