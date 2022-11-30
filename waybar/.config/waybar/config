@@ -17,8 +17,8 @@
     "hyprland/window": {
         "format": "{}",
         "separate-outputs": false,
-        "min-length": 35,
-        "max-length": 35,
+        "min-length": 30,
+        "max-length": 30,
     },
     "clock": {
         // "timezone": "America/New_York",
@@ -55,6 +55,7 @@
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
         "format-alt": "{icon} {time}",
+        "format-time": "{H}h:{M}m",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]

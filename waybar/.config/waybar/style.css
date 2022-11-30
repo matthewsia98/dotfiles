@@ -11,9 +11,21 @@
     color: @base;
 }
 
+#window,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber {
+    padding: 4px 12px;
+}
 
 window#waybar {
-    background-color: @surface0;
+    background-color: alpha(@base, 0.5);
     transition-property: background-color;
     transition-duration: 0.5s;
 }
@@ -34,100 +46,85 @@ window#waybar.hidden {
 }
 
 #workspaces {
-    background-color: @lavender;
-}
-#workspaces button:first-child {
-    margin-left: 0px;
-}
-#workspaces button:last-child {
-    margin-right: 0px;
+    background-color: alpha(@pink, 1.0);
 }
 #workspaces button {
     padding: 0px 2px;
 }
 #workspaces button.active {
-    background-color: @green;
-    /* border: 2px solid @surface0; */
+    /* background-color: alpha(@sapphire, 1.0); */
+    /* border: 2px solid alpha(@base, 0.8); */
+}
+#workspaces button.active label {
+    /* color: @sapphire; */
+    font-size: 20px;
 }
 
-
-#window,
-#battery,
-#cpu,
-#memory,
-#disk,
-#temperature,
-#backlight,
-#network,
-#pulseaudio,
-#wireplumber {
-    padding: 4px 12px;
-}
 
 #window {
-    background-color: @base;
+    background-color: alpha(@surface0, 0.4);
     color: @text;
 }
 
 #clock {
-    background-color: @mauve;
+    background-color: alpha(@mauve, 1.0);
     padding: 4px 32px;
 }
 
 #battery {
-    background-color: @yellow;
+    background-color: alpha(@yellow, 1.0);
 }
-#battery.charging, #battery.plugged {
-    background-color: @yellow;
-}
-@keyframes blink {
-    to {
-        background-color: @peach;
-    }
-}
-#battery.critical:not(.charging) {
-    background-color: @red;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
+/* #battery.charging, #battery.plugged { */
+/*     background-color: @yellow; */
+/* } */
+/* @keyframes blink { */
+/*     to { */
+/*         background-color: @peach; */
+/*     } */
+/* } */
+/* #battery.critical:not(.charging) { */
+/*     background-color: @red; */
+/*     animation-name: blink; */
+/*     animation-duration: 0.5s; */
+/*     animation-timing-function: linear; */
+/*     animation-iteration-count: infinite; */
+/*     animation-direction: alternate; */
+/* } */
 
 
 #cpu {
-    background-color: @peach;
+    background-color: alpha(@peach, 1.0);
 }
 
 #memory {
-    background-color: @blue;
+    background-color: alpha(@blue, 1.0);
 }
 
 #disk {
-    background-color: @yellow;
+    background-color: alpha(@yellow, 1.0);
 }
 
 #backlight {
-    background-color: @peach;
+    background-color: alpha(@peach, 1.0);
 }
 
 #network {
-    background-color: @green;
+    background-color: alpha(@green, 1.0);
 }
-#network.disconnected {
-    background-color: @red;
-}
+/* #network.disconnected { */
+/*     background-color: @red; */
+/* } */
 
 #pulseaudio {
-    background-color: @blue;
+    background-color: alpha(@blue, 1.0);
 }
 #wireplumber {
-    background-color: @blue;
+    background-color: alpha(@blue, 1.0);
 }
 
 #temperature {
-    background-color: @red;
+    background-color: alpha(@red, 1.0);
 }
-#temperature.critical {
-    background-color: @red;
-}
+/* #temperature.critical { */
+/*     background-color: @red; */
+/* } */
