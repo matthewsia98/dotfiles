@@ -176,4 +176,23 @@ F.send_visual_lines_to_terminal = function()
     end
 end
 
+F.get_current_file = function(opt)
+    local cwd = vim.fn.getcwd()
+    local filename = vim.fn.expand("%:t")
+    local absolute_filepath = vim.fn.expand("%:p")
+    local relative_filepath = vim.fn.expand("%:.")
+
+    local res
+    if opt == "absolute" then
+        res = absolute_filepath
+    elseif opt == "relative" then
+        res = relative_filepath
+    else
+        res = filename
+    end
+
+    vim.notify( "cwd:  " .. cwd .. "\nfile: " ..  res, "info", { title = "Current File", timeout = 3000 })
+    return res
+end
+
 return F

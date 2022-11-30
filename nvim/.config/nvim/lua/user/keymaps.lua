@@ -75,7 +75,11 @@ map("n", "<F12>", function()
 end)
 
 -- Reverse Selection
-map("v", "<leader>rv", '<ESC><cmd>lua require("user.functions").reverse_lines()<CR>')
+map("v", "<leader>rv", '<ESC><cmd>lua require("user.functions").reverse_lines()<CR>', { desc = "Reverse visual lines" })
+
+-- Get Current FIle
+map("n", "<leader>/", '<cmd>lua require("user.functions").get_current_file("absolute")<CR>', { desc = "Get absolute path" })
+map("n", "<leader>.", '<cmd>lua require("user.functions").get_current_file("relative")<CR>', { desc = "Get relative path" })
 
 -- Toggle Highlight Search
 map("n", "<leader>sh", "<cmd>set hlsearch!<CR>", { desc = "Toggle highlight search" })

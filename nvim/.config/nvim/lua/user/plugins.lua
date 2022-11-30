@@ -379,6 +379,7 @@ packer.startup({
         end
     end,
     config = {
+        snapshot_path = vim.fn.expand("~/.config/nvim/snapshots"),
         profile = {
             enable = true,
             threshold = 0, -- the amount in ms that a plugins load time must be over for it to be included in the profile

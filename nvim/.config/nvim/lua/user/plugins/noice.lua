@@ -2,10 +2,16 @@ local installed, noice = pcall(require, "noice")
 
 if installed then
     noice.setup({
-        hacks = {
-            cmp_popup_row_offset = 1,
-        },
+        -- hacks = {
+        --     cmp_popup_row_offset = 1,
+        -- },
         routes = {
+            {
+                view = "notify",
+                filter = {
+                    event = "msg_showmode",
+                },
+            },
             {
                 filter = {
                     event = "msg_show",
