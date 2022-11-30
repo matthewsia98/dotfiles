@@ -13,7 +13,7 @@
     origin = top-right
 
     # Offset from the origin
-    offset = 0x52
+    offset = 6x60
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
