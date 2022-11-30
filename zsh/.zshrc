@@ -213,6 +213,6 @@ source /usr/share/nvm/init-nvm.sh
 
 
 # neofetch --ascii ~/.config/neofetch/ascii/bat_ascii --ascii_colors 4
-pfetch
-# colorscript -r
+# pfetch
+colorscript -r
 export PATH=$PATH:/home/msia/.spicetify

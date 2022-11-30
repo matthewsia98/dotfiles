@@ -218,7 +218,7 @@ screens = [
                 widget.Spacer(),
                 widget.Clock(
                     format="%A, %B %-d, %H:%M:%S",
-                    padding=64,
+                    padding=32,
                     decorations=[
                         RectDecoration(
                             colour=CATPPUCCIN["mauve"],
