@@ -90,6 +90,7 @@ alias feh='feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info
 alias conky="conky -c ~/.config/conky/process.conf"
 alias uotp='python ~/Misc/uottawa_otp.py'
 alias imv='imv -d'
+alias img='swayimg'
 
 # Git
 alias gcl='git clone'

@@ -37,7 +37,7 @@ if installed then
                 spacer(),
                 {
                     "branch",
-                    separator = { left = "", right = "" },
+                    separator = { left = "", right = "" },
                 },
                 {
                     "diff",

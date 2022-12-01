@@ -8,7 +8,7 @@ fullscreen = no
 background = grid
 
 # Window background mode/color (none or RGB, e.g. #112233)
-window = none
+window = #1E1E2E
 
 # Show image info: format, size, EXIF, and current scale (yes/no)
 info = yes
@@ -20,7 +20,7 @@ font = JetBrainsMono
 font-size = 14
 
 # Color for image info text
-font-color = #cccccc
+font-color = #CDD6F4
 
 # Default order of the image list (none, alpha, or random)
 order = none
