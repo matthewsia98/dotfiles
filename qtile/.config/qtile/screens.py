@@ -10,7 +10,7 @@ from qtile_extras.widget.decorations import RectDecoration
 from libqtile.lazy import lazy
 
 
-WALLPAPER = "~/.config/qtile/wallpapers/catppuccin-cat.png"
+WALLPAPER = "~/.config/wallpapers/catppuccin-cat.png"
 
 WIDGETBOX1_COLOR = "lavender"
 # WIDGETBOX2_COLOR = 'peach'
