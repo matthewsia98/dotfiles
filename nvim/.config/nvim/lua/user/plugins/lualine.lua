@@ -22,7 +22,8 @@ if installed then
             -- powerline      
             -- section_separators = { left = "", right = "" },
             -- section_separators = { left = "", right = "" },
-            section_separators = { left = "", right = "" },
+            -- section_separators = { left = "", right = "" },
+            -- section_separators = { left = "", right = "" },
             component_separators = { left = "❘", right = "❘" },
         },
         -- a b c                x y z
@@ -30,25 +31,31 @@ if installed then
             lualine_a = {
                 {
                     "mode",
-                    separator = { left = "", right = "" },
+                    separator = { left = "", right = "" },
                 },
             },
             lualine_b = {
                 spacer(),
                 {
                     "branch",
-                    separator = { left = "", right = "" },
+                    separator = { left = "", right = "" },
                 },
                 {
                     "diff",
                     -- separator = "",
-                    separator = { left = "", right = "" },
+                    separator = { left = "", right = "" },
                 },
                 spacer({
                     cond = function()
                         return #vim.diagnostic.get(nil) > 0
                     end,
                 }),
+                -- {
+                --     function()
+                --         return "W"
+                --     end,
+                --     separator = { left = "", right = "" },
+                -- },
                 {
                     "diagnostics",
                     sources = { "nvim_workspace_diagnostic" },
@@ -57,7 +64,29 @@ if installed then
                     colored = true,
                     update_in_insert = false,
                     always_visible = false,
-                    separator = { left = "", right = "" },
+                    fmt = function(s)
+                        if #s > 0 then
+                            return "W " .. s
+                        else
+                            return s
+                        end
+                    end,
+                    color = function()
+                        local severities = { "error", "warn", "info", "hint" }
+                        local diagnostics = vim.diagnostic.get(nil)
+                        local max_severity = 4
+                        for _, diagnostic in ipairs(diagnostics) do
+                            if max_severity == nil then
+                                max_severity = diagnostic.severity
+                            else
+                                if diagnostic.severity < max_severity then
+                                    max_severity = diagnostic.severity
+                                end
+                            end
+                        end
+                        return "lualine_b_diagnostics_" .. severities[max_severity] .. "_0_normal"
+                    end,
+                    separator = { left = "", right = "" },
                 },
                 spacer({
                     cond = function()
@@ -72,7 +101,29 @@ if installed then
                     colored = true,
                     update_in_insert = false,
                     always_visible = false,
-                    separator = { left = "", right = "" },
+                    fmt = function(s)
+                        if #s > 0 then
+                            return "D " .. s
+                        else
+                            return s
+                        end
+                    end,
+                    color = function()
+                        local severities = { "error", "warn", "info", "hint" }
+                        local diagnostics = vim.diagnostic.get(0)
+                        local max_severity = 4
+                        for _, diagnostic in ipairs(diagnostics) do
+                            if max_severity == nil then
+                                max_severity = diagnostic.severity
+                            else
+                                if diagnostic.severity < max_severity then
+                                    max_severity = diagnostic.severity
+                                end
+                            end
+                        end
+                        return "lualine_b_diagnostics_" .. severities[max_severity] .. "_0_normal"
+                    end,
+                    separator = { left = "", right = "" },
                 },
             },
             lualine_c = {},
@@ -80,7 +131,7 @@ if installed then
             lualine_y = {
                 {
                     "encoding",
-                    separator = { left = "", right = "" },
+                    separator = { left = "", right = "" },
                 },
                 {
                     "fileformat",
@@ -97,18 +148,18 @@ if installed then
                 },
                 {
                     "filesize",
-                    separator = { left = "", right = "" },
+                    separator = { left = "", right = "" },
                 },
                 spacer(),
             },
             lualine_z = {
                 {
                     "progress",
-                    separator = { left = "", right = "" },
+                    separator = { left = "", right = "" },
                 },
                 {
                     "location",
-                    separator = { left = "", right = "" },
+                    separator = { left = "", right = "" },
                 },
             },
         },
