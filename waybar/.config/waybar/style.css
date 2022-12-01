@@ -25,7 +25,7 @@
 }
 
 window#waybar {
-    background-color: alpha(@base, 0.5);
+    background-color: alpha(@base, 0.7);
     transition-property: background-color;
     transition-duration: 0.5s;
 }
@@ -62,7 +62,7 @@ window#waybar.hidden {
 
 
 #window {
-    background-color: alpha(@surface0, 0.4);
+    background-color: alpha(@surface0, 0.6);
     color: @text;
 }
 
