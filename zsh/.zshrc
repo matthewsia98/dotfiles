@@ -34,7 +34,7 @@ export STARSHIP_CONFIG=~/.config/starship.toml
 #  ╚══════╝╚═╝  ╚═══╝  ╚═══╝        ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 #  
 ###################################################################
-export PATH=$PATH:~/.local/bin:~/.local/share/nvim/mason/bin:~/.spicetify
+export PATH=$PATH:~/.local/bin:~/.cargo/bin:~/.local/share/nvim/mason/bin:~/.spicetify
 export BAT_THEME='OneHalfDark'
 export EDITOR='nvim'
 export VISUAL='nvim'
