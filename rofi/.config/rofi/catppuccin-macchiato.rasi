@@ -20,9 +20,9 @@ element-text, element-icon , mode-switcher {
 
 window {
     height: 800px;
-    border: 4px;
-    border-color: @border-col;
-    border-radius: 20px;
+    /* border: 4px; */
+    /* border-color: @border-col; */
+    /* border-radius: 20px; */
     background-color: @bg-col;
 }
 
