@@ -1,7 +1,6 @@
 source .zsh_functions
-
-set_title
-chpwd_functions+=(set_title)
+# set_title
+# chpwd_functions+=(set_title)
 
 
 ########################################################

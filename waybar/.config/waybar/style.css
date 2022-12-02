@@ -25,7 +25,7 @@
 }
 
 window#waybar {
-    background-color: alpha(@base, 0.7);
+    background-color: alpha(@base, 0.8);
     transition-property: background-color;
     transition-duration: 0.5s;
 }
@@ -72,8 +72,9 @@ tooltip label {
 }
 
 
+/* Hyprland Active Window */
 #window {
-    background-color: alpha(@surface0, 0.6);
+    background-color: alpha(@surface0, 0.5);
     color: @text;
 }
 
