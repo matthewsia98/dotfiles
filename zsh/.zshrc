@@ -1,47 +1,41 @@
-function set_title() { 
-	print -Pn "\e]0;%n@%m: %~\a" 
-}
-set_title
+source .zsh_functions
 
+set_title
 chpwd_functions+=(set_title)
 
-# Yank to the system clipboard
-function vi-yank-xclip {
-    zle vi-yank
-    if [[ $XDG_SESSION_TYPE -eq "wayland" ]] then
-        echo "$CUTBUFFER" | wl-copy
-    else
-        echo "$CUTBUFFER" | xclip -i -selection clipboard
-    fi
-}
-zle -N vi-yank-xclip
-bindkey -M vicmd 'y' vi-yank-xclip
 
-# Paste from system clipboard
-function vi-paste-xclip () {
-    if [[ $XDG_SESSION_TYPE -eq "wayland" ]] then
-        RBUFFER=$(wl-paste)$RBUFFER
-    else
-        RBUFFER=$(xclip -o -selection clipboard)$RBUFFER
-    fi
-}
-zle -N vi-paste-xclip
-bindkey -M vicmd 'p' vi-paste-xclip
-
-function toggle_keymap() {
-    local variant=$(setxkbmap -query | awk '/variant:/ {print $2}')
-    if [[ $variant = '' ]] then
-        setxkbmap us colemak_dh
-    else
-        setxkbmap us
-    fi
-    xmodmap ~/.Xmodmap
-}
-
+########################################################
+#  
+#  ██████╗ ██████╗  ██████╗ ███╗   ███╗██████╗ ████████╗
+#  ██╔══██╗██╔══██╗██╔═══██╗████╗ ████║██╔══██╗╚══██╔══╝
+#  ██████╔╝██████╔╝██║   ██║██╔████╔██║██████╔╝   ██║   
+#  ██╔═══╝ ██╔══██╗██║   ██║██║╚██╔╝██║██╔═══╝    ██║   
+#  ██║     ██║  ██║╚██████╔╝██║ ╚═╝ ██║██║        ██║   
+#  ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝        ╚═╝   
+#  
+########################################################
+ZLE_RPROMPT_INDENT=0
+#PS1='%F{cyan}%~ > %f'
+#RPS1='[%*]'
+# Disable % if line doesn't end with \n
 PROMPT_EOL_MARK=""
 
-# Environment Variables
-export PATH=$PATH:~/.local/bin:~/.local/share/nvim/mason/bin
+# Starship
+eval "$(starship init zsh)"
+export STARSHIP_CONFIG=~/.config/starship.toml
+
+
+###################################################################
+#  
+#  ███████╗███╗   ██╗██╗   ██╗    ██╗   ██╗ █████╗ ██████╗ ███████╗
+#  ██╔════╝████╗  ██║██║   ██║    ██║   ██║██╔══██╗██╔══██╗██╔════╝
+#  █████╗  ██╔██╗ ██║██║   ██║    ██║   ██║███████║██████╔╝███████╗
+#  ██╔══╝  ██║╚██╗██║╚██╗ ██╔╝    ╚██╗ ██╔╝██╔══██║██╔══██╗╚════██║
+#  ███████╗██║ ╚████║ ╚████╔╝      ╚████╔╝ ██║  ██║██║  ██║███████║
+#  ╚══════╝╚═╝  ╚═══╝  ╚═══╝        ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
+#  
+###################################################################
+export PATH=$PATH:~/.local/bin:~/.local/share/nvim/mason/bin:~/.spicetify
 export BAT_THEME='OneHalfDark'
 export EDITOR='nvim'
 export VISUAL='nvim'
@@ -50,24 +44,25 @@ export HISTFILE=~/.zsh_history
 export HISTSIZE=100000
 # Max history file size
 export SAVEHIST=1000000000
+# Add timestamps
+export HISTTIMEFORMAT='[%F %T]'
 
 # Add to history immediately, not on exit
 setopt INC_APPEND_HISTORY
-
-# Add timestamps
-export HISTTIMEFORMAT='[%F %T]'
 setopt EXTENDED_HISTORY
-
 setopt HIST_IGNORE_ALL_DUPS
 
 
-# Prompt
-ZLE_RPROMPT_INDENT=0
-#PS1='%F{cyan}%~ > %f'
-#RPS1='[%*]'
-
-
-# Aliases
+######################################################
+#  
+#   █████╗ ██╗     ██╗ █████╗ ███████╗███████╗███████╗
+#  ██╔══██╗██║     ██║██╔══██╗██╔════╝██╔════╝██╔════╝
+#  ███████║██║     ██║███████║███████╗█████╗  ███████╗
+#  ██╔══██║██║     ██║██╔══██║╚════██║██╔══╝  ╚════██║
+#  ██║  ██║███████╗██║██║  ██║███████║███████╗███████║
+#  ╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
+#  
+######################################################
 # Shell
 alias ..='cd ..'
 alias hg='history 1 | grep'
@@ -117,7 +112,16 @@ alias pacg='pacman -Q | grep'
 alias pacls='pacman -Q'
 
 
-# Autosuggest and Syntax highlighting
+######################################################################################
+#  
+#   ██████╗ ██████╗ ███╗   ███╗██████╗ ██╗     ███████╗████████╗██╗ ██████╗ ███╗   ██╗
+#  ██╔════╝██╔═══██╗████╗ ████║██╔══██╗██║     ██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║
+#  ██║     ██║   ██║██╔████╔██║██████╔╝██║     █████╗     ██║   ██║██║   ██║██╔██╗ ██║
+#  ██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║     ██╔══╝     ██║   ██║██║   ██║██║╚██╗██║
+#  ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ███████╗███████╗   ██║   ██║╚██████╔╝██║ ╚████║
+#   ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+#  
+######################################################################################
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="bg=#494D64,fg=#CAD3F5,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
@@ -132,7 +136,16 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
-# Key Bindings
+#####################################################################
+#  
+#  ██╗  ██╗███████╗██╗   ██╗    ██████╗ ██╗███╗   ██╗██████╗ ███████╗
+#  ██║ ██╔╝██╔════╝╚██╗ ██╔╝    ██╔══██╗██║████╗  ██║██╔══██╗██╔════╝
+#  █████╔╝ █████╗   ╚████╔╝     ██████╔╝██║██╔██╗ ██║██║  ██║███████╗
+#  ██╔═██╗ ██╔══╝    ╚██╔╝      ██╔══██╗██║██║╚██╗██║██║  ██║╚════██║
+#  ██║  ██╗███████╗   ██║       ██████╔╝██║██║ ╚████║██████╔╝███████║
+#  ╚═╝  ╚═╝╚══════╝   ╚═╝       ╚═════╝ ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝
+#  
+#####################################################################
 # Shell emacs/vim mode
 bindkey -v
 
@@ -148,13 +161,20 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-
-# Starship
-eval "$(starship init zsh)"
-export STARSHIP_CONFIG=~/.config/starship.toml
+bindkey -M vicmd 'y' vi-yank
+bindkey -M vicmd 'p' vi-paste
 
 
-# FZF
+##############################################################################################
+#  
+#  ███████╗██╗   ██╗███████╗███████╗██╗   ██╗    ███████╗██╗███╗   ██╗██████╗ ███████╗██████╗ 
+#  ██╔════╝██║   ██║╚══███╔╝╚══███╔╝╚██╗ ██╔╝    ██╔════╝██║████╗  ██║██╔══██╗██╔════╝██╔══██╗
+#  █████╗  ██║   ██║  ███╔╝   ███╔╝  ╚████╔╝     █████╗  ██║██╔██╗ ██║██║  ██║█████╗  ██████╔╝
+#  ██╔══╝  ██║   ██║ ███╔╝   ███╔╝    ╚██╔╝      ██╔══╝  ██║██║╚██╗██║██║  ██║██╔══╝  ██╔══██╗
+#  ██║     ╚██████╔╝███████╗███████╗   ██║       ██║     ██║██║ ╚████║██████╔╝███████╗██║  ██║
+#  ╚═╝      ╚═════╝ ╚══════╝╚══════╝   ╚═╝       ╚═╝     ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝
+#  
+##############################################################################################
 local fzf_cmd='find -L'
 local fzf_opts='--height 60% --layout=reverse --border --multi --info=inline --header=""'
 # local fzf_opts='--height 60% --layout=reverse --border --multi --info=inline --header="" --color bg:#24273A,fg:#CAD3F5,preview-bg:#24273A,preview-fg:#CAD3F5,bg+:#494D64,fg+:#CAD3F5,gutter:#24273A,border:#B7BDF8,hl:#A6DA95,hl+:#A6DA95,pointer:#CAD3F5,info:#CAD3F5'
@@ -210,11 +230,19 @@ source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
 
+#############################################################################################################
+#  
+#  ███╗   ███╗██╗███████╗ ██████╗███████╗██╗     ██╗      █████╗ ███╗   ██╗███████╗ ██████╗ ██╗   ██╗███████╗
+#  ████╗ ████║██║██╔════╝██╔════╝██╔════╝██║     ██║     ██╔══██╗████╗  ██║██╔════╝██╔═══██╗██║   ██║██╔════╝
+#  ██╔████╔██║██║███████╗██║     █████╗  ██║     ██║     ███████║██╔██╗ ██║█████╗  ██║   ██║██║   ██║███████╗
+#  ██║╚██╔╝██║██║╚════██║██║     ██╔══╝  ██║     ██║     ██╔══██║██║╚██╗██║██╔══╝  ██║   ██║██║   ██║╚════██║
+#  ██║ ╚═╝ ██║██║███████║╚██████╗███████╗███████╗███████╗██║  ██║██║ ╚████║███████╗╚██████╔╝╚██████╔╝███████║
+#  ╚═╝     ╚═╝╚═╝╚══════╝ ╚═════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝ ╚═════╝  ╚═════╝ ╚══════╝
+#  
+#############################################################################################################
 # Node Version Manager
 source /usr/share/nvm/init-nvm.sh
-
 
 # neofetch --ascii ~/.config/neofetch/ascii/bat_ascii --ascii_colors 4
 # pfetch
 colorscript -r
-export PATH=$PATH:/home/msia/.spicetify

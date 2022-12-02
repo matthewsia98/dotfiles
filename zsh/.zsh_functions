@@ -1,0 +1,46 @@
+function set_title() { 
+	print -Pn "\e]0;%n@%m: %~\a" 
+}
+
+function toggle_program() {
+    program="$1"
+    c1=${program:0:1}
+    c2=${program:1:#program}
+    running=$(pgrep "[$c1]$c2")
+
+    if [[ $running == "" ]] ; then
+        $program
+    else
+        killall $program
+    fi
+}
+
+# Yank to the system clipboard
+function vi-yank {
+    if [[ $XDG_SESSION_TYPE -eq "wayland" ]] then
+        echo "$CUTBUFFER" | wl-copy
+    else
+        echo "$CUTBUFFER" | xclip -i -selection clipboard
+    fi
+}
+zle -N vi-yank
+
+# Paste from system clipboard
+function vi-paste () {
+    if [[ $XDG_SESSION_TYPE -eq "wayland" ]] then
+        RBUFFER=$(wl-paste)$RBUFFER
+    else
+        RBUFFER=$(xclip -o -selection clipboard)$RBUFFER
+    fi
+}
+zle -N vi-paste
+
+function toggle_keymap() {
+    local variant=$(setxkbmap -query | awk '/variant:/ {print $2}')
+    if [[ $variant = '' ]] then
+        setxkbmap us colemak_dh
+    else
+        setxkbmap us
+    fi
+    xmodmap ~/.Xmodmap
+}
