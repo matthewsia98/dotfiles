@@ -33,6 +33,14 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 
+tooltip {
+  background: alpha(@base, 1.0);
+  border: 2px solid alpha(@green, 0.5);
+}
+tooltip label {
+  color: @text;
+}
+
 .modules-left {
     margin: 8px 0px;
     margin-left: 8px;
@@ -50,6 +58,9 @@ window#waybar.hidden {
 }
 #workspaces button {
     padding: 0px 2px;
+}
+#workspaces button:hover {
+    background-color: alpha(@green, 1.0);
 }
 #workspaces button.active {
     /* background-color: alpha(@sapphire, 1.0); */

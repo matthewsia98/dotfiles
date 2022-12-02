@@ -1,5 +1,5 @@
 {
-    "layer": "bottom", // Waybar at top layer
+    "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
 
     "height": 48, // Waybar height (to be removed for auto height)
@@ -14,6 +14,22 @@
     "modules-right": ["network", "backlight", "pulseaudio", "battery"],
 
     // Modules configuration
+    "wlr/workspaces": {
+        "format": "{name}",
+        /* "format": "{icon}", */
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "urgent": "",
+            "active": "",
+            "default": ""
+        },
+        "sort-by-number": true,
+        "on-click": "activate",
+    },
     "hyprland/window": {
         "format": "{}",
         "separate-outputs": false,
@@ -22,32 +38,19 @@
     },
     "clock": {
         // "timezone": "America/New_York",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "{:%A, %B %d, %H:%M:%S}"
-    },
-    "cpu": {
-        "format": " {usage}%",
-        "tooltip": false
-    },
-    "memory": {
-        "format": " {}%"
-    },
-    "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{icon} {temperatureC}°C",
-        "format": "{icon} {temperatureC}°C",
-        "format-icons": ["", "", ""]
+        "format": "{:%A, %B %d, %H:%M:%S}",
+        "interval": 1,
+        "tooltip": true,
+        "tooltip-format": "<big>{:%a, %b %d, %Y}</big>\n<tt><big>{calendar}</big></tt>",
     },
     "backlight": {
         // "device": "acpi_video1",
         "format": "{icon} {percent}%",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
     },
     "battery": {
         "states": {
-            // "good": 95,
+            "good": 80,
             "warning": 30,
             "critical": 15
         },
@@ -58,17 +61,20 @@
         "format-time": "{H}h:{M}m",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""],
+        "tooltip": true,
+        "tooltip-format": "{timeTo}\nPower Draw: {power}W",
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "  {essid} ({signalStrength}%)",
         "format-ethernet": " {ipaddr}/{cidr}",
-        "tooltip-format": " {ifname} via {gwaddr}",
         "format-linked": " {ifname} (No IP)",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "on-click": "connman-gtk"
+        "tooltip": true,
+        "tooltip-format": " {ifname} via {gwaddr}",
+        "on-click": "connman-gtk",
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
@@ -87,6 +93,23 @@
             "car": "",
             "default": ["", "", ""]
         },
+        "tooltip": true,
+        "tooltip-format": "{desc}",
         "on-click": "pavucontrol"
+    },
+    "cpu": {
+        "format": " {usage}%",
+        "tooltip": false
+    },
+    "memory": {
+        "format": " {}%"
+    },
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{icon} {temperatureC}°C",
+        "format": "{icon} {temperatureC}°C",
+        "format-icons": ["", "", ""]
     },
 }
