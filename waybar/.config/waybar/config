@@ -5,8 +5,8 @@
     "height": 48, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
 
-    "spacing": 16, // Gaps between modules (4px)
-    "margin": "10 10 0 10",
+    "spacing": 16, // Gaps between modules
+    "margin": "8 8 0 8",
 
     // Choose the order of the modules
     "modules-left": ["wlr/workspaces", "hyprland/window"],
