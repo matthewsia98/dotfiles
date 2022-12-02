@@ -1,5 +1,5 @@
 configuration {
-    font: "RobotoMono Nerd Font Medium 24";
+    font: "RobotoMono Nerd Font Medium 18";
 
     sidebar-mode: true;
     hide-scrollbar: true;
