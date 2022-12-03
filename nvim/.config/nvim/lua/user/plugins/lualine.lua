@@ -1,61 +1,81 @@
 local installed, lualine = pcall(require, "lualine")
 
 if installed then
+    local function separator()
+        local style = vim.g.lualine_separator_style
+        if style == "slant" then
+            return { left = "", right = "" }
+        elseif style == "reverse_slant" then
+            return { left = "", right = "" }
+        elseif style == "powerline" then
+            return nil
+        elseif style == "round" then
+            return { left = "", right = "" }
+        end
+    end
+
     local function spacer(opts)
         opts = opts == nil and {} or opts
         local char = opts.char == nil and " " or opts.char
         local length = opts.length == nil and 1 or opts.length
         local color = opts.color == nil and { bg = "#00000000" } or opts.color
+
+        local function spacer_condition()
+            return vim.g.lualine_separator_style ~= "powerline"
+        end
+
+        local cond
+        if opts.cond == nil then
+            cond = spacer_condition
+        else
+            cond = function()
+                return spacer_condition() and opts.cond()
+            end
+        end
+
         return {
             "mode",
             fmt = function(_) return char:rep(length) end,
             color = color,
-            separator = opts.separator,
-            cond = opts.cond,
+            cond = cond,
         }
     end
+
 
     lualine.setup({
         options = {
             theme = "catppuccin",
             icons_enabled = true,
-            -- powerline      
+            -- separators                         
             -- section_separators = { left = "", right = "" },
-            -- section_separators = { left = "", right = "" },
+            -- -- section_separators = { left = "", right = "" },
             -- section_separators = { left = "", right = "" },
             -- section_separators = { left = "", right = "" },
-            component_separators = { left = "❘", right = "❘" },
+            -- component_separators = { left = "❘", right = "❘" },
         },
         -- a b c                x y z
         sections = {
             lualine_a = {
                 {
                     "mode",
-                    separator = { left = "", right = "" },
+                    separator = separator(),
                 },
             },
             lualine_b = {
                 spacer(),
                 {
                     "branch",
-                    separator = { left = "", right = "" },
+                    separator = separator(),
                 },
                 {
                     "diff",
-                    -- separator = "",
-                    separator = { left = "", right = "" },
+                    separator = vim.g.lualine_separator_style == "powerline" and { left = "", right = "" } or separator(),
                 },
                 spacer({
                     cond = function()
                         return #vim.diagnostic.get(nil) > 0
                     end,
                 }),
-                -- {
-                --     function()
-                --         return "W"
-                --     end,
-                --     separator = { left = "", right = "" },
-                -- },
                 {
                     "diagnostics",
                     sources = { "nvim_workspace_diagnostic" },
@@ -86,7 +106,7 @@ if installed then
                         end
                         return "lualine_b_diagnostics_" .. severities[max_severity] .. "_0_normal"
                     end,
-                    separator = { left = "", right = "" },
+                    separator = separator(),
                 },
                 spacer({
                     cond = function()
@@ -123,7 +143,7 @@ if installed then
                         end
                         return "lualine_b_diagnostics_" .. severities[max_severity] .. "_0_normal"
                     end,
-                    separator = { left = "", right = "" },
+                    separator = separator(),
                 },
             },
             lualine_c = {},
@@ -131,7 +151,7 @@ if installed then
             lualine_y = {
                 {
                     "encoding",
-                    separator = { left = "", right = "" },
+                    separator = separator(),
                 },
                 {
                     "fileformat",
@@ -140,26 +160,27 @@ if installed then
                         dos = "DOS",
                         mac = "MAC",
                     },
-                    separator = { left = "", right = "" },
+                    separator = separator(),
                 },
+                spacer(),
                 {
                     "filetype",
-                    separator = { left = "", right = "" },
+                    separator = separator(),
                 },
                 {
                     "filesize",
-                    separator = { left = "", right = "" },
+                    separator = separator(),
                 },
                 spacer(),
             },
             lualine_z = {
                 {
                     "progress",
-                    separator = { left = "", right = "" },
+                    separator = separator(),
                 },
                 {
                     "location",
-                    separator = { left = "", right = "" },
+                    separator = separator(),
                 },
             },
         },

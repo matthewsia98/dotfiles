@@ -8,6 +8,8 @@ g.python3_host_prog = vim.fn.expand("~/.virtualenvs/nvim/bin/python")
 g.mapleader = " "
 g.maplocalleader = " "
 
+g.lualine_separator_style = "slant"
+
 -- Enable RGB colors
 opt.termguicolors = true
 
