@@ -85,6 +85,11 @@ alias conky="conky -c ~/.config/conky/process.conf"
 alias uotp='python ~/Misc/uottawa_otp.py'
 alias imv='imv -d'
 alias img='swayimg'
+if [[ $XDG_SESSION_TYPE -eq "wayland" ]] then
+    alias dunst="dunst -config ~/.config/dunst/dunstrc-wayland"
+elif [[ $XDG_SESSION_TYPE -eq "x11" ]] then
+    alias dunst="dunst -config ~/.config/dunst/dunstrc"
+fi
 
 # Git
 alias gcl='git clone'
