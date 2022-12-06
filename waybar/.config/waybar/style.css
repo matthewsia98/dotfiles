@@ -60,7 +60,10 @@ tooltip label {
     padding: 0px 2px;
 }
 #workspaces button:hover {
-    background-color: alpha(@green, 1.0);
+    background-color: alpha(@pink, 1.0);
+}
+#workspaces button:hover label {
+    font-size: 20px;
 }
 #workspaces button.active {
     /* background-color: alpha(@sapphire, 1.0); */

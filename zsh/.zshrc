@@ -35,7 +35,6 @@ export STARSHIP_CONFIG=~/.config/starship.toml
 #  
 ###################################################################
 export PATH=$PATH:~/.local/bin:~/.cargo/bin:~/.local/share/nvim/mason/bin:~/.spicetify
-export BAT_THEME='OneHalfDark'
 export EDITOR='nvim'
 export VISUAL='nvim'
 export HISTFILE=~/.zsh_history
@@ -130,7 +129,7 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="bg=#494D64,fg=#CAD3F5,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-# source ~/repos/zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+# source ~/repos/zsh-syntax-highlighting-catppuccin/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 
 autoload -Uz compinit
 compinit
@@ -247,6 +246,7 @@ source /usr/share/fzf/key-bindings.zsh
 # Node Version Manager
 source /usr/share/nvm/init-nvm.sh
 
+# neofetch
 # neofetch --ascii ~/.config/neofetch/ascii/bat_ascii --ascii_colors 4
-# pfetch
-colorscript -r
+pfetch
+# colorscript -r
