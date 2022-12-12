@@ -52,7 +52,6 @@ packer.startup({
 
         use({
             "folke/noice.nvim",
-            -- "~/repos/noice.nvim",
             requires = {
                 "MunifTanjim/nui.nvim",
                 {
@@ -62,8 +61,6 @@ packer.startup({
                     end,
                 },
             },
-            -- rocks = 'luautf8',
-            -- after = "nvim-cmp",
             event = { "CmdlineEnter", "RecordingEnter" },
             config = function()
                 require("user.plugins.noice")
@@ -370,16 +367,6 @@ packer.startup({
         --         require('user.plugins.magma-nvim')
         --     end
         -- }
-
-        -- use({
-        --     "~/.config/nvim/my-plugins/python-docstring-generator.nvim",
-        --     ft = "python",
-        --     -- event = "BufRead",
-        --     -- after = 'nvim-treesitter',
-        --     config = function()
-        --         require("user.plugins.python-docstring-generator")
-        --     end,
-        -- })
 
         if packer_bootstrap then
             packer.sync()
