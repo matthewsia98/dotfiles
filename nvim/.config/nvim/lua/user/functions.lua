@@ -195,4 +195,9 @@ F.get_current_file = function(opt)
     return res
 end
 
+F.is_executable = function(filepath)
+    local perms = vim.fn.getfperm(filepath)
+    return perms:sub(3, 3) == "x"
+end
+
 return F

@@ -40,9 +40,11 @@ if installed then
         elseif filetype == "sh" or filetype == "zsh" then
             local splits = vim.split(filepath, "/")
             local prefix = #splits == 1 and "./" or ""
-            command = "chmod +x " .. filepath .. "; " .. prefix .. filepath
+            local is_executable = require("user.functions").is_executable(filepath)
+            local chmod = is_executable and "" or "chmod u+x " .. filepath .. "; "
+            command = chmod .. prefix .. filepath
         end
-        vim.cmd('TermExec cmd="' .. command .. '"')
+        vim.cmd('TermExec go_back=0 cmd="' .. command .. '"')
     end, { desc = "Run File" })
 
     keys.map("v", "<leader>tr", "<Esc><cmd>lua require('user.functions').send_visual_lines_to_terminal()<CR>")

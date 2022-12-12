@@ -44,6 +44,13 @@ packer.startup({
         })
 
         use({
+            'glepnir/dashboard-nvim',
+            config = function()
+                require("user.plugins.dashboard-nvim")
+            end
+        })
+
+        use({
             "folke/noice.nvim",
             -- "~/repos/noice.nvim",
             requires = {
@@ -56,7 +63,8 @@ packer.startup({
                 },
             },
             -- rocks = 'luautf8',
-            after = "nvim-cmp",
+            -- after = "nvim-cmp",
+            event = { "CmdlineEnter", "RecordingEnter" },
             config = function()
                 require("user.plugins.noice")
             end,
