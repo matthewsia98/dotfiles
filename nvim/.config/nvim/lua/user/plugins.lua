@@ -150,9 +150,9 @@ packer.startup({
                     "nvim-telescope/telescope-ui-select.nvim",
                     after = "telescope.nvim",
                     config = function()
-                        local installed, telescope = pcall(require, "telescope")
+                        local installed, _ = pcall(require, "telescope._extensions.ui_select")
                         if installed then
-                            telescope.load_extension("ui-select")
+                            require("telescope").load_extension("ui-select")
                         end
                     end,
                 },
@@ -161,9 +161,9 @@ packer.startup({
                     after = "telescope.nvim",
                     run = "make",
                     config = function()
-                        local installed, telescope = pcall(require, "telescope")
+                        local installed, _ = pcall(require, "telescope._extensions.fzf")
                         if installed then
-                            telescope.load_extension("fzf")
+                            require("telescope").load_extension("fzf")
                         end
                     end,
                 },
@@ -171,9 +171,9 @@ packer.startup({
                     "nvim-telescope/telescope-live-grep-args.nvim",
                     after = "telescope.nvim",
                     config = function()
-                        local installed, telescope = pcall(require, "telescope")
+                        local installed, _ = pcall(require, "telescope._extensions.live_grep_args")
                         if installed then
-                            telescope.load_extension("live_grep_args")
+                            require("telescope").load_extension("live_grep_args")
                         end
                     end,
                 },

@@ -9,6 +9,11 @@ g.mapleader = " "
 g.maplocalleader = " "
 
 g.lualine_separator_style = "slant"
+g.mason_languages_to_install = {
+    "python",
+    "lua",
+    -- "java",
+}
 
 -- Enable RGB colors
 opt.termguicolors = true
