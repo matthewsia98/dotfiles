@@ -1,31 +1,25 @@
-@import "macchiato.css";
+@import "mocha.css";
+
+
+@define-color dark-text @base;
+@define-color light-text @text;
+@define-color bar-bg @base;
 
 
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, JetBrainsMono Nerd Font Mono;
     font-size: 14px;
     /* Normal: 400    Bold: 700 */
     font-weight: 600;
     border-radius: 8px;
-    color: @base;
-}
-
-#window,
-#battery,
-#cpu,
-#memory,
-#disk,
-#temperature,
-#backlight,
-#network,
-#pulseaudio,
-#wireplumber {
-    padding: 4px 12px;
+    padding: 0px;
+    margin: 0px;
+    color: @dark-text;
 }
 
 window#waybar {
-    background-color: alpha(@base, 0.8);
+    background-color: alpha(@bar-bg, 0.7);
+    /* border-radius: 0px; */
     transition-property: background-color;
     transition-duration: 0.5s;
 }
@@ -34,7 +28,7 @@ window#waybar.hidden {
 }
 
 tooltip {
-  background: alpha(@base, 1.0);
+  background: alpha(@bar-bg, 1.0);
   border: 2px solid alpha(@green, 0.5);
 }
 tooltip label {
@@ -52,6 +46,20 @@ tooltip label {
     margin: 8px 0px;
     margin-right: 8px;
 }
+
+#window,
+#network,
+#backlight,
+#pulseaudio,
+#wireplumber,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature {
+    padding: 0px 12px;
+}
+
 
 #workspaces {
     background-color: alpha(@pink, 1.0);
@@ -77,8 +85,14 @@ tooltip label {
 
 /* Hyprland Active Window */
 #window {
-    background-color: alpha(@surface0, 0.5);
-    color: @text;
+    background-color: alpha(@surface0, 0.7);
+    color: @light-text;
+}
+
+#custom-updates {
+    /* background-color: alpha(@base, 0.7); */
+    font-size: 16px;
+    color: @light-text
 }
 
 #clock {

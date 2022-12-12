@@ -5,10 +5,10 @@ show-failed-attempts
 # indicator-idle-visible
 indicator-radius=60
 indicator-thickness=10
-indicator-y-position=300
+# indicator-y-position=300
 inside-color=1E1E2E0F
 
-image=~/.config/wallpapers/catppuccin-cat.png
+image=~/.config/wallpapers/banff-night.jpg
 scaling=center
 color=000000
 font=JetBrains Mono Nerd Font

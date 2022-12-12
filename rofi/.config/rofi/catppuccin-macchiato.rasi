@@ -10,7 +10,8 @@
     grey: #6e738d;
     base: #1e1e2e;
 
-    width: 1400px;
+    width: 1200px;
+    height: 720px;
 }
 
 element-text, element-icon , mode-switcher {
@@ -19,10 +20,9 @@ element-text, element-icon , mode-switcher {
 }
 
 window {
-    height: 800px;
-    /* border: 4px; */
-    /* border-color: @border-col; */
-    /* border-radius: 20px; */
+    border: 4px;
+    border-color: @border-col;
+    border-radius: 20px;
     background-color: @bg-col;
 }
 

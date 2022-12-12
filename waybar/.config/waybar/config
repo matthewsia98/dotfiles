@@ -6,12 +6,14 @@
     // "width": 1280, // Waybar width
 
     "spacing": 16, // Gaps between modules
-    "margin": "8 8 0 8",
+    "margin": "4 4 0 4",
+    /* "margin": "0 0 0 0", */
 
     // Choose the order of the modules
-    "modules-left": ["wlr/workspaces", "hyprland/window"],
+    "modules-left": ["wlr/workspaces", "hyprland/window", "custom/updates"],
     "modules-center": ["clock"],
     "modules-right": ["network", "backlight", "pulseaudio", "battery"],
+    /* "modules-right": ["cpu", "memory", "disk", "temperature"], */
 
     // Modules configuration
     "wlr/workspaces": {
@@ -35,6 +37,14 @@
         "separate-outputs": false,
         "min-length": 30,
         "max-length": 30,
+    },
+    "custom/updates": {
+        "exec": "checkupdates | wc -l",
+        "return-type": "string",
+        "format": " {}",
+        "tooltip": false,
+        "on-click": "~/.config/waybar/scripts/check_updates.sh",
+        "interval": 3600,
     },
     "clock": {
         // "timezone": "America/New_York",
@@ -61,9 +71,11 @@
         "format-time": "{H}h:{M}m",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
+        /* "format-icons": ["", "", "", "", ""], */
         "format-icons": ["", "", "", "", ""],
         "tooltip": true,
         "tooltip-format": "{timeTo}\nPower Draw: {power}W",
+        "interval": 60,
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
@@ -73,8 +85,10 @@
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "tooltip": true,
-        "tooltip-format": " {ifname} via {gwaddr}",
+        /* "tooltip-format": " {ifname} via {gwaddr}", */
+        "tooltip-format": "{bandwidthDownBits}    {bandwidthUpBits}",
         "on-click": "connman-gtk",
+        "interval": 60,
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
