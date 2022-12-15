@@ -11,7 +11,7 @@ if installed then
         },
     })
 
-    local exists = vim.fn.isdirectory(vim.fn.expand("~/.local/share/nvim/mason"))
+    local exists = vim.fn.isdirectory(vim.fn.stdpath("data") .. "/mason")
     if exists == 0 then
         local languages = vim.g.mason_languages_to_install
         if vim.tbl_contains(languages, "python") then

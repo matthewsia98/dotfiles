@@ -15,6 +15,10 @@ g.mason_languages_to_install = {
     -- "java",
 }
 
+-- Enable spell check
+opt.spell = true
+opt.spellfile = vim.fn.expand("~/.config/nvim/spell/en.utf-8.add")
+
 -- Enable RGB colors
 opt.termguicolors = true
 
