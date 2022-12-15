@@ -5,7 +5,7 @@ if installed then
     toggleterm.setup({
         size = function(term)
             if term.direction == "vertical" then
-                return vim.o.columns * 0.4
+                return vim.o.columns * 0.3
             end
         end,
         direction = "vertical",
