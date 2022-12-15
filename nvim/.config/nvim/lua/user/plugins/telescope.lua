@@ -37,15 +37,23 @@ if installed then
             mappings = {
                 i = {
                     ["<C-h>"] = "which_key",
-                    ["<C-t>"] = function(prompt_bufnr)
+                    ["<C-l>"] = function(prompt_bufnr)
                         actions.send_to_loclist(prompt_bufnr)
                         vim.cmd([[Trouble loclist]])
                     end,
+                    ["<C-q>"] = function(prompt_bufnr)
+                        actions.send_to_qflist(prompt_bufnr)
+                        vim.cmd([[Trouble quickfix]])
+                    end,
                 },
                 n = {
-                    ["<C-t>"] = function(prompt_bufnr)
+                    ["<C-l>"] = function(prompt_bufnr)
                         actions.send_to_loclist(prompt_bufnr)
                         vim.cmd([[Trouble loclist]])
+                    end,
+                    ["<C-q>"] = function(prompt_bufnr)
+                        actions.send_to_qflist(prompt_bufnr)
+                        vim.cmd([[Trouble quickfix]])
                     end,
                     ["q"] = actions.close,
                 },
