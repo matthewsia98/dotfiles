@@ -47,15 +47,12 @@ if installed then
             theme = "catppuccin",
             icons_enabled = true,
             -- separators                         
-            -- section_separators = { left = "", right = "" },
-            -- -- section_separators = { left = "", right = "" },
-            -- section_separators = { left = "", right = "" },
-            -- section_separators = { left = "", right = "" },
-            -- component_separators = { left = "❘", right = "❘" },
+            component_separators = { left = "", right = "" },
         },
         -- a b c                x y z
         sections = {
             lualine_a = {
+                spacer(),
                 {
                     "mode",
                     separator = separator(),
@@ -146,8 +143,8 @@ if installed then
                     separator = separator(),
                 },
             },
-            lualine_c = {},
-            lualine_x = {},
+            lualine_c = {spacer()},
+            lualine_x = {spacer()},
             lualine_y = {
                 {
                     "encoding",
@@ -182,6 +179,7 @@ if installed then
                     "location",
                     separator = separator(),
                 },
+                spacer(),
             },
         },
     })
