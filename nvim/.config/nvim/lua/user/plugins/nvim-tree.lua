@@ -6,7 +6,7 @@ if installed then
         sort_by = "case_sensitive",
         view = {
             adaptive_size = false,
-            width = 24,
+            width = math.floor(vim.o.columns / 4),
             float = {
                 enable = false,
             },
