@@ -1,9 +1,17 @@
 #!/bin/zsh
 
-updates=$(checkupdates)
-num_updates=$(( $(echo $updates | wc -l) - 1))
+num_updates=$(checkupdates | wc -l)
 if [[ $num_updates -eq 0 ]]; then
-    dunstify "NO UPDATES"
+    notify-send \
+        -a "Updates" \
+        "No Updates" \
+        -i ~/.config/dunst/assets/bell.svg \
+        -t 1000
 else
-    dunstify "UPDATES" "$updates" -t 5000
+    updates=$(checkupdates)
+    notify-send \
+        -a "Updates" \
+        "${updates}" \
+        -i /dev/null \
+        -t 3000
 fi

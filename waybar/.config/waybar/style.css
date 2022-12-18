@@ -18,8 +18,9 @@
 }
 
 window#waybar {
-    background-color: alpha(@bar-bg, 1.0);
+    background-color: alpha(@bar-bg, 0.7);
     /* border-radius: 0px; */
+    /* border: 2px solid @green; */
     transition-property: background-color;
     transition-duration: 0.5s;
 }
