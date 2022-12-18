@@ -147,7 +147,7 @@ packer.startup({
                     "nvim-telescope/telescope-ui-select.nvim",
                     after = "telescope.nvim",
                     config = function()
-                        local installed, _ = pcall(require, "telescope._extensions.ui_select")
+                        local installed, _ = pcall(require, "telescope._extensions.ui-select")
                         if installed then
                             require("telescope").load_extension("ui-select")
                         end

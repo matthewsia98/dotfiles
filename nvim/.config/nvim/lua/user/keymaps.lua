@@ -28,10 +28,10 @@ end
 M.unmap = unmap
 
 -- Go to start and end of line
-map("i", "<C-E>", "<Esc>A")
-map("n", "<C-E>", "A<Esc>")
-map("i", "<C-A>", "<Esc>I")
-map("n", "<C-A>", "I<Esc>")
+-- map("i", "<C-E>", "<Esc>A")
+-- map("n", "<C-E>", "A<Esc>")
+-- map("i", "<C-A>", "<Esc>I")
+-- map("n", "<C-A>", "I<Esc>")
 
 -- Insert blank lines
 map("n", "<CR>", "o<Esc>")

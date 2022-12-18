@@ -41,20 +41,20 @@ if installed then
                         actions.send_to_loclist(prompt_bufnr)
                         vim.cmd([[Trouble loclist]])
                     end,
-                    ["<C-q>"] = function(prompt_bufnr)
-                        actions.send_to_qflist(prompt_bufnr)
-                        vim.cmd([[Trouble quickfix]])
-                    end,
+                    -- ["<C-q>"] = function(prompt_bufnr)
+                    --     actions.send_to_qflist(prompt_bufnr)
+                    --     vim.cmd([[Trouble quickfix]])
+                    -- end,
                 },
                 n = {
                     ["<C-l>"] = function(prompt_bufnr)
                         actions.send_to_loclist(prompt_bufnr)
                         vim.cmd([[Trouble loclist]])
                     end,
-                    ["<C-q>"] = function(prompt_bufnr)
-                        actions.send_to_qflist(prompt_bufnr)
-                        vim.cmd([[Trouble quickfix]])
-                    end,
+                    -- ["<C-q>"] = function(prompt_bufnr)
+                    --     actions.send_to_qflist(prompt_bufnr)
+                    --     vim.cmd([[Trouble quickfix]])
+                    -- end,
                     ["q"] = actions.close,
                 },
             },
