@@ -110,7 +110,7 @@ alias gl='git log --graph --decorate --pretty=oneline --abbrev-commit'
 # Pacman
 alias pac='sudo pacman'
 alias pacin='sudo pacman -S'
-alias pacrm='sudo pacman -R'
+alias pacrm='sudo pacman -Rsu'
 alias pacsyu='sudo pacman -Syu'
 alias pacg='pacman -Q | grep'
 alias pacls='pacman -Q'

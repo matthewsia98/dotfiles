@@ -3,7 +3,7 @@
 
 @define-color dark-text @base;
 @define-color light-text @text;
-@define-color bar-bg @base;
+@define-color bar-bg @crust;
 
 
 * {
@@ -18,7 +18,7 @@
 }
 
 window#waybar {
-    background-color: alpha(@bar-bg, 0.7);
+    background-color: alpha(@bar-bg, 1.0);
     /* border-radius: 0px; */
     /* border: 2px solid @green; */
     transition-property: background-color;

@@ -39,8 +39,8 @@
     "hyprland/window": {
         "format": "{}",
         "separate-outputs": false,
-        "min-length": 30,
-        "max-length": 30,
+        "min-length": 24,
+        "max-length": 24,
     },
     "custom/updates": {
         "exec": "checkupdates | wc -l",
@@ -83,14 +83,14 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "  {essid} ({signalStrength}%)",
+        "format-wifi": "  {essid}",
         "format-ethernet": " {ipaddr}/{cidr}",
         "format-linked": " {ifname} (No IP)",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "tooltip": true,
         /* "tooltip-format": " {ifname} via {gwaddr}", */
-        "tooltip-format": "{bandwidthDownBits}    {bandwidthUpBits}",
+        "tooltip-format": "{bandwidthDownBits}    {bandwidthUpBits} ({signalStrength}%)",
         "on-click": "connman-gtk",
         "interval": 60,
     },
