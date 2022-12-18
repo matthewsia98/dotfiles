@@ -1,7 +1,7 @@
 local keys = require("user.keymaps")
 
 -- Next and Prev mappings in ~/.config/nvim/lua/user/plugins/lsp/luasnip.lua
-keys.nvim_map("i", "<C-Space>", 'copilot#Accept("")', { expr = true })
+keys.map("i", "<C-Space>", 'copilot#Accept("")', { expr = true, replace_keycodes = false })
 keys.map("i", "<C-c>", "copilot#Dismiss()", { expr = true })
 keys.map("n", "<leader>cs", function()
     local status = vim.api.nvim_command_output("Copilot status")
