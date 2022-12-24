@@ -70,6 +70,11 @@ if installed then
                     height = "auto",
                 },
             },
+            split = {
+                size = {
+                    height = "50%",
+                },
+            },
         },
         cmdline = {
             enabled = true,

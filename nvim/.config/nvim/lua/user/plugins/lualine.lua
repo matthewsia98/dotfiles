@@ -146,16 +146,16 @@ if installed then
             lualine_x = {},
             lualine_y = {
                 {
-                    "encoding",
-                    separator = separator(),
-                },
-                {
                     "fileformat",
                     symbols = {
                         unix = "UNIX",
                         dos = "DOS",
                         mac = "MAC",
                     },
+                    separator = separator(),
+                },
+                {
+                    "encoding",
                     separator = separator(),
                 },
                 spacer(),
