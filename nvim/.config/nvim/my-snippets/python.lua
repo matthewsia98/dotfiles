@@ -17,8 +17,7 @@ return {
         "def",
         fmt(
             [[
-        def {}({}){}:
-            {}
+        def {}({}){}:{}
             {}
             {}
         ]],
@@ -42,8 +41,8 @@ return {
                         local splits = vim.split(args[1][1], ", ")
                         local inserted_args_header = false
                         local inserted_kwargs_header = false
-                        local texts = {}
-                        table.insert(texts, '"""')
+                        local texts = { "", }
+                        table.insert(texts, '\t"""')
                         for _, split in ipairs(splits) do
                             if #split > 0 then
                                 local is_kwarg = split:match("=")
@@ -150,7 +149,7 @@ return {
         )
     ),
     s(
-        "classinit",
+        "class",
         fmt(
             [[
 		class {}{}:
@@ -177,7 +176,7 @@ return {
                     local texts = {}
                     for idx, split in ipairs(splits) do
                         split = split:match("([%w_]*)=?")
-                        local curr = ""
+                        local curr
                         if idx == 1 then
                             curr = "self." .. split .. " = " .. split
                         else
@@ -204,7 +203,7 @@ return {
                     local texts = {}
                     for idx, split in ipairs(splits) do
                         split = split:match("([%w_]*)=?")
-                        local curr = ""
+                        local curr
                         if idx == 1 then
                             curr = "self." .. split .. " = " .. split
                         else
@@ -366,7 +365,7 @@ return {
                     -- end
                     for idx, split in ipairs(splits) do
                         split = split:match("([%w_]*)=?")
-                        local curr = ""
+                        local curr
                         if idx == 1 then
                             curr = "self." .. split .. " = " .. split
                         else
@@ -555,7 +554,7 @@ return {
             "printn",
             fmt(
                 [[
-        print({}, '\n'){} 
+        print({}, '\n'){}
         ]],
                 {
                     i(1, ""),

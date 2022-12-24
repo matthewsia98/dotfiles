@@ -52,7 +52,6 @@ if installed then
         -- a b c                x y z
         sections = {
             lualine_a = {
-                spacer(),
                 {
                     "mode",
                     separator = separator(),
@@ -143,8 +142,8 @@ if installed then
                     separator = separator(),
                 },
             },
-            lualine_c = {spacer()},
-            lualine_x = {spacer()},
+            lualine_c = {},
+            lualine_x = {},
             lualine_y = {
                 {
                     "encoding",
@@ -179,10 +178,9 @@ if installed then
                     "location",
                     separator = separator(),
                 },
-                spacer(),
             },
         },
     })
 
-    vim.cmd [[ highlight lualine_c_normal guibg=#00000000 ]]
+    -- vim.cmd [[ highlight lualine_c_normal guibg=#00000000 ]]
 end

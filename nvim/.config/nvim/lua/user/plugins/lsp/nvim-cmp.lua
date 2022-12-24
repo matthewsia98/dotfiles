@@ -123,9 +123,9 @@ if installed then
         },
         sources = {
             -- Order Matters! OR explicitly set priority
+            { name = "luasnip", max_item_count = 10 },
             { name = "nvim_lsp", max_item_count = 20 },
             { name = "nvim_lsp_signature_help" },
-            { name = "luasnip", max_item_count = 10 },
             { name = "path", max_item_count = 10 },
             { name = "buffer", max_item_count = 10 },
             { name = "nvim_lua", max_item_count = 10 },

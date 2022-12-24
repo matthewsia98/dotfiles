@@ -7,7 +7,7 @@ if installed then
             light = "frappe",
             dark = "mocha",
         },
-        transparent_background = false,
+        transparent_background = true,
         term_colors = false,
         styles = {
             comments = {},
@@ -59,6 +59,11 @@ if installed then
                 },
             },
         },
+        color_overrides = {
+            mocha = {
+                base = "#11111B",
+            },
+        },
         custom_highlights = function(colors)
             return {
                 Comment = { fg = colors.overlay1 },
@@ -69,6 +74,7 @@ if installed then
                 TreesitterContextLineNumber = { bg = colors.surface0, fg = colors.lavender },
                 IndentBlanklineContextChar = { fg = colors.green },
                 IndentBlanklineContextStart = { sp = colors.green },
+                NvimTreeNormal = { bg = colors.crust }
             }
         end,
     })
