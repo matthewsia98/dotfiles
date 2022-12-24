@@ -1,4 +1,5 @@
 source ~/.config/zsh/.zsh_functions
+source ~/.config/zsh/aliases
 # set_title
 # chpwd_functions+=(set_title)
 
@@ -49,71 +50,6 @@ export HISTTIMEFORMAT='[%F %T]'
 setopt INC_APPEND_HISTORY
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
-
-
-######################################################
-#  
-#   █████╗ ██╗     ██╗ █████╗ ███████╗███████╗███████╗
-#  ██╔══██╗██║     ██║██╔══██╗██╔════╝██╔════╝██╔════╝
-#  ███████║██║     ██║███████║███████╗█████╗  ███████╗
-#  ██╔══██║██║     ██║██╔══██║╚════██║██╔══╝  ╚════██║
-#  ██║  ██║███████╗██║██║  ██║███████║███████╗███████║
-#  ╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
-#  
-######################################################
-# Shell
-alias ..='cd ..'
-alias hg='history 1 | grep'
-alias grep='grep --color=auto'
-alias ls='lsd'
-alias ll='lsd -alh'
-alias lll='lsd -alhL'
-alias cp='cp -rv'
-alias mkdir='mkdir -pv'
-alias cat='bat'
-alias rg='rg -S'
-alias tree='tree -CF'
-alias logout='loginctl terminate-user $USER'
-alias suspend='systemctl suspend'
-
-# Programs
-alias vi='nvim'
-alias vim='nvim'
-alias feh='feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info "echo %wx%h" --image-bg #494D54'
-alias conky="conky -c ~/.config/conky/process.conf"
-alias uotp='python ~/Misc/uottawa_otp.py'
-alias imv='imv -d'
-alias img='swayimg'
-if [[ $XDG_SESSION_TYPE -eq "wayland" ]] then
-    alias dunst="dunst -config ~/.config/dunst/dunstrc-wayland"
-elif [[ $XDG_SESSION_TYPE -eq "x11" ]] then
-    alias dunst="dunst -config ~/.config/dunst/dunstrc"
-fi
-
-# Git
-alias gcl='git clone'
-alias gs='git status'
-alias ga='git add'
-alias ga.='git add .'
-alias gc='git commit -m'
-alias gca='git commit --amend -m'
-alias gpl='git pull'
-alias gp='git push'
-alias gb='git branch'
-alias gco='git checkout'
-alias gd='git diff'
-alias gds='git diff --staged'
-alias grm='git rm -r --cached'
-alias gRM='git rm -r'
-alias gl='git log --graph --decorate --pretty=oneline --abbrev-commit'
-
-# Pacman
-alias pac='sudo pacman'
-alias pacin='sudo pacman -S'
-alias pacrm='sudo pacman -Rsu'
-alias pacsyu='sudo pacman -Syu'
-alias pacg='pacman -Q | grep'
-alias pacls='pacman -Q'
 
 
 ######################################################################################
