@@ -1,4 +1,4 @@
-source .zsh_functions
+source ~/.config/zsh/.zsh_functions
 # set_title
 # chpwd_functions+=(set_title)
 
@@ -21,7 +21,7 @@ PROMPT_EOL_MARK=""
 
 # Starship
 eval "$(starship init zsh)"
-export STARSHIP_CONFIG=~/.config/starship.toml
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 
 ###################################################################
