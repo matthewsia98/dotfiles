@@ -62,7 +62,7 @@ keys = [
     # Toggle Bar
     Key([mod, "shift"], "0", toggle_bar(), desc="Toggle bar"),
     # Toggle WidgetBoxes
-    Key([mod, "shift"], "1", toggle_musicwidget(), desc="Toggle music widget"),
+    # Key([mod, "shift"], "1", toggle_musicwidget(), desc="Toggle music widget"),
     Key([mod, "shift"], "2", toggle_widgetbox(1), desc="Toggle widgetbox 1"),
     Key([mod, "shift"], "3", toggle_widgetbox(2), desc="Toggle widgetbox 2"),
     # Launch Programs
