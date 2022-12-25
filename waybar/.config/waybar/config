@@ -30,8 +30,8 @@
             /* "4": "", */
             /* "5": "", */
             "urgent": "",
-            "active": "",
-            "default": ""
+            "active": "",
+            "default": ""
         },
         "sort-by-number": true,
         "on-click": "activate",
