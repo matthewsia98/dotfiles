@@ -72,7 +72,7 @@ if installed then
             },
             split = {
                 size = {
-                    height = "50%",
+                    height = "30%",
                 },
             },
         },
@@ -82,11 +82,15 @@ if installed then
         },
         messages = {
             enabled = true,
-            view = "notify",
-            view_warn = "notify",
-            view_error = "notify",
+            view = "messages",
+            view_warn = "messages",
+            view_error = "messages",
             view_history = "messages",
             view_search = "virtualtext",
+        },
+        notify = {
+            enabled = true,
+            view = "notify",
         },
         lsp = {
             progress = {

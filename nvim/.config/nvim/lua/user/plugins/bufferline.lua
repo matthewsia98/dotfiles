@@ -47,9 +47,9 @@ if installed then
             show_close_icon = false,
             show_tab_indicators = true,
             persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-            -- separator_style = 'thin', -- "slant" | "thick" | "thin" | { 'any', 'any' },
-            -- separator_style = {'█', '█'},
-            separator_style = { "█", "█" },
+            -- separator_style = "thick", -- "slant" | "thick" | "thin" | { 'any', 'any' },
+            -- separator_style = { "█", "█" },
+            separator_style = { "", "" },
             enforce_regular_tabs = false,
             always_show_bufferline = true,
             -- 'insert_after_current' |'insert_at_end' | 'id' | 'extension' | 'relative_directory' | 'directory' |

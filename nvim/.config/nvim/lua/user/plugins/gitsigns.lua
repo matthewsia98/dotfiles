@@ -1,10 +1,11 @@
 local installed, gitsigns = pcall(require, "gitsigns")
-local keys = require("user.keymaps")
 
 if installed then
     gitsigns.setup({
         on_attach = function()
             local gs = package.loaded.gitsigns
+            local keys = require("user.keymaps")
+
             -- Navigation
             keys.map("n", "]h", function()
                 if vim.wo.diff then
@@ -35,7 +36,7 @@ if installed then
             keys.map("n", "<leader>hb", function()
                 gs.blame_line({ full = true })
             end, { desc = "blame line" })
-            -- keys.map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'toggle line blame' })
+            keys.map('n', '<leader>hb', gs.toggle_current_line_blame, { desc = 'toggle line blame' })
             keys.map("n", "<leader>hd", gs.diffthis, { desc = "diff" })
             keys.map("n", "<leader>hD", function()
                 gs.diffthis("~")

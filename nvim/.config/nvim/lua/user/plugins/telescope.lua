@@ -75,6 +75,10 @@ if installed then
         },
     })
 
+    telescope.load_extension("ui-select")
+    telescope.load_extension("fzf")
+    telescope.load_extension("live_grep_args")
+
     local keys = require("user.keymaps")
     keys.map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<CR>")
     keys.map("n", "<leader>fwd", "<cmd>lua require('telescope.builtin').find_files({ cwd = vim.fn.getcwd() })<CR>")

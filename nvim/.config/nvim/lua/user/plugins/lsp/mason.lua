@@ -11,19 +11,22 @@ if installed then
         },
     })
 
-    local exists = vim.fn.isdirectory(vim.fn.stdpath("data") .. "/mason")
-    if exists == 0 then
-        local languages = vim.g.mason_languages_to_install
-        if vim.tbl_contains(languages, "python") then
-            vim.cmd([[MasonInstall python-lsp-server black flake8 isort mypy]])
-        end
+    local packages = {
+        "python-lsp-server",
+        "flake8",
+        "mypy",
+        "black",
+        "isort",
 
-        if vim.tbl_contains(languages, "lua") then
-            vim.cmd([[MasonInstall lua-language-server luacheck stylua]])
-        end
-
-        if vim.tbl_contains(languages, "java") then
-            vim.cmd([[MasonInstall jdtls]])
+        "lua-language-server",
+        "luacheck",
+        "stylua",
+    }
+    local registry = require("mason-registry")
+    for _, package_name in ipairs(packages) do
+        local package = registry.get_package(package_name)
+        if not package:is_installed() then
+            package:install()
         end
     end
 end

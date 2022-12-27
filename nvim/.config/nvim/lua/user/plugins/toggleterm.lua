@@ -11,14 +11,6 @@ if installed then
         direction = "vertical",
         shell = "/bin/zsh",
         shade_terminals = false,
-        -- highlights = {
-        --     Normal = {
-        --         guibg = "#11111B",
-        --     },
-        --     NormalFloat = {
-        --         link = "Normal",
-        --     },
-        -- },
         float_opts = {
             border = "rounded",
             width = 140,

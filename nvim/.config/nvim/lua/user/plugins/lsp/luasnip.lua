@@ -22,9 +22,9 @@ if installed then
     })
 
     local keys = require("user.keymaps")
-    -- keys.map({ "i", "s" }, "<C-c>", function()
-    --     require("luasnip.extras.select_choice")()
-    -- end)
+    keys.map({ "i", "s" }, "<C-c>", function()
+        require("luasnip.extras.select_choice")()
+    end)
     keys.map({ "i", "s" }, "<C-l>", function()
         if luasnip.jumpable(1) then
             luasnip.jump(1)

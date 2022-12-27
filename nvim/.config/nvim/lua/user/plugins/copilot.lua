@@ -1,25 +1,43 @@
-local keys = require("user.keymaps")
+local installed, copilot = pcall(require, "copilot")
 
--- Next and Prev mappings in ~/.config/nvim/lua/user/plugins/lsp/luasnip.lua
-keys.map("i", "<C-Space>", 'copilot#Accept("")', { expr = true, replace_keycodes = false })
-keys.map("i", "<C-c>", "copilot#Dismiss()", { expr = true })
-keys.map("n", "<leader>cs", function()
-    local status = vim.api.nvim_command_output("Copilot status")
-    vim.notify(status, "info", {
-        title = "Copilot",
+if installed then
+    copilot.setup({
+        panel = {
+            enabled = true,
+            auto_refresh = false,
+            keymap = {
+                jump_prev = "[[",
+                jump_next = "]]",
+                accept = "<CR>",
+                refresh = "gr",
+                open = "<M-C-CR>"
+            },
+        },
+        suggestion = {
+            enabled = true,
+            auto_trigger = false,
+            debounce = 75,
+            keymap = {
+                accept = "<Tab>",
+                accept_word = false,
+                accept_line = false,
+                next = "<M-]>",
+                prev = "<M-[>",
+                dismiss = "<C-]>",
+            },
+        },
+        filetypes = {
+            yaml = false,
+            markdown = false,
+            help = false,
+            gitcommit = false,
+            gitrebase = false,
+            hgcommit = false,
+            svn = false,
+            cvs = false,
+            ["."] = false,
+        },
+        copilot_node_command = 'node', -- Node.js version must be > 16.x
+        server_opts_overrides = {},
     })
-end)
-keys.map("n", "<leader>ct", function()
-    local status = vim.api.nvim_command_output("Copilot status")
-    if status:match("Enabled") or status:match("<Tab>") then
-        vim.cmd([[ Copilot disable ]])
-        vim.notify("Copilot disabled", "info", {
-            title = "Copilot",
-        })
-    else
-        vim.cmd([[ Copilot enable ]])
-        vim.notify("Copilot enabled", "info", {
-            title = "Copilot",
-        })
-    end
-end)
+end

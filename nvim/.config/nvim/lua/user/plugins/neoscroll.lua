@@ -16,10 +16,10 @@ if installed then
     })
 
     local keys = require("user.keymaps")
-    keys.map({ "n", "i" }, "<C-F>", function()
+    keys.map({ "n", "i", "v" }, "<C-F>", function()
         neoscroll.scroll(vim.wo.scroll, true, 250)
     end)
-    keys.map({ "n", "i" }, "<C-B>", function()
+    keys.map({ "n", "i", "v" }, "<C-B>", function()
         neoscroll.scroll(-vim.wo.scroll, true, 250)
     end)
 end

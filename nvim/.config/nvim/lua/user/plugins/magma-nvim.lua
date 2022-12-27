@@ -1,7 +1,7 @@
 local keys = require("user.keymaps")
 
 vim.g.magma_automatically_open_output = true
-vim.g.magma_image_provider = "ueberzug"
+vim.g.magma_image_provider = "kitty"
 vim.g.magma_cell_highlight_group = "PmenuSel"
 
 keys.map("n", "<Leader>mi", "<cmd>MagmaInit<CR>")
