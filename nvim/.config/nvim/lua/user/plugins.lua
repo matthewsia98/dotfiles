@@ -278,14 +278,14 @@ lazy.setup({
         end,
     },
 
-    {
-        "glacambre/firenvim",
-        build = function() vim.fn["firenvim#install"](0) end,
-        lazy = false,
-        config = function()
-            require("user.plugins.firenvim")
-        end,
-    },
+    -- {
+    --     "glacambre/firenvim",
+    --     build = function() vim.fn["firenvim#install"](0) end,
+    --     lazy = false,
+    --     config = function()
+    --         require("user.plugins.firenvim")
+    --     end,
+    -- },
 
     -- {
     --     "dccsillag/magma-nvim",
