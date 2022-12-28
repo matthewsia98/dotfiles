@@ -26,5 +26,5 @@
   
 * Stow the packages you want
   ```
-  stow <directory>
+  stow starship nvim kitty ...
   ```
