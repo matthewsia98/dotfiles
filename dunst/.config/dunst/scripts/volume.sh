@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 timeout=1000
 
