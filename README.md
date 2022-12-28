@@ -13,9 +13,9 @@
 * **Editor**: Neovim
 
 ## Installation
-* Install GNU Stow
+* Install GNU Stow<br>
   `sudo pacman -S stow`
-* Clone this repo
+* Clone this repo<br>
   `git clone https://github.com/matthewsia98/dotfiles.git`
 * Stow the packages you want
   ```
