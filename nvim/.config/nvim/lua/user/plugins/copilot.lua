@@ -6,8 +6,8 @@ if installed then
             enabled = true,
             auto_refresh = false,
             keymap = {
-                jump_prev = "[[",
-                jump_next = "]]",
+                jump_prev = "<C-p>",
+                jump_next = "<C-n>",
                 accept = "<CR>",
                 refresh = "gr",
                 open = "<M-C-CR>",
@@ -15,15 +15,15 @@ if installed then
         },
         suggestion = {
             enabled = true,
-            auto_trigger = false,
+            auto_trigger = true,
             debounce = 75,
             keymap = {
-                accept = "<Tab>",
+                accept = "<C-Space>",
                 accept_word = false,
                 accept_line = false,
-                next = "<M-]>",
-                prev = "<M-[>",
-                dismiss = "<C-]>",
+                next = "<C-n>",
+                prev = "<C-p>",
+                dismiss = "<C-c>",
             },
         },
         filetypes = {
@@ -38,6 +38,13 @@ if installed then
             ["."] = false,
         },
         copilot_node_command = "node", -- Node.js version must be > 16.x
-        server_opts_overrides = {},
+        server_opts_overrides = {
+            settings = {
+                advanced = {
+                    listCount = 5, -- #completions for panel
+                    inlineSuggestCount = 3, -- #completions for getCompletions
+                },
+            },
+        },
     })
 end

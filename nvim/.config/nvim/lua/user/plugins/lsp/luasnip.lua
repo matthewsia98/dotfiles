@@ -21,10 +21,8 @@ if installed then
         paths = "~/.config/nvim/my-snippets",
     })
 
+    local suggestion = require("copilot.suggestion")
     local keys = require("user.keymaps")
-    keys.map({ "i", "s" }, "<C-c>", function()
-        require("luasnip.extras.select_choice")()
-    end)
     keys.map({ "i", "s" }, "<C-l>", function()
         if luasnip.jumpable(1) then
             luasnip.jump(1)
@@ -38,15 +36,15 @@ if installed then
     keys.map({ "i", "s" }, "<C-n>", function()
         if luasnip.choice_active() then
             luasnip.change_choice(1)
-        else
-            vim.cmd([[ call copilot#Next() ]])
+        elseif suggestion.is_visible() then
+            suggestion.next()
         end
     end)
     keys.map({ "i", "s" }, "<C-p>", function()
         if luasnip.choice_active() then
             luasnip.change_choice(-1)
-        else
-            vim.cmd([[ call copilot#Previous() ]])
+        elseif suggestion.is_visible() then
+            suggestion.prev()
         end
     end)
     -- Deleting insert node default puts you back in Normal mode

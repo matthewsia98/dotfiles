@@ -63,13 +63,13 @@ if installed then
             },
         },
         mapping = {
-            -- ["<Tab>"] = cmp.mapping(function(fallback)
-            --     if cmp.visible() then
-            --         cmp.select_next_item()
-            --     else
-            --         fallback()
-            --     end
-            -- end, { "i", "c" }),
+            ["<Tab>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item()
+                else
+                    fallback()
+                end
+            end, { "i", "c" }),
             ["<C-n>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
@@ -85,31 +85,23 @@ if installed then
                 end
             end, { "i", "c" }),
             ["<C-Space>"] = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    cmp.close()
-                    fallback()
-                --     local entry = cmp.get_selected_entry()
-                --     if not entry then
-                --         cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                --         cmp.confirm()
-                --         cmp.close()
-                --     end
+                if require("copilot.suggestion").is_visible() then
+                    require("copilot.suggestion").accept()
+                elseif cmp.visible() then
+                    local entry = cmp.get_selected_entry()
+                    if not entry then
+                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                        cmp.confirm()
+                        cmp.close()
+                    end
                 else
-                    -- vim.cmd [[ call copilot#Accept() ]]
                     fallback()
                 end
             end, { "i", "c" }),
             ["<C-c>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    -- local entry = cmp.get_selected_entry()
-                    -- if entry ~= nil then
-                    --     cmp.abort()
-                    -- else
-                    --     cmp.close()
-                    -- end
                     cmp.abort()
                 else
-                    -- vim.cmd [[ call copilot#Dismiss() ]]
                     fallback()
                 end
             end, { "i", "c" }),
