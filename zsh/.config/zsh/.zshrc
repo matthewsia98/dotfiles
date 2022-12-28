@@ -163,10 +163,14 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-# For WSL Ubuntu
-# source /usr/share/doc/fzf/examples/key-bindings.zsh
+kernel=$(uname -r)
+if [[ $kernel = *"WSL2"* ]]
+then
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+else
+    source /usr/share/fzf/key-bindings.zsh
+fi
 
-source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
 
