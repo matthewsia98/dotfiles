@@ -13,9 +13,8 @@ if installed then
         shade_terminals = false,
         float_opts = {
             border = "rounded",
-            width = 140,
-            height = 32,
-            winblend = 6,
+            width = math.floor(vim.o.columns * 0.9),
+            height = math.floor(vim.o.lines * 0.8),
         },
     })
 
@@ -49,6 +48,21 @@ if installed then
     end, { desc = "Run File" })
 
     keys.map("v", "<leader>tr", "<Esc><cmd>lua require('user.functions').send_visual_lines_to_terminal()<CR>")
+
+    local Terminal  = require('toggleterm.terminal').Terminal
+    local lazygit = Terminal:new({
+        cmd = "lazygit",
+        hidden = true,
+        direction = "float",
+    })
+
+    local function lazygit_toggle()
+    lazygit:toggle()
+    end
+
+    keys.map("n", "<leader>tg", function()
+        lazygit_toggle()
+    end, { desc = "Toggle lazygit" })
 end
 
 return M
