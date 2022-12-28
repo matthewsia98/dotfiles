@@ -15,10 +15,14 @@
 ## Installation
 * Install GNU Stow<br>
   `sudo pacman -S stow`
+  
 * Clone this repo<br>
-  `git clone https://github.com/matthewsia98/dotfiles.git`
+  ```
+  git clone https://github.com/matthewsia98/dotfiles.git
+  cd dotfiles
+  ```
+  
 * Stow the packages you want
   ```
-  cd dotfiles
   stow <directory>
   ```
