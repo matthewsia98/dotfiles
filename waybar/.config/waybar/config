@@ -78,7 +78,7 @@
         /* "format-icons": ["", "", "", "", ""], */
         "format-icons": ["", "", "", "", ""],
         "tooltip": true,
-        "tooltip-format": "{timeTo}\nPower Draw: {power}W",
+        "tooltip-format": "{timeTo}",
         "interval": 60,
     },
     "network": {
