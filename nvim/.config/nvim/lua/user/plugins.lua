@@ -163,6 +163,9 @@ lazy.setup({
                 end,
             },
         },
+        config = function()
+            require("user.plugins.treesitter")
+        end,
     },
     {
         "nvim-treesitter/playground",
@@ -299,6 +302,9 @@ lazy.setup({
 {
     defaults = {
         lazy = true
+    },
+    dev = {
+        path = "~/repos",
     },
     install = {
         colorscheme = { "catppuccin" },

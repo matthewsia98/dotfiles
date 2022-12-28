@@ -2,7 +2,6 @@ local installed, treesitter = pcall(require, "nvim-treesitter.configs")
 
 if installed then
     treesitter.setup({
-        auto_install = true,
         ensure_installed = {
             "vim",
             "help",
@@ -14,6 +13,7 @@ if installed then
             "markdown_inline",
             "regex",
         },
+        auto_install = true,
         highlight = {
             enable = true,
             additional_vim_regex_highlighting = false,
