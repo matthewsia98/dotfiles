@@ -28,10 +28,12 @@ alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
 alias uotp="python ~/Misc/uottawa_otp.py"
-if [[ $XDG_SESSION_TYPE -eq "wayland" ]] then
+if [[ $XDG_SESSION_TYPE -eq "wayland" ]]
+then
     alias dunst="dunst -config ~/.config/dunst/dunstrc-wayland"
     alias img="swayimg"
-elif [[ $XDG_SESSION_TYPE -eq "x11" ]] then
+elif [[ $XDG_SESSION_TYPE -eq "x11" ]]
+then
     alias dunst="dunst -config ~/.config/dunst/dunstrc"
     alias img="feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info "echo %wx%h" --image-bg #494D54"
 fi
@@ -54,6 +56,8 @@ alias gRM="git rm -r"
 alias gl="git log --graph --decorate --pretty=oneline --abbrev-commit"
 alias gsh="git stash"
 alias gsp="git stash pop"
+alias gf="git fetch"
+alias gm="git merge"
 
 # Pacman
 alias pac="sudo pacman"
