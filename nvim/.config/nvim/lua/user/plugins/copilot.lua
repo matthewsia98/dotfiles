@@ -10,7 +10,7 @@ if installed then
                 jump_next = "]]",
                 accept = "<CR>",
                 refresh = "gr",
-                open = "<M-C-CR>"
+                open = "<M-C-CR>",
             },
         },
         suggestion = {
@@ -37,7 +37,7 @@ if installed then
             cvs = false,
             ["."] = false,
         },
-        copilot_node_command = 'node', -- Node.js version must be > 16.x
+        copilot_node_command = "node", -- Node.js version must be > 16.x
         server_opts_overrides = {},
     })
 end

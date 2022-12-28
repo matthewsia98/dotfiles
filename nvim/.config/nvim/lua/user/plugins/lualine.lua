@@ -35,12 +35,13 @@ if installed then
 
         return {
             "mode",
-            fmt = function(_) return char:rep(length) end,
+            fmt = function(_)
+                return char:rep(length)
+            end,
             color = color,
             cond = cond,
         }
     end
-
 
     lualine.setup({
         options = {
@@ -65,7 +66,8 @@ if installed then
                 },
                 {
                     "diff",
-                    separator = vim.g.lualine_separator_style == "powerline" and { left = "", right = "" } or separator(),
+                    separator = vim.g.lualine_separator_style == "powerline" and { left = "", right = "" }
+                        or separator(),
                 },
                 spacer({
                     cond = function()

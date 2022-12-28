@@ -2,7 +2,7 @@ if vim.g.started_by_firenvim then
     vim.g.firenvim_config = {
         localSettings = {
             [".*"] = {
-                cmdline = "none"
+                cmdline = "none",
             },
         },
     }

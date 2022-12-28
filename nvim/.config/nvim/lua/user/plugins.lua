@@ -6,7 +6,8 @@ if not vim.loop.fs_stat(lazypath) then
         "clone",
         "--filter=blob:none",
         "--single-branch",
-        "https://github.com/folke/lazy.nvim.git", lazypath,
+        "https://github.com/folke/lazy.nvim.git",
+        lazypath,
     })
 end
 vim.opt.runtimepath:prepend(lazypath)
@@ -82,7 +83,7 @@ lazy.setup({
                 config = function()
                     require("user.plugins.nvim-notify")
                 end,
-            }
+            },
         },
         event = { "CmdlineEnter", "RecordingEnter" },
         config = function()
@@ -232,7 +233,6 @@ lazy.setup({
         config = function()
             require("user.plugins.lsp.null-ls")
         end,
-
     },
 
     {
@@ -298,10 +298,9 @@ lazy.setup({
     --         require("user.plugins.magma-nvim")
     --     end,
     -- },
-},
-{
+}, {
     defaults = {
-        lazy = true
+        lazy = true,
     },
     dev = {
         path = "~/repos",

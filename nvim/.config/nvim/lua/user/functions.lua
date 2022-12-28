@@ -132,22 +132,19 @@ F.get_cmd_output = function(cmd)
     })
 
     local lines = {}
-    vim.fn.jobstart(
-        cmd,
-        {
-            on_stdout = function(_, data, _)
-                lines = { unpack(data, 1, #data - 1) }
-            end,
-            stdout_buffered = true,
-        }
-    )
+    vim.fn.jobstart(cmd, {
+        on_stdout = function(_, data, _)
+            lines = { unpack(data, 1, #data - 1) }
+        end,
+        stdout_buffered = true,
+    })
     return lines
 end
 
 F.send_visual_lines_to_terminal = function()
     local filetype = vim.bo.filetype
 
-    local t = require('toggleterm.terminal')
+    local t = require("toggleterm.terminal")
     if not vim.g.toggleterm_pid then
         -- local win = vim.api.nvim_get_current_win()
         t.get_or_create_term(t.get_toggled_id(), nil, nil):open(nil, nil)
@@ -161,7 +158,8 @@ F.send_visual_lines_to_terminal = function()
     end
 
     if filetype == "python" then
-        local ipython = vim.fn.system("ps -f -u $USER | grep '" .. vim.g.toggleterm_pid .. ".*[i]python --no-autoindent'")
+        local ipython =
+            vim.fn.system("ps -f -u $USER | grep '" .. vim.g.toggleterm_pid .. ".*[i]python --no-autoindent'")
         if ipython == "" then
             vim.cmd('TermExec cmd="ipython --no-autoindent"')
         end
@@ -191,7 +189,7 @@ F.get_current_file = function(opt)
         res = filename
     end
 
-    vim.notify( "cwd:  " .. cwd .. "\nfile: " ..  res, "info", { title = "Current File", timeout = 3000 })
+    vim.notify("cwd:  " .. cwd .. "\nfile: " .. res, "info", { title = "Current File", timeout = 3000 })
     return res
 end
 

@@ -49,7 +49,7 @@ if installed then
 
     keys.map("v", "<leader>tr", "<Esc><cmd>lua require('user.functions').send_visual_lines_to_terminal()<CR>")
 
-    local Terminal  = require('toggleterm.terminal').Terminal
+    local Terminal = require("toggleterm.terminal").Terminal
     local lazygit = Terminal:new({
         cmd = "lazygit",
         hidden = true,
@@ -57,7 +57,7 @@ if installed then
     })
 
     local function lazygit_toggle()
-    lazygit:toggle()
+        lazygit:toggle()
     end
 
     keys.map("n", "<leader>tg", function()

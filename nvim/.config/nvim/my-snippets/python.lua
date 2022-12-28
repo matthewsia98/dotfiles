@@ -41,7 +41,7 @@ return {
                         local splits = vim.split(args[1][1], ", ")
                         local inserted_args_header = false
                         local inserted_kwargs_header = false
-                        local texts = { "", }
+                        local texts = { "" }
                         table.insert(texts, '\t"""')
                         for _, split in ipairs(splits) do
                             if #split > 0 then

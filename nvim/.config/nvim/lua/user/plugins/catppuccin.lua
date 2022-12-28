@@ -74,7 +74,7 @@ if installed then
                 TreesitterContextLineNumber = { bg = colors.surface0, fg = colors.lavender },
                 IndentBlanklineContextChar = { fg = colors.green },
                 IndentBlanklineContextStart = { sp = colors.green },
-                NvimTreeNormal = { bg = colors.crust }
+                NvimTreeNormal = { bg = colors.crust },
             }
         end,
     })
