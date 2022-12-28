@@ -14,7 +14,9 @@
 
 ## Installation
 * Install GNU Stow<br>
-  `sudo pacman -S stow`
+  ```
+  sudo pacman -S stow
+  ```
   
 * Clone this repo<br>
   ```
