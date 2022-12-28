@@ -12,6 +12,11 @@ if installed then
             -- LUA --
             null_ls.builtins.diagnostics.luacheck,
             null_ls.builtins.formatting.stylua,
+
+            -- SHELL --
+            null_ls.builtins.diagnostics.shellcheck.with({
+                extra_args = { "--shell", "bash" },
+            }),
         },
     })
 end
