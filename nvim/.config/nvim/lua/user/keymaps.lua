@@ -78,7 +78,7 @@ map("t", "<C-j>", "<C-\\><C-n><C-w>j")
 map("t", "<C-k>", "<C-\\><C-n><C-w>k")
 
 -- Toggle conceal
-map("n", "<F12>", function()
+map("n", "<leader>cn", function()
     if vim.o.conceallevel == 2 then
         vim.o.conceallevel = 0
     else

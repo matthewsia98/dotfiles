@@ -1,3 +1,5 @@
+;extends
+
 ; Import Statements
 ((import_statement "import" @include) (#set! conceal " "))
 ((import_from_statement "import" @include) (#set! conceal " "))

@@ -32,7 +32,7 @@ opt.shortmess = "filnxToOF"
 -- Get rid of _. Make _ a word boundary
 -- opt.iskeyword = "@,48-57,192-255"
 
--- Don't show conceal on cursor line in these modes
+-- Disable conceal on cursor line in these modes
 opt.concealcursor = "nvi"
 -- Don't conceal
 opt.conceallevel = 0
@@ -45,7 +45,7 @@ opt.updatetime = 200
 -- Enable mouse
 opt.mouse = "a"
 
--- Number of screen lines to keep above and below the cursor
+-- Minimum number of screen lines to keep above and below the cursor
 opt.scrolloff = 12
 
 -- Line numbers
@@ -55,12 +55,12 @@ opt.relativenumber = true
 -- Sign column
 opt.signcolumn = "yes:1"
 
--- Highlight text on cursor line
+-- Highlight cursor line
 opt.cursorline = true
 
 -- Text wrap
-opt.wrap = false
-opt.textwidth = 127
+opt.wrap = true
+opt.textwidth = vim.o.columns - vim.fn.getwininfo(vim.api.nvim_get_current_win())[1].textoff
 
 -- Indent
 opt.autoindent = false
@@ -75,7 +75,6 @@ opt.shiftwidth = 0 -- If 0, tabstop value if used
 opt.softtabstop = -1 -- If negative, shiftwidth value is used
 
 opt.list = true
--- opt.listchars = 'trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
 opt.listchars = "lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂"
 
 -- Makes neovim and host OS clipboard play nicely with each other
