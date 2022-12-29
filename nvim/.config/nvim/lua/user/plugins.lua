@@ -296,6 +296,15 @@ lazy.setup({
         end,
     },
 
+    {
+        "toppair/peek.nvim",
+        build = "deno task --quiet build:fast",
+        ft = "markdown",
+        config = function()
+            require("user.plugins.peek")
+        end,
+    },
+
     -- {
     --     "glacambre/firenvim",
     --     build = function() vim.fn["firenvim#install"](0) end,

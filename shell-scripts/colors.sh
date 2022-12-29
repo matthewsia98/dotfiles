@@ -48,12 +48,12 @@ COLORS=(
 
 ESC="\033["
 RESET="\033[0m"
-TEXT="abc"
+TEXT=" abc "
 
 
 printf "%-11s" " "
 for i in {1..${#COLORS[@]}}; do
-    printf "${ESC}$(( i + 29 ))m%-14s${RESET}" "${COLORS[i]}"
+    printf "${ESC}$(( i + 29 ))m%-18s${RESET}" "${COLORS[i]}"
 done
 printf "\n\n"
 
