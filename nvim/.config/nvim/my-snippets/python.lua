@@ -14,13 +14,13 @@ local rep = e.rep
 
 return {
     s(
-        "def",
+        "mydef",
         fmt(
             [[
-        def {}({}){}:{}
-            {}
-            {}
-        ]],
+            def {}({}){}:{}
+                {}
+                {}
+            ]],
             {
                 c(1, {
                     sn(nil, {
@@ -149,16 +149,16 @@ return {
         )
     ),
     s(
-        "class",
+        "myclass",
         fmt(
             [[
-		class {}{}:
-			"""
-			{}
-			"""
-			def __init__(self, {}):
-				{}
-		]],
+            class {}{}:
+                """
+                {}
+                """
+                def __init__(self, {}):
+                    {}
+            ]],
             {
                 i(1, "ClassName"),
                 c(2, {
@@ -190,12 +190,12 @@ return {
         )
     ),
     s(
-        "init",
+        "myinit",
         fmt(
             [[
-		def __init__(self, {}):
-			{}
-		]],
+            def __init__(self, {}):
+                {}
+            ]],
             {
                 i(1, "args"),
                 d(2, function(args)
@@ -218,68 +218,58 @@ return {
     ),
     s(
         "pd_groupby",
-        fmt(
-            [[
-		{}.groupby([{}]{}{}).{}
-		]],
-            {
-                i(1, "df"),
-                i(2, "column"),
-                c(3, {
-                    sn(nil, {
-                        t(", as_index="),
-                        i(1, "False"),
-                    }),
-                    t(""),
+        fmt([[{}.groupby([{}]{}{}).{}]], {
+            i(1, "df"),
+            i(2, "column"),
+            c(3, {
+                sn(nil, {
+                    t(", as_index="),
+                    i(1, "False"),
                 }),
-                c(4, {
-                    t(", axis='index'"),
-                    t(", axis='columns'"),
-                    t(""),
+                t(""),
+            }),
+            c(4, {
+                t(", axis='index'"),
+                t(", axis='columns'"),
+                t(""),
+            }),
+            c(5, {
+                sn(nil, {
+                    t("apply("),
+                    i(1, "function"),
+                    t(")"),
                 }),
-                c(5, {
-                    sn(nil, {
-                        t("apply("),
-                        i(1, "function"),
-                        t(")"),
-                    }),
-                    t(""),
-                }),
-            }
-        )
+                t(""),
+            }),
+        })
     ),
     s(
         "pd_apply",
-        fmt(
-            [[
-		{}{}.apply({}{})
-		]],
-            {
-                i(1, "df"),
-                c(2, {
-                    sn(nil, {
-                        t("["),
-                        i(1, "column"),
-                        t("]"),
-                    }),
-                    t(""),
+        fmt([[{}{}.apply({}{})]], {
+            i(1, "df"),
+            c(2, {
+                sn(nil, {
+                    t("["),
+                    i(1, "column"),
+                    t("]"),
                 }),
-                c(3, {
-                    sn(nil, {
-                        t("lambda "),
-                        i(1, "x"),
-                        t(": "),
-                        i(2),
-                    }),
-                    t(""),
+                t(""),
+            }),
+            c(3, {
+                sn(nil, {
+                    t("lambda "),
+                    i(1, "x"),
+                    t(": "),
+                    i(2),
                 }),
-                c(4, {
-                    t(", axis='index'"),
-                    t(", axis='columns'"),
-                    t(""),
-                }),
-            }
-        )
+                t(""),
+            }),
+            c(4, {
+                t(", axis='index'"),
+                t(", axis='columns'"),
+                t(""),
+            }),
+        })
     ),
     s(
         "torch_imports",
@@ -294,64 +284,59 @@ return {
     ),
     s(
         "torch_dataloader",
-        fmt(
-            [[
-		{} = DataLoader({}, batch_size={}{}{}{}{}){}
-		]],
-            {
-                i(1, "dataloader"),
-                i(2, "dataset"),
-                i(3, "BatchSize"),
-                c(4, {
-                    sn(nil, {
-                        t(", shuffle="),
-                        i(1, "True"),
-                    }),
-                    t(""),
+        fmt([[{} = DataLoader({}, batch_size={}{}{}{}{}){}]], {
+            i(1, "dataloader"),
+            i(2, "dataset"),
+            i(3, "BatchSize"),
+            c(4, {
+                sn(nil, {
+                    t(", shuffle="),
+                    i(1, "True"),
                 }),
-                c(5, {
-                    sn(nil, {
-                        t(", sampler="),
-                        i(1, "sampler"),
-                    }),
-                    t(""),
+                t(""),
+            }),
+            c(5, {
+                sn(nil, {
+                    t(", sampler="),
+                    i(1, "sampler"),
                 }),
-                c(6, {
-                    sn(nil, {
-                        t(", collate_fn="),
-                        i(1, "sampler"),
-                    }),
-                    t(""),
+                t(""),
+            }),
+            c(6, {
+                sn(nil, {
+                    t(", collate_fn="),
+                    i(1, "sampler"),
                 }),
-                c(7, {
-                    sn(nil, {
-                        t(", num_workers="),
-                        i(1, "sampler"),
-                    }),
-                    t(""),
+                t(""),
+            }),
+            c(7, {
+                sn(nil, {
+                    t(", num_workers="),
+                    i(1, "sampler"),
                 }),
-                i(0),
-            }
-        )
+                t(""),
+            }),
+            i(0),
+        })
     ),
     s(
         "torch_dataset",
         fmt(
             [[
-		class {}({}):
-			def __init__(self, {}):
-				{}
-				{}
-				{}
+            class {}({}):
+                def __init__(self, {}):
+                    {}
+                    {}
+                    {}
 
-			def __len__(self):
-				{}
-				return {}
+                def __len__(self):
+                    {}
+                    return {}
 
-			def __getitem__(self, idx):
-				{}
-				return {}
-		]],
+                def __getitem__(self, idx):
+                    {}
+                    return {}
+            ]],
             {
                 i(1, "MyDataset"),
                 i(2, "Dataset"),
@@ -390,18 +375,18 @@ return {
         "torch_model",
         fmt(
             [[
-		class {}(nn.Module):
-			def __init__(self{}):
-				super({}).__init__()
-				{}
-		{}
-				{}
+            class {}(nn.Module):
+                def __init__(self{}):
+                    super({}).__init__()
+                    {}
+            {}
+                    {}
 
-			def forward(self, {}):
-				{}
+                def forward(self, {}):
+                    {}
 
-				return {}
-		]],
+                    return {}
+            ]],
             {
                 i(1, "MyModel"),
                 c(2, {
@@ -466,16 +451,16 @@ return {
         "torch_train",
         fmt(
             [[
-		for {} in {}:
-			for {}, {} in enumerate({}):
-				{}.zero_grad()
+            for {} in {}:
+                for {}, {} in enumerate({}):
+                    {}.zero_grad()
 
-				{}
+                    {}
 
-				{} = {}({}, {})
-				{}.backward()
-				{}.step()
-		]],
+                    {} = {}({}, {})
+                    {}.backward()
+                    {}.step()
+            ]],
             {
                 i(1, "epoch"),
                 d(2, function()
@@ -552,26 +537,16 @@ return {
     {
         s(
             "printn",
-            fmt(
-                [[
-        print({}, '\n'){}
-        ]],
-                {
-                    i(1, ""),
-                    i(0),
-                }
-            )
+            fmt([[print({}, '\n'){}]], {
+                i(1, ""),
+                i(0),
+            })
         ),
         s(
             "printf",
-            fmt(
-                [[
-        print(f'{}'){}
-        ]],
-                {
-                    i(1, ""),
-                    i(0),
-                }
-            )
+            fmt([[print(f'{}'){}]], {
+                i(1, ""),
+                i(0),
+            })
         ),
     }

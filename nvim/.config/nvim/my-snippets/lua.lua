@@ -17,10 +17,10 @@ return {
         "ipairs",
         fmt(
             [[
-        for {}, {} in ipairs({}) do
-            {}
-        end
-        ]],
+            for {}, {} in ipairs({}) do
+                {}
+            end
+            ]],
             {
                 i(1, "_"),
                 i(2, "item"),
@@ -33,10 +33,10 @@ return {
         "pairs",
         fmt(
             [[
-        for {}, {} in pairs({}) do
-            {}
-        end
-        ]],
+            for {}, {} in pairs({}) do
+                {}
+            end
+            ]],
             {
                 i(1, "key"),
                 i(2, "value"),
@@ -49,10 +49,10 @@ return {
         "function",
         fmt(
             [[
-        {}function{}({})
-            {}
-        end
-        ]],
+            {}function{}({})
+                {}
+            end
+            ]],
             {
                 c(1, {
                     t("local "),
@@ -80,10 +80,10 @@ return {
         "ptbl",
         fmt(
             [[
-        for {}, {} in {}({}) do
-            {}
-        end
-        ]],
+            for {}, {} in {}({}) do
+                {}
+            end
+            ]],
             {
                 i(1, "k"),
                 i(2, "v"),

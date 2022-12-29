@@ -17,8 +17,8 @@ return {}, {
         "sout",
         fmt(
             [[
-        System.out.println({});{}
-        ]],
+            System.out.println({});{}
+            ]],
             {
                 i(1, ""),
                 i(0),
@@ -29,10 +29,10 @@ return {}, {
         "psvm",
         fmt(
             [[
-        public static void main(String[] args) {{
-            {}
-        }}
-        ]],
+            public static void main(String[] args) {{
+                {}
+            }}
+            ]],
             {
                 i(1, ""),
             }
