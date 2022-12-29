@@ -25,6 +25,7 @@ if installed then
         },
         integrations = {
             cmp = true,
+            dashboard = true,
             gitsigns = true,
             leap = true,
             mason = true,
