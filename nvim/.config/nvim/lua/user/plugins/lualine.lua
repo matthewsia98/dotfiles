@@ -49,6 +49,9 @@ if installed then
             icons_enabled = true,
             -- separators                         
             component_separators = { left = "", right = "" },
+            disabled_filetypes = {
+                statusline = { "", "dashboard", },
+            },
         },
         -- a b c                x y z
         sections = {

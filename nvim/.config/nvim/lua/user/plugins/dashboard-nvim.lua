@@ -35,7 +35,7 @@ if installed then
             shortcut = " ",
         },
         {
-            icon = "",
+            icon = "⚙",
             desc = "Settings",
             action = "e ~/.config/nvim/lua/user/options.lua",
             shortcut = " ",
