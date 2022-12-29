@@ -67,3 +67,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank({ higroup = "Visual", timeout = 2000 })
     end,
 })
+
+vim.api.nvim_create_autocmd("RecordingLeave", {
+    group = group,
+    callback = function()
+        local reg = vim.fn.reg_recording()
+        vim.notify("Recording stopped: " .. reg, vim.log.levels.INFO, {
+            title = "Macro",
+        })
+    end,
+})
