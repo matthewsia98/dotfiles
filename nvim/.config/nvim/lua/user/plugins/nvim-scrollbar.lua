@@ -38,6 +38,7 @@ if installed then
         excluded_filetypes = {
             "lazy",
             "mason",
+            "NvimTree",
         },
     })
 end
