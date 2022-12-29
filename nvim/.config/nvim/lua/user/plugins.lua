@@ -45,6 +45,13 @@ lazy.setup({
         end,
     },
     {
+        "petertriho/nvim-scrollbar",
+        event = "BufReadPost",
+        config = function()
+            require("user.plugins.nvim-scrollbar")
+        end,
+    },
+    {
         "akinsho/bufferline.nvim",
         event = "VeryLazy",
         config = function()
@@ -63,6 +70,14 @@ lazy.setup({
         event = "VeryLazy",
         config = function()
             require("user.plugins.nvim-tree")
+        end,
+    },
+
+    {
+        "kevinhwang91/nvim-hlslens",
+        event = "CmdlineEnter",
+        config = function()
+            require("user.plugins.nvim-hlslens")
         end,
     },
 
@@ -183,10 +198,9 @@ lazy.setup({
 
     {
         "L3MON4D3/LuaSnip",
-        dependencies = {
-            "rafamadriz/friendly-snippets",
-        },
-        -- event = "InsertEnter",
+        -- dependencies = {
+        --     "rafamadriz/friendly-snippets",
+        -- },
         config = function()
             require("user.plugins.lsp.luasnip")
         end,
@@ -240,6 +254,7 @@ lazy.setup({
         event = "BufReadPre",
         config = function()
             require("user.plugins.gitsigns")
+            require("scrollbar.handlers.gitsigns").setup()
         end,
     },
     {

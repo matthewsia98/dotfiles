@@ -49,7 +49,7 @@ if installed then
             view = "cmdline_popup",
         },
         messages = {
-            enabled = false,
+            enabled = true,
             view = "notify",
             view_warn = "messages",
             view_error = "messages",

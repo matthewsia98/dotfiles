@@ -208,4 +208,6 @@ if installed then
             },
         },
     })
+
+    vim.cmd([[highlight lualine_c_normal guibg=#00000000]])
 end
