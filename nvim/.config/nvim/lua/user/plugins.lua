@@ -335,4 +335,7 @@ lazy.setup({
             "zipPlugin",
         },
     },
+    ui = {
+        border = "rounded",
+    },
 })

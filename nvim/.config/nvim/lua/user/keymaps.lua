@@ -28,14 +28,24 @@ end
 M.unmap = unmap
 
 -- Go to start and end of line
--- map("i", "<C-E>", "<Esc>A")
--- map("n", "<C-E>", "A<Esc>")
--- map("i", "<C-A>", "<Esc>I")
--- map("n", "<C-A>", "I<Esc>")
+map("i", "<C-;>", "<Esc>A")
+map("n", "<C-;>", "A<Esc>")
+map("i", "<C-j>", "<Esc>I")
+map("n", "<C-j>", "I<Esc>")
 
 -- Insert blank lines
 map("n", "<CR>", "o<Esc>")
 map("n", "<S-CR>", "O<Esc>")
+
+-- Correct indentation when inserting on blank line
+map("n", "i", function()
+    local line = vim.fn.getline(".")
+    if #line == 0 then
+        return "cc"
+    else
+        return "i"
+    end
+end, { expr = true })
 
 -- Windows
 -- Close Window
@@ -43,8 +53,8 @@ map("n", "<C-q>", "<C-w>c")
 -- Move between windows
 map("n", "<C-h>", "<C-w>h")
 map("n", "<C-l>", "<C-w>l")
-map("n", "<C-j>", "<C-w>j")
-map("n", "<C-k>", "<C-w>k")
+-- map("n", "<C-j>", "<C-w>j")
+-- map("n", "<C-k>", "<C-w>k")
 -- Resize Windows
 map("n", "<Right>", "<C-w>5>")
 map("n", "<Left>", "<C-w>5<")
@@ -52,7 +62,7 @@ map("n", "<Up>", "<C-w>1+")
 map("n", "<Down>", "<C-w>1-")
 
 -- Delete buffer
-map("n", "<leader>bd", "<cmd>bdelete<CR>")
+map("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
 
 -- Folds
 -- map('n', '<leader>fd', 'za')
@@ -72,7 +82,7 @@ map("n", "<F12>", function()
     else
         vim.o.conceallevel = 2
     end
-end)
+end, { desc = "Toggle conceal" })
 
 -- Reverse Selection
 map("v", "<leader>rv", '<ESC><cmd>lua require("user.functions").reverse_lines()<CR>', { desc = "Reverse visual lines" })
@@ -97,29 +107,5 @@ map("n", "<leader>sh", "<cmd>set hlsearch!<CR>", { desc = "Toggle highlight sear
 -- Line Text Objects
 -- map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>', { desc = 'inner line' })
 -- map({'o', 'x'}, 'al', ':<C-u>normal! 0v$<CR>', { desc = 'a line (with whitespace)' })
-
--- Colemak
--- map('i', 'e', 'f')
--- map('i', 'r', 'p')
--- map('i', 't', 'b')
--- map('i', 'y', 'j')
--- map('i', 'u', 'l')
--- map('i', 'i', 'u')
--- map('i', 'o', 'y')
--- map('i', 'p', ';')
--- map('i', 's', 'r')
--- map('i', 'd', 's')
--- map('i', 'f', 't')
--- map('i', 'h', 'm')
--- map('i', 'j', 'n')
--- map('i', 'k', 'e')
--- map('i', 'l', 'i')
--- map('i', ';', 'o')
--- map('i', 'z', 'x')
--- map('i', 'x', 'c')
--- map('i', 'c', 'd')
--- map('i', 'b', 'z')
--- map('i', 'n', 'k')
--- map('i', 'm', 'h')
 
 return M

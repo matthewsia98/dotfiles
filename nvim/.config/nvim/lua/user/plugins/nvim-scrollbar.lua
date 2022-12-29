@@ -39,6 +39,7 @@ if installed then
             "lazy",
             "mason",
             "NvimTree",
+            "TelescopePrompt",
         },
     })
 end

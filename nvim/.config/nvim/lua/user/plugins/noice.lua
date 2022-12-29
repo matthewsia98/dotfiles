@@ -12,6 +12,9 @@ if installed then
                 filter = {
                     event = "msg_showmode",
                 },
+                opts = {
+                    timeout = 500,
+                },
             },
             {
                 view = "mini",

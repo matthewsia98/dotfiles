@@ -3,6 +3,7 @@ local installed, mason = pcall(require, "mason")
 if installed then
     mason.setup({
         ui = {
+            border = "rounded",
             icons = {
                 package_installed = "✓",
                 package_pending = "➜",

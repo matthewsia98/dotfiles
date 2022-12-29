@@ -9,7 +9,7 @@ if installed then
                 jump_prev = "<C-p>",
                 jump_next = "<C-n>",
                 accept = "<CR>",
-                refresh = "gr",
+                refresh = "r",
                 open = "<M-C-CR>",
             },
         },
