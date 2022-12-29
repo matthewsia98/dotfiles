@@ -3,8 +3,12 @@ local M = {}
 
 if installed then
     toggleterm.setup({
-        size = function()
-            return math.floor(vim.o.columns) / 3
+        size = function(term)
+            if term.direction == "vertical" then
+                return math.floor(vim.o.columns / 3)
+            elseif term.direction == "horizontal" then
+                return math.floor(vim.o.lines / 3)
+            end
         end,
         direction = "vertical",
         shell = "/bin/zsh",
@@ -21,7 +25,7 @@ if installed then
     keys.map("n", "<leader>tt", function()
         local num_wins = #vim.api.nvim_list_wins()
         local size = math.floor(vim.o.columns / (num_wins + 1))
-        vim.cmd("ToggleTerm size=" .. size)
+        vim.cmd("ToggleTerm direction=vertical size=" .. size)
     end, { desc = "Toggle Terminal" })
 
     keys.map("n", "<leader>tr", function()
@@ -46,7 +50,10 @@ if installed then
             local chmod = is_executable and "" or "chmod u+x " .. filepath .. "; "
             command = chmod .. prefix .. filepath
         end
-        vim.cmd('TermExec go_back=0 cmd="' .. command .. '"')
+
+        local num_wins = #vim.api.nvim_list_wins()
+        local size = math.floor(vim.o.columns / (num_wins + 1))
+        vim.cmd("TermExec go_back=0 direction=vertical size=" .. size .. ' cmd="' .. command .. '"')
     end, { desc = "Run File" })
 
     keys.map("v", "<leader>tr", "<Esc><cmd>lua require('user.functions').send_visual_lines_to_terminal()<CR>", {
