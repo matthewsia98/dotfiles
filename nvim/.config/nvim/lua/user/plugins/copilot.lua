@@ -19,9 +19,9 @@ if installed then
             debounce = 75,
             -- Keymap defined in nvim-cmp.lua
             keymap = {
-                accept = "<C-CR>",
+                accept = false,
                 accept_word = false,
-                accept_line = false,
+                accept_line = "<C-CR>",
                 next = false,
                 prev = false,
                 dismiss = false,

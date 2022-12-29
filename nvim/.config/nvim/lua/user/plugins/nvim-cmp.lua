@@ -5,16 +5,16 @@ if installed then
     local lspkind = require("lspkind")
     local copilot_suggestion = require("copilot.suggestion")
 
-    -- insert ( after choosing function from completion menu
+    -- Insert ( after choosing function from completion menu
     cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
 
-    -- hide copilot suggestion when completion menu is open
-    -- cmp.event:on("menu_opened", function()
-    --     vim.b.copilot_suggestion_hidden = true
-    -- end)
-    -- cmp.event:on("menu_closed", function()
-    --     vim.b.copilot_suggestion_hidden = false
-    -- end)
+    -- Hide copilot suggestion when completion menu is open
+    cmp.event:on("menu_opened", function()
+        vim.b.copilot_suggestion_hidden = true
+    end)
+    cmp.event:on("menu_closed", function()
+        vim.b.copilot_suggestion_hidden = false
+    end)
 
     cmp.setup({
         -- preselect = cmp.PreselectMode.None, -- breaks cmp signature help
@@ -30,7 +30,7 @@ if installed then
                     maxwidth = 60,
                     menu = {
                         buffer = "[BUFFER]",
-                        copilot = "[COPILOT]",
+                        -- copilot = "[COPILOT]",
                         path = "[PATH]",
                         nvim_lsp = "[LSP]",
                         nvim_lsp_signature_help = "[SIGN]",
@@ -76,8 +76,6 @@ if installed then
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                elseif copilot_suggestion.is_visible() then
-                    copilot_suggestion.accept()
                 else
                     fallback()
                 end
@@ -141,7 +139,7 @@ if installed then
         sources = {
             -- Order Matters! OR explicitly set priority
             { name = "luasnip", max_item_count = 10 },
-            { name = "copilot", max_item_count = 5 },
+            -- { name = "copilot", max_item_count = 5 },
             { name = "nvim_lsp", max_item_count = 20 },
             { name = "nvim_lsp_signature_help" },
             { name = "path", max_item_count = 10 },

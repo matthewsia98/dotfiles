@@ -3,6 +3,9 @@ local M = {}
 
 if installed then
     toggleterm.setup({
+        size = function()
+            return math.floor(vim.o.columns) / 3
+        end,
         direction = "vertical",
         shell = "/bin/zsh",
         shade_terminals = false,

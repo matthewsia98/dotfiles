@@ -23,10 +23,15 @@ if installed then
         "luacheck",
         "stylua",
     }
+    local bootstrap = true
     local registry = require("mason-registry")
     for _, package_name in ipairs(packages) do
         local package = registry.get_package(package_name)
         if not package:is_installed() then
+            if bootstrap then
+                vim.cmd([[Mason]])
+                bootstrap = false
+            end
             package:install()
         end
     end
