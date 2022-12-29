@@ -36,8 +36,8 @@ if installed then
             }
         },
         excluded_filetypes = {
-            "noice",
             "lazy",
+            "mason",
         },
     })
 end

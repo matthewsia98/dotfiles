@@ -97,24 +97,24 @@ if installed then
             end, { expr = true, desc = "Previous git hunk" })
 
             -- Actions
-            keys.map({ "n", "v" }, "<leader>hs", "<cmd>Gitsigns stage_hunk<CR>", { desc = "stage hunk" })
-            keys.map({ "n", "v" }, "<leader>hr", "<cmd>Gitsigns reset_hunk<CR>", { desc = "reset hunk" })
+            keys.map({ "n", "v" }, "<leader>hs", "<cmd>Gitsigns stage_hunk<CR>", { desc = "Stage hunk" })
+            keys.map({ "n", "v" }, "<leader>hr", "<cmd>Gitsigns reset_hunk<CR>", { desc = "Reset hunk" })
             keys.map("n", "<leader>hS", gs.stage_buffer, { desc = "stage buffer" })
-            keys.map("n", "<leader>hu", gs.undo_stage_hunk, { desc = "undo stage hunk" })
-            keys.map("n", "<leader>hR", gs.reset_buffer, { desc = "reset buffer" })
-            keys.map("n", "<leader>hp", gs.preview_hunk, { desc = "preview hunk" })
+            keys.map("n", "<leader>hu", gs.undo_stage_hunk, { desc = "Undo stage hunk" })
+            keys.map("n", "<leader>hR", gs.reset_buffer, { desc = "Reset buffer" })
+            keys.map("n", "<leader>hp", gs.preview_hunk, { desc = "Preview hunk" })
             keys.map("n", "<leader>hb", function()
                 gs.blame_line({ full = true })
             end, { desc = "blame line" })
-            keys.map("n", "<leader>hb", gs.toggle_current_line_blame, { desc = "toggle line blame" })
-            keys.map("n", "<leader>hd", gs.diffthis, { desc = "diff" })
+            keys.map("n", "<leader>hb", gs.toggle_current_line_blame, { desc = "Toggle line blame" })
+            keys.map("n", "<leader>hd", gs.diffthis, { desc = "Diff" })
             keys.map("n", "<leader>hD", function()
                 gs.diffthis("~")
-            end, { desc = "diff ~" })
-            keys.map("n", "<leader>td", gs.toggle_deleted, { desc = "toggle deleted" })
+            end, { desc = "Diff ~" })
+            keys.map("n", "<leader>td", gs.toggle_deleted, { desc = "Toggle deleted" })
 
             -- Text object
-            keys.map({ "o", "x" }, "ih", "<cmd><C-U>Gitsigns select_hunk<CR>", { desc = "git hunk" })
+            keys.map({ "o", "x" }, "ih", "<cmd><C-U>Gitsigns select_hunk<CR>", { desc = "Git hunk" })
         end,
     })
 end

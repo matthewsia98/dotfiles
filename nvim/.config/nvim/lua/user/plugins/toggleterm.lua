@@ -3,25 +3,24 @@ local M = {}
 
 if installed then
     toggleterm.setup({
-        size = function(term)
-            if term.direction == "vertical" then
-                return math.floor(vim.o.columns / 4)
-            end
-        end,
         direction = "vertical",
         shell = "/bin/zsh",
         shade_terminals = false,
         float_opts = {
             border = "rounded",
             width = math.floor(vim.o.columns * 0.9),
-            height = math.floor(vim.o.lines * 0.8),
+            height = math.floor(vim.o.lines * 0.9),
         },
     })
 
     local keys = require("user.keymaps")
-    keys.map("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
-    -- keys.map("n", "<leader>tt", "<cmd>ToggleTerm direction=float<CR>", { desc = "Toggle Floating Terminal" })
-    -- keys.map("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<CR>", { desc = "Toggle Vertical Split Terminal" })
+
+    keys.map("n", "<leader>tt", function()
+        local num_wins = #vim.api.nvim_list_wins()
+        local size = math.floor(vim.o.columns / (num_wins + 1))
+        vim.cmd("ToggleTerm size=" .. size)
+    end, { desc = "Toggle Terminal" })
+
     keys.map("n", "<leader>tr", function()
         local filetype = vim.bo.filetype
         local filepath = vim.fn.expand("%")
@@ -47,7 +46,9 @@ if installed then
         vim.cmd('TermExec go_back=0 cmd="' .. command .. '"')
     end, { desc = "Run File" })
 
-    keys.map("v", "<leader>tr", "<Esc><cmd>lua require('user.functions').send_visual_lines_to_terminal()<CR>")
+    keys.map("v", "<leader>tr", "<Esc><cmd>lua require('user.functions').send_visual_lines_to_terminal()<CR>", {
+        desc = "Send lines to terminal" }
+    )
 
     local Terminal = require("toggleterm.terminal").Terminal
     local lazygit = Terminal:new({
