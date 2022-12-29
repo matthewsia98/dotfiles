@@ -29,9 +29,7 @@ M.unmap = unmap
 
 -- Go to start and end of line
 map("i", "<C-;>", "<Esc>A")
-map("n", "<C-;>", "A<Esc>")
 map("i", "<C-j>", "<Esc>I")
-map("n", "<C-j>", "I<Esc>")
 
 -- Insert blank lines
 map("n", "<CR>", "o<Esc>")
@@ -53,8 +51,8 @@ map("n", "<C-q>", "<C-w>c")
 -- Move between windows
 map("n", "<C-h>", "<C-w>h")
 map("n", "<C-l>", "<C-w>l")
--- map("n", "<C-j>", "<C-w>j")
--- map("n", "<C-k>", "<C-w>k")
+map("n", "<C-j>", "<C-w>j")
+map("n", "<C-k>", "<C-w>k")
 -- Resize Windows
 map("n", "<Right>", "<C-w>5>")
 map("n", "<Left>", "<C-w>5<")

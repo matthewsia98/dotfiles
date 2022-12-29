@@ -9,7 +9,7 @@ if installed then
                 jump_prev = "<C-p>",
                 jump_next = "<C-n>",
                 accept = "<CR>",
-                refresh = "r",
+                refresh = "R",
                 open = "<M-C-CR>",
             },
         },
@@ -17,13 +17,14 @@ if installed then
             enabled = true,
             auto_trigger = true,
             debounce = 75,
+            -- Keymap defined in nvim-cmp.lua
             keymap = {
-                accept = "<C-Space>",
+                accept = "<C-CR>",
                 accept_word = false,
                 accept_line = false,
-                next = "<C-n>",
-                prev = "<C-p>",
-                dismiss = "<C-c>",
+                next = false,
+                prev = false,
+                dismiss = false,
             },
         },
         filetypes = {
@@ -42,7 +43,7 @@ if installed then
             settings = {
                 advanced = {
                     listCount = 5, -- #completions for panel
-                    inlineSuggestCount = 3, -- #completions for getCompletions
+                    inlineSuggestCount = 5, -- #completions for getCompletions
                 },
             },
         },

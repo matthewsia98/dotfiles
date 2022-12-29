@@ -191,6 +191,15 @@ lazy.setup({
     {
         "zbirenbaum/copilot.lua",
         event = "VeryLazy",
+        dependencies = {
+            {
+                "zbirenbaum/copilot-cmp",
+                enabled = false,
+                config = function()
+                    require("user.plugins.copilot-cmp")
+                end,
+            },
+        },
         config = function()
             require("user.plugins.copilot")
         end,
@@ -198,11 +207,11 @@ lazy.setup({
 
     {
         "L3MON4D3/LuaSnip",
-        -- dependencies = {
-        --     "rafamadriz/friendly-snippets",
-        -- },
+        dependencies = {
+            "rafamadriz/friendly-snippets",
+        },
         config = function()
-            require("user.plugins.lsp.luasnip")
+            require("user.plugins.luasnip")
         end,
     },
     {
@@ -224,7 +233,7 @@ lazy.setup({
             "onsails/lspkind.nvim",
         },
         config = function()
-            require("user.plugins.lsp.nvim-cmp")
+            require("user.plugins.nvim-cmp")
         end,
     },
 

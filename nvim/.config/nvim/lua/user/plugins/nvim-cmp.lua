@@ -3,9 +3,18 @@ local installed, cmp = pcall(require, "cmp")
 if installed then
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
+    local copilot_suggestion = require("copilot.suggestion")
 
     -- insert ( after choosing function from completion menu
     cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
+
+    -- hide copilot suggestion when completion menu is open
+    -- cmp.event:on("menu_opened", function()
+    --     vim.b.copilot_suggestion_hidden = true
+    -- end)
+    -- cmp.event:on("menu_closed", function()
+    --     vim.b.copilot_suggestion_hidden = false
+    -- end)
 
     cmp.setup({
         -- preselect = cmp.PreselectMode.None, -- breaks cmp signature help
@@ -21,6 +30,7 @@ if installed then
                     maxwidth = 60,
                     menu = {
                         buffer = "[BUFFER]",
+                        copilot = "[COPILOT]",
                         path = "[PATH]",
                         nvim_lsp = "[LSP]",
                         nvim_lsp_signature_help = "[SIGN]",
@@ -65,35 +75,48 @@ if installed then
         mapping = {
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    cmp.select_next_item()
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                elseif copilot_suggestion.is_visible() then
+                    copilot_suggestion.accept()
+                else
+                    fallback()
+                end
+            end, { "i", "c" }),
+            ["<S-Tab>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
                 else
                     fallback()
                 end
             end, { "i", "c" }),
             ["<C-n>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    cmp.select_next_item()
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                elseif copilot_suggestion.is_visible() and not luasnip.choice_active() then
+                    copilot_suggestion.next()
                 else
                     fallback()
                 end
             end, { "i", "c" }),
             ["<C-p>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    cmp.select_prev_item()
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+                elseif copilot_suggestion.is_visible() and not luasnip.choice_active() then
+                    copilot_suggestion.prev()
                 else
                     fallback()
                 end
             end, { "i", "c" }),
             ["<C-Space>"] = cmp.mapping(function(fallback)
-                if require("copilot.suggestion").is_visible() then
-                    require("copilot.suggestion").accept()
-                elseif cmp.visible() then
+                if cmp.visible() then
                     local entry = cmp.get_selected_entry()
                     if not entry then
-                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
                         cmp.confirm()
                         cmp.close()
                     end
+                elseif copilot_suggestion.is_visible() then
+                    copilot_suggestion.accept()
                 else
                     fallback()
                 end
@@ -101,21 +124,24 @@ if installed then
             ["<C-c>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.abort()
+                elseif copilot_suggestion.is_visible() then
+                    copilot_suggestion.dismiss()
                 else
                     fallback()
                 end
             end, { "i", "c" }),
             ["<CR>"] = cmp.mapping(function(fallback)
                 if cmp.visible() and cmp.get_selected_entry() then
-                    cmp.confirm({ select = false })
+                    cmp.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace })
                 else
                     fallback()
                 end
-            end),
+            end, { "i" }),
         },
         sources = {
             -- Order Matters! OR explicitly set priority
             { name = "luasnip", max_item_count = 10 },
+            { name = "copilot", max_item_count = 5 },
             { name = "nvim_lsp", max_item_count = 20 },
             { name = "nvim_lsp_signature_help" },
             { name = "path", max_item_count = 10 },
@@ -140,27 +166,4 @@ if installed then
             { name = "nvim_lua", max_item_count = 10 },
         },
     })
-
-    -- -- Scrollbar
-    -- vim.cmd [[highlight PmenuThumb guibg=#C5CDD9 guifg=NONE]]
-
-    -- -- Prompt Menu
-    -- vim.cmd [[highlight default link CmpPmenu NormalFloat]]
-    -- vim.cmd [[highlight CmpPmenu guibg=#1E1E2E guifg=#89B4FA]] -- completion menu background (guibg) and border (guifg)
-    -- vim.cmd [[highlight PmenuSel guibg=#6E738D guifg=NONE]]
-
-    -- -- Completion Items
-    -- vim.cmd [[highlight CmpItemMenu guibg=NONE guifg=#C6A0F6]]
-    -- vim.cmd [[highlight CmpItemAbbrDeprecated guibg=NONE guifg=#808080 gui=strikethrough]]
-    -- vim.cmd [[highlight CmpItemAbbrMatch guibg=NONE guifg=#569CD6]]
-    -- vim.cmd [[highlight CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6]]
-    -- vim.cmd [[highlight CmpItemKindVariable guibg=NONE guifg=#9CDCFE]]
-    -- vim.cmd [[highlight CmpItemKindInterface guibg=NONE guifg=#9CDCFE]]
-    -- vim.cmd [[highlight CmpItemKindText guibg=NONE guifg=#9CDCFE]]
-    -- vim.cmd [[highlight CmpItemKindFunction guibg=NONE guifg=#C586C0]]
-    -- vim.cmd [[highlight CmpItemKindMethod guibg=NONE guifg=#C586C0]]
-    -- vim.cmd [[highlight CmpItemKindKeyword guibg=NONE guifg=#D4D4D4]]
-    -- vim.cmd [[highlight CmpItemKindProperty guibg=NONE guifg=#D4D4D4]]
-    -- vim.cmd [[highlight CmpItemKindUnit guibg=NONE guifg=#D4D4D4]]
-    -- vim.cmd [[highlight CmpItemKindSnippet guibg=NONE guifg=#D4AF37]]
 end
