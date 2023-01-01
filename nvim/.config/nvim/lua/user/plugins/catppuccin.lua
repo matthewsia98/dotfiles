@@ -67,15 +67,22 @@ if installed then
         },
         custom_highlights = function(colors)
             return {
-                Comment = { fg = colors.overlay1 },
                 LineNr = { fg = colors.lavender },
                 CursorLineNr = { fg = colors.lavender },
                 WinSeparator = { fg = colors.text },
+
+                Comment = { fg = colors.overlay1 },
+
                 TreesitterContext = { bg = colors.surface0 },
                 TreesitterContextLineNumber = { bg = colors.surface0, fg = colors.lavender },
+
                 IndentBlanklineContextChar = { fg = colors.green },
                 IndentBlanklineContextStart = { sp = colors.green },
+
                 NvimTreeNormal = { bg = colors.crust },
+                NvimTreeWinSeparator = { fg = colors.text },
+
+                NoiceCursor = { bg = colors.text, fg = colors.base },
             }
         end,
     })

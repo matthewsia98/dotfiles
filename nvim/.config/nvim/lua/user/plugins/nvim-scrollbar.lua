@@ -1,11 +1,16 @@
 local installed, scrollbar = pcall(require, "scrollbar")
 
 if installed then
-    local catppuccin = require("catppuccin.palettes").get_palette()
+    local catppuccin_installed, palettes = pcall(require, "catppuccin.palettes")
+    local colors, scrollbar_color
+    if catppuccin_installed then
+        colors = palettes.get_palette()
+        scrollbar_color = colors.surface1
+    end
 
     scrollbar.setup({
         handle = {
-            color = catppuccin.surface1,
+            color = scrollbar_color,
         },
         marks = {
             Cursor = {
@@ -33,7 +38,7 @@ if installed then
             },
             GitDelete = {
                 text = "",
-            }
+            },
         },
         excluded_filetypes = {
             "lazy",

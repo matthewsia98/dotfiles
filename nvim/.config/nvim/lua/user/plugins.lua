@@ -305,6 +305,7 @@ lazy.setup({
         end,
     },
 
+    -- Markdown Preview
     {
         "toppair/peek.nvim",
         build = "deno task --quiet build:fast",

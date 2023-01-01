@@ -32,8 +32,8 @@ end
 M.unmap = unmap
 
 -- Go to start and end of line
-map("i", "<C-;>", "<Esc>A")
-map("i", "<C-j>", "<Esc>I")
+map("i", "<C-a>", "<Esc>I")
+map("i", "<C-e>", "<Esc>A")
 
 -- Insert blank lines
 map("n", "<CR>", "o<Esc>")

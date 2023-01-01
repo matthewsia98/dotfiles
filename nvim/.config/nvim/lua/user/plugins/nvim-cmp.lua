@@ -9,12 +9,12 @@ if installed then
     cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
 
     -- Hide copilot suggestion when completion menu is open
-    cmp.event:on("menu_opened", function()
-        vim.b.copilot_suggestion_hidden = true
-    end)
-    cmp.event:on("menu_closed", function()
-        vim.b.copilot_suggestion_hidden = false
-    end)
+    -- cmp.event:on("menu_opened", function()
+    --     vim.b.copilot_suggestion_hidden = true
+    -- end)
+    -- cmp.event:on("menu_closed", function()
+    --     vim.b.copilot_suggestion_hidden = false
+    -- end)
 
     cmp.setup({
         -- preselect = cmp.PreselectMode.None, -- breaks cmp signature help

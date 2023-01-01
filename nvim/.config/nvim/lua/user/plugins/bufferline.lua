@@ -1,6 +1,12 @@
 local installed, bufferline = pcall(require, "bufferline")
 
 if installed then
+    local catppuccin_installed, _ = pcall(require, "catppuccin")
+    local bufferline_highlights
+    if catppuccin_installed then
+        bufferline_highlights = require("catppuccin.groups.integrations.bufferline").get()
+    end
+
     bufferline.setup({
         options = {
             mode = "buffers", -- set to "tabs" to only show tabpages instead
@@ -62,74 +68,21 @@ if installed then
             -- 'tabs' | function(buffer_a, buffer_b)
             sort_by = "insert_at_end",
         },
-        highlights = require("catppuccin.groups.integrations.bufferline").get(),
+        highlights = bufferline_highlights,
     })
 
     local keys = require("user.keymaps")
-    keys.map("n", "<leader>1", '<cmd>lua require("bufferline").go_to(1, true)<CR>', { desc = "Go to buffer 1" })
-    keys.map("n", "<leader>2", '<cmd>lua require("bufferline").go_to(2, true)<CR>', { desc = "Go to buffer 2" })
-    keys.map("n", "<leader>3", '<cmd>lua require("bufferline").go_to(3, true)<CR>', { desc = "Go to buffer 3" })
-    keys.map("n", "<leader>4", '<cmd>lua require("bufferline").go_to(4, true)<CR>', { desc = "Go to buffer 4" })
-    keys.map("n", "<leader>5", '<cmd>lua require("bufferline").go_to(5, true)<CR>', { desc = "Go to buffer 5" })
-    keys.map("n", "<leader>6", '<cmd>lua require("bufferline").go_to(6, true)<CR>', { desc = "Go to buffer 6" })
-    keys.map("n", "<leader>7", '<cmd>lua require("bufferline").go_to(7, true)<CR>', { desc = "Go to buffer 7" })
-    keys.map("n", "<leader>8", '<cmd>lua require("bufferline").go_to(8, true)<CR>', { desc = "Go to buffer 8" })
-    keys.map("n", "<leader>9", '<cmd>lua require("bufferline").go_to(9, true)<CR>', { desc = "Go to buffer 9" })
 
-    keys.map(
-        "n",
-        "<leader>d1",
-        "<cmd>lua require('bufferline').go_to(1, true)<CR><cmd>bdelete<CR>",
-        { desc = "Delete buffer 1" }
-    )
-    keys.map(
-        "n",
-        "<leader>d2",
-        "<cmd>lua require('bufferline').go_to(2, true)<CR><cmd>bdelete<CR>",
-        { desc = "Delete buffer 2" }
-    )
-    keys.map(
-        "n",
-        "<leader>d3",
-        "<cmd>lua require('bufferline').go_to(3, true)<CR><cmd>bdelete<CR>",
-        { desc = "Delete buffer 3" }
-    )
-    keys.map(
-        "n",
-        "<leader>d4",
-        "<cmd>lua require('bufferline').go_to(4, true)<CR><cmd>bdelete<CR>",
-        { desc = "Delete buffer 4" }
-    )
-    keys.map(
-        "n",
-        "<leader>d5",
-        "<cmd>lua require('bufferline').go_to(5, true)<CR><cmd>bdelete<CR>",
-        { desc = "Delete buffer 5" }
-    )
-    keys.map(
-        "n",
-        "<leader>d6",
-        "<cmd>lua require('bufferline').go_to(6, true)<CR><cmd>bdelete<CR>",
-        { desc = "Delete buffer 6" }
-    )
-    keys.map(
-        "n",
-        "<leader>d7",
-        "<cmd>lua require('bufferline').go_to(7, true)<CR><cmd>bdelete<CR>",
-        { desc = "Delete buffer 7" }
-    )
-    keys.map(
-        "n",
-        "<leader>d8",
-        "<cmd>lua require('bufferline').go_to(8, true)<CR><cmd>bdelete<CR>",
-        { desc = "Delete buffer 8" }
-    )
-    keys.map(
-        "n",
-        "<leader>d9",
-        "<cmd>lua require('bufferline').go_to(9, true)<CR><cmd>bdelete<CR>",
-        { desc = "Delete buffer 9" }
-    )
+    for n = 1, 9 do
+        keys.map("n", "<leader>" .. n, function()
+            bufferline.go_to(n, true)
+        end, { desc = "Go to Buffer " .. n })
+
+        keys.map("n", "<leader>d" .. n, function()
+            bufferline.go_to(n, true)
+            vim.cmd([[bdelete]])
+        end, { desc = "Delete Buffer " .. n })
+    end
 
     keys.map("n", "<C-b>L", "<cmd>BufferLineMoveNext<CR>", { desc = "Move buffer to the right" })
     keys.map("n", "<C-b>H", "<cmd>BufferLineMovePrev<CR>", { desc = "Move buffer to the left" })

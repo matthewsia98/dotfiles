@@ -43,14 +43,16 @@ if installed then
         }
     end
 
+    local catppuccin_installed, _ = pcall(require, "catppuccin")
+    local lualine_theme = catppuccin_installed and "catppuccin" or "dracula"
     lualine.setup({
         options = {
-            theme = "catppuccin",
+            theme = lualine_theme,
             icons_enabled = true,
             -- separators                         
             component_separators = { left = "", right = "" },
             disabled_filetypes = {
-                statusline = { "", "dashboard", },
+                statusline = { "", "dashboard" },
             },
         },
         -- a b c                x y z
@@ -148,33 +150,51 @@ if installed then
                 },
             },
             lualine_c = {
-                -- {
-                --     function()
-                --         local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
-                --         local max_severity = 4
-                --         local max_severity_idx
-                --         for i, diagnostic in ipairs(diagnostics) do
-                --             if diagnostic.severity < max_severity then
-                --                 max_severity_idx = i
-                --             end
-                --         end
-                --         return diagnostics[max_severity_idx].message
-                --     end,
-                --     color = function()
-                --         local severities = { "Error", "Warn", "Info", "Hint" }
-                --         local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
-                --         local max_severity = 4
-                --         for _, diagnostic in ipairs(diagnostics) do
-                --             if diagnostic.severity < max_severity then
-                --                 max_severity = diagnostic.severity
-                --             end
-                --         end
-                --         return "Diagnostic" .. severities[max_severity]
-                --     end
-                -- }
+                spacer(),
+                {
+                    function()
+                        local MAX_LENGTH = 50
+                        local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
+                        if #diagnostics == 0 then
+                            return "No Diagnostics on Current Line"
+                        end
+
+                        local max_severity = 4
+                        local max_severity_idx
+                        for i, diagnostic in ipairs(diagnostics) do
+                            if diagnostic.severity < max_severity then
+                                max_severity_idx = i
+                            end
+                        end
+                        return diagnostics[max_severity_idx].message:sub(1, MAX_LENGTH)
+                    end,
+                    color = function()
+                        local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
+                        if #diagnostics == 0 then
+                            return "lualine_c_normal"
+                        end
+
+                        local severities = { "Error", "Warn", "Info", "Hint" }
+                        local max_severity = 4
+                        for _, diagnostic in ipairs(diagnostics) do
+                            if diagnostic.severity < max_severity then
+                                max_severity = diagnostic.severity
+                            end
+                        end
+                        return "Diagnostic" .. severities[max_severity]
+                    end,
+                },
             },
-            lualine_x = {},
+            lualine_x = {
+                {
+                    function()
+                        return "TEST"
+                    end
+                },
+                spacer(),
+            },
             lualine_y = {
+                spacer(),
                 {
                     "fileformat",
                     symbols = {
@@ -213,4 +233,7 @@ if installed then
     })
 
     vim.cmd([[highlight lualine_c_normal guibg=#00000000]])
+    vim.cmd([[highlight lualine_c_insert guibg=#00000000]])
+    vim.cmd([[highlight lualine_c_visual guibg=#00000000]])
+    vim.cmd([[highlight lualine_c_command guibg=#00000000]])
 end

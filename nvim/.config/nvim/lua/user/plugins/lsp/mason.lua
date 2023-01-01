@@ -13,6 +13,8 @@ if installed then
     })
 
     local packages = {
+        "shellcheck",
+
         "python-lsp-server",
         "flake8",
         "mypy",
@@ -23,14 +25,14 @@ if installed then
         "luacheck",
         "stylua",
     }
-    local bootstrap = true
+    local show_ui = true
     local registry = require("mason-registry")
     for _, package_name in ipairs(packages) do
         local package = registry.get_package(package_name)
         if not package:is_installed() then
-            if bootstrap then
+            if show_ui then
                 vim.cmd([[Mason]])
-                bootstrap = false
+                show_ui = false
             end
             package:install()
         end
