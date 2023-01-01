@@ -1,43 +1,48 @@
-function set_title() { 
+set_title () { 
 	print -Pn "\e]0;%n@%m: %~\a" 
 }
 
-function toggle_program() {
+toggle_program () {
     program="$1"
     c1=${program:0:1}
     c2=${program:1:#program}
     running=$(pgrep "[$c1]$c2")
 
-    if [[ $running == "" ]] ; then
+    if [ "$running" = "" ] ; then
         $program
     else
-        killall $program
+        killall "$program"
     fi
 }
 
 # Yank to the system clipboard
-function vi-yank {
-    if [[ $XDG_SESSION_TYPE -eq "wayland" ]] then
+vi_yank () {
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]
+    then
         echo "$CUTBUFFER" | wl-copy
-    else
+    elif [ "$XDG_SESSION_TYPE" = "x11" ]
+    then
         echo "$CUTBUFFER" | xclip -i -selection clipboard
     fi
 }
-zle -N vi-yank
+zle -N vi_yank
 
 # Paste from system clipboard
-function vi-paste () {
-    if [[ $XDG_SESSION_TYPE -eq "wayland" ]] then
+vi_paste () {
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]
+    then
         RBUFFER=$(wl-paste)$RBUFFER
-    else
+    elif [ "$XDG_SESSION_TYPE" = "x11" ]
+    then
         RBUFFER=$(xclip -o -selection clipboard)$RBUFFER
     fi
 }
-zle -N vi-paste
+zle -N vi_paste
 
-function toggle_keymap() {
-    local variant=$(setxkbmap -query | awk '/variant:/ {print $2}')
-    if [[ $variant = '' ]] then
+toggle_keymap () {
+    variant=$(setxkbmap -query | awk "/variant:/ {print $2}")
+    if [ "$variant" = "" ]
+    then
         setxkbmap us colemak_dh
     else
         setxkbmap us

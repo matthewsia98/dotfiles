@@ -1,4 +1,4 @@
-source ~/.config/zsh/.zsh_functions
+source ~/.config/zsh/functions.zsh
 source ~/.config/zsh/aliases
 # set_title
 # chpwd_functions+=(set_title)
@@ -89,6 +89,9 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # Shell emacs/vim mode
 bindkey -v
 
+bindkey "^a" beginning-of-line
+bindkey "^e" end-of-line
+
 bindkey '^?' backward-delete-char
 bindkey '^p' up-line-or-search
 bindkey '^n' down-line-or-search
@@ -101,8 +104,8 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-bindkey -M vicmd 'y' vi-yank
-bindkey -M vicmd 'p' vi-paste
+bindkey -M vicmd 'y' vi_yank
+bindkey -M vicmd 'p' vi_paste
 
 
 ##############################################################################################

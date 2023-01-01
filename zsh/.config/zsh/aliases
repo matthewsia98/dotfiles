@@ -20,7 +20,7 @@ alias mkdir="mkdir -pv"
 alias cat="bat"
 alias rg="rg -S"
 alias tree="tree -CF"
-alias logout="loginctl terminate-user $USER"
+alias logout='loginctl terminate-user $USER'
 alias suspend="systemctl suspend"
 
 # Programs
@@ -29,11 +29,11 @@ alias vi="nvim"
 alias vim="nvim"
 alias pdf="zathura"
 alias uotp="python ~/Misc/uottawa_otp.py"
-if [[ $XDG_SESSION_TYPE -eq "wayland" ]]
+if [ "$XDG_SESSION_TYPE" = "wayland" ]
 then
     alias dunst="dunst -config ~/.config/dunst/dunstrc-wayland"
     alias img="swayimg"
-elif [[ $XDG_SESSION_TYPE -eq "x11" ]]
+elif [ "$XDG_SESSION_TYPE" = "x11" ]
 then
     alias dunst="dunst -config ~/.config/dunst/dunstrc"
     alias img="feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info "echo %wx%h" --image-bg #494D54"
