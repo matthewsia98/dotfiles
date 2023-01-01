@@ -118,22 +118,26 @@ tooltip label {
 }
 
 #network {
-    /* background-color: alpha(@green, 1.0); */
+    background-color: alpha(@green, 1.0);
+    color: alpha(@dark-text, 1.0);
 }
 #network.disconnected {
     background-color: alpha(@red, 1.0);
 }
 
 #backlight {
-    /* background-color: alpha(@peach, 1.0); */
+    background-color: alpha(@peach, 1.0);
+    color: alpha(@dark-text, 1.0);
 }
 
 #pulseaudio {
-    /* background-color: alpha(@blue, 1.0); */
+    background-color: alpha(@blue, 1.0);
+    color: alpha(@dark-text, 1.0);
 }
 
 #battery {
-    /* background-color: alpha(@yellow, 1.0); */
+    background-color: alpha(@yellow, 1.0);
+    color: alpha(@dark-text, 1.0);
 }
 #battery.critical:not(.charging) {
     background-color: alpha(@red, 1.0);
