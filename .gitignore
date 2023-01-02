@@ -3,3 +3,4 @@ pcmanfm/
 nvim/.config/nvim/plugin/
 qtile/.config/qtile/__pycache__/
 zsh/.config/zsh/.zcompdump
+lazygit/.config/lazygit/state.yml
