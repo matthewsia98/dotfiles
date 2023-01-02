@@ -18,8 +18,8 @@ if installed then
         delete_check_events = "TextChanged,InsertLeave",
     })
 
-    require('luasnip.loaders.from_vscode').lazy_load({
-        include = { "python", "lua", },
+    require("luasnip.loaders.from_vscode").lazy_load({
+        include = { "python", "lua" },
         -- exclude = { "python", },
     })
     require("luasnip.loaders.from_lua").lazy_load({

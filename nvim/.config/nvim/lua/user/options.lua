@@ -113,8 +113,12 @@ o.foldminlines = 1
 -- o.titlestring = '%t'
 -- opt.title = true
 
--- Format Options
+-- Disable sourcing of /usr/local/share/nvim/runtime/ftplugin/ files (Affects formatoptions)
 vim.cmd([[filetype plugin off]])
+-- Enable sourcing of /usr/local/share/nvim/runtime/indent/ files
+vim.cmd([[filetype indent on]])
+
+-- Format Options
 -- t: Auto-wrap using textwidth
 -- c: Auto-wrap comments using textwidth and insert comment leader automatically
 -- r: BAD!!! Automatically insert comment leader when hitting <Enter> in Insert mode

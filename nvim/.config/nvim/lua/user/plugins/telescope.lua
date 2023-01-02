@@ -2,6 +2,7 @@ local installed, telescope = pcall(require, "telescope")
 
 if installed then
     local actions = require("telescope.actions")
+    local builtin = require("telescope.builtin")
 
     telescope.setup({
         defaults = {
@@ -14,47 +15,44 @@ if installed then
                     preview_cutoff = 0,
                     prompt_position = "top",
                 },
-            },
-            default_mappings = {
-                i = {
-                    ["<C-q>"] = actions.close,
-                    ["<C-n>"] = actions.move_selection_next,
-                    ["<C-p>"] = actions.move_selection_previous,
-                    ["<C-u>"] = actions.preview_scrolling_up,
-                    ["<C-d>"] = actions.preview_scrolling_down,
-                    ["<CR>"] = actions.select_default,
-                },
-                n = {
-                    ["<C-q>"] = actions.close,
-                    ["gg"] = actions.move_to_top,
-                    ["G"] = actions.move_to_bottom,
-                    ["<C-u>"] = actions.preview_scrolling_up,
-                    ["<C-d>"] = actions.preview_scrolling_down,
-                    ["<CR>"] = actions.select_default,
-                    ["?"] = actions.which_key,
+                vertical = {
+                    width = 0.99,
+                    height = 0.99,
+                    preview_height = 0.5,
+                    preview_cutoff = 0,
+                    prompt_position = "bottom",
                 },
             },
+            -- default_mappings = {
+            --     i = {
+            --         ["<C-q>"] = actions.close,
+            --         ["<C-n>"] = actions.move_selection_next,
+            --         ["<C-p>"] = actions.move_selection_previous,
+            --         ["<C-u>"] = actions.preview_scrolling_up,
+            --         ["<C-d>"] = actions.preview_scrolling_down,
+            --         ["<CR>"] = actions.select_default,
+            --     },
+            --     n = {
+            --         ["<C-q>"] = actions.close,
+            --         ["gg"] = actions.move_to_top,
+            --         ["G"] = actions.move_to_bottom,
+            --         ["<C-u>"] = actions.preview_scrolling_up,
+            --         ["<C-d>"] = actions.preview_scrolling_down,
+            --         ["<CR>"] = actions.select_default,
+            --         ["?"] = actions.which_key,
+            --     },
+            -- },
             mappings = {
                 i = {
                     ["<C-h>"] = "which_key",
-                    ["<C-l>"] = function(prompt_bufnr)
-                        actions.send_to_loclist(prompt_bufnr)
-                        vim.cmd([[Trouble loclist]])
+                    ["<C-t>"] = function(prompt_bufnr)
+                        require("trouble.providers.telescope").open_with_trouble(prompt_bufnr, "loclist")
                     end,
-                    -- ["<C-q>"] = function(prompt_bufnr)
-                    --     actions.send_to_qflist(prompt_bufnr)
-                    --     vim.cmd([[Trouble quickfix]])
-                    -- end,
                 },
                 n = {
-                    ["<C-l>"] = function(prompt_bufnr)
-                        actions.send_to_loclist(prompt_bufnr)
-                        vim.cmd([[Trouble loclist]])
+                    ["<C-t>"] = function(prompt_bufnr)
+                        require("trouble.providers.telescope").open_with_trouble(prompt_bufnr, "loclist")
                     end,
-                    -- ["<C-q>"] = function(prompt_bufnr)
-                    --     actions.send_to_qflist(prompt_bufnr)
-                    --     vim.cmd([[Trouble quickfix]])
-                    -- end,
                     ["q"] = actions.close,
                 },
             },
@@ -62,7 +60,7 @@ if installed then
         pickers = {
             find_files = {
                 find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
-            }
+            },
         },
         extensions = {
             ["ui-select"] = {
@@ -76,22 +74,76 @@ if installed then
                 override_file_sorter = true, -- override the file sorter
                 case_mode = "smart_case", -- or "ignore_case" or "respect_case"
             },
+            live_grep_args = {
+                auto_quoting = true,
+                mappings = {
+                    -- i = {
+                    --     ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+                    --     ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob" }),
+                    -- }
+                }
+            },
+            undo = {
+                use_delta = true, -- use git-delta
+                side_by_side = true,
+                layout_strategy = "vertical",
+                layout_config = {
+                    preview_height = 0.8,
+                },
+                mappings = {
+                    i = {
+                        ["<CR>"] = require("telescope-undo.actions").yank_additions,
+                        ["<S-CR>"] = require("telescope-undo.actions").yank_deletions,
+                        ["<C-CR>"] = require("telescope-undo.actions").restore,
+                    }
+                }
+            },
         },
     })
 
     telescope.load_extension("ui-select")
     telescope.load_extension("fzf")
     telescope.load_extension("live_grep_args")
+    telescope.load_extension("undo")
 
     local keys = require("user.keymaps")
-    keys.map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<CR>")
-    keys.map("n", "<leader>fwd", "<cmd>lua require('telescope.builtin').find_files({ cwd = vim.fn.getcwd() })<CR>")
-    keys.map("n", "<leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<CR>")
-    keys.map("n", "<leader>fc", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>")
-    keys.map("n", "<leader>fg", "<cmd>lua require('telescope.builtin').git_commits()<CR>")
-    -- keys.map("n", "<leader>fa", "<cmd>lua require('telescope.builtin').live_grep()<CR>")
-    keys.map("n", "<leader>fa", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
-    keys.map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>")
-    keys.map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
-    keys.map("n", "<leader>fo", "<cmd>lua require('telescope.builtin').vim_options()<CR>")
+
+    keys.map("n", "<leader>ff", function()
+        builtin.find_files()
+    end, { desc = "Find Files" })
+
+    keys.map("n", "<leader>fr", function()
+        builtin.oldfiles()
+    end, { desc = "Find Recent Files" })
+
+    keys.map("n", "<leader>fc", function()
+        builtin.current_buffer_fuzzy_find()
+    end, { desc = "Fuzzy Find" })
+
+    keys.map("n", "<leader>fg", function()
+        builtin.git_commits()
+    end, { desc = "Find Git Commits" })
+
+    keys.map("n", "<leader>fb", function()
+        builtin.buffers()
+    end, { desc = "Find Buffers" })
+
+    keys.map("n", "<leader>fh", function()
+        builtin.help_tags()
+    end, { desc = "Find Vim Help" })
+
+    keys.map("n", "<leader>fo", function()
+        builtin.vim_options()
+    end, { desc = "Find Vim Options" })
+
+    -- keys.map("n", "<leader>fa", function()
+    --     builtin.live_grep()
+    -- end, { desc = "" })
+    keys.map("n", "<leader>fa", function()
+        telescope.extensions.live_grep_args.live_grep_args()
+    end, { desc = "Live Grep" })
+
+    keys.map("n", "<leader>fu", function()
+        telescope.extensions.undo.undo()
+    end, { desc = "Find Undo Tree" })
 end

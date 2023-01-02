@@ -189,7 +189,7 @@ if installed then
                 {
                     function()
                         return "TEST"
-                    end
+                    end,
                 },
                 spacer(),
             },

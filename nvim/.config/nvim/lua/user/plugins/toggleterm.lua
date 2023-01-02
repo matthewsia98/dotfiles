@@ -57,8 +57,8 @@ if installed then
     end, { desc = "Run File" })
 
     keys.map("v", "<leader>tr", "<Esc><cmd>lua require('user.functions').send_visual_lines_to_terminal()<CR>", {
-        desc = "Send lines to terminal" }
-    )
+        desc = "Send lines to terminal",
+    })
 
     local Terminal = require("toggleterm.terminal").Terminal
     local lazygit = Terminal:new({

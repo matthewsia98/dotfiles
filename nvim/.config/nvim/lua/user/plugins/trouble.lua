@@ -49,8 +49,24 @@ if installed then
     })
 
     local keys = require("user.keymaps")
-    keys.map("n", "<leader>wd", "<cmd>TroubleToggle workspace_diagnostics<cr>")
-    keys.map("n", "<leader>dd", "<cmd>TroubleToggle document_diagnostics<cr>")
-    keys.map("n", "<leader>ll", "<cmd>TroubleToggle loclist<cr>")
-    keys.map("n", "<leader>qf", "<cmd>TroubleToggle quickfix<cr>")
+
+    keys.map("n", "<leader>wd", function()
+        trouble.toggle("workspace_diagnostics")
+    end, { desc = "Workspace Diagnostics (Trouble)" })
+
+    keys.map("n", "<leader>dd", function()
+        trouble.toggle("document_diagnostics")
+    end, { desc = "Document Diagnostics (Trouble)" })
+
+    keys.map("n", "<leader>ll", function()
+        trouble.toggle("loclist")
+    end, { desc = "Loclist (Trouble)" })
+
+    keys.map("n", "<leader>qf", function()
+        trouble.toggle("quickfix")
+    end, { desc = "Quickfix (Trouble)" })
+
+    keys.map("n", "<leader>tl", function()
+        trouble.toggle("telescope")
+    end, { desc = "Telescope Results (Trouble)" })
 end

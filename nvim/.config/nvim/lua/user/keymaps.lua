@@ -48,6 +48,14 @@ map("n", "i", function()
         return "i"
     end
 end, { expr = true })
+map("n", "a", function()
+    local line = vim.fn.getline(".")
+    if #line == 0 then
+        return "cc"
+    else
+        return "a"
+    end
+end, { expr = true })
 
 -- Windows
 -- Close Window
@@ -64,7 +72,7 @@ map("n", "<Up>", "<C-w>1+")
 map("n", "<Down>", "<C-w>1-")
 
 -- Delete buffer
-map("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
+map("n", "<leader>db", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
 
 -- Folds
 -- map('n', '<leader>fd', 'za')
@@ -84,7 +92,7 @@ map("n", "<leader>cn", function()
     else
         vim.o.conceallevel = 2
     end
-end, { desc = "Toggle conceal" })
+end, { desc = "Toggle Conceal" })
 
 -- Reverse Selection
 map("v", "<leader>rv", '<ESC><cmd>lua require("user.functions").reverse_lines()<CR>', { desc = "Reverse visual lines" })
