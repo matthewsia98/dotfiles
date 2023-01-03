@@ -236,6 +236,13 @@ lazy.setup({
             require("user.plugins.nvim-cmp")
         end,
     },
+    {
+        "glepnir/lspsaga.nvim",
+        event = "BufReadPost",
+        config = function()
+            require("user.plugins.lsp.lspsaga")
+        end,
+    },
 
     {
         "neovim/nvim-lspconfig",
