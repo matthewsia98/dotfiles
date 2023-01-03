@@ -14,25 +14,9 @@ local group = vim.api.nvim_create_augroup("MyAutocmds", { clear = true })
 --     }
 -- )
 
--- Format Options
--- vim.api.nvim_create_autocmd('FileType', {
---     group = group,
---     callback = function()
---         -- t: Auto-wrap using textwidth
---         -- c: Auto-wrap comments using textwidth and insert comment leader automatically
---         -- r: BAD!!! Automatically insert comment leader when hitting <Enter> in Insert mode
---         -- o: BAD!!! Automatically insert comment leader when hitting o/O in Normal mode
---         -- n: Recognize numbered lists
---         -- l: Long lines are not broken in insert mode
---         -- j: Remove comment leader when joining lines
---         -- p: Don't break lines at single spaces that follow periods e.g. Mr. John
---         vim.cmd [[set formatoptions=tcnjp]]
---     end
--- })
-
 vim.api.nvim_create_autocmd("FileType", {
     group = group,
-    pattern = { "help", "vim" },
+    pattern = { "help", "vim", "qf" },
     callback = function()
         vim.keymap.set("n", "q", function()
             vim.api.nvim_win_close(0, false)
@@ -71,9 +55,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd("RecordingLeave", {
     group = group,
     callback = function()
-        local reg = vim.fn.reg_recording()
-        vim.notify("Recording stopped: " .. reg, vim.log.levels.INFO, {
-            title = "Macro",
+        vim.notify(vim.v.event.regname .. ": " .. vim.v.event.regcontents, vim.log.levels.INFO, {
+            title = "Recording Stopped",
         })
     end,
 })
