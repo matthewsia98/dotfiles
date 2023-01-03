@@ -93,6 +93,7 @@ if installed then
                 elseif copilot_suggestion.is_visible() and not luasnip.choice_active() then
                     copilot_suggestion.next()
                 else
+                    copilot_suggestion.next()
                     fallback()
                 end
             end, { "i", "c" }),
@@ -102,6 +103,7 @@ if installed then
                 elseif copilot_suggestion.is_visible() and not luasnip.choice_active() then
                     copilot_suggestion.prev()
                 else
+                    copilot_suggestion.prev()
                     fallback()
                 end
             end, { "i", "c" }),
