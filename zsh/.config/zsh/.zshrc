@@ -4,6 +4,9 @@ source ~/.config/zsh/aliases
 # chpwd_functions+=(set_title)
 
 
+setopt globdots
+
+
 ########################################################
 #  
 #  ██████╗ ██████╗  ██████╗ ███╗   ███╗██████╗ ████████╗
@@ -15,9 +18,9 @@ source ~/.config/zsh/aliases
 #  
 ########################################################
 ZLE_RPROMPT_INDENT=0
-#PS1='%F{cyan}%~ > %f'
-#RPS1='[%*]'
-# Disable % if line doesn't end with \n
+#PS1="%F{cyan}%~ > %f"
+#RPS1="[%*]"
+# Disable % if line doesn"t end with \n
 PROMPT_EOL_MARK=""
 
 # Starship
@@ -35,16 +38,18 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 #  ╚══════╝╚═╝  ╚═══╝  ╚═══╝        ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 #  
 ###################################################################
-export PATH=$PATH:~/.local/bin:~/.cargo/bin:~/.local/share/nvim/mason/bin:~/.spicetify
-export EDITOR='nvim'
-export VISUAL='nvim'
+export PATH=$PATH:~/.local/bin:~/.cargo/bin:~/.spicetify
+export PATH=$PATH:~/.local/share/nvim/mason/bin
+export EDITOR="nvim"
+export VISUAL="nvim"
+export PSQL_EDITOR="nvim"
 export HISTFILE=~/.zsh_history
 # Session History
 export HISTSIZE=100000
 # Max history file size
 export SAVEHIST=1000000000
 # Add timestamps
-export HISTTIMEFORMAT='[%F %T]'
+export HISTTIMEFORMAT="[%F %T]"
 
 # Add to history immediately, not on exit
 setopt INC_APPEND_HISTORY
@@ -66,46 +71,14 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="bg=#494D64,fg=#CAD3F5,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-# source ~/repos/zsh-syntax-highlighting-catppuccin/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh
-
 autoload -Uz compinit
 compinit
-zstyle ':completion:*' menu select
+zstyle ":completion:*" menu select
 zmodload zsh/complist
+
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-
-#####################################################################
-#  
-#  ██╗  ██╗███████╗██╗   ██╗    ██████╗ ██╗███╗   ██╗██████╗ ███████╗
-#  ██║ ██╔╝██╔════╝╚██╗ ██╔╝    ██╔══██╗██║████╗  ██║██╔══██╗██╔════╝
-#  █████╔╝ █████╗   ╚████╔╝     ██████╔╝██║██╔██╗ ██║██║  ██║███████╗
-#  ██╔═██╗ ██╔══╝    ╚██╔╝      ██╔══██╗██║██║╚██╗██║██║  ██║╚════██║
-#  ██║  ██╗███████╗   ██║       ██████╔╝██║██║ ╚████║██████╔╝███████║
-#  ╚═╝  ╚═╝╚══════╝   ╚═╝       ╚═════╝ ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝
-#  
-#####################################################################
-# Shell emacs/vim mode
-bindkey -v
-
-bindkey "^a" beginning-of-line
-bindkey "^e" end-of-line
-
-bindkey '^?' backward-delete-char
-bindkey '^p' up-line-or-search
-bindkey '^n' down-line-or-search
-
-# bindkey '\t' complete-word
-bindkey '^ ' autosuggest-accept
-bindkey '\t' menu-complete
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-
-bindkey -M vicmd 'y' vi_yank
-bindkey -M vicmd 'p' vi_paste
+# source ~/repos/zsh-syntax-highlighting-catppuccin/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh
 
 
 ##############################################################################################
@@ -118,10 +91,10 @@ bindkey -M vicmd 'p' vi_paste
 #  ╚═╝      ╚═════╝ ╚══════╝╚══════╝   ╚═╝       ╚═╝     ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 #  
 ##############################################################################################
-local fzf_cmd='find -L'
-local fzf_opts='--height 60% --layout=reverse --border --multi --info=inline --header=""'
-# local fzf_opts='--height 60% --layout=reverse --border --multi --info=inline --header="" --color bg:#24273A,fg:#CAD3F5,preview-bg:#24273A,preview-fg:#CAD3F5,bg+:#494D64,fg+:#CAD3F5,gutter:#24273A,border:#B7BDF8,hl:#A6DA95,hl+:#A6DA95,pointer:#CAD3F5,info:#CAD3F5'
-export FZF_COMPLETION_TRIGGER='*'
+local fzf_cmd="find -L"
+local fzf_opts="--height 60% --layout=reverse --border --multi --info=inline --header="""
+# local fzf_opts="--height 60% --layout=reverse --border --multi --info=inline --header="" --color bg:#24273A,fg:#CAD3F5,preview-bg:#24273A,preview-fg:#CAD3F5,bg+:#494D64,fg+:#CAD3F5,gutter:#24273A,border:#B7BDF8,hl:#A6DA95,hl+:#A6DA95,pointer:#CAD3F5,info:#CAD3F5"
+export FZF_COMPLETION_TRIGGER="*"
 export FZF_COMPLETION_OPTS=$fzf_opts
 export FZF_DEFAULT_COMMAND=$fzf_cmd
 export FZF_CTRL_T_COMMAND=$fzf_cmd
@@ -175,6 +148,56 @@ else
 fi
 
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+
+# FZF-TAB
+source ~/repos/fzf-tab/fzf-tab.plugin.zsh
+# disable sort when completing `git checkout`
+zstyle ":completion:*:git-checkout:*" sort false
+# set descriptions format to enable group support
+zstyle ":completion:*:descriptions" format "[%d]"
+# set list-colors to enable filename colorizing
+zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}
+# preview directory"s content with exa when completing cd
+zstyle ":fzf-tab:complete:cd:*" fzf-preview "exa -1 --color=always $realpath"
+# switch group using `,` and `.`
+# zstyle ":fzf-tab:*" switch-group "," "."
+zstyle ":fzf-tab:*" fzf-min-height 8
+
+
+#####################################################################
+#  
+#  ██╗  ██╗███████╗██╗   ██╗    ██████╗ ██╗███╗   ██╗██████╗ ███████╗
+#  ██║ ██╔╝██╔════╝╚██╗ ██╔╝    ██╔══██╗██║████╗  ██║██╔══██╗██╔════╝
+#  █████╔╝ █████╗   ╚████╔╝     ██████╔╝██║██╔██╗ ██║██║  ██║███████╗
+#  ██╔═██╗ ██╔══╝    ╚██╔╝      ██╔══██╗██║██║╚██╗██║██║  ██║╚════██║
+#  ██║  ██╗███████╗   ██║       ██████╔╝██║██║ ╚████║██████╔╝███████║
+#  ╚═╝  ╚═╝╚══════╝   ╚═╝       ╚═════╝ ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝
+#  
+#####################################################################
+# Shell emacs/vim mode
+bindkey -v
+
+bindkey "^a" beginning-of-line
+bindkey "^e" end-of-line
+
+# bindkey "^h" vi-backward-kill-word
+bindkey -s "^h" "^[dF/xa"
+bindkey "^?" backward-delete-char
+bindkey "^p" up-line-or-search
+bindkey "^n" down-line-or-search
+
+# bindkey "\t" complete-word
+bindkey "^ " autosuggest-accept
+# bindkey "\t" menu-complete
+
+bindkey -M menuselect "h" vi-backward-char
+bindkey -M menuselect "k" vi-up-line-or-history
+bindkey -M menuselect "l" vi-forward-char
+bindkey -M menuselect "j" vi-down-line-or-history
+
+bindkey -M vicmd "y" vi-yank-to-system-clip
+bindkey -M vicmd "yy" vi-yank-line-to-system-clip
+bindkey -M vicmd "p" vi-paste-from-system-clip
 
 
 #############################################################################################################

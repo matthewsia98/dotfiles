@@ -16,7 +16,9 @@ toggle_program () {
 }
 
 # Yank to the system clipboard
-vi_yank () {
+vi-yank-to-system-clip () {
+    zle vi-yank
+
     if [ "$XDG_SESSION_TYPE" = "wayland" ]
     then
         echo "$CUTBUFFER" | wl-copy
@@ -25,10 +27,22 @@ vi_yank () {
         echo "$CUTBUFFER" | xclip -i -selection clipboard
     fi
 }
-zle -N vi_yank
+zle -N vi-yank-to-system-clip
+vi-yank-line-to-system-clip () {
+    zle vi-yank-whole-line
+
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]
+    then
+        echo "$CUTBUFFER" | wl-copy
+    elif [ "$XDG_SESSION_TYPE" = "x11" ]
+    then
+        echo "$CUTBUFFER" | xclip -i -selection clipboard
+    fi
+}
+zle -N vi-yank-line-to-system-clip
 
 # Paste from system clipboard
-vi_paste () {
+vi-paste-from-system-clip () {
     if [ "$XDG_SESSION_TYPE" = "wayland" ]
     then
         RBUFFER=$(wl-paste)$RBUFFER
@@ -37,7 +51,7 @@ vi_paste () {
         RBUFFER=$(xclip -o -selection clipboard)$RBUFFER
     fi
 }
-zle -N vi_paste
+zle -N vi-paste-from-system-clip
 
 toggle_keymap () {
     variant=$(setxkbmap -query | awk "/variant:/ {print $2}")

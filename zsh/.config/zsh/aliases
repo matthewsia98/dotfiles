@@ -14,7 +14,7 @@ alias hg="history 1 | grep"
 alias grep="grep --color=auto"
 alias ls="lsd"
 alias ll="lsd -alh"
-alias lll="lsd -alhL"
+alias lll="lsd -alhLR"
 alias cp="cp -rv"
 alias mkdir="mkdir -pv"
 alias cat="bat"
@@ -71,3 +71,4 @@ alias pacls="pacman -Q"
 
 # Miscellaneous
 alias dots="cd ~/.dotfiles"
+alias sched="img ~/Pictures/schedule.png"
