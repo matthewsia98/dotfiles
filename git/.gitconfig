@@ -1,0 +1,24 @@
+[init]
+	defaultBranch = main
+[user]
+	email = matthewsia98@gmail.com
+	name = Matthew Sia
+
+# Git Delta
+[include]
+    path = ~/repos/delta/themes.gitconfig
+[core]
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    side-by-side = true
+    line-numbers = true
+    syntax-theme = Catppuccin-mocha
+    features = chameleon
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
