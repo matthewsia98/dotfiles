@@ -17,9 +17,10 @@ setopt globdots
 #  ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝        ╚═╝   
 #  
 ########################################################
-ZLE_RPROMPT_INDENT=0
-#PS1="%F{cyan}%~ > %f"
-#RPS1="[%*]"
+# PS1="%F{cyan}%~ > %f"
+# RPS1="[%*]"
+# Remove right prompt indent
+# ZLE_RPROMPT_INDENT=0
 # Disable % if line doesn"t end with \n
 PROMPT_EOL_MARK=""
 
@@ -40,9 +41,11 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 ###################################################################
 export PATH=$PATH:~/.local/bin:~/.cargo/bin:~/.spicetify
 export PATH=$PATH:~/.local/share/nvim/mason/bin
+
 export EDITOR="nvim"
 export VISUAL="nvim"
 export PSQL_EDITOR="nvim"
+
 export HISTFILE=~/.zsh_history
 # Session History
 export HISTSIZE=100000
