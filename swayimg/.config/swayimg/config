@@ -1,5 +1,5 @@
 # Initial scale (optimal, fit, or real)
-scale = optimal
+scale = fit
 
 # Start in full screen mode (yes/no)
 fullscreen = no

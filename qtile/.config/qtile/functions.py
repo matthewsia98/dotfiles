@@ -1,6 +1,7 @@
 import os
 import subprocess
-from libqtile import qtile, hook
+
+from libqtile import hook, qtile
 from libqtile.lazy import lazy
 from libqtile.log_utils import logger
 
@@ -160,10 +161,10 @@ def toggle_minmax(qtile, m):
     layout_name = layout.name
     window = qtile.current_window
 
-    if layout_name == "VerticalTile":
-        layout.cmd_maximize() if m == "max" else layout.cmd_minimize()
-    else:
-        window.cmd_toggle_maximize() if m == "max" else window.cmd_toggle_minimize()
+    # if layout_name == "VerticalTile":
+    #     layout.cmd_maximize() if m == "max" else layout.cmd_minimize()
+    # else:
+    window.cmd_toggle_maximize() if m == "max" else window.cmd_toggle_minimize()
 
 
 @lazy.function

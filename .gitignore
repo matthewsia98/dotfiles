@@ -1,5 +1,4 @@
 .mypy_cache/
-pcmanfm/
 nvim/.config/nvim/plugin/
 qtile/.config/qtile/__pycache__/
 zsh/.config/zsh/.zcompdump

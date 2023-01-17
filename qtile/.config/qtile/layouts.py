@@ -2,14 +2,13 @@ from colors import CATPPUCCIN
 from libqtile import layout
 from libqtile.config import Match
 
-
 BORDER_NORMAL_COLOR = "text"
 BORDER_FOCUS_COLOR = "blue"
 BORDER_FLOAT_COLOR = "green"
 BORDER_WIDTH = 4
-SINGLE_BORDER_WIDTH = 4
+SINGLE_BORDER_WIDTH = 2
 MARGIN_WIDTH = 10
-SINGLE_MARGIN_WIDTH = 10
+SINGLE_MARGIN_WIDTH = 50
 
 layouts = [
     layout.Columns(
@@ -42,13 +41,13 @@ layouts = [
         border_normal=CATPPUCCIN[BORDER_NORMAL_COLOR],
         single_border_width=SINGLE_BORDER_WIDTH,
         border_width=BORDER_WIDTH,
-        single_margin=[
-            SINGLE_MARGIN_WIDTH,
-            SINGLE_MARGIN_WIDTH,
-            SINGLE_MARGIN_WIDTH,
-            SINGLE_MARGIN_WIDTH,
-        ],
-        # single_margin=SINGLE_MARGIN_WIDTH,
+        # single_margin=[
+        #     SINGLE_MARGIN_WIDTH,
+        #     SINGLE_MARGIN_WIDTH,
+        #     SINGLE_MARGIN_WIDTH,
+        #     SINGLE_MARGIN_WIDTH,
+        # ],
+        single_margin=SINGLE_MARGIN_WIDTH,
         margin=MARGIN_WIDTH,
         name="MonadTall",
     ),
@@ -84,14 +83,15 @@ layouts = [
         border_normal=CATPPUCCIN[BORDER_NORMAL_COLOR],
         single_border_width=SINGLE_BORDER_WIDTH,
         border_width=BORDER_WIDTH,
-        single_margin=[
-            0,
-            SINGLE_MARGIN_WIDTH,
-            SINGLE_MARGIN_WIDTH,
-            SINGLE_MARGIN_WIDTH,
-        ],
-        # single_margin=SINGLE_MARGIN_WIDTH,
-        margin=[0, MARGIN_WIDTH, MARGIN_WIDTH, MARGIN_WIDTH],
+        # single_margin=[
+        #     SINGLE_MARGIN_WIDTH,
+        #     SINGLE_MARGIN_WIDTH,
+        #     SINGLE_MARGIN_WIDTH,
+        #     SINGLE_MARGIN_WIDTH,
+        # ],
+        single_margin=SINGLE_MARGIN_WIDTH,
+        # margin=[0, MARGIN_WIDTH, MARGIN_WIDTH, MARGIN_WIDTH],
+        margin=MARGIN_WIDTH,
         name="VerticalTile",
     ),
     # layout.Zoomy(),
