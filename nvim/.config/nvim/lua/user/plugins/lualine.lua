@@ -248,7 +248,7 @@ if installed then
         },
     })
 
-    if config.lualine_transparent then
+    if config.lualine_transparent_bg then
         vim.cmd([[highlight lualine_c_normal guibg=#00000000]])
         vim.cmd([[highlight lualine_c_insert guibg=#00000000]])
         vim.cmd([[highlight lualine_c_visual guibg=#00000000]])

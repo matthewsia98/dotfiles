@@ -1,6 +1,6 @@
 local config = {
-    lualine_transparent = true,
-    lualine_gap_between_sections = false,
+    lualine_transparent_bg = true,
+    lualine_gap_between_sections = true,
     lualine_separator_style = "box", -- "box", "powerline", "round", "reverse_slant", "slant"
 
     prefer_lspsaga = true,
