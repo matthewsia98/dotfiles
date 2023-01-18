@@ -18,6 +18,12 @@ if installed then
             enable = true,
             additional_vim_regex_highlighting = false,
         },
+        rainbow = {
+            enable = true,
+            disable = {},
+            extended_mode = true,
+            max_file_lines = nil,
+        },
         indent = {
             enable = false,
             disable = { "python" },
@@ -53,10 +59,10 @@ if installed then
             swap = {
                 enable = true,
                 swap_next = {
-                    ["<leader>sn"] = "@parameter.inner",
+                    ["]]"] = "@parameter.inner",
                 },
                 swap_previous = {
-                    ["<leader>sp"] = "@parameter.inner",
+                    ["[["] = "@parameter.inner",
                 },
             },
             move = {

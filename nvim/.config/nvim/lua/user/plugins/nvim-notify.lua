@@ -10,5 +10,6 @@ if installed then
             return math.floor(vim.o.lines * 0.8)
         end,
     })
+
     vim.notify = notify
 end

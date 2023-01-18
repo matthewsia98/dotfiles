@@ -14,6 +14,9 @@ vim.opt.runtimepath:prepend(lazypath)
 
 local lazy = require("lazy")
 lazy.setup({
+    "nvim-lua/plenary.nvim",
+
+    -- COLORSCHEME
     {
         "catppuccin/nvim",
         name = "catppuccin",
@@ -23,20 +26,17 @@ lazy.setup({
             require("user.plugins.catppuccin")
         end,
     },
-    "nvim-lua/plenary.nvim",
-    {
-        "kyazdani42/nvim-web-devicons",
-        config = function()
-            require("user.plugins.nvim-web-devicons")
-        end,
-    },
+
+    -- START PAGE
     {
         "glepnir/dashboard-nvim",
-        lazy = false,
+        event = "VimEnter",
         config = function()
             require("user.plugins.dashboard-nvim")
         end,
     },
+
+    -- SHOW KEYMAPS
     {
         "folke/which-key.nvim",
         lazy = false,
@@ -44,13 +44,27 @@ lazy.setup({
             require("user.plugins.which-key")
         end,
     },
+    --
+    -- -- SCROLLBAR
+    -- -- {
+    -- --     "petertriho/nvim-scrollbar",
+    -- --     enabled = false,
+    -- --     event = "BufReadPost",
+    -- --     config = function()
+    -- --         require("user.plugins.nvim-scrollbar")
+    -- --     end,
+    -- -- },
+    --
+    -- SMOOTH SCROLLING
     {
-        "petertriho/nvim-scrollbar",
-        event = "BufReadPost",
+        "karb94/neoscroll.nvim",
+        event = "WinScrolled",
         config = function()
-            require("user.plugins.nvim-scrollbar")
+            require("user.plugins.neoscroll")
         end,
     },
+    --
+    -- STATUS LINES
     {
         "akinsho/bufferline.nvim",
         event = "VeryLazy",
@@ -61,18 +75,31 @@ lazy.setup({
     {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
+        dev = true,
+        branch = "trouble-extension",
         config = function()
             require("user.plugins.lualine")
         end,
     },
+
+    -- FILE EXPLORER
     {
-        "kyazdani42/nvim-tree.lua",
+        "nvim-tree/nvim-tree.lua",
         event = "VeryLazy",
+        dependencies = {
+            {
+                "nvim-tree/nvim-web-devicons",
+                config = function()
+                    require("user.plugins.nvim-web-devicons")
+                end,
+            },
+        },
         config = function()
             require("user.plugins.nvim-tree")
         end,
     },
 
+    -- SEARCH
     {
         "kevinhwang91/nvim-hlslens",
         event = "CmdlineEnter",
@@ -81,6 +108,7 @@ lazy.setup({
         end,
     },
 
+    -- TERMINAL
     {
         "akinsho/toggleterm.nvim",
         event = "VeryLazy",
@@ -89,23 +117,28 @@ lazy.setup({
         end,
     },
 
+    -- UI
     {
         "folke/noice.nvim",
+        -- enabled = false,
         dependencies = {
             "MunifTanjim/nui.nvim",
             {
                 "rcarriga/nvim-notify",
+                lazy = false,
                 config = function()
                     require("user.plugins.nvim-notify")
                 end,
             },
         },
-        event = { "CmdlineEnter", "RecordingEnter" },
+        event = { "CmdlineEnter" },
+        -- dev = false,
         config = function()
             require("user.plugins.noice")
         end,
     },
 
+    -- PAIRS
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
@@ -120,6 +153,16 @@ lazy.setup({
             require("user.plugins.nvim-surround")
         end,
     },
+
+    -- {
+    --     "monaqa/dial.nvim",
+    --     event = "VeryLazy",
+    --     config = function()
+    --         require("user.plugins.dial")
+    --     end,
+    -- },
+
+    -- TOGGLE COMMENTS
     {
         "numToStr/Comment.nvim",
         event = "VeryLazy",
@@ -128,6 +171,7 @@ lazy.setup({
         end,
     },
 
+    -- COLOR HIGHLIGHTER
     {
         "NvChad/nvim-colorizer.lua",
         event = "BufReadPre",
@@ -135,18 +179,13 @@ lazy.setup({
             require("user.plugins.nvim-colorizer")
         end,
     },
+
+    -- INDENTATION GUIDES
     {
         "lukas-reineke/indent-blankline.nvim",
         event = "BufReadPre",
         config = function()
             require("user.plugins.indent-blankline")
-        end,
-    },
-    {
-        "karb94/neoscroll.nvim",
-        event = "WinScrolled",
-        config = function()
-            require("user.plugins.neoscroll")
         end,
     },
 
@@ -166,45 +205,44 @@ lazy.setup({
         end,
     },
 
+    -- CODE FOLDING
+    {
+        "kevinhwang91/nvim-ufo",
+        -- enabled = false,
+        event = "BufReadPost",
+        dependencies = {
+            "kevinhwang91/promise-async",
+        },
+        config = function()
+            require("user.plugins.nvim-ufo")
+        end,
+    },
+
+    -- TREESITTER
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         event = "BufReadPost",
         dependencies = {
             "nvim-treesitter/nvim-treesitter-textobjects",
+            "p00f/nvim-ts-rainbow",
             {
                 "nvim-treesitter/nvim-treesitter-context",
                 config = function()
                     require("user.plugins.treesitter-context")
                 end,
             },
+            {
+                "nvim-treesitter/playground",
+                cmd = "TSPlaygroundToggle",
+            },
         },
         config = function()
             require("user.plugins.treesitter")
         end,
     },
-    {
-        "nvim-treesitter/playground",
-        cmd = "TSPlaygroundToggle",
-    },
 
-    {
-        "zbirenbaum/copilot.lua",
-        event = "VeryLazy",
-        dependencies = {
-            {
-                "zbirenbaum/copilot-cmp",
-                enabled = false,
-                config = function()
-                    require("user.plugins.copilot-cmp")
-                end,
-            },
-        },
-        config = function()
-            require("user.plugins.copilot")
-        end,
-    },
-
+    -- SNIPPETS
     {
         "L3MON4D3/LuaSnip",
         dependencies = {
@@ -214,6 +252,8 @@ lazy.setup({
             require("user.plugins.luasnip")
         end,
     },
+
+    -- COMPLETION
     {
         "hrsh7th/nvim-cmp",
         event = { "InsertEnter", "CmdlineEnter" },
@@ -236,25 +276,29 @@ lazy.setup({
             require("user.plugins.nvim-cmp")
         end,
     },
-    {
-        "glepnir/lspsaga.nvim",
-        event = "BufReadPost",
-        config = function()
-            require("user.plugins.lsp.lspsaga")
-        end,
-    },
 
+    -- LSP
     {
         "neovim/nvim-lspconfig",
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "folke/neodev.nvim",
         },
         event = "BufReadPre",
         config = function()
+            require("user.plugins.neodev")
+            require("user.plugins.lsp")
             require("user.plugins.lsp.mason")
             require("user.plugins.lsp.mason-lspconfig")
             require("user.plugins.lsp.nvim-lspconfig")
+        end,
+    },
+    {
+        "glepnir/lspsaga.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("user.plugins.lsp.lspsaga")
         end,
     },
     {
@@ -264,18 +308,35 @@ lazy.setup({
             require("user.plugins.lsp.null-ls")
         end,
     },
+    {
+        "zbirenbaum/copilot.lua",
+        event = "VeryLazy",
+        dependencies = {
+            {
+                "zbirenbaum/copilot-cmp",
+                enabled = false,
+                config = function()
+                    require("user.plugins.copilot-cmp")
+                end,
+            },
+        },
+        config = function()
+            require("user.plugins.copilot")
+        end,
+    },
 
+    -- GIT
     {
         "lewis6991/gitsigns.nvim",
         event = "BufReadPre",
         config = function()
             require("user.plugins.gitsigns")
-            require("scrollbar.handlers.gitsigns").setup()
         end,
     },
     {
         "rhysd/git-messenger.vim",
         event = "BufReadPre",
+        enabled = false,
         config = function()
             require("user.plugins.git-messenger")
         end,
@@ -283,11 +344,13 @@ lazy.setup({
 
     {
         "folke/trouble.nvim",
+        event = "VeryLazy",
         config = function()
             require("user.plugins.trouble")
         end,
     },
 
+    -- FUZZY FINDER
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {
@@ -305,6 +368,7 @@ lazy.setup({
         end,
     },
 
+    -- PYTHON INDENTATION
     {
         "Vimjas/vim-python-pep8-indent",
         ft = "python",
@@ -331,7 +395,7 @@ lazy.setup({
     --         require("user.plugins.firenvim")
     --     end,
     -- },
-
+    --
     -- {
     --     "dccsillag/magma-nvim",
     --     build = ":UpdateRemotePlugins",
@@ -350,16 +414,21 @@ lazy.setup({
     install = {
         colorscheme = { "catppuccin" },
     },
-    rtp = {
-        disabled_plugins = {
-            "gzip",
-            "matchit",
-            "matchparen",
-            "netrwPlugin",
-            "tarPlugin",
-            "tohtml",
-            "tutor",
-            "zipPlugin",
+    performance = {
+        cache = {
+            enabled = true,
+        },
+        rtp = {
+            disabled_plugins = {
+                "gzip",
+                "matchit",
+                "matchparen",
+                "netrwPlugin",
+                "tarPlugin",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+            },
         },
     },
     ui = {

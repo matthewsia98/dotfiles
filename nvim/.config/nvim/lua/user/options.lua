@@ -8,8 +8,6 @@ g.python3_host_prog = vim.fn.expand("~/.virtualenvs/nvim/bin/python")
 g.mapleader = " "
 g.maplocalleader = " "
 
-g.lualine_separator_style = "slant"
-
 -- Enable spell check
 opt.spell = true
 opt.spellfile = vim.fn.expand("~/.config/nvim/spell/en.utf-8.add")
@@ -22,6 +20,9 @@ opt.showmode = false
 
 -- Set commandline height
 opt.cmdheight = 0
+
+-- Disable builtin completion menu
+opt.completeopt = ""
 
 -- Disable commandline completion
 opt.wildmenu = false
@@ -46,13 +47,13 @@ opt.updatetime = 200
 opt.mouse = "a"
 
 -- Minimum number of screen lines to keep above and below the cursor
-opt.scrolloff = 12
+opt.scrolloff = math.floor(vim.o.lines / 2)
 
 -- Line numbers
 opt.number = true
 opt.relativenumber = true
 
--- Sign column
+-- Sign column with max width of 1
 opt.signcolumn = "yes:1"
 
 -- Highlight cursor line
@@ -100,17 +101,20 @@ opt.splitbelow = true
 -- Only 1 global statusline
 opt.laststatus = 3
 
+-- opt.statuscolumn = ""
+
 -- Code Folding
-opt.foldenable = false
-o.foldmethod = "expr"
-o.foldexpr = "nvim_treesitter#foldexpr()"
-o.foldlevelstart = 99 -- Don't fold by default
-o.foldlevel = 99 -- Don't fold by default
-o.foldnestmax = 3
-o.foldminlines = 1
+opt.foldenable = true
+-- opt.foldmethod = "expr"
+-- opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldcolumn = "0"
+opt.foldlevelstart = 99 -- Don't fold by default
+opt.foldlevel = 99 -- Don't fold by default
+opt.foldnestmax = 3
+opt.foldminlines = 1
 
 -- Set window title
--- o.titlestring = '%t'
+-- opt.titlestring = '%t'
 -- opt.title = true
 
 -- Disable sourcing of /usr/local/share/nvim/runtime/ftplugin/ files (Affects formatoptions)

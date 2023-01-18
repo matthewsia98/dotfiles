@@ -39,13 +39,13 @@ if installed then
         auto_fold = false, -- automatically fold a file trouble list at creation
         auto_jump = { "lsp_definitions", "lsp_references" }, -- for the given modes, automatically jump if there is only a single result
         use_diagnostic_signs = true, -- enabling this will use the signs defined in your lsp client
-        signs = {
-            error = " ",
-            warning = " ",
-            hint = " ",
-            information = " ",
-            other = "﫠",
-        },
+        -- signs = {
+        --     error = " ",
+        --     warning = " ",
+        --     hint = " ",
+        --     information = " ",
+        --     other = "﫠",
+        -- },
     })
 
     local keys = require("user.keymaps")

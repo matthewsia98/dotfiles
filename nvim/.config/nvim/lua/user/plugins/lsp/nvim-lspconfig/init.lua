@@ -8,7 +8,13 @@ if installed then
         debounce_text_changes = 150,
     }
 
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local cmp_installed, cmp = pcall(require, "cmp_nvim_lsp")
+    local capabilities = cmp_installed and cmp.default_capabilities() or nil
+
+    local function on_list(options)
+        vim.fn.setloclist(0, {}, " ", options)
+        require("trouble").open("loclist")
+    end
 
     local handlers = {
         ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -19,95 +25,87 @@ if installed then
             border = "rounded",
         }),
 
-        ["textDocument/definition"] = function(err, result, ctx, config)
-            if err ~= nil then
-                P(err)
-                return
-            end
+        ["textDocument/definition"] = vim.lsp.with(vim.lsp.handlers["textDocument/definition"], {
+            on_list = on_list,
+        }),
 
-            local util = require("vim.lsp.util")
-            if result == nil or vim.tbl_isempty(result) then
-                vim.notify("No definitions found", "info", {
-                    title = " LSP",
-                    timeout = 1000,
-                })
-            else
-                -- textDocument/definition can return Location or Location[]
-                -- https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_definition
-                config = config or {}
-                local client = vim.lsp.get_client_by_id(ctx.client_id)
-
-                if vim.tbl_islist(result) then
-                    local title = " LSP"
-                    local items = util.locations_to_items(result, client.offset_encoding)
-
-                    if #result == 1 then
-                        util.jump_to_location(result[1], client.offset_encoding, config.reuse_win)
-                        return
-                    else
-                        vim.fn.setloclist(0, {}, " ", { title = title, items = items })
-                        vim.cmd([[Trouble loclist]])
-                    end
-                else
-                    util.jump_to_location(result, client.offset_encoding, config.reuse_win)
-                end
-            end
-        end,
-        ["textDocument/references"] = function(err, result, ctx, _)
-            if err ~= nil then
-                P(err)
-                return
-            end
-
-            local util = require("vim.lsp.util")
-            if not result or vim.tbl_isempty(result) then
-                vim.notify("No references found", "info", {
-                    title = " LSP",
-                    timeout = 1000,
-                })
-            else
-                local client = vim.lsp.get_client_by_id(ctx.client_id)
-
-                local title = " LSP"
-                local items = util.locations_to_items(result, client.offset_encoding)
-
-                if #result == 1 then
-                    vim.notify("No other references", "info", {
-                        title = title,
-                        timeout = 1000,
-                    })
-                else
-                    vim.fn.setloclist(0, {}, " ", { title = title, items = items, context = ctx })
-                    vim.cmd([[Trouble loclist]])
-                end
-            end
-        end,
+        ["textDocument/references"] = vim.lsp.with(vim.lsp.handlers["textDocument/references"], {
+            on_list = on_list,
+        }),
     }
 
     local on_attach = function(client, bufnr)
-        local name = client["name"]
-        if name == "pylsp" then
+        -- Disable semantic highlighting by server
+        -- sumneko lua highlights comments when toggling
+        local servers_disable_semantic_highlighting = { "sumneko_lua" }
+        if vim.tbl_contains(servers_disable_semantic_highlighting, client.name) then
+            client.server_capabilities.semanticTokensProvider = nil
+        end
+
+        -- Disable formatting capabilities for some servers
+        local servers_disable_formatting = { "pylsp", "sumneko_lua" }
+        if vim.tbl_contains(servers_disable_formatting, client.name) then
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
         end
 
         local keys = require("user.keymaps")
 
-        keys.map("n", "dg", function()
-            vim.diagnostic.open_float()
+        local wk_installed, wk = pcall(require, "which-key")
+        if wk_installed then
+            wk.register({
+                g = {
+                    name = "Go To",
+                },
+                ["<leader>"] = {
+                    d = {
+                        name = "Diagnostic",
+                    },
+                    w = {
+                        name = "Workspace",
+                    },
+                },
+            })
+        end
+
+        local config = require("user.config")
+        local lspsaga_installed, _ = pcall(require, "lspsaga")
+        local use_lspsaga = lspsaga_installed and config.prefer_lspsaga
+
+        keys.map("n", "<leader>d", function()
+            if use_lspsaga then
+                -- local line_diagnostics = require("user.functions").get_current_line_diagnostics()
+                -- if #line_diagnostics > 1 then
+                --     require("lspsaga.diagnostic"):show_diagnostics("", "line")
+                -- else
+                --     require("lspsaga.diagnostic"):show_diagnostics("", "cursor")
+                -- end
+                require("lspsaga.diagnostic"):show_diagnostics("", "line")
+            else
+                vim.diagnostic.open_float()
+            end
         end, { buffer = bufnr, desc = "Open Diagnostic Float" })
+
         keys.map("n", "[d", function()
-            vim.diagnostic.goto_prev()
+            if use_lspsaga then
+                require("lspsaga.diagnostic").goto_prev()
+            else
+                vim.diagnostic.goto_prev()
+            end
         end, { buffer = bufnr, desc = "Previous Diagnostic" })
         keys.map("n", "]d", function()
-            vim.diagnostic.goto_next()
+            if use_lspsaga then
+                require("lspsaga.diagnostic").goto_next()
+            else
+                vim.diagnostic.goto_next()
+            end
         end, { buffer = bufnr, desc = "Next Diagnostic" })
 
-        keys.map("n", "<leader>dll", function()
+        keys.map("n", "<leader>dl", function()
             vim.diagnostic.setloclist({ open = false })
             vim.cmd([[Trouble loclist]])
         end, { buffer = bufnr, desc = "Send diagnostics to loclist" })
-        keys.map("n", "<leader>dqf", function()
+        keys.map("n", "<leader>dq", function()
             vim.diagnostic.setqflist({ open = false })
             vim.cmd([[Trouble quickfix]])
         end, { buffer = bufnr, desc = "Send diagnostics to qflist" })
@@ -116,10 +114,18 @@ if installed then
             vim.lsp.buf.declaration()
         end, { buffer = bufnr, desc = "Go to Declaration" })
         keys.map("n", "gd", function()
-            vim.lsp.buf.definition()
+            if use_lspsaga then
+                require("lspsaga.definition"):peek_definition()
+            else
+                vim.lsp.buf.definition()
+            end
         end, { buffer = bufnr, desc = "Go to Definition" })
         keys.map("n", "gr", function()
-            vim.lsp.buf.references()
+            if use_lspsaga then
+                require("lspsaga.finder"):lsp_finder()
+            else
+                vim.lsp.buf.references()
+            end
         end, { buffer = bufnr, desc = "Go to References" })
         keys.map("n", "gt", function()
             vim.lsp.buf.type_definition()
@@ -129,26 +135,70 @@ if installed then
         end, { buffer = bufnr, desc = "Go to Implementation" })
 
         keys.map("n", "K", function()
-            vim.lsp.buf.hover()
+            local win_id = require("ufo").peekFoldedLinesUnderCursor()
+            if not win_id then
+                if use_lspsaga then
+                    require("lspsaga.hover"):render_hover_doc()
+                else
+                    vim.lsp.buf.hover()
+                end
+            end
         end, { buffer = bufnr, desc = "Hover" })
 
-        keys.map("i", "<C-k>", function()
+        keys.map("i", "<C-s>", function()
             vim.lsp.buf.signature_help()
         end, { buffer = bufnr, desc = "Signature Help" })
 
         keys.map("n", "<leader>rn", function()
-            vim.lsp.buf.rename()
+            if use_lspsaga then
+                require("lspsaga.rename"):lsp_rename()
+            else
+                vim.lsp.buf.rename()
+            end
         end, { buffer = bufnr, desc = "Rename" })
 
         keys.map({ "n", "v" }, "<leader>ca", function()
-            vim.lsp.buf.code_action()
+            if use_lspsaga then
+                require("lspsaga.codeaction"):code_action()
+            else
+                vim.lsp.buf.code_action()
+            end
         end, { buffer = bufnr, desc = "Code Action" })
 
         keys.map("n", "<leader>fm", function()
-            vim.lsp.buf.format()
+            local lsp_clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+
+            for _, lsp_client in ipairs(lsp_clients) do
+                if lsp_client.server_capabilities.documentFormattingProvider then
+                    vim.lsp.buf.format()
+                    vim.notify("Formatted with " .. lsp_client.name, "info", {
+                        title = "LSP",
+                        timeout = 500,
+                    })
+                    break
+                end
+            end
         end, { buffer = bufnr, desc = "Format" })
         keys.map("v", "<leader>fm", function()
-            vim.lsp.buf.range_formatting()
+            local lsp_clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+
+            for _, lsp_client in ipairs(lsp_clients) do
+                if lsp_client.server_capabilities.documentRangeFormattingProvider then
+                    local _, start_row, _, _ = unpack(vim.fn.getpos("'<"))
+                    local _, end_row, _, _ = unpack(vim.fn.getpos("'>"))
+                    vim.lsp.buf.format({
+                        range = {
+                            ["start"] = { start_row, 0 },
+                            ["end"] = { end_row, 0 },
+                        },
+                    })
+                    vim.notify("Formatted with " .. lsp_client.name, "info", {
+                        title = "LSP",
+                        timeout = 500,
+                    })
+                    break
+                end
+            end
         end, { buffer = bufnr, desc = "Range Format" })
 
         keys.map("n", "<leader>wa", function()
@@ -164,7 +214,13 @@ if installed then
         end, { buffer = bufnr, desc = "List workspace folders" })
     end
 
-    require("user.plugins.lsp.nvim-lspconfig.pylsp").setup(on_attach, lsp_flags, capabilities, handlers)
-    require("user.plugins.lsp.nvim-lspconfig.sumneko-lua").setup(on_attach, lsp_flags, capabilities, handlers)
-    require("user.plugins.lsp.nvim-lspconfig.jdtls").setup(on_attach, lsp_flags, capabilities, handlers)
+    local config = require("user.config")
+    for _, lsp in ipairs(config.lsps_to_configure) do
+        require("user.plugins.lsp.nvim-lspconfig." .. lsp).setup({
+            capabilities = capabilities,
+            flags = lsp_flags,
+            handlers = handlers,
+            on_attach = on_attach,
+        })
+    end
 end

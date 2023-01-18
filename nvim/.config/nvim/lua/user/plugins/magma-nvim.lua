@@ -1,8 +1,8 @@
-local keys = require("user.keymaps")
-
 vim.g.magma_automatically_open_output = true
 vim.g.magma_image_provider = "kitty"
 vim.g.magma_cell_highlight_group = "PmenuSel"
+
+local keys = require("user.keymaps")
 
 keys.map("n", "<Leader>mi", "<cmd>MagmaInit<CR>")
 keys.map("n", "<Leader>mr", "<cmd>MagmaEvaluateLine<CR>")

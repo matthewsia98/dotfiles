@@ -1,8 +1,10 @@
 local installed, nvim_tree = pcall(require, "nvim-tree")
-local keys = require("user.keymaps")
 
 if installed then
     nvim_tree.setup({
+        update_focused_file = {
+            enable = true,
+        },
         sort_by = "case_sensitive",
         view = {
             adaptive_size = false,
@@ -13,6 +15,7 @@ if installed then
             mappings = {
                 list = {
                     { key = "u", action = "dir_up" },
+                    { key = "<CR>", action = "edit_in_place" },
                 },
             },
         },
@@ -36,5 +39,8 @@ if installed then
         },
     })
 
-    keys.map("n", "<leader>nt", "<cmd>NvimTreeToggle<CR>")
+    local keys = require("user.keymaps")
+    keys.map("n", "<leader>nt", function()
+        nvim_tree.toggle()
+    end, { desc = "Toggle NvimTree" })
 end

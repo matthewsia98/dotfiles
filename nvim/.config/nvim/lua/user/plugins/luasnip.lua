@@ -32,23 +32,23 @@ if installed then
         if luasnip.jumpable(1) then
             luasnip.jump(1)
         end
-    end)
+    end, { desc = "Luasnip jump to next" })
     keys.map({ "i", "s" }, "<C-h>", function()
         if luasnip.jumpable(-1) then
             luasnip.jump(-1)
         end
-    end)
+    end, { desc = "Luasnip jump to previous" })
 
     keys.map({ "i", "s" }, "<C-n>", function()
         if luasnip.choice_active() then
             luasnip.change_choice(1)
         end
-    end)
+    end, { desc = "Luasnip next choice" })
     keys.map({ "i", "s" }, "<C-p>", function()
         if luasnip.choice_active() then
             luasnip.change_choice(-1)
         end
-    end)
+    end, { desc = "Luasnip previous choice" })
 
     -- Deleting insert node default puts you back in Normal mode
     -- <C-G> changes to VISUAL, s clears and enters INSERT

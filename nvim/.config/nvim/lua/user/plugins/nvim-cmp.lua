@@ -3,7 +3,7 @@ local installed, cmp = pcall(require, "cmp")
 if installed then
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
-    local copilot_suggestion = require("copilot.suggestion")
+    local copilot_installed, copilot_suggestion = pcall(require, "copilot.suggestion")
 
     -- Insert ( after choosing function from completion menu
     cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
@@ -30,7 +30,7 @@ if installed then
                     maxwidth = 60,
                     menu = {
                         buffer = "[BUFFER]",
-                        -- copilot = "[COPILOT]",
+                        copilot = "[COPILOT]",
                         path = "[PATH]",
                         nvim_lsp = "[LSP]",
                         nvim_lsp_signature_help = "[SIGN]",
@@ -90,20 +90,18 @@ if installed then
             ["<C-n>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                elseif copilot_suggestion.is_visible() and not luasnip.choice_active() then
+                elseif copilot_installed and vim.fn.mode() == "i" and not luasnip.choice_active() then
                     copilot_suggestion.next()
                 else
-                    copilot_suggestion.next()
                     fallback()
                 end
             end, { "i", "c" }),
             ["<C-p>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-                elseif copilot_suggestion.is_visible() and not luasnip.choice_active() then
+                elseif copilot_installed and vim.fn.mode() == "i" and not luasnip.choice_active() then
                     copilot_suggestion.prev()
                 else
-                    copilot_suggestion.prev()
                     fallback()
                 end
             end, { "i", "c" }),
@@ -115,7 +113,7 @@ if installed then
                         cmp.confirm()
                         cmp.close()
                     end
-                elseif copilot_suggestion.is_visible() then
+                elseif copilot_installed and copilot_suggestion.is_visible() then
                     copilot_suggestion.accept()
                 else
                     fallback()
@@ -124,7 +122,7 @@ if installed then
             ["<C-c>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.abort()
-                elseif copilot_suggestion.is_visible() then
+                elseif copilot_installed and copilot_suggestion.is_visible() then
                     copilot_suggestion.dismiss()
                 else
                     fallback()
@@ -146,7 +144,7 @@ if installed then
             { name = "nvim_lsp_signature_help" },
             { name = "path", max_item_count = 10 },
             { name = "buffer", max_item_count = 10 },
-            { name = "nvim_lua", max_item_count = 10 },
+            -- { name = "nvim_lua", max_item_count = 10 },
         },
     })
     -- Use buffer source for `/`

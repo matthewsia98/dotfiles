@@ -23,25 +23,6 @@ if installed then
                     prompt_position = "bottom",
                 },
             },
-            -- default_mappings = {
-            --     i = {
-            --         ["<C-q>"] = actions.close,
-            --         ["<C-n>"] = actions.move_selection_next,
-            --         ["<C-p>"] = actions.move_selection_previous,
-            --         ["<C-u>"] = actions.preview_scrolling_up,
-            --         ["<C-d>"] = actions.preview_scrolling_down,
-            --         ["<CR>"] = actions.select_default,
-            --     },
-            --     n = {
-            --         ["<C-q>"] = actions.close,
-            --         ["gg"] = actions.move_to_top,
-            --         ["G"] = actions.move_to_bottom,
-            --         ["<C-u>"] = actions.preview_scrolling_up,
-            --         ["<C-d>"] = actions.preview_scrolling_down,
-            --         ["<CR>"] = actions.select_default,
-            --         ["?"] = actions.which_key,
-            --     },
-            -- },
             mappings = {
                 i = {
                     ["<C-h>"] = "which_key",
@@ -61,6 +42,13 @@ if installed then
             find_files = {
                 find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
             },
+            live_grep = {
+                mappings = {
+                    i = {
+                        ["<C-f>"] = actions.to_fuzzy_refine,
+                    },
+                },
+            },
         },
         extensions = {
             ["ui-select"] = {
@@ -76,12 +64,24 @@ if installed then
             },
             live_grep_args = {
                 auto_quoting = true,
+                vimgrep_arguments = {
+                    -- Defaults
+                    "rg",
+                    "--color=never",
+                    "--no-heading",
+                    "--with-filename",
+                    "--line-number",
+                    "--column",
+                    "--smart-case",
+
+                    "--hidden",
+                },
                 mappings = {
                     -- i = {
                     --     ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
                     --     ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob" }),
                     -- }
-                }
+                },
             },
             undo = {
                 use_delta = true, -- use git-delta
@@ -95,8 +95,8 @@ if installed then
                         ["<CR>"] = require("telescope-undo.actions").yank_additions,
                         ["<S-CR>"] = require("telescope-undo.actions").yank_deletions,
                         ["<C-CR>"] = require("telescope-undo.actions").restore,
-                    }
-                }
+                    },
+                },
             },
         },
     })
@@ -107,6 +107,17 @@ if installed then
     telescope.load_extension("undo")
 
     local keys = require("user.keymaps")
+
+    local wk_installed, wk = pcall(require, "which-key")
+    if wk_installed then
+        wk.register({
+            ["<leader>"] = {
+                f = {
+                    name = "Telescope",
+                },
+            },
+        })
+    end
 
     keys.map("n", "<leader>ff", function()
         builtin.find_files()
@@ -136,12 +147,16 @@ if installed then
         builtin.vim_options()
     end, { desc = "Find Vim Options" })
 
-    -- keys.map("n", "<leader>fa", function()
-    --     builtin.live_grep()
-    -- end, { desc = "" })
     keys.map("n", "<leader>fa", function()
-        telescope.extensions.live_grep_args.live_grep_args()
+        builtin.grep_string({ only_sort_text = true, search = "" })
+    end, { desc = "" })
+
+    keys.map("n", "<leader>fl", function()
+        builtin.live_grep()
     end, { desc = "Live Grep" })
+    -- keys.map("n", "<leader>fa", function()
+    --     telescope.extensions.live_grep_args.live_grep_args()
+    -- end, { desc = "Live Grep" })
 
     keys.map("n", "<leader>fu", function()
         telescope.extensions.undo.undo()

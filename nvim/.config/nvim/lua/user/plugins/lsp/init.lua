@@ -1,3 +1,12 @@
+vim.diagnostic.config({
+    update_in_insert = false,
+    virtual_text = false,
+    signs = false,
+    severity_sort = true,
+    underline = true,
+    float = { border = "rounded" },
+})
+
 -- SIGNS --
 vim.fn.sign_define("DiagnosticSignError", {
     text = " ",
@@ -21,15 +30,6 @@ vim.fn.sign_define("DiagnosticSignInfo", {
     text = " ",
     texthl = "DiagnosticSignInfo",
     numhl = "DiagnosticSignInfo",
-})
-
-vim.diagnostic.config({
-    update_in_insert = false,
-    virtual_text = true,
-    signs = false,
-    severity_sort = true,
-    underline = true,
-    float = { border = "rounded" },
 })
 
 -- Show only one sign in sign column

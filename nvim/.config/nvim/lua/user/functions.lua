@@ -198,4 +198,12 @@ F.is_executable = function(filepath)
     return perms:sub(3, 3) == "x"
 end
 
+F.get_current_line_diagnostics = function(bufnr)
+    bufnr = bufnr or 0
+    local line_diagnostics = vim.diagnostic.get(bufnr, {
+        lnum = vim.fn.line(".") - 1,
+    })
+    return line_diagnostics
+end
+
 return F

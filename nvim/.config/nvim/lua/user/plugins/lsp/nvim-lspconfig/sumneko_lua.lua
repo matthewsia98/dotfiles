@@ -2,12 +2,12 @@ local lspconfig = require("lspconfig")
 
 local M = {}
 
-M.setup = function(on_attach, lsp_flags, capabilities, handlers)
+M.setup = function(opts)
     lspconfig["sumneko_lua"].setup({
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities,
-        handlers = handlers,
+        capabilities = opts.capabilities,
+        flags = opts.lsp_flags,
+        handlers = opts.handlers,
+        on_attach = opts.on_attach,
         settings = {
             Lua = {
                 runtime = {
@@ -15,8 +15,8 @@ M.setup = function(on_attach, lsp_flags, capabilities, handlers)
                     version = "LuaJIT",
                 },
                 diagnostics = {
-                    enable = false,
-                    globals = { "vim" },
+                    enable = true,
+                    globals = {},
                     workspaceDelay = -1,
                 },
                 format = {
@@ -25,9 +25,9 @@ M.setup = function(on_attach, lsp_flags, capabilities, handlers)
                 workspace = {
                     -- Make the server aware of Neovim runtime files
                     -- library = vim.api.nvim_get_runtime_file("", true),
-                    ignoreDir = {
-                        "plugged",
-                    },
+                    -- ignoreDir = {
+                    --     "plugged",
+                    -- },
                     useGitIgnore = true,
                     checkThirdParty = false,
                 },

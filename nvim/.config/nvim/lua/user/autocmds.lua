@@ -1,18 +1,24 @@
 local group = vim.api.nvim_create_augroup("MyAutocmds", { clear = true })
 
--- Format before save
--- A.nvim_create_autocmd('BufWritePre', {
---         group = group,
---         callback = function()
---             local bufnr = A.nvim_get_current_buf()
---             local lsp_client = vim.lsp.get_active_clients({ bufnr = bufnr })[1]
---
---             if lsp_client ~= nil and lsp_client['server_capabilities']['documentFormattingProvider'] then
---                 vim.lsp.buf.format()
---             end
---         end
---     }
--- )
+-- Format file before save
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = group,
+    callback = function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        local lsp_clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+
+        for _, lsp_client in ipairs(lsp_clients) do
+            if lsp_client.server_capabilities.documentFormattingProvider then
+                vim.lsp.buf.format()
+                vim.notify("Formatted with " .. lsp_client.name, "info", {
+                    title = "LSP",
+                    timeout = 500,
+                })
+                break
+            end
+        end
+    end,
+})
 
 vim.api.nvim_create_autocmd("FileType", {
     group = group,
@@ -24,7 +30,7 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
--- Java
+-- Java Boilerplate
 vim.api.nvim_create_autocmd("BufEnter", {
     group = group,
     pattern = "*.java",
@@ -52,11 +58,48 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
-vim.api.nvim_create_autocmd("RecordingLeave", {
+-- Show recorded macro
+vim.api.nvim_create_autocmd("RecordingEnter", {
     group = group,
     callback = function()
-        vim.notify(vim.v.event.regname .. ": " .. vim.v.event.regcontents, vim.log.levels.INFO, {
-            title = "Recording Stopped",
+        local win_id = vim.g.macro_recording_notification
+        if win_id and vim.api.nvim_win_is_valid(win_id) then
+            vim.api.nvim_win_close(win_id, true)
+        end
+
+        vim.notify(vim.fn.reg_recording(), "info", {
+            title = "Recording Started",
+            timeout = false,
+            on_open = function(win)
+                vim.g.macro_recording_notification = win
+            end,
         })
     end,
 })
+vim.api.nvim_create_autocmd("RecordingLeave", {
+    group = group,
+    callback = function()
+        local win_id = vim.g.macro_recording_notification
+        if win_id and vim.api.nvim_win_is_valid(win_id) then
+            vim.api.nvim_win_close(win_id, true)
+        end
+
+        vim.notify(vim.v.event.regname .. ": " .. vim.v.event.regcontents, "info", {
+            title = "Recording Stopped",
+            timeout = 2000,
+            on_open = function(win)
+                vim.g.macro_recording_notification = win
+            end,
+        })
+    end,
+})
+
+-- Clear hlsearch automatically
+vim.on_key(function(char)
+    if vim.fn.mode() == "n" then
+        local keys = { "<CR>", "n", "N", "*", "#", "?", "/" }
+        if not vim.tbl_contains(keys, vim.fn.keytrans(char)) then
+            vim.cmd([[noh]])
+        end
+    end
+end, vim.api.nvim_create_namespace("auto_hlsearch"))

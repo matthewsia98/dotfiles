@@ -42,7 +42,7 @@ if installed then
                 {
                     filetype = "NvimTree",
                     text = "File Explorer", -- "File Explorer" | function ,
-                    text_align = "left",
+                    text_align = "center",
                     separator = true,
                 },
                 {

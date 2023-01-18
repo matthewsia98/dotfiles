@@ -1,8 +1,10 @@
 local installed, lualine = pcall(require, "lualine")
 
 if installed then
+    local config = require("user.config")
+
     local function separator()
-        local style = vim.g.lualine_separator_style
+        local style = config.lualine_separator_style
         if style == "slant" then
             return { left = "", right = "" }
         elseif style == "reverse_slant" then
@@ -11,6 +13,8 @@ if installed then
             return nil
         elseif style == "round" then
             return { left = "", right = "" }
+        elseif style == "box" then
+            return { left = "▐", right = "▌ " }
         end
     end
 
@@ -21,7 +25,7 @@ if installed then
         local color = opts.color == nil and { bg = "#00000000" } or opts.color
 
         local function spacer_condition()
-            return vim.g.lualine_separator_style ~= "powerline"
+            return config.lualine_separator_style ~= "powerline" and config.lualine_gap_between_sections
         end
 
         local cond
@@ -64,14 +68,18 @@ if installed then
                 },
             },
             lualine_b = {
-                spacer(),
+                spacer({
+                    cond = function()
+                        return require("lualine.components.branch.git_branch").find_git_dir() ~= nil
+                    end,
+                }),
                 {
                     "branch",
                     separator = separator(),
                 },
                 {
                     "diff",
-                    separator = vim.g.lualine_separator_style == "powerline" and { left = "", right = "" }
+                    separator = config.lualine_separator_style == "powerline" and { left = "", right = "" }
                         or separator(),
                 },
                 spacer({
@@ -153,20 +161,28 @@ if installed then
                 spacer(),
                 {
                     function()
-                        local MAX_LENGTH = 50
+                        local MAX_LENGTH = nil
+                        local NO_DIAGNOSTICS_STRING = ""
+
                         local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
                         if #diagnostics == 0 then
-                            return "No Diagnostics on Current Line"
+                            return NO_DIAGNOSTICS_STRING
                         end
 
                         local max_severity = 4
-                        local max_severity_idx
+                        local max_severity_idx = 1
                         for i, diagnostic in ipairs(diagnostics) do
                             if diagnostic.severity < max_severity then
+                                max_severity = diagnostic.severity
                                 max_severity_idx = i
                             end
                         end
-                        return diagnostics[max_severity_idx].message:sub(1, MAX_LENGTH)
+
+                        local num_prefix = #diagnostics <= 1 and ""
+                            or string.format("(%d/%d) ", max_severity_idx, #diagnostics)
+                        local msg = MAX_LENGTH and diagnostics[max_severity_idx].message:sub(1, MAX_LENGTH)
+                            or diagnostics[max_severity_idx].message
+                        return num_prefix .. msg
                     end,
                     color = function()
                         local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
@@ -186,15 +202,9 @@ if installed then
                 },
             },
             lualine_x = {
-                {
-                    function()
-                        return "TEST"
-                    end,
-                },
                 spacer(),
             },
             lualine_y = {
-                spacer(),
                 {
                     "fileformat",
                     symbols = {
@@ -230,10 +240,18 @@ if installed then
                 },
             },
         },
+        extensions = {
+            "quickfix",
+            "nvim-tree",
+            "toggleterm",
+            "trouble",
+        },
     })
 
-    vim.cmd([[highlight lualine_c_normal guibg=#00000000]])
-    vim.cmd([[highlight lualine_c_insert guibg=#00000000]])
-    vim.cmd([[highlight lualine_c_visual guibg=#00000000]])
-    vim.cmd([[highlight lualine_c_command guibg=#00000000]])
+    if config.lualine_transparent then
+        vim.cmd([[highlight lualine_c_normal guibg=#00000000]])
+        vim.cmd([[highlight lualine_c_insert guibg=#00000000]])
+        vim.cmd([[highlight lualine_c_visual guibg=#00000000]])
+        vim.cmd([[highlight lualine_c_command guibg=#00000000]])
+    end
 end

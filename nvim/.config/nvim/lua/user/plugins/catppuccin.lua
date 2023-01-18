@@ -33,8 +33,10 @@ if installed then
             noice = true,
             notify = true,
             nvimtree = true,
+            -- semantic_tokens = true,
             treesitter_context = true,
             treesitter = true,
+            ts_rainbow = true,
             telescope = true,
             lsp_trouble = true,
             which_key = true,
@@ -69,6 +71,8 @@ if installed then
             return {
                 LineNr = { fg = colors.lavender },
                 CursorLineNr = { fg = colors.lavender },
+
+                NormalFloat = { bg = colors.base },
                 WinSeparator = { fg = colors.text },
 
                 Comment = { fg = colors.overlay1 },

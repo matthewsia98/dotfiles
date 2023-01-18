@@ -1,6 +1,10 @@
 local M = {}
 
 local function map(modes, key, value, options)
+    -- Modes
+    -- x: only visual mode
+    -- s: only select mode
+    -- v: both visual and select mode
     local default_options = { silent = true, noremap = true }
 
     if options ~= nil then
@@ -13,24 +17,6 @@ local function map(modes, key, value, options)
 end
 M.map = map
 
-local function nvim_map(mode, key, value, options)
-    local default_options = { silent = true, noremap = true }
-
-    if options ~= nil then
-        options = vim.tbl_extend("keep", options, default_options)
-    else
-        options = default_options
-    end
-
-    vim.api.nvim_set_keymap(mode, key, value, options)
-end
-M.nvim_map = nvim_map
-
-local function unmap(mode, key, options)
-    vim.keymap.del(mode, key, options)
-end
-M.unmap = unmap
-
 -- Go to start and end of line
 map("i", "<C-a>", "<Esc>I")
 map("i", "<C-e>", "<Esc>A")
@@ -39,10 +25,21 @@ map("i", "<C-e>", "<Esc>A")
 map("n", "<CR>", "o<Esc>")
 map("n", "<S-CR>", "O<Esc>")
 
+map("n", ",", "A,<Esc>")
+
+-- Move line up and down
+-- Reference: https://vim.fandom.com/wiki/Moving_lines_up_or_down
+-- map("n", "<C-j>", "<CMD>move .+1<CR>")
+-- map("n", "<C-k>", "<CMD>move .-2<CR>")
+map("i", "<C-j>", "<Esc>:m .+1<CR>==gi")
+map("i", "<C-k>", "<Esc>:m .-2<CR>==gi")
+map("x", "<C-j>", ":move '>+1<CR>gv=gv")
+map("x", "<C-k>", ":move '<-2<CR>gv=gv")
+
 -- Correct indentation when inserting on blank line
 map("n", "i", function()
     local line = vim.fn.getline(".")
-    if #line == 0 then
+    if #line == 0 or line:match("^%s+$") then
         return "cc"
     else
         return "i"
@@ -50,7 +47,7 @@ map("n", "i", function()
 end, { expr = true })
 map("n", "a", function()
     local line = vim.fn.getline(".")
-    if #line == 0 then
+    if #line == 0 or line:match("^%s+$") then
         return "cc"
     else
         return "a"
@@ -72,10 +69,10 @@ map("n", "<Up>", "<C-w>1+")
 map("n", "<Down>", "<C-w>1-")
 
 -- Delete buffer
-map("n", "<leader>db", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
+map("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
 
 -- Folds
--- map('n', '<leader>fd', 'za')
+map("n", "<leader>fd", "za", { desc = "Toggle fold" })
 
 -- Terminal Mode
 map("t", "<Esc>", "<C-\\><C-n>")
@@ -97,7 +94,7 @@ end, { desc = "Toggle Conceal" })
 -- Reverse Selection
 map("v", "<leader>rv", '<ESC><cmd>lua require("user.functions").reverse_lines()<CR>', { desc = "Reverse visual lines" })
 
--- Get Current FIle
+-- Get Current File
 map(
     "n",
     "<leader>/",

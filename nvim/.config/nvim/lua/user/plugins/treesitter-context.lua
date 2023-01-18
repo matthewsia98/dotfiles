@@ -25,6 +25,9 @@ if installed then
                 "call",
                 "with_statement",
             },
+            lua = {
+                "table_constructor",
+            },
         },
         exact_patterns = {
             -- Example for a specific filetype with Lua patterns

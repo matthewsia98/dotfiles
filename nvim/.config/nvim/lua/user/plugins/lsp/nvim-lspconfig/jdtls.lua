@@ -2,12 +2,12 @@ local lspconfig = require("lspconfig")
 
 local M = {}
 
-M.setup = function(on_attach, lsp_flags, capabilities, handlers)
+M.setup = function(opts)
     lspconfig["jdtls"].setup({
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities,
-        handlers = handlers,
+        capabilities = opts.capabilities,
+        flags = opts.lsp_flags,
+        handlers = opts.handlers,
+        on_attach = opts.on_attach,
     })
 end
 

@@ -1,2 +1,8 @@
 lua
 config
+nvim
+cmd
+desc
+whitespace
+Esc
+usr

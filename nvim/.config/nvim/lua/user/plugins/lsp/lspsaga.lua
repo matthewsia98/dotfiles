@@ -1,34 +1,54 @@
 local installed, saga = pcall(require, "lspsaga")
 
 if installed then
-    saga.init_lsp_saga({
-        custom_kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
-        border_style = "rounded",
-        code_action_lightbulb = {
-            enable = false
+    local catppuccin_installed, _ = pcall(require, "catppuccin.palettes")
+    local colors = {}
+    local kinds = {}
+    if catppuccin_installed then
+        colors = require("catppuccin.groups.integrations.lsp_saga").custom_colors()
+        kinds = require("catppuccin.groups.integrations.lsp_saga").custom_kind()
+    end
+
+    saga.setup({
+        request_timeout = 5000,
+
+        ui = {
+            theme = "round",
+            border = "rounded",
+            colors = colors,
+            kind = kinds,
         },
-        finder_action_keys = {
-            open = { "<CR>" },
+
+        lightbulb = {
+            enable = false,
+        },
+
+        symbol_in_winbar = {
+            enable = true,
+            show_file = false,
+        },
+
+        diagnostic = {
+            twice_into = true,
+        },
+
+        finder = {
+            edit = { "o", "<CR>" },
             vsplit = "v",
             split = "s",
             tabe = "t",
-            quit = { "q", "<Esc>" },
+            quit = { "q", "<ESC>" },
         },
-        definition_action_keys = {
+
+        definition = {
+            edit = "<CR>",
             vsplit = "v",
             split = "s",
             tabe = "t",
             quit = "q",
+            close = "<Esc>",
         },
     })
 
-    local keys = require("user.keymaps")
-
-    keys.map("n", "<leader>lf", function()
-        require("lspsaga.finder"):lsp_finder()
-    end, { desc = "Lsp Finder (Lspsaga)" })
-
-    keys.map("n", "<leader>ld", function()
-        require("lspsaga.definition"):peek_definition()
-    end, { desc = "Peek Definition (Lspsaga)" })
+    -- Keymaps defined in nvim-lspconfig/init.lua
 end

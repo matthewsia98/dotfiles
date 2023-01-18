@@ -29,6 +29,21 @@ if cursorword_installed then
     })
 end
 
+local map_installed, map = pcall(require, "mini.map")
+if map_installed then
+    map.setup({
+        symbols = {
+            encode = map.gen_encode_symbols.dot("4x2"),
+        },
+    })
+
+    local keys = require("user.keymaps")
+
+    keys.map("n", "<leader>mm", function()
+        map.toggle()
+    end, { desc = "Toggle Minimap" })
+end
+
 -- local align_installed, align = pcall(require, "mini.align")
 -- if align_installed then
 --     align.setup({

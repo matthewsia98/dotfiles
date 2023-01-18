@@ -4,19 +4,21 @@ if installed then
     null_ls.setup({
         sources = {
             -- PYTHON --
-            null_ls.builtins.diagnostics.flake8,
-            null_ls.builtins.diagnostics.mypy,
+            -- Diagnostics
+            -- null_ls.builtins.diagnostics.flake8,
+            -- null_ls.builtins.diagnostics.mypy,
+            -- null_ls.builtins.diagnostics.pydocstyle,
+            -- Formatting
             null_ls.builtins.formatting.black,
             null_ls.builtins.formatting.isort,
 
             -- LUA --
-            null_ls.builtins.diagnostics.luacheck,
+            -- Diagnostics
+            -- null_ls.builtins.diagnostics.luacheck,
+            -- Formatting
             null_ls.builtins.formatting.stylua,
-
-            -- SHELL --
-            null_ls.builtins.diagnostics.shellcheck.with({
-                extra_args = { "--shell", "bash" },
-            }),
         },
+        border = "rounded",
+        diagnostics_format = "#{m}",
     })
 end

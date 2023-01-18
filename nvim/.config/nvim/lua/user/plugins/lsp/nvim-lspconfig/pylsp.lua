@@ -1,21 +1,49 @@
-local lspconfig = require("lspconfig")
-
 local M = {}
 
-M.setup = function(on_attach, lsp_flags, capabilities, handlers)
+M.setup = function(opts)
+    local lspconfig = require("lspconfig")
     lspconfig["pylsp"].setup({
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities,
-        handlers = handlers,
+        capabilities = opts.capabilities,
+        flags = opts.lsp_flags,
+        handlers = opts.handlers,
+        on_attach = opts.on_attach,
+
+        single_file_support = true,
+        root_dir = lspconfig.util.root_pattern(".git", "*.py"),
+
         settings = {
+            -- https://github.com/python-lsp/python-lsp-server
             pylsp = {
                 plugins = {
-                    pycodestyle = { enabled = false },
-                    pyflakes = { enabled = false },
-                    mccabe = { enabled = false },
-                    yapf = { enabled = false },
                     autopep8 = { enabled = false },
+                    flake8 = {
+                        enabled = true,
+                        -- ignore = {
+                        --     "E501", -- Line too long
+                        --     "E266", -- Too many leading # for block comment
+                        -- },
+                    },
+                    mccabe = { enabled = false },
+                    pycodestyle = { enabled = false },
+                    pydocstyle = {
+                        enabled = false,
+                        convention = "numpy",
+                    },
+                    pyflakes = { enabled = false },
+                    pylint = {
+                        enabled = false,
+                        executable = "pylint",
+                    },
+                    rope_autoimport = {
+                        enabled = true,
+                        memory = false,
+                    },
+                    rope_completion = {
+                        enabled = true,
+                        eager = false,
+                    },
+                    yapf = { enabled = false },
+
                     jedi = {
                         environment = vim.env.VIRTUAL_ENV or "/usr",
                     },
@@ -45,32 +73,32 @@ M.setup = function(on_attach, lsp_flags, capabilities, handlers)
                         all_scopes = true,
                         include_import_symbols = true,
                     },
-                    flake8 = {
-                        enabled = false,
-                        ignore = {
-                            "E501", -- Line too long
-                            "E266", -- Too many leading # for block comment
-                        },
+
+                    -- Third Party Plugins
+                    -- Need to install manually in Mason pylsp venv
+                    -- source ~/.local/share/nvim/mason/packages/python-lsp-server/venv/bin/activate
+                    -- pip install pylsp-mypy pyls-isort python-lsp-black pylsp-rope python-lsp-ruff
+                    pylsp_mypy = {
+                        enabled = true,
+                        live_mode = true,
+                        strict = false,
                     },
-                    pylint = {
+                    pyls_isort = {
                         enabled = false,
-                        executable = "pylint",
                     },
                     black = {
                         enabled = false,
                         preview = true,
-                        max_line_length = 88,
-                    },
-                    pylsp_mypy = {
-                        enabled = false,
-                        live_mode = true,
-                        strict = false,
+                        line_length = 88,
                     },
                     pylsp_rope = {
-                        enabled = false,
+                        enabled = true,
                     },
-                    pyls_isort = {
+                    ruff = {
                         enabled = false,
+                        -- ignore = {
+                        --     "E741", -- ambiguous variable name
+                        -- },
                     },
                 },
             },

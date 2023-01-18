@@ -9,8 +9,19 @@ if installed then
     end
 
     scrollbar.setup({
+        hide_if_all_visible = false,
+        show_in_active_only = true,
         handle = {
             color = scrollbar_color,
+        },
+        excluded_filetypes = {
+            "",
+            "lazy",
+            "mason",
+            "NvimTree",
+            "TelescopePrompt",
+            "lspsagafinder",
+            "null-ls-info",
         },
         marks = {
             Cursor = {
@@ -40,11 +51,7 @@ if installed then
                 text = "",
             },
         },
-        excluded_filetypes = {
-            "lazy",
-            "mason",
-            "NvimTree",
-            "TelescopePrompt",
-        },
     })
+
+    require("scrollbar.handlers.gitsigns").setup()
 end

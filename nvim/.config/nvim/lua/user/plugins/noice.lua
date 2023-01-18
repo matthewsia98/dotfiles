@@ -7,15 +7,15 @@ if installed then
         -- },
         routes = {
             -- Macro Recording
-            {
-                view = "notify",
-                filter = {
-                    event = "msg_showmode",
-                },
-                opts = {
-                    timeout = 500,
-                },
-            },
+            -- {
+            --     view = "notify",
+            --     filter = {
+            --         event = "msg_showmode",
+            --     },
+            --     opts = {
+            --         timeout = 500,
+            --     },
+            -- },
             {
                 view = "mini",
                 filter = {
@@ -26,8 +26,9 @@ if installed then
         },
         views = {
             mini = {
+                -- Default position sticks to lualine
                 position = {
-                    row = "97%",
+                    row = "95%",
                     col = "100%",
                 },
             },
@@ -37,7 +38,7 @@ if installed then
                     col = "50%",
                 },
                 size = {
-                    width = "40%",
+                    width = "auto",
                     height = "auto",
                 },
             },
@@ -57,7 +58,7 @@ if installed then
             view_warn = "notify",
             view_error = "notify",
             view_history = "messages",
-            view_search = "virtualtext",
+            view_search = false,
         },
         notify = {
             enabled = true,
@@ -77,10 +78,10 @@ if installed then
                 view = "mini",
             },
             signature = {
-                enabled = false,
+                enabled = true,
             },
             hover = {
-                enabled = false,
+                enabled = true,
             },
             -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
             override = {
