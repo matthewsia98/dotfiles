@@ -1,6 +1,6 @@
-#!/bin/zsh
+#!/bin/sh
 
-num_updates=$(checkupdates | wc -l)
+num_updates=$(checkupdates 2>/dev/null | wc -l)
 if [[ $num_updates -eq 0 ]]; then
     notify-send \
         -a "Updates" \

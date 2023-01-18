@@ -43,7 +43,7 @@
         "max-length": 24,
     },
     "custom/updates": {
-        "exec": "checkupdates | wc -l",
+        "exec": "checkupdates 2>/dev/null | wc -l",
         "return-type": "string",
         "format": " {}",
         "tooltip": false,
