@@ -183,8 +183,8 @@ bindkey -v
 bindkey "^a" beginning-of-line
 bindkey "^e" end-of-line
 
-# bindkey "^h" vi-backward-kill-word
-bindkey -s "^h" "^[dF/xa"
+# bindkey -s "^h" "^[dF/xa"
+bindkey "^h" ctrl-backspace
 bindkey "^?" backward-delete-char
 bindkey "^p" up-line-or-search
 bindkey "^n" down-line-or-search

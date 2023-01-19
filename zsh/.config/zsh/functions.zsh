@@ -53,13 +53,17 @@ vi-paste-from-system-clip () {
 }
 zle -N vi-paste-from-system-clip
 
-toggle_keymap () {
-    variant=$(setxkbmap -query | awk "/variant:/ {print $2}")
-    if [ "$variant" = "" ]
+ctrl-backspace () {
+    curr_char="$LBUFFER[$CURSOR]"
+    if [[ "$curr_char" = "/" ]]
     then
-        setxkbmap us colemak_dh
-    else
-        setxkbmap us
+        LBUFFER=${LBUFFER::-1}
     fi
-    xmodmap ~/.Xmodmap
+
+    # Delete including /
+    LBUFFER=$(sed "s/\(.*\)\(\/.*\)/\1/" <<< "$LBUFFER")
+
+    # Delete excluding /
+    # LBUFFER=$(sed "s/\(.*\/\)\(.*\)/\1/" <<< "$LBUFFER")
 }
+zle -N ctrl-backspace

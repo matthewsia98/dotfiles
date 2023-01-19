@@ -29,6 +29,7 @@ alias vi="nvim"
 alias vim="nvim"
 alias gitui="gitui --theme mocha.ron"
 alias pdf="zathura"
+alias asciiquarium="asciiquarium --transparent"
 alias uotp="python ~/Misc/uottawa_otp.py"
 if [ "$XDG_SESSION_TYPE" = "wayland" ]
 then
