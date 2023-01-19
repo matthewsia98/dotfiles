@@ -47,6 +47,45 @@ if installed then
         }
     end
 
+    local function cursor_diagnostic()
+        -- 1-based
+        local _, cursor_row, cursor_col, _ = unpack(vim.fn.getpos("."))
+
+        -- 0-based
+        local diagnostics = vim.diagnostic.get(vim.api.nvim_get_current_buf(), { lnum = cursor_row - 1 })
+
+        if #diagnostics == 0 then
+            return ""
+        end
+
+        -- Check if cursor on diagnostic
+        vim.g.lualine_current_diagnostic = nil
+        for _, diagnostic in ipairs(diagnostics) do
+            if cursor_col - 1 >= diagnostic.col and cursor_col - 1 <= diagnostic.end_col then
+                vim.g.lualine_current_diagnostic = diagnostic
+                break
+            end
+        end
+
+        -- Cursor not on diagnostic. Show first one
+        if vim.g.lualine_current_diagnostic == nil then
+            vim.g.lualine_current_diagnostic = diagnostics[1]
+        end
+
+        return string.format(
+            "[%s] %s",
+            vim.g.lualine_current_diagnostic.source,
+            vim.g.lualine_current_diagnostic.message
+        )
+    end
+
+    local function cursor_diagnostic_color()
+        local severities = { "Error", "Warn", "Info", "Hint" }
+        if vim.g.lualine_current_diagnostic then
+            return "Diagnostic" .. severities[vim.g.lualine_current_diagnostic.severity]
+        end
+    end
+
     local catppuccin_installed, _ = pcall(require, "catppuccin")
     local lualine_theme = catppuccin_installed and "catppuccin" or "dracula"
     lualine.setup({
@@ -160,45 +199,8 @@ if installed then
             lualine_c = {
                 spacer(),
                 {
-                    function()
-                        local MAX_LENGTH = nil
-                        local NO_DIAGNOSTICS_STRING = ""
-
-                        local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
-                        if #diagnostics == 0 then
-                            return NO_DIAGNOSTICS_STRING
-                        end
-
-                        local max_severity = 4
-                        local max_severity_idx = 1
-                        for i, diagnostic in ipairs(diagnostics) do
-                            if diagnostic.severity < max_severity then
-                                max_severity = diagnostic.severity
-                                max_severity_idx = i
-                            end
-                        end
-
-                        local num_prefix = #diagnostics <= 1 and ""
-                            or string.format("(%d/%d) ", max_severity_idx, #diagnostics)
-                        local msg = MAX_LENGTH and diagnostics[max_severity_idx].message:sub(1, MAX_LENGTH)
-                            or diagnostics[max_severity_idx].message
-                        return num_prefix .. msg
-                    end,
-                    color = function()
-                        local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
-                        if #diagnostics == 0 then
-                            return "lualine_c_normal"
-                        end
-
-                        local severities = { "Error", "Warn", "Info", "Hint" }
-                        local max_severity = 4
-                        for _, diagnostic in ipairs(diagnostics) do
-                            if diagnostic.severity < max_severity then
-                                max_severity = diagnostic.severity
-                            end
-                        end
-                        return "Diagnostic" .. severities[max_severity]
-                    end,
+                    cursor_diagnostic,
+                    color = cursor_diagnostic_color,
                 },
             },
             lualine_x = {
