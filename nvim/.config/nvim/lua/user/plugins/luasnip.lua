@@ -19,7 +19,7 @@ if installed then
     })
 
     require("luasnip.loaders.from_vscode").lazy_load({
-        include = { "python", "lua" },
+        include = { "python", "lua", "java" },
         -- exclude = { "python", },
     })
     require("luasnip.loaders.from_lua").lazy_load({

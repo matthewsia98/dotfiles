@@ -48,6 +48,8 @@ if installed then
                     ["ic"] = "@call.inner",
                     ["ia"] = "@parameter.inner",
                     ["aa"] = "@parameter.outer",
+                    ["is"] = "@string.inner",
+                    ["as"] = "@string.outer",
                 },
                 -- selection_modes = {
                 --     ['@parameter.outer'] = 'v',

@@ -17,3 +17,7 @@
         (_) @argument.inner
     )
 )
+
+(string) @string.outer
+
+((string) @string.inner (#offset! @string.inner 0 1 0 -1))

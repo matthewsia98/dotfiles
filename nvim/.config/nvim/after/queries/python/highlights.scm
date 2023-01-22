@@ -1,8 +1,11 @@
 ;extends
 
+; String
+(((string) @string (#offset! @string 0 1 0 -1)) (#set! conceal ""))
+
 ; Import Statements
-((import_statement "import" @include) (#set! conceal " "))
-((import_from_statement "import" @include) (#set! conceal " "))
+((import_statement "import" @include) (#set! conceal ""))
+((import_from_statement "import" @include) (#set! conceal ""))
 
 ; Math Operators
 ((binary_operator operator: "/" @operator) (#set! conceal "÷"))

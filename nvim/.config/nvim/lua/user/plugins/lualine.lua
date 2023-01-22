@@ -38,8 +38,7 @@ if installed then
         end
 
         return {
-            "mode",
-            fmt = function(_)
+            function()
                 return char:rep(length)
             end,
             color = color,
@@ -67,9 +66,16 @@ if installed then
             end
         end
 
-        -- Cursor not on diagnostic. Show first one
+        -- If cursor not on diagnostic, show max severity
         if vim.g.lualine_current_diagnostic == nil then
-            vim.g.lualine_current_diagnostic = diagnostics[1]
+            for _, diagnostic in ipairs(diagnostics) do
+                if
+                    vim.g.lualine_current_diagnostic == nil
+                    or diagnostic.severity < vim.g.lualine_current_diagnostic.severity
+                then
+                    vim.g.lualine_current_diagnostic = diagnostic
+                end
+            end
         end
 
         return string.format(
@@ -82,7 +88,9 @@ if installed then
     local function cursor_diagnostic_color()
         local severities = { "Error", "Warn", "Info", "Hint" }
         if vim.g.lualine_current_diagnostic then
-            return "Diagnostic" .. severities[vim.g.lualine_current_diagnostic.severity]
+            local severity = severities[vim.g.lualine_current_diagnostic.severity]
+            local sign = vim.fn.sign_getdefined("DiagnosticSign" .. severity)[1]
+            return sign.texthl
         end
     end
 

@@ -43,7 +43,7 @@ if installed then
         end
 
         -- Disable formatting capabilities for some servers
-        local servers_disable_formatting = { "pylsp", "sumneko_lua" }
+        local servers_disable_formatting = { "pylsp", "sumneko_lua", "jdtls" }
         if vim.tbl_contains(servers_disable_formatting, client.name) then
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false

@@ -61,7 +61,7 @@ opt.cursorline = true
 
 -- Text wrap
 opt.wrap = true
-opt.textwidth = vim.o.columns - vim.fn.getwininfo(vim.api.nvim_get_current_win())[1].textoff
+-- opt.textwidth = vim.o.columns - vim.fn.getwininfo(vim.api.nvim_get_current_win())[1].textoff
 
 -- Indent
 opt.autoindent = false

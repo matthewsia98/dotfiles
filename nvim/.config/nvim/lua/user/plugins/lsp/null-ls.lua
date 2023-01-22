@@ -17,6 +17,10 @@ if installed then
             -- null_ls.builtins.diagnostics.luacheck,
             -- Formatting
             null_ls.builtins.formatting.stylua,
+
+            -- JAVA --
+            -- Formatting
+            -- null_ls.builtins.formatting.google_java_format,
         },
         border = "rounded",
         diagnostics_format = "#{m}",

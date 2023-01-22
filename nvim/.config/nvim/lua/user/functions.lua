@@ -198,12 +198,53 @@ F.is_executable = function(filepath)
     return perms:sub(3, 3) == "x"
 end
 
-F.get_current_line_diagnostics = function(bufnr)
-    bufnr = bufnr or 0
+F.get_current_line_diagnostics = function()
+    local bufnr = vim.api.nvim_get_current_buf()
     local line_diagnostics = vim.diagnostic.get(bufnr, {
         lnum = vim.fn.line(".") - 1,
     })
     return line_diagnostics
+end
+
+F.get_cursor_diagnostics = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local _, cursor_row, cursor_col, _ = unpack(vim.fn.getpos("."))
+    cursor_row = cursor_row - 1
+    cursor_col = cursor_col - 1
+    local line_diagnostics = vim.diagnostic.get(bufnr, {
+        lnum = cursor_row,
+    })
+
+    local cursor_diagnostics = {}
+    for _, diagnostic in ipairs(line_diagnostics) do
+        if cursor_col >= diagnostic.col and cursor_col <= diagnostic.end_col then
+            table.insert(cursor_diagnostics, diagnostic)
+        end
+    end
+
+    return cursor_diagnostics
+end
+
+F.get_max_diagnostic_severity = function(opts)
+    if opts == nil then
+        opts = { line = false }
+    end
+
+    local severities = { "Error", "Warn", "Info", "Hint" }
+    local bufnr = vim.api.nvim_get_current_buf()
+    local lnum = opts.line and (vim.fn.line(".") - 1) or nil
+    local diagnostics = vim.diagnostic.get(bufnr, {
+        lnum = lnum,
+    })
+
+    local max_severity
+    for _, diagnostic in ipairs(diagnostics) do
+        if max_severity == nil or diagnostic.severity < max_severity then
+            max_severity = diagnostic.severity
+        end
+    end
+
+    return severities[max_severity]
 end
 
 return F

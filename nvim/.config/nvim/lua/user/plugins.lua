@@ -81,6 +81,14 @@ lazy.setup({
             require("user.plugins.lualine")
         end,
     },
+    {
+        dir = "~/.config/nvim/my-plugins/statusline.nvim",
+        enabled = false,
+        lazy = false,
+        config = function()
+            require("statusline")
+        end,
+    },
 
     -- FILE EXPLORER
     {
