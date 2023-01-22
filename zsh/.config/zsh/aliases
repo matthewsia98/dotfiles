@@ -12,7 +12,7 @@
 alias ..="cd .."
 alias hg="history 1 | grep"
 alias grep="grep --color=auto"
-alias ls="lsd"
+alias ls="lsd -l"
 alias ll="lsd -alh"
 alias lll="lsd -alhLR"
 alias cp="cp -rv"

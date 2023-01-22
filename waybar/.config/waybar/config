@@ -18,7 +18,8 @@
     // Modules configuration
     "custom/launcher": {
         "format": "",
-        "on-click": "killall rofi || rofi -show drun",
+        "on-click": "rofi -show drun",
+        "tooltip": false,
     },
     "wlr/workspaces": {
         "format": "{name}",

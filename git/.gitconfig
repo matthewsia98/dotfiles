@@ -9,6 +9,7 @@
     path = ~/repos/delta/themes.gitconfig
 [core]
     pager = delta
+	excludesfile = /home/msia/.gitignore
 [interactive]
     diffFilter = delta --color-only
 [delta]
