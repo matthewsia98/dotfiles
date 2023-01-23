@@ -5,20 +5,36 @@
     "height": 48, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
 
-    "spacing": 16, // Gaps between modules
+    "spacing": 12, // Gaps between modules
     "margin": "4 4 0 4",
     /* "margin": "0 0 0 0", */
 
     // Choose the order of the modules
     "modules-left": ["custom/launcher", "wlr/workspaces", "hyprland/window", "custom/updates"],
     "modules-center": ["clock"],
-    "modules-right": ["network", "backlight", "pulseaudio", "battery"],
+    "modules-right": ["custom/notifications", "network", "backlight", "pulseaudio", "battery"],
     /* "modules-right": ["cpu", "memory", "disk", "temperature"], */
 
     // Modules configuration
     "custom/launcher": {
         "format": "",
         "on-click": "rofi -show drun",
+        "tooltip": false,
+    },
+    "custom/updates": {
+        "exec": "checkupdates 2>/dev/null | wc -l",
+        "return-type": "string",
+        "format": "󰚰 {}",
+        "tooltip": false,
+        "on-click": "~/.config/waybar/scripts/check_updates.sh",
+        "interval": 3600,
+    },
+    "custom/notifications": {
+        "exec": "~/.config/waybar/scripts/notifications-status.sh",
+        "return-type": "string",
+        "format": "{} ",
+        "on-click": "dunstctl set-paused toggle",
+        "restart-interval": 1,
         "tooltip": false,
     },
     "wlr/workspaces": {
@@ -42,14 +58,6 @@
         "separate-outputs": false,
         "min-length": 24,
         "max-length": 24,
-    },
-    "custom/updates": {
-        "exec": "checkupdates 2>/dev/null | wc -l",
-        "return-type": "string",
-        "format": " {}",
-        "tooltip": false,
-        "on-click": "~/.config/waybar/scripts/check_updates.sh",
-        "interval": 3600,
     },
     "clock": {
         // "timezone": "America/New_York",

@@ -53,14 +53,14 @@ tooltip label {
 /* ╚═╝     ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝╚══════╝ */
 .modules-left {
     margin: 8px 0px;
-    margin-left: 8px;
+    margin-left: 12px;
 }
 .modules-center {
     margin: 8px 0px;
 }
 .modules-right {
     margin: 8px 0px;
-    margin-right: 8px;
+    margin-right: 12px;
 }
 
 #window,
@@ -114,7 +114,7 @@ tooltip label {
 
 #clock {
     /* background-color: alpha(@mauve, 1.0); */
-    padding: 4px 32px;
+    /* padding: 4px 32px; */
 }
 
 #network {
