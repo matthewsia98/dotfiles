@@ -54,16 +54,26 @@ vi-paste-from-system-clip () {
 zle -N vi-paste-from-system-clip
 
 ctrl-backspace () {
-    curr_char="$LBUFFER[$CURSOR]"
-    if [[ "$curr_char" = "/" ]]
+    if [[ "$LBUFFER" = *"/"* ]]
     then
-        LBUFFER=${LBUFFER::-1}
+        curr_char="$LBUFFER[$CURSOR]"
+        if [[ "$curr_char" = "/" ]]
+        then
+            LBUFFER=${LBUFFER::-1}
+        fi
+
+        # Delete including /
+        LBUFFER=$(sed "s/\(.*\)\(\/.*\)/\1/" <<< "$LBUFFER")
+
+        # Delete excluding /
+        # LBUFFER=$(sed "s/\(.*\/\)\(.*\)/\1/" <<< "$LBUFFER")
+    else
+        zle vi-backward-kill-word
     fi
-
-    # Delete including /
-    LBUFFER=$(sed "s/\(.*\)\(\/.*\)/\1/" <<< "$LBUFFER")
-
-    # Delete excluding /
-    # LBUFFER=$(sed "s/\(.*\/\)\(.*\)/\1/" <<< "$LBUFFER")
 }
 zle -N ctrl-backspace
+
+clean-nvim () {
+    sudo rm -r ~/.local/share/nvim
+    sudo rm -r ~/.local/state/nvim/^(undo)*
+}
