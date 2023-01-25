@@ -14,7 +14,7 @@ if installed then
         elseif style == "round" then
             return { left = "", right = "" }
         elseif style == "box" then
-            return { left = "▐", right = "▌ " }
+            return { left = "▐", right = "▌" }
         end
     end
 
@@ -47,42 +47,51 @@ if installed then
     end
 
     local function cursor_diagnostic()
-        -- 1-based
-        local _, cursor_row, cursor_col, _ = unpack(vim.fn.getpos("."))
+        vim.g.lualine_current_diagnostic = nil
 
-        -- 0-based
-        local diagnostics = vim.diagnostic.get(vim.api.nvim_get_current_buf(), { lnum = cursor_row - 1 })
+        local bufnr = vim.api.nvim_get_current_buf()
+        local cursor_row = vim.fn.line(".") - 1
+        local cursor_col = vim.fn.col(".") - 1
+
+        local diagnostics = vim.diagnostic.get(bufnr, { lnum = cursor_row })
 
         if #diagnostics == 0 then
             return ""
         end
 
         -- Check if cursor on diagnostic
-        vim.g.lualine_current_diagnostic = nil
         for _, diagnostic in ipairs(diagnostics) do
-            if cursor_col - 1 >= diagnostic.col and cursor_col - 1 <= diagnostic.end_col then
+            if cursor_col >= diagnostic.col and cursor_col <= diagnostic.end_col then
                 vim.g.lualine_current_diagnostic = diagnostic
                 break
             end
         end
 
         -- If cursor not on diagnostic, show max severity
+        local max_severity_diagnostic
         if vim.g.lualine_current_diagnostic == nil then
             for _, diagnostic in ipairs(diagnostics) do
-                if
-                    vim.g.lualine_current_diagnostic == nil
-                    or diagnostic.severity < vim.g.lualine_current_diagnostic.severity
-                then
-                    vim.g.lualine_current_diagnostic = diagnostic
+                if max_severity_diagnostic == nil or diagnostic.severity < max_severity_diagnostic.severity then
+                    max_severity_diagnostic = diagnostic
                 end
             end
+            vim.g.lualine_current_diagnostic = max_severity_diagnostic
         end
 
-        return string.format(
-            "[%s] %s",
-            vim.g.lualine_current_diagnostic.source,
-            vim.g.lualine_current_diagnostic.message
-        )
+        local severities = { "Error", "Warn", "Info", "Hint" }
+        local severity = severities[vim.g.lualine_current_diagnostic.severity]
+        local icon = vim.fn.sign_getdefined("DiagnosticSign" .. severity)[1].text
+        local source = vim.g.lualine_current_diagnostic.source
+        local msg = vim.g.lualine_current_diagnostic.message
+
+        local max_diagnostic_msg_length = config.lualine_max_diagnostic_msg_length
+        local lualine_diagnostic_msg = string.format("%s [%s] %s", icon, source, msg)
+
+        if #lualine_diagnostic_msg > max_diagnostic_msg_length then
+            lualine_diagnostic_msg = lualine_diagnostic_msg:sub(1, max_diagnostic_msg_length) .. "..."
+        end
+
+        return lualine_diagnostic_msg
     end
 
     local function cursor_diagnostic_color()
@@ -100,7 +109,6 @@ if installed then
         options = {
             theme = lualine_theme,
             icons_enabled = true,
-            -- separators                         
             component_separators = { left = "", right = "" },
             disabled_filetypes = {
                 statusline = { "", "dashboard" },
@@ -129,6 +137,8 @@ if installed then
                     separator = config.lualine_separator_style == "powerline" and { left = "", right = "" }
                         or separator(),
                 },
+            },
+            lualine_c = {
                 spacer({
                     cond = function()
                         return #vim.diagnostic.get(nil) > 0
@@ -162,7 +172,7 @@ if installed then
                                 end
                             end
                         end
-                        return "lualine_b_diagnostics_" .. severities[max_severity] .. "_0_normal"
+                        return "lualine_c_diagnostics_" .. severities[max_severity] .. "_0_normal"
                     end,
                     separator = separator(),
                 },
@@ -199,12 +209,10 @@ if installed then
                                 end
                             end
                         end
-                        return "lualine_b_diagnostics_" .. severities[max_severity] .. "_0_normal"
+                        return "lualine_c_diagnostics_" .. severities[max_severity] .. "_0_normal"
                     end,
                     separator = separator(),
                 },
-            },
-            lualine_c = {
                 spacer(),
                 {
                     cursor_diagnostic,
@@ -212,23 +220,25 @@ if installed then
                 },
             },
             lualine_x = {
-                spacer(),
+                -- spacer(),
             },
             lualine_y = {
-                {
-                    "fileformat",
-                    symbols = {
-                        unix = "UNIX",
-                        dos = "DOS",
-                        mac = "MAC",
-                    },
-                    separator = separator(),
-                },
-                {
-                    "encoding",
-                    separator = separator(),
-                },
-                spacer(),
+                -- {
+                --     "fileformat",
+                --     symbols = {
+                --         unix = "UNIX",
+                --         dos = "DOS",
+                --         mac = "MAC",
+                --     },
+                --     separator = separator(),
+                -- },
+                -- {
+                --     "encoding",
+                --     separator = separator(),
+                -- },
+            },
+            lualine_z = {
+                -- spacer(),
                 {
                     "filetype",
                     separator = separator(),
@@ -237,17 +247,14 @@ if installed then
                     "filesize",
                     separator = separator(),
                 },
-                spacer(),
-            },
-            lualine_z = {
-                {
-                    "progress",
-                    separator = separator(),
-                },
-                {
-                    "location",
-                    separator = separator(),
-                },
+                -- {
+                --     "progress",
+                --     separator = separator(),
+                -- },
+                -- {
+                --     "location",
+                --     separator = separator(),
+                -- },
             },
         },
         extensions = {

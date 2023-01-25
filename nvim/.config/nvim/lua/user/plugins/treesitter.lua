@@ -3,14 +3,22 @@ local installed, treesitter = pcall(require, "nvim-treesitter.configs")
 if installed then
     treesitter.setup({
         ensure_installed = {
+            -- Defaults
+            "c",
+            "lua",
             "vim",
             "help",
-            "lua",
+
+            -- Additional
             "python",
-            "comment",
+            "java",
             "bash",
+
+            "html",
             "markdown",
             "markdown_inline",
+
+            "comment",
             "regex",
         },
         auto_install = true,

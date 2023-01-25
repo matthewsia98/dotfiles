@@ -22,9 +22,12 @@ if installed then
 
     local keys = require("user.keymaps")
 
+    -- keys.map("n", "<leader>tf", function()
+    --     vim.cmd("ToggleTerm direction=float")
+    -- end, { desc = "Toggle Floating Terminal" })
+
     keys.map("n", "<leader>tt", function()
-        local num_wins = #vim.api.nvim_list_wins()
-        local size = math.floor(vim.o.columns / (num_wins + 1))
+        local size = math.floor(vim.o.columns / 3)
         vim.cmd("ToggleTerm direction=vertical size=" .. size)
     end, { desc = "Toggle Terminal" })
 
@@ -47,12 +50,11 @@ if installed then
             local splits = vim.split(filepath, "/")
             local prefix = #splits == 1 and "./" or ""
             local is_executable = require("user.functions").is_executable(filepath)
-            local chmod = is_executable and "" or "chmod u+x " .. filepath .. "; "
+            local chmod = is_executable and "" or "chmod +x " .. filepath .. "; "
             command = chmod .. prefix .. filepath
         end
 
-        local num_wins = #vim.api.nvim_list_wins()
-        local size = math.floor(vim.o.columns / (num_wins + 1))
+        local size = math.floor(vim.o.columns / 3)
         vim.cmd("TermExec go_back=0 direction=vertical size=" .. size .. ' cmd="' .. command .. '"')
     end, { desc = "Run File" })
 
