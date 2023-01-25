@@ -27,6 +27,7 @@
 /* ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ */
 window#waybar {
     background-color: alpha(@bar-bg, 1.0);
+    border-radius: 0px;
 }
 
 
@@ -73,9 +74,12 @@ tooltip label {
 }
 
 #custom-launcher {
-    font-size: 22px;
-    margin-left: 8px;
-    color: alpha(@blue, 1.0);
+    background-image: url("/home/msia/.config/waybar/archlinux.svg");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* font-size: 22px; */
+    /* color: alpha(@blue, 1.0); */
 }
 
 #workspaces {
@@ -109,12 +113,18 @@ tooltip label {
 /* } */
 
 #custom-updates {
+    background-color: transparent;
     font-size: 16px;
 }
 
 #clock {
     /* background-color: alpha(@mauve, 1.0); */
     /* padding: 4px 32px; */
+}
+
+#custom-notifications {
+    background-color: transparent;
+    font-size: 14px;
 }
 
 #network {

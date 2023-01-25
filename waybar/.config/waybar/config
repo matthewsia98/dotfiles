@@ -6,8 +6,8 @@
     // "width": 1280, // Waybar width
 
     "spacing": 12, // Gaps between modules
-    "margin": "4 4 0 4",
-    /* "margin": "0 0 0 0", */
+    /* "margin": "4 4 0 4", */
+    "margin": "0 0 0 0",
 
     // Choose the order of the modules
     "modules-left": ["custom/launcher", "wlr/workspaces", "hyprland/window", "custom/updates"],
@@ -17,14 +17,15 @@
 
     // Modules configuration
     "custom/launcher": {
-        "format": "",
+        /* "format": "", */
+        "format": "    ",
         "on-click": "rofi -show drun",
         "tooltip": false,
     },
     "custom/updates": {
         "exec": "checkupdates 2>/dev/null | wc -l",
         "return-type": "string",
-        "format": "󰚰 {}",
+        "format": " {}",
         "tooltip": false,
         "on-click": "~/.config/waybar/scripts/check_updates.sh",
         "interval": 3600,
