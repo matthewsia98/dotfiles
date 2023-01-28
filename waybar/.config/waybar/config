@@ -5,14 +5,14 @@
     "height": 48, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
 
-    "spacing": 12, // Gaps between modules
+    "spacing": 8, // Gaps between modules
     /* "margin": "4 4 0 4", */
     "margin": "0 0 0 0",
 
     // Choose the order of the modules
     "modules-left": ["custom/launcher", "wlr/workspaces", "hyprland/window", "custom/updates"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/notifications", "network", "backlight", "pulseaudio", "battery"],
+    "modules-right": ["custom/notifications", "backlight", "pulseaudio", "network", "battery"],
     /* "modules-right": ["cpu", "memory", "disk", "temperature"], */
 
     // Modules configuration
@@ -126,11 +126,14 @@
         "on-click": "pavucontrol"
     },
     "cpu": {
-        "format": " {usage}%",
+        "format": " {usage}%",
         "tooltip": false
     },
     "memory": {
-        "format": " {}%"
+        "format": " {}%"
+    },
+    "disk": {
+        "format": " {}%"
     },
     "temperature": {
         // "thermal-zone": 2,

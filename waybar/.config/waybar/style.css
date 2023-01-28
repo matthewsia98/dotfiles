@@ -54,14 +54,14 @@ tooltip label {
 /* ╚═╝     ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝╚══════╝ */
 .modules-left {
     margin: 8px 0px;
-    margin-left: 12px;
+    margin-left: 8px;
 }
 .modules-center {
     margin: 8px 0px;
 }
 .modules-right {
     margin: 8px 0px;
-    margin-right: 12px;
+    margin-right: 8px;
 }
 
 #window,
@@ -69,7 +69,6 @@ tooltip label {
 #backlight,
 #pulseaudio,
 #battery {
-    background-color: alpha(@surface0, 0.7);
     padding: 0px 12px;
 }
 
@@ -108,9 +107,9 @@ tooltip label {
 }
 
 /* Hyprland Active Window */
-/* #window { */
-/*     background-color: alpha(@surface0, 0.7); */
-/* } */
+#window {
+    background-color: alpha(@surface0, 0.7);
+}
 
 #custom-updates {
     background-color: transparent;
@@ -119,7 +118,8 @@ tooltip label {
 
 #clock {
     /* background-color: alpha(@mauve, 1.0); */
-    /* padding: 4px 32px; */
+    /* color: alpha(@dark-text, 1.0); */
+    /* padding: 0px 24px; */
 }
 
 #custom-notifications {
@@ -158,24 +158,24 @@ tooltip label {
 #memory,
 #disk,
 #temperature {
-    background-color: alpha(@surface0, 0.7);
+    color: alpha(@dark-text, 1.0);
     padding: 0px 12px;
 }
 
 #cpu {
-    /* background-color: alpha(@peach, 1.0); */
+    background-color: alpha(@peach, 1.0);
 }
 
 #memory {
-    /* background-color: alpha(@blue, 1.0); */
+    background-color: alpha(@blue, 1.0);
 }
 
 #disk {
-    /* background-color: alpha(@yellow, 1.0); */
+    background-color: alpha(@yellow, 1.0);
 }
 
 #temperature {
-    /* background-color: alpha(@red, 1.0); */
+    background-color: alpha(@red, 1.0);
 }
 #temperature.critical {
     background-color: alpha(@red, 1.0);
