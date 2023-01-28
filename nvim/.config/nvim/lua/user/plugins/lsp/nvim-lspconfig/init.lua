@@ -70,7 +70,7 @@ if installed then
 
         local config = require("user.config")
         local lspsaga_installed, _ = pcall(require, "lspsaga")
-        local use_lspsaga = lspsaga_installed and config.prefer_lspsaga
+        local use_lspsaga = lspsaga_installed and config.lsp.prefer_lspsaga
 
         keys.map("n", "<leader>d", function()
             if use_lspsaga then
@@ -88,14 +88,14 @@ if installed then
 
         keys.map("n", "[d", function()
             if use_lspsaga then
-                require("lspsaga.diagnostic").goto_prev()
+                require("lspsaga.diagnostic"):goto_prev()
             else
                 vim.diagnostic.goto_prev()
             end
         end, { buffer = bufnr, desc = "Previous Diagnostic" })
         keys.map("n", "]d", function()
             if use_lspsaga then
-                require("lspsaga.diagnostic").goto_next()
+                require("lspsaga.diagnostic"):goto_next()
             else
                 vim.diagnostic.goto_next()
             end
@@ -215,12 +215,40 @@ if installed then
     end
 
     local config = require("user.config")
-    for _, lsp in ipairs(config.lsps_to_configure) do
-        require("user.plugins.lsp.nvim-lspconfig." .. lsp).setup({
-            capabilities = capabilities,
-            flags = lsp_flags,
-            handlers = handlers,
-            on_attach = on_attach,
-        })
+    for _, lsp_name in ipairs(config.lsp.lsps_to_configure) do
+        local config_file = vim.fn.expand("~/.config/nvim/lua/user/plugins/lsp/nvim-lspconfig/" .. lsp_name .. ".lua")
+        local file_exists = vim.fn.filereadable(config_file)
+
+        if file_exists ~= 0 then
+            require("user.plugins.lsp.nvim-lspconfig." .. lsp_name).setup({
+                capabilities = capabilities,
+                flags = lsp_flags,
+                handlers = handlers,
+                on_attach = on_attach,
+            })
+        else
+            local file = io.open(config_file, "w")
+            io.output(file)
+
+            local content = [[
+local M = {}
+
+M.setup = function(opts)
+    local lspconfig = require("lspconfig")
+    lspconfig["%s"].setup({
+        capabilities = opts.capabilities,
+        flags = opts.flags,
+        handlers = opts.handlers,
+        on_attach = opts.on_attach,
+        settings = {},
+    })
+end
+
+return M]]
+            content = string.format(content, lsp_name)
+
+            io.write(content)
+            io.close(file)
+        end
     end
 end
