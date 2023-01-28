@@ -115,7 +115,7 @@ if installed then
         },
         extensions = {
             "quickfix",
-            "nvim-tree",
+            -- "nvim-tree",
             "toggleterm",
             "trouble",
         },
