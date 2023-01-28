@@ -20,6 +20,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
+-- Close window with q
 vim.api.nvim_create_autocmd("FileType", {
     group = group,
     pattern = { "help", "vim", "qf" },
@@ -58,7 +59,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
--- Show recorded macro
+-- Show recorded macro (Using open and close because replace doesn't work well)
 vim.api.nvim_create_autocmd("RecordingEnter", {
     group = group,
     callback = function()

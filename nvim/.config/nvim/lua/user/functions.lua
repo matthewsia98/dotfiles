@@ -146,13 +146,11 @@ F.send_visual_lines_to_terminal = function()
 
     local t = require("toggleterm.terminal")
     if not vim.g.toggleterm_pid then
-        -- local win = vim.api.nvim_get_current_win()
         t.get_or_create_term(t.get_toggled_id(), nil, nil):open(nil, nil)
         local term = t.get_all()[t.get_toggled_id()]
         local job = term.job_id
         local pid = vim.fn.jobpid(job)
         vim.g.toggleterm_pid = pid
-        -- vim.api.nvim_set_current_win(win)
     else
         vim.g.toggleterm_pid = vim.fn.jobpid(t.get(1).job_id)
     end

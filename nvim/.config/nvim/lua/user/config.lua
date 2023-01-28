@@ -15,13 +15,15 @@ local config = {
         -- Use lspsaga for go to definition, references, hover, etc. Otherwise use built-in or trouble
         prefer_lspsaga = false,
 
-        -- Must have corresponding ~/.config/nvim/lua/user/plugins/lsp/nvim-lspconfig/<server-name>.lua
+        --  ~/.config/nvim/lua/user/plugins/lsp/nvim-lspconfig/<server-name>.lua
+        -- <server-name> should match those from https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
         lsps_to_configure = {
             "pylsp",
             "sumneko_lua",
             "jdtls",
             "clangd",
             "gopls",
+            "rust_analyzer",
         },
 
         mason_packages_to_install = {
@@ -42,13 +44,11 @@ local config = {
 
             -- C/C++
             "clangd",
+
+            -- Rust
+            "rust-analyzer",
         },
 
-        --[[
-        If language server is updated, plugins need to be manually reinstalled
-        source ~/.local/share/nvim/mason/packages/python-lsp-server/venv/bin/activate
-        pip install pylsp-mypy pyls-isort python-lsp-black pylsp-rope python-lsp-ruff
-        ]]
         pylsp_plugins_to_install = {
             "pylsp-mypy",
             "pyls-isort",
