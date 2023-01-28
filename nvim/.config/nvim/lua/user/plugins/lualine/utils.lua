@@ -117,7 +117,7 @@ M.cursor_diagnostic = function()
         lualine_diagnostic_msg = lualine_diagnostic_msg:sub(1, max_diagnostic_msg_length) .. "..."
     end
 
-    return lualine_diagnostic_msg
+    return lualine_diagnostic_msg:gsub("\n", " ")
 end
 
 M.cursor_diagnostic_color = function()

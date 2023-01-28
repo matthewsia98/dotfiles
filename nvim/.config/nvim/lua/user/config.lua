@@ -3,7 +3,7 @@ local config = {
         transparent_bg = true,
         gap_between_sections = true,
         separator_style = "slant", -- "box", "powerline", "round", "reverse_slant", "slant"
-        max_diagnostic_length = 70,
+        max_diagnostic_length = 80,
     },
 
     leap = {
@@ -41,12 +41,15 @@ local config = {
 
             -- GO
             "gopls",
+            "gofumpt",
 
             -- C/C++
             "clangd",
+            "clang-format",
 
             -- Rust
             "rust-analyzer",
+            "rustfmt",
         },
 
         pylsp_plugins_to_install = {

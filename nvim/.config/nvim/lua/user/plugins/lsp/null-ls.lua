@@ -21,6 +21,15 @@ if installed then
             -- JAVA --
             -- Formatting
             -- null_ls.builtins.formatting.google_java_format,
+
+            -- GO --
+            null_ls.builtins.formatting.gofumpt,
+
+            -- RUST --
+            null_ls.builtins.formatting.rustfmt,
+
+            -- C --
+            null_ls.builtins.formatting.clang_format,
         },
         border = "rounded",
         diagnostics_format = "#{m}",

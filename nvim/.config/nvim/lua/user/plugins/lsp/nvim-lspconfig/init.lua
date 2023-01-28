@@ -43,7 +43,7 @@ if installed then
         end
 
         -- Disable formatting capabilities for some servers
-        local servers_disable_formatting = { "pylsp", "sumneko_lua", "jdtls" }
+        local servers_disable_formatting = { "pylsp", "sumneko_lua", "jdtls", "rust_analyzer", "gopls", "clangd" }
         if vim.tbl_contains(servers_disable_formatting, client.name) then
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
@@ -208,7 +208,7 @@ if installed then
             vim.lsp.buf.remove_workspace_folder()
         end, { buffer = bufnr, desc = "Remove workspace folder" })
         keys.map("n", "<leader>wls", function()
-            vim.notify(vim.lsp.buf.list_workspace_folders(), "info", {
+            vim.notify(table.concat(vim.lsp.buf.list_workspace_folders(), "\n"), "info", {
                 title = "Workspace Folders",
             })
         end, { buffer = bufnr, desc = "List workspace folders" })
@@ -228,9 +228,9 @@ if installed then
             })
         else
             local file = io.open(config_file, "w")
-            io.output(file)
 
-            local content = [[
+            local content = string.format(
+                [[
 local M = {}
 
 M.setup = function(opts)
@@ -240,15 +240,19 @@ M.setup = function(opts)
         flags = opts.flags,
         handlers = opts.handlers,
         on_attach = opts.on_attach,
+
         settings = {},
     })
 end
 
-return M]]
-            content = string.format(content, lsp_name)
+return M]],
+                lsp_name
+            )
 
-            io.write(content)
-            io.close(file)
+            if file then
+                file:write(content)
+                file:close()
+            end
         end
     end
 end

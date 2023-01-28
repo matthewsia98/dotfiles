@@ -7,6 +7,7 @@ M.setup = function(opts)
         flags = opts.flags,
         handlers = opts.handlers,
         on_attach = opts.on_attach,
+
         settings = {},
     })
 end

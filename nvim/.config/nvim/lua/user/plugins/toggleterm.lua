@@ -5,9 +5,9 @@ if installed then
     toggleterm.setup({
         size = function(term)
             if term.direction == "vertical" then
-                return math.floor(vim.o.columns / 3)
+                return math.floor(vim.o.columns * 0.4)
             elseif term.direction == "horizontal" then
-                return math.floor(vim.o.lines / 3)
+                return math.floor(vim.o.lines * 0.4)
             end
         end,
         direction = "vertical",
@@ -27,8 +27,7 @@ if installed then
     -- end, { desc = "Toggle Floating Terminal" })
 
     keys.map("n", "<leader>tt", function()
-        local size = math.floor(vim.o.columns / 3)
-        vim.cmd("ToggleTerm direction=vertical size=" .. size)
+        vim.cmd("ToggleTerm direction=vertical")
     end, { desc = "Toggle Terminal" })
 
     keys.map("n", "<leader>tr", function()
@@ -65,8 +64,7 @@ if installed then
             command = string.format("%s%s", chmod, head .. tail)
         end
 
-        local size = math.floor(vim.o.columns / 3)
-        vim.cmd("TermExec go_back=0 direction=vertical size=" .. size .. ' cmd="' .. command .. '"')
+        vim.cmd("TermExec go_back=0 direction=vertical" .. ' cmd="' .. command .. '"')
     end, { desc = "Run File" })
 
     keys.map("v", "<leader>tr", ":<C-U>lua require('user.functions').send_visual_lines_to_terminal()<CR>", {

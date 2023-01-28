@@ -8,8 +8,6 @@ M.setup = function(opts)
         handlers = opts.handlers,
         on_attach = opts.on_attach,
 
-        root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json", "*.rs"),
-
         settings = {},
     })
 end
