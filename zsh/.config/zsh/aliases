@@ -21,6 +21,7 @@ alias mkdir="mkdir -pv"
 alias cat="bat"
 alias rg="rg -S"
 alias tree="tree -CF"
+alias hexdump="hexdump -C"
 alias logout='loginctl terminate-user $USER'
 alias suspend="systemctl suspend"
 

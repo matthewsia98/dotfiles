@@ -1,7 +1,5 @@
-source ~/.config/zsh/functions.zsh
+source ~/.config/zsh/functions
 source ~/.config/zsh/aliases
-# set_title
-# chpwd_functions+=(set_title)
 
 
 setopt globdots
