@@ -19,8 +19,9 @@ if installed then
     }
 
     local keys = require("user.keymaps")
-    local forward_key = ";"
-    local backward_key = "-"
+    local config = require("user.config")
+    local forward_key = config.leap.forward_key or "s"
+    local backward_key = config.leap.backward_key or "S"
 
     -- Leap Forward
     keys.map("n", forward_key, function()

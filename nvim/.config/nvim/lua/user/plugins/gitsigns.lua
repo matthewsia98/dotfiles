@@ -4,6 +4,7 @@ if installed then
     gitsigns.setup({
         -- trouble = true, -- Use trouble instead of builtin qflist and loclist (Explicitly setting to true causes trouble to not be lazy loaded)
         signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+        sign_priority = 6,
         numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
         linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
         word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
@@ -123,7 +124,7 @@ if installed then
             keys.map("n", "<leader>hq", gitsigns.setqflist, { desc = "Send hunks to qflist" })
 
             -- Text object
-            keys.map({ "o", "x" }, "ih", "<cmd><C-U>Gitsigns select_hunk<CR>", { desc = "Git Hunk" })
+            keys.map({ "o", "x" }, "ih", gitsigns.select_hunk, { desc = "Git Hunk" })
         end,
     })
 end
