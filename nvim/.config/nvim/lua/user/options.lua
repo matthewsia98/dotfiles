@@ -54,7 +54,7 @@ opt.number = true
 opt.relativenumber = true
 
 -- Sign column with max width of 1
-opt.signcolumn = "yes:1"
+opt.signcolumn = "yes:2"
 
 -- Highlight cursor line
 opt.cursorline = true

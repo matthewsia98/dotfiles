@@ -25,6 +25,10 @@ map("i", "<C-e>", "<Esc>A")
 map("n", "<CR>", "o<Esc>")
 map("n", "<S-CR>", "O<Esc>")
 
+-- Insert blank lines (keep cursor position)
+-- map("n", "<CR>", '@="m`o<C-V><Esc>``"<CR>')
+-- map("n", "<S-CR>", '@="m`O<C-V><Esc>``"<CR>')
+
 map("n", ",", "A,<Esc>")
 
 -- Move line up and down

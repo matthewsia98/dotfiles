@@ -44,17 +44,17 @@ lazy.setup({
             require("user.plugins.which-key")
         end,
     },
-    --
-    -- -- SCROLLBAR
-    -- -- {
-    -- --     "petertriho/nvim-scrollbar",
-    -- --     enabled = false,
-    -- --     event = "BufReadPost",
-    -- --     config = function()
-    -- --         require("user.plugins.nvim-scrollbar")
-    -- --     end,
-    -- -- },
-    --
+
+    -- SCROLLBAR
+    {
+        "petertriho/nvim-scrollbar",
+        enabled = false,
+        event = "BufReadPost",
+        config = function()
+            require("user.plugins.nvim-scrollbar")
+        end,
+    },
+
     -- SMOOTH SCROLLING
     {
         "karb94/neoscroll.nvim",
@@ -128,7 +128,6 @@ lazy.setup({
     -- UI
     {
         "folke/noice.nvim",
-        -- enabled = false,
         dependencies = {
             "MunifTanjim/nui.nvim",
             {
@@ -162,13 +161,14 @@ lazy.setup({
         end,
     },
 
-    -- {
-    --     "monaqa/dial.nvim",
-    --     event = "VeryLazy",
-    --     config = function()
-    --         require("user.plugins.dial")
-    --     end,
-    -- },
+    {
+        "monaqa/dial.nvim",
+        enabled = false,
+        event = "VeryLazy",
+        config = function()
+            require("user.plugins.dial")
+        end,
+    },
 
     -- TOGGLE COMMENTS
     {
@@ -216,7 +216,6 @@ lazy.setup({
     -- CODE FOLDING
     {
         "kevinhwang91/nvim-ufo",
-        -- enabled = false,
         event = "BufReadPost",
         dependencies = {
             "kevinhwang91/promise-async",
@@ -395,23 +394,27 @@ lazy.setup({
         end,
     },
 
-    -- {
-    --     "glacambre/firenvim",
-    --     build = function() vim.fn["firenvim#install"](0) end,
-    --     lazy = false,
-    --     config = function()
-    --         require("user.plugins.firenvim")
-    --     end,
-    -- },
-    --
-    -- {
-    --     "dccsillag/magma-nvim",
-    --     build = ":UpdateRemotePlugins",
-    --     ft = "python",
-    --     config = function()
-    --         require("user.plugins.magma-nvim")
-    --     end,
-    -- },
+    {
+        "glacambre/firenvim",
+        build = function()
+            vim.fn["firenvim#install"](0)
+        end,
+        enabled = false,
+        lazy = false,
+        config = function()
+            require("user.plugins.firenvim")
+        end,
+    },
+
+    {
+        "dccsillag/magma-nvim",
+        build = ":UpdateRemotePlugins",
+        enabled = false,
+        ft = "python",
+        config = function()
+            require("user.plugins.magma-nvim")
+        end,
+    },
 }, {
     defaults = {
         lazy = true,
