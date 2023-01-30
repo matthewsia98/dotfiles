@@ -150,6 +150,7 @@ symbol = "  "
 
 [c]
 disabled = false
+# detect_extensions = ['c', 'h', 'cpp', 'hpp']
 symbol = " "
 format = '[\[$symbol($version(-$name))\]]($style)'
 
