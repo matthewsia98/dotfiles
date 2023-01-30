@@ -128,6 +128,7 @@ lazy.setup({
     -- UI
     {
         "folke/noice.nvim",
+        -- enabled = false,
         dependencies = {
             "MunifTanjim/nui.nvim",
             {

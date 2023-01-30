@@ -58,6 +58,8 @@ if installed then
                     ["aa"] = "@parameter.outer",
                     ["is"] = "@string.inner",
                     ["as"] = "@string.outer",
+                    ["ah"] = "@assignment.left",
+                    ["al"] = "@assignment.right",
                 },
                 -- selection_modes = {
                 --     ['@parameter.outer'] = 'v',

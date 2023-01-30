@@ -53,6 +53,10 @@ if installed then
             -- C
             local output = string.format("%s", head .. tail:gsub(".c", ""))
             command = string.format("gcc %s -o %s; %s", relative_path, output, output)
+        elseif filetype == "cpp" then
+            -- C++
+            local output = string.format("%s", head .. tail:gsub(".cpp", ""))
+            command = string.format("g++ %s -o %s; %s", relative_path, output, output)
         elseif filetype == "rust" then
             local output = string.format("%s", head .. tail:gsub(".rs", ""))
             command = string.format("rustc %s -o %s; %s", relative_path, output, output)
