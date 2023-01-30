@@ -1,5 +1,20 @@
 local group = vim.api.nvim_create_augroup("MyAutocmds", { clear = true })
 
+-- Create dir if it doesn't exist
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = group,
+    callback = function()
+        local head = vim.fn.expand("%:p:h")
+        local dir_exists = vim.fn.isdirectory(head)
+        if dir_exists == 0 then
+            local success = vim.fn.mkdir(head, "p")
+            if success == 1 then
+                vim.notify("Created directory " .. head, "info", { title = "Autocmd" })
+            end
+        end
+    end,
+})
+
 -- Format file before save
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = group,
