@@ -35,6 +35,9 @@ if installed then
         local relative_path = vim.fn.expand("%.")
         local head = vim.fn.expand("%:h") .. "/"
         local tail = vim.fn.expand("%:t")
+        if head == "." then
+            head = "./" .. head
+        end
 
         local command
         if filetype == "lua" then
@@ -48,27 +51,27 @@ if installed then
             command = "go run " .. relative_path
         elseif filetype == "java" then
             -- JAVA
-            command = string.format("javac %s; java -cp %s %s", relative_path, head, tail:gsub(".java", ""))
+            command = string.format("javac %s && java -cp %s %s", relative_path, head, tail:gsub(".java", ""))
         elseif filetype == "c" then
             -- C
             local output = string.format("%s", head .. tail:gsub(".c", ""))
-            command = string.format("gcc %s -o %s; %s", relative_path, output, output)
+            command = string.format("gcc %s -o %s && %s", relative_path, output, output)
         elseif filetype == "cpp" then
             -- C++
             local output = string.format("%s", head .. tail:gsub(".cpp", ""))
-            command = string.format("g++ %s -o %s; %s", relative_path, output, output)
+            command = string.format("g++ %s -o %s && %s", relative_path, output, output)
         elseif filetype == "rust" then
             local output = string.format("%s", head .. tail:gsub(".rs", ""))
-            command = string.format("rustc %s -o %s; %s", relative_path, output, output)
+            command = string.format("rustc %s -o %s && %s", relative_path, output, output)
         elseif filetype == "sh" or filetype == "zsh" then
             -- SHELL
             local absolute_path = vim.fn.expand("%:p")
             local is_executable = require("user.functions").is_executable(absolute_path)
-            local chmod = is_executable and "" or string.format("chmod +x %s; ", head .. tail)
+            local chmod = is_executable and "" or string.format("chmod +x %s && ", head .. tail)
             command = string.format("%s%s", chmod, head .. tail)
         end
 
-        vim.cmd("TermExec go_back=0 direction=vertical" .. ' cmd="' .. command .. '"')
+        vim.cmd(string.format('TermExec go_back=0 cmd="%s"', command))
     end, { desc = "Run File" })
 
     keys.map("v", "<leader>tr", ":<C-U>lua require('user.functions').send_visual_lines_to_terminal()<CR>", {
