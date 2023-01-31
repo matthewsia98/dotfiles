@@ -25,7 +25,8 @@ if installed then
 
         symbol_in_winbar = {
             enable = true,
-            show_file = false,
+            show_file = true,
+            folder_level = 99,
         },
 
         diagnostic = {

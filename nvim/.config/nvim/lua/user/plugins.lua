@@ -139,7 +139,7 @@ lazy.setup({
                 end,
             },
         },
-        event = { "CmdlineEnter" },
+        event = "VeryLazy",
         -- dev = false,
         config = function()
             require("user.plugins.noice")
