@@ -1,7 +1,8 @@
 .mypy_cache/
-nvim/.config/nvim/plugin/
-qtile/.config/qtile/__pycache__/
-zsh/.config/zsh/.zcompdump
-lazygit/.config/lazygit/state.yml
-gtk-3.0/.config/gtk-3.0/assets
-gtk-3.0/.config/gtk-3.0/*.css
+__pycache__/
+.zcompdump
+lazygit/**/state.yml
+gtk-3.0/**/assets
+gtk-3.0/**/*.css
+kitty/**/current-theme.conf
+*.bak
