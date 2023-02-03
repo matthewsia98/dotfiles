@@ -101,7 +101,7 @@ opt.splitbelow = true
 -- Only 1 global statusline
 opt.laststatus = 3
 
--- opt.statuscolumn = ""
+opt.statuscolumn = [[%!v:lua.require("user.statuscolumn").column()]]
 
 -- Code Folding
 opt.foldenable = true
