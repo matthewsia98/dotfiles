@@ -8,9 +8,6 @@ M.setup = function(opts)
         handlers = opts.handlers,
         on_attach = opts.on_attach,
 
-        single_file_support = true,
-        root_dir = lspconfig.util.root_pattern(".git", "*.py"),
-
         settings = {
             -- https://github.com/python-lsp/python-lsp-server
             pylsp = {
@@ -40,7 +37,7 @@ M.setup = function(opts)
                     },
                     rope_completion = {
                         enabled = true,
-                        eager = false,
+                        eager = true,
                     },
                     yapf = { enabled = false },
 
@@ -75,7 +72,7 @@ M.setup = function(opts)
                     },
 
                     -- Third Party Plugins
-                    -- Need to install manually in Mason pylsp venv
+                    -- Need to install in Mason pylsp venv
                     -- source ~/.local/share/nvim/mason/packages/python-lsp-server/venv/bin/activate
                     -- pip install pylsp-mypy pyls-isort python-lsp-black pylsp-rope python-lsp-ruff
                     pylsp_mypy = {

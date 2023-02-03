@@ -1,5 +1,4 @@
 local ai_installed, ai = pcall(require, "mini.ai")
-
 if ai_installed then
     ai.setup({
         custom_textobjects = {},
@@ -44,12 +43,12 @@ if map_installed then
     end, { desc = "Toggle Minimap" })
 end
 
--- local align_installed, align = pcall(require, "mini.align")
--- if align_installed then
---     align.setup({
---         mappings = {
---             start = "ga",
---             start_with_preview = "gA",
---         },
---     })
--- end
+local align_installed, align = pcall(require, "mini.align")
+if align_installed then
+    align.setup({
+        mappings = {
+            start = "ga",
+            start_with_preview = "gA",
+        },
+    })
+end

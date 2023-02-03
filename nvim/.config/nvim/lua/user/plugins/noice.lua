@@ -77,6 +77,19 @@ if installed then
                 enabled = true,
                 view = "mini",
             },
+            documentation = {
+                opts = {
+                    border = { style = "rounded" },
+                    position = {
+                        row = 2,
+                    },
+                    win_options = {
+                        winhighlight = {
+                            NormalFloat = "Normal",
+                        },
+                    },
+                },
+            },
             signature = {
                 enabled = true,
             },

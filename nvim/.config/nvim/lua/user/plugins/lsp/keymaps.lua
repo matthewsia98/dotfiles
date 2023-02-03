@@ -85,7 +85,11 @@ M.set_keymaps = function(bufnr)
     end, { buffer = bufnr, desc = "Go to Implementation" })
 
     keys.map("n", "K", function()
-        local win_id = require("ufo").peekFoldedLinesUnderCursor()
+        local ufo_installed, ufo = pcall(require, "ufo")
+        local win_id
+        if ufo_installed then
+            win_id = ufo.peekFoldedLinesUnderCursor()
+        end
         if not win_id then
             if use_lspsaga then
                 require("lspsaga.hover"):render_hover_doc()

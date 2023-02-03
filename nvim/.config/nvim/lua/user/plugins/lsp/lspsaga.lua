@@ -49,6 +49,10 @@ if installed then
             quit = "q",
             close = "<Esc>",
         },
+
+        outline = {
+            win_width = 30,
+        },
     })
 
     -- Keymaps defined in nvim-lspconfig/init.lua

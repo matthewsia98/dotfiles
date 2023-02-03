@@ -10,7 +10,6 @@
     right: (_) @assignment.right
 ) @assignment.outer
 
-
 (call
     function: (identifier)
     arguments: (argument_list

@@ -18,8 +18,10 @@ if installed then
         delete_check_events = "TextChanged,InsertLeave",
     })
 
+    luasnip.filetype_extend("sh", { "shell" })
+    luasnip.filetype_extend("zsh", { "shell" })
     require("luasnip.loaders.from_vscode").lazy_load({
-        include = { "python", "lua", "java" },
+        include = { "python", "lua", "java", "cpp", "c", "rust", "go", "shell" },
         -- exclude = { "python", },
     })
     require("luasnip.loaders.from_lua").lazy_load({

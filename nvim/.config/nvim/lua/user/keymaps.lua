@@ -119,4 +119,6 @@ map("n", "<leader>sh", "<cmd>set hlsearch!<CR>", { desc = "Toggle highlight sear
 -- map({'o', 'x'}, 'il', ':<C-u>normal! ^v$<CR>', { desc = 'inner line' })
 -- map({'o', 'x'}, 'al', ':<C-u>normal! 0v$<CR>', { desc = 'a line (with whitespace)' })
 
+map("n", "<leader>=", ":lua = ")
+
 return M

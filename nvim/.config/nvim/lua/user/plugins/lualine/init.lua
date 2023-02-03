@@ -4,8 +4,7 @@ if installed then
     local config = require("user.config")
     local utils = require("user.plugins.lualine.utils")
 
-    local catppuccin_installed, _ = pcall(require, "catppuccin")
-    local lualine_theme = catppuccin_installed and "catppuccin" or "dracula"
+    local lualine_theme = config.colorscheme.name or "dracula"
 
     lualine.setup({
         options = {

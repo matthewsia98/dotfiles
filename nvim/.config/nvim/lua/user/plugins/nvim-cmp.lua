@@ -1,20 +1,28 @@
 local installed, cmp = pcall(require, "cmp")
 
 if installed then
-    local luasnip = require("luasnip")
+    local config = require("user.config")
+
+    local luasnip_installed, luasnip = pcall(require, "luasnip")
     local lspkind = require("lspkind")
+
+    local autopairs_installed, autopairs = pcall(require, "nvim-autopairs.completion.cmp")
     local copilot_installed, copilot_suggestion = pcall(require, "copilot.suggestion")
 
     -- Insert ( after choosing function from completion menu
-    cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
+    if autopairs_installed then
+        cmp.event:on("confirm_done", autopairs.on_confirm_done())
+    end
 
     -- Hide copilot suggestion when completion menu is open
-    cmp.event:on("menu_opened", function()
-        vim.b.copilot_suggestion_hidden = true
-    end)
-    cmp.event:on("menu_closed", function()
-        vim.b.copilot_suggestion_hidden = false
-    end)
+    if copilot_installed then
+        cmp.event:on("menu_opened", function()
+            vim.b.copilot_suggestion_hidden = true
+        end)
+        cmp.event:on("menu_closed", function()
+            vim.b.copilot_suggestion_hidden = false
+        end)
+    end
 
     cmp.setup({
         -- preselect = cmp.PreselectMode.None, -- breaks cmp signature help
@@ -39,6 +47,9 @@ if installed then
                         cmdline_history = "[HIST]",
                         cmdline = "[CMD]",
                     },
+                    symbol_map = {
+                        Copilot = "",
+                    },
                 })(entry, vim_item)
                 local strings = vim.split(vim_item.kind, "%s+", { trimempty = true })
                 kind.kind = " " .. string.format("[%s] %s", strings[1], strings[2]) .. " "
@@ -47,7 +58,9 @@ if installed then
         },
         snippet = {
             expand = function(args)
-                luasnip.lsp_expand(args.body)
+                if luasnip_installed then
+                    luasnip.lsp_expand(args.body)
+                end
             end,
         },
         experimental = {
@@ -110,9 +123,9 @@ if installed then
                     local entry = cmp.get_selected_entry()
                     if not entry then
                         cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                        cmp.confirm()
-                        cmp.close()
                     end
+                    cmp.confirm()
+                    cmp.close()
                 elseif copilot_installed and copilot_suggestion.is_visible() then
                     copilot_suggestion.accept()
                 else
@@ -128,6 +141,20 @@ if installed then
                     fallback()
                 end
             end, { "i", "c" }),
+            ["<C-f>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.scroll_docs(4)
+                else
+                    fallback()
+                end
+            end, { "i" }),
+            ["<C-b>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.scroll_docs(-4)
+                else
+                    fallback()
+                end
+            end, { "i" }),
             ["<CR>"] = cmp.mapping(function(fallback)
                 if cmp.visible() and cmp.get_selected_entry() then
                     cmp.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace })
@@ -138,30 +165,29 @@ if installed then
         },
         sources = {
             -- Order Matters! OR explicitly set priority
-            { name = "luasnip", max_item_count = 10 },
-            -- { name = "copilot", max_item_count = 5 },
-            { name = "nvim_lsp", max_item_count = 20 },
-            { name = "nvim_lsp_signature_help" },
-            { name = "path", max_item_count = 10 },
-            { name = "buffer", max_item_count = 10 },
-            -- { name = "nvim_lua", max_item_count = 10 },
+            { name = "luasnip", max_item_count = 5 },
+            { name = "copilot", max_item_count = 5 },
+            { name = "nvim_lsp", max_item_count = 10 },
+            -- { name = "nvim_lsp_signature_help" }, -- handled by noice
+            { name = "path", max_item_count = 5 },
+            { name = "buffer", max_item_count = 5 },
+            -- { name = "nvim_lua", max_item_count = 5 },
         },
     })
     -- Use buffer source for `/`
     cmp.setup.cmdline("/", {
         sources = {
             { name = "buffer", max_item_count = 10 },
-            { name = "cmdline_history", max_item_count = 10 },
         },
     })
 
     -- Use cmdline & path source for ':'
     cmp.setup.cmdline(":", {
         sources = {
-            { name = "cmdline", max_item_count = 10 },
-            { name = "cmdline_history", max_item_count = 10 },
-            { name = "path", max_item_count = 10 },
-            { name = "nvim_lua", max_item_count = 10 },
+            { name = "cmdline", max_item_count = 5 },
+            { name = "cmdline_history", max_item_count = 5 },
+            { name = "path", max_item_count = 5 },
+            { name = "nvim_lua", max_item_count = 5 },
         },
     })
 end

@@ -1,36 +1,17 @@
 local installed, null_ls = pcall(require, "null-ls")
 
 if installed then
+    local config = require("user.config")
+
+    local sources = {}
+    for type, type_sources in pairs(config.lsp.null_ls_sources) do
+        for _, source in ipairs(type_sources) do
+            table.insert(sources, null_ls.builtins[type][source])
+        end
+    end
+
     null_ls.setup({
-        sources = {
-            -- PYTHON --
-            -- Diagnostics
-            -- null_ls.builtins.diagnostics.flake8,
-            -- null_ls.builtins.diagnostics.mypy,
-            -- null_ls.builtins.diagnostics.pydocstyle,
-            -- Formatting
-            null_ls.builtins.formatting.black,
-            null_ls.builtins.formatting.isort,
-
-            -- LUA --
-            -- Diagnostics
-            -- null_ls.builtins.diagnostics.luacheck,
-            -- Formatting
-            null_ls.builtins.formatting.stylua,
-
-            -- JAVA --
-            -- Formatting
-            -- null_ls.builtins.formatting.google_java_format,
-
-            -- GO --
-            null_ls.builtins.formatting.gofumpt,
-
-            -- RUST --
-            null_ls.builtins.formatting.rustfmt,
-
-            -- C --
-            null_ls.builtins.formatting.clang_format,
-        },
+        sources = sources,
         border = "rounded",
         diagnostics_format = "#{m}",
     })

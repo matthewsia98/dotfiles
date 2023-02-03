@@ -12,13 +12,24 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
+local config = require("user.config")
 local lazy = require("lazy")
 lazy.setup({
     "nvim-lua/plenary.nvim",
 
     -- COLORSCHEME
     {
+        "folke/tokyonight.nvim",
+        enabled = config.colorscheme.name == "tokyonight",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("user.plugins.tokyonight")
+        end,
+    },
+    {
         "catppuccin/nvim",
+        enabled = config.colorscheme.name == "catppuccin",
         name = "catppuccin",
         lazy = false,
         priority = 1000,
@@ -63,7 +74,7 @@ lazy.setup({
             require("user.plugins.neoscroll")
         end,
     },
-    --
+
     -- STATUS LINES
     {
         "akinsho/bufferline.nvim",
@@ -135,11 +146,17 @@ lazy.setup({
                 "rcarriga/nvim-notify",
                 lazy = false,
                 config = function()
-                    require("user.plugins.nvim-notify")
+                    -- require("user.plugins.nvim-notify")
+                    local notify = require("notify")
+                    notify.setup({
+                        timeout = 3000,
+                    })
+                    vim.notify = notify
                 end,
             },
         },
-        event = "VeryLazy",
+        -- event = "VeryLazy",  -- Causes race condition where LspAttach is fired before noice is loaded
+        event = "BufReadPost",
         -- dev = false,
         config = function()
             require("user.plugins.noice")
@@ -208,6 +225,7 @@ lazy.setup({
 
     {
         "echasnovski/mini.nvim",
+        enabled = false,
         event = "VeryLazy",
         config = function()
             require("user.plugins.mini")
@@ -295,7 +313,9 @@ lazy.setup({
         },
         event = "BufReadPre",
         config = function()
-            require("user.plugins.neodev")
+            if config.lsp.enable_neodev then
+                require("user.plugins.neodev") -- slows down lsp
+            end
             require("user.plugins.lsp")
             require("user.plugins.lsp.mason")
             require("user.plugins.lsp.mason-lspconfig")
@@ -304,7 +324,7 @@ lazy.setup({
     },
     {
         "glepnir/lspsaga.nvim",
-        event = "VeryLazy",
+        event = "BufReadPre",
         config = function()
             require("user.plugins.lsp.lspsaga")
         end,
@@ -318,11 +338,11 @@ lazy.setup({
     },
     {
         "zbirenbaum/copilot.lua",
-        event = "VeryLazy",
+        event = "InsertEnter",
         dependencies = {
             {
                 "zbirenbaum/copilot-cmp",
-                enabled = false,
+                enabled = not config.lsp.copilot.auto_trigger,
                 config = function()
                     require("user.plugins.copilot-cmp")
                 end,
@@ -343,8 +363,8 @@ lazy.setup({
     },
     {
         "rhysd/git-messenger.vim",
-        event = "BufReadPre",
         enabled = false,
+        event = "BufReadPre",
         config = function()
             require("user.plugins.git-messenger")
         end,
@@ -424,7 +444,7 @@ lazy.setup({
         path = "~/repos",
     },
     install = {
-        colorscheme = { "catppuccin" },
+        colorscheme = { "catppuccin", "tokyonight" },
     },
     performance = {
         cache = {
