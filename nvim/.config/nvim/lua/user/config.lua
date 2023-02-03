@@ -1,4 +1,9 @@
 local config = {
+    colorscheme = {
+        name = "catppuccin",
+        override_kitty = true,
+    },
+
     lualine = {
         transparent_bg = true,
         gap_between_sections = true,
@@ -12,13 +17,22 @@ local config = {
     },
 
     lsp = {
+        -- Enable neodev for vim api completion (Slows down lua language server)
+        enable_neodev = true,
+
         -- Use lspsaga for go to definition, references, hover, etc. Otherwise use built-in or trouble
-        prefer_lspsaga = false,
+        prefer_lspsaga = true,
+
+        -- Use ghost text if true. Otherwise use cmp menu
+        copilot = {
+            auto_trigger = false,
+        },
 
         --  ~/.config/nvim/lua/user/plugins/lsp/nvim-lspconfig/<server-name>.lua
         -- <server-name> should match those from https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
         lsps_to_configure = {
-            "pylsp",
+            -- "pylsp",
+            "pyright",
             "sumneko_lua",
             "jdtls",
             "clangd",
@@ -26,9 +40,23 @@ local config = {
             "rust_analyzer",
         },
 
+        -- names should match those from https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+        null_ls_sources = {
+            formatting = {
+                "black",
+                "isort",
+                "stylua",
+                "gofumpt",
+                "rustfmt",
+                "clang_format",
+            },
+        },
+
+        -- names should match those from https://github.com/williamboman/mason.nvim/blob/main/PACKAGES.md
         mason_packages_to_install = {
             -- Python
             "python-lsp-server", -- includes { "autopep8", "flake8", "mccabe", "pycodestyle", "pydocstyle", "pyflakes", "pylint", "rope", { "yapf", "whatthepatch" } }
+            "pyright",
             "black",
             "isort",
 

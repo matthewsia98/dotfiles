@@ -1,6 +1,8 @@
 local installed, catppuccin = pcall(require, "catppuccin")
 
 if installed then
+    local config = require("user.config")
+
     catppuccin.setup({
         flavour = "mocha",
         background = {
@@ -63,16 +65,20 @@ if installed then
             },
         },
         color_overrides = {
+            -- If overriding Normal, need to manually change background value in ~/.config/kitty/themes/<flavour>.conf also
             mocha = {
-                base = "#11111B",
+                base = "#181825",
             },
         },
         custom_highlights = function(colors)
             return {
+                -- If overriding Normal, need to manually change background value in ~/.config/kitty/themes/<flavour>.conf also
+                -- Normal = { bg = colors.mantle },
+                -- NormalFloat = { bg = colors.mantle },
+
                 LineNr = { fg = colors.lavender },
                 CursorLineNr = { fg = colors.lavender },
 
-                NormalFloat = { bg = colors.base },
                 WinSeparator = { fg = colors.text },
 
                 Comment = { fg = colors.overlay1 },
@@ -90,6 +96,15 @@ if installed then
             }
         end,
     })
+
+    local term = os.getenv("TERM") or ""
+    if config.colorscheme.override_kitty and term:match("kitty") then
+        local flavour = catppuccin.flavour
+        flavour = flavour:sub(1, 1):upper() .. flavour:sub(2)
+        local kitty_cmd =
+            string.format([[kitty +kitten themes --reload-in=all "Catppuccin Kitty %s" 2> /dev/null]], flavour)
+        os.execute(kitty_cmd)
+    end
 
     vim.cmd([[colorscheme catppuccin]])
 end
