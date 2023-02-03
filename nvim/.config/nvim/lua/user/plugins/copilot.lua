@@ -1,9 +1,11 @@
 local installed, copilot = pcall(require, "copilot")
 
 if installed then
+    local config = require("user.config")
+
     copilot.setup({
         panel = {
-            enabled = true,
+            enabled = false,
             auto_refresh = false,
             keymap = {
                 jump_prev = "<C-p>",
@@ -14,8 +16,8 @@ if installed then
             },
         },
         suggestion = {
-            enabled = true,
-            auto_trigger = true,
+            enabled = config.lsp.auto_trigger,
+            auto_trigger = config.lsp.auto_trigger,
             debounce = 75,
             -- Keymap defined in nvim-cmp.lua
             keymap = {

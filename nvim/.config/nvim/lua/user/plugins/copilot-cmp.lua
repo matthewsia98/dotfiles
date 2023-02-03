@@ -1,5 +1,7 @@
 local installed, copilot = pcall(require, "copilot_cmp")
 
 if installed then
-    copilot.setup()
+    copilot.setup({
+        method = "getCompletionsCycling",
+    })
 end
