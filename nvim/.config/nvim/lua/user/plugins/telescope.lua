@@ -10,14 +10,15 @@ if installed then
             layout_strategy = "horizontal",
             layout_config = {
                 horizontal = {
-                    width = 0.99,
+                    width = vim.o.columns,
+                    height = vim.o.lines,
                     preview_width = 0.5,
                     preview_cutoff = 0,
                     prompt_position = "top",
                 },
                 vertical = {
-                    width = 0.99,
-                    height = 0.99,
+                    width = vim.o.columns,
+                    height = vim.o.lines,
                     preview_height = 0.5,
                     preview_cutoff = 0,
                     prompt_position = "bottom",
@@ -77,10 +78,11 @@ if installed then
                     "--hidden",
                 },
                 mappings = {
-                    -- i = {
-                    --     ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
-                    --     ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob" }),
-                    -- }
+                    i = {
+                        -- ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+                        -- ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob" }),
+                        ["<C-f>"] = actions.to_fuzzy_refine,
+                    },
                 },
             },
             undo = {
@@ -131,6 +133,10 @@ if installed then
         builtin.current_buffer_fuzzy_find()
     end, { desc = "Fuzzy Find" })
 
+    -- keys.map("n", "<leader>fc", function()
+    --     builtin.commands()
+    -- end, { desc = "Find Commands" })
+
     keys.map("n", "<leader>fg", function()
         builtin.git_commits()
     end, { desc = "Find Git Commits" })
@@ -149,7 +155,8 @@ if installed then
 
     keys.map("n", "<leader>fa", function()
         builtin.grep_string({ only_sort_text = true, search = "" })
-    end, { desc = "" })
+        -- builtin.grep_string({ only_sort_text = true, search = "", additional_args = { "--hidden" } })
+    end, { desc = "Grep String" })
 
     keys.map("n", "<leader>fl", function()
         builtin.live_grep()

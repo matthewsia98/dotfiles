@@ -38,7 +38,7 @@ M.setup = function(opts)
                     -- stubPath = "",
 
                     -- Determines the default type-checking level used by pyright. This can be overridden in the configuration file.
-                    typeCheckingMode = "strict", -- "off" | "basic" | "strict"
+                    typeCheckingMode = "basic", -- "off" | "basic" | "strict"
 
                     -- Paths to look for typeshed modules. Pyright currently honors only the first path in the array.
                     typeshedPaths = {},

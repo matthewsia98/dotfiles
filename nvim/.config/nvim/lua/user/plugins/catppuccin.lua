@@ -1,8 +1,7 @@
-local installed, catppuccin = pcall(require, "catppuccin")
+local catppuccin_installed, catppuccin = pcall(require, "catppuccin")
+local config = require("user.config")
 
-if installed then
-    local config = require("user.config")
-
+if catppuccin_installed and config.colorscheme.name == "catppuccin" then
     catppuccin.setup({
         flavour = "mocha",
         background = {

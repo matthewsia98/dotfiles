@@ -1,5 +1,6 @@
 require("user.globals")
 require("user.options")
 require("user.keymaps")
+require("user.commands")
 require("user.autocmds")
 require("user.plugins")

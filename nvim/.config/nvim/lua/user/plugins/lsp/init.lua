@@ -36,7 +36,7 @@ vim.fn.sign_define("DiagnosticSignInfo", {
 -- Create a custom namespace. This will aggregate signs from all other
 -- namespaces and only show the one with the highest severity on a
 -- given line
-local ns = vim.api.nvim_create_namespace("my_namespace")
+local ns = vim.api.nvim_create_namespace("diagnostics_signcolumn")
 
 -- Get a reference to the original signs handler
 local orig_signs_handler = vim.diagnostic.handlers.signs

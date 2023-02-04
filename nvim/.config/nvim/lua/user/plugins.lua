@@ -20,7 +20,6 @@ lazy.setup({
     -- COLORSCHEME
     {
         "folke/tokyonight.nvim",
-        enabled = config.colorscheme.name == "tokyonight",
         lazy = false,
         priority = 1000,
         config = function()
@@ -29,7 +28,6 @@ lazy.setup({
     },
     {
         "catppuccin/nvim",
-        enabled = config.colorscheme.name == "catppuccin",
         name = "catppuccin",
         lazy = false,
         priority = 1000,

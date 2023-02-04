@@ -1,8 +1,7 @@
 local tokyonight_installed, tokyonight = pcall(require, "tokyonight")
+local config = require("user.config")
 
-if tokyonight_installed then
-    local config = require("user.config")
-
+if tokyonight_installed and config.colorscheme.name == "tokyonight" then
     tokyonight.setup({
         style = "night",
         transparent = false,
@@ -16,6 +15,15 @@ if tokyonight_installed then
             hl.FloatBorder = hl.Normal
             hl.WinSeparator = { fg = colors.fg }
             hl.NvimTreeWinSeparator = { fg = colors.fg }
+
+            hl.IndentBlanklineIndent6 = { fg = colors.yellow }
+            hl.IndentBlanklineIndent5 = { fg = colors.red }
+            hl.IndentBlanklineIndent4 = { fg = colors.teal }
+            hl.IndentBlanklineIndent3 = { fg = colors.orange }
+            hl.IndentBlanklineIndent2 = { fg = colors.blue }
+            hl.IndentBlanklineIndent1 = { fg = colors.magenta }
+            hl.IndentBlanklineContextChar = { fg = colors.green }
+            vim.cmd([[highlight IndentBlanklineContextStart cterm=underline gui=underline guisp=]] .. colors.green)
         end,
     })
 

@@ -53,7 +53,7 @@ opt.scrolloff = math.floor(vim.o.lines / 2)
 opt.number = true
 opt.relativenumber = true
 
--- Sign column with max width of 1
+-- Sign column with max width of 2 (gitsigns and diagnostics)
 opt.signcolumn = "yes:2"
 
 -- Highlight cursor line
@@ -101,6 +101,7 @@ opt.splitbelow = true
 -- Only 1 global statusline
 opt.laststatus = 3
 
+-- Configured in ~/.config/nvim/lua/user/statuscolumn.lua
 opt.statuscolumn = [[%!v:lua.require("user.statuscolumn").column()]]
 
 -- Code Folding
