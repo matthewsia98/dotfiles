@@ -13,13 +13,13 @@ local sn = ls.sn
 local rep = e.rep
 
 return {}, {
-    s("cout", {
+    s("cout ", {
         t("cout << "),
         i(1),
         t(";"),
         i(0),
     }),
-    s("cin", {
+    s("cin ", {
         t("cin >> "),
         i(1),
         t(";"),

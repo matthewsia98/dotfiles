@@ -1,11 +1,10 @@
 local config = {
     colorscheme = {
         name = "catppuccin",
-        override_kitty = true,
+        sync_kitty = true,
     },
 
     lualine = {
-        transparent_bg = true,
         gap_between_sections = true,
         separator_style = "slant", -- "box", "powerline", "round", "reverse_slant", "slant"
         max_diagnostic_length = 80,
@@ -23,16 +22,16 @@ local config = {
         -- Use lspsaga for go to definition, references, hover, etc. Otherwise use built-in or trouble
         prefer_lspsaga = true,
 
-        -- Use ghost text if true. Otherwise use cmp menu
+        -- Use virtual text if true. Otherwise use cmp menu
         copilot = {
-            auto_trigger = false,
+            auto_trigger = true,
         },
 
-        --  ~/.config/nvim/lua/user/plugins/lsp/nvim-lspconfig/<server-name>.lua
+        --  Configured in ~/.config/nvim/lua/user/plugins/lsp/nvim-lspconfig/<server-name>.lua
         -- <server-name> should match those from https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
         lsps_to_configure = {
-            -- "pylsp",
-            "pyright",
+            "pylsp",
+            -- "pyright",
             "sumneko_lua",
             "jdtls",
             "clangd",

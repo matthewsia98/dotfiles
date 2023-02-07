@@ -65,16 +65,13 @@ M.spacer = function(opts)
 
     return {
         function()
-            return char:rep(opts.length or 1)
+            return "%#Normal#" .. char:rep(opts.length or 1)
         end,
-        color = { bg = "#00000000" },
         cond = cond,
     }
 end
 
 M.cursor_diagnostic = function()
-    vim.g.lualine_current_diagnostic = nil
-
     local bufnr = vim.api.nvim_get_current_buf()
     local cursor_row = vim.fn.line(".") - 1
     local cursor_col = vim.fn.col(".") - 1
@@ -85,48 +82,44 @@ M.cursor_diagnostic = function()
         return ""
     end
 
+    local cursor_diagnostic
     -- Check if cursor on diagnostic
     for _, diagnostic in ipairs(diagnostics) do
         if cursor_col >= diagnostic.col and cursor_col <= diagnostic.end_col then
-            vim.g.lualine_current_diagnostic = diagnostic
+            cursor_diagnostic = diagnostic
             break
         end
     end
 
     -- If cursor not on diagnostic, show max severity
     local max_severity_diagnostic
-    if vim.g.lualine_current_diagnostic == nil then
+    if cursor_diagnostic == nil then
         for _, diagnostic in ipairs(diagnostics) do
             if max_severity_diagnostic == nil or diagnostic.severity < max_severity_diagnostic.severity then
                 max_severity_diagnostic = diagnostic
             end
         end
-        vim.g.lualine_current_diagnostic = max_severity_diagnostic
+        cursor_diagnostic = max_severity_diagnostic
     end
 
-    local severities = { "error", "warn", "info", "hint" }
-    local severity = severities[vim.g.lualine_current_diagnostic.severity]
-    local icon = M.diagnostics_symbols[severity]
-    local source = vim.g.lualine_current_diagnostic.source
-    local msg = vim.g.lualine_current_diagnostic.message
+    local severities = { "Error", "Warn", "Info", "Hint" }
+    local severity = severities[cursor_diagnostic.severity]
+    local sign = vim.fn.sign_getdefined("DiagnosticSign" .. severity)[1]
+    local icon = sign and sign.text or ""
+    local source = cursor_diagnostic.source
+    local msg = cursor_diagnostic.message:gsub("\n", " ")
 
-    local max_diagnostic_msg_length = config.lualine.max_diagnostic_length
-    local lualine_diagnostic_msg = string.format("%s[%s] %s", icon, source, msg)
+    local max_diagnostic_msg_length = 100
+    local include_icon = false
+    local include_source = false
+    local cursor_diagnostic_msg =
+        string.format("%s%s %s", include_icon and icon or "", include_source and "[" .. source .. "]" or "", msg)
 
-    if #lualine_diagnostic_msg > max_diagnostic_msg_length then
-        lualine_diagnostic_msg = lualine_diagnostic_msg:sub(1, max_diagnostic_msg_length) .. "..."
+    if #cursor_diagnostic_msg > max_diagnostic_msg_length then
+        cursor_diagnostic_msg = cursor_diagnostic_msg:sub(1, max_diagnostic_msg_length) .. "..."
     end
 
-    return lualine_diagnostic_msg:gsub("\n", " ")
-end
-
-M.cursor_diagnostic_color = function()
-    if vim.g.lualine_current_diagnostic then
-        local severity = string.lower(vim.diagnostic.severity[vim.g.lualine_current_diagnostic.severity])
-        severity = severity:sub(1, 1):upper() .. severity:sub(2)
-
-        return "DiagnosticSign" .. severity
-    end
+    return "%#" .. (sign and sign.texthl or "Diagnostic" .. severity) .. "#" .. cursor_diagnostic_msg
 end
 
 M.diagnostics = function(mode)

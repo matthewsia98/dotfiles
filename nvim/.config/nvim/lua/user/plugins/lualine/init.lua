@@ -50,13 +50,15 @@ if installed then
                 }),
                 -- Workspace Diagnostics
                 utils.diagnostics("workspace"),
-                utils.spacer({
-                    cond = function()
-                        return #vim.diagnostic.get(vim.api.nvim_get_current_buf()) > 0
-                    end,
-                }),
+
                 -- Document Diagnostics
-                utils.diagnostics(),
+                -- utils.spacer({
+                --     cond = function()
+                --         return #vim.diagnostic.get(vim.api.nvim_get_current_buf()) > 0
+                --     end,
+                -- }),
+                -- utils.diagnostics(),
+
                 utils.spacer({
                     cond = function()
                         return true
@@ -65,17 +67,20 @@ if installed then
                 }),
                 {
                     utils.cursor_diagnostic,
-                    color = utils.cursor_diagnostic_color,
                 },
             },
-            lualine_x = {},
+            lualine_x = {
+                utils.spacer({
+                    cond = function()
+                        return true
+                    end,
+                    force = true,
+                }),
+            },
             lualine_y = {
                 {
                     "fileformat",
                     symbols = {
-                        -- unix = "UNIX",
-                        -- dos = "DOS",
-                        -- mac = "MAC",
                         unix = "",
                         dos = "",
                         mac = "",
@@ -114,16 +119,14 @@ if installed then
         },
         extensions = {
             "quickfix",
-            -- "nvim-tree",
+            "nvim-tree",
             "toggleterm",
             "trouble",
         },
     })
 
-    if config.lualine.transparent_bg then
-        vim.cmd([[highlight lualine_c_normal guibg=#00000000]])
-        vim.cmd([[highlight lualine_c_insert guibg=#00000000]])
-        vim.cmd([[highlight lualine_c_visual guibg=#00000000]])
-        vim.cmd([[highlight lualine_c_command guibg=#00000000]])
-    end
+    vim.cmd([[highlight! default link lualine_c_normal Normal]])
+    vim.cmd([[highlight! default link lualine_c_insert Normal]])
+    vim.cmd([[highlight! default link lualine_c_visual Normal]])
+    vim.cmd([[highlight! default link lualine_c_command Normal]])
 end

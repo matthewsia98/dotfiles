@@ -23,7 +23,7 @@ lazy.setup({
         lazy = false,
         priority = 1000,
         config = function()
-            require("user.plugins.tokyonight")
+            require("user.plugins.colorscheme.tokyonight")
         end,
     },
     {
@@ -32,7 +32,7 @@ lazy.setup({
         lazy = false,
         priority = 1000,
         config = function()
-            require("user.plugins.catppuccin")
+            require("user.plugins.colorscheme.catppuccin")
         end,
     },
 
@@ -88,14 +88,6 @@ lazy.setup({
         branch = "trouble-extension",
         config = function()
             require("user.plugins.lualine")
-        end,
-    },
-    {
-        dir = "~/.config/nvim/my-plugins/statusline.nvim",
-        enabled = false,
-        lazy = false,
-        config = function()
-            require("statusline")
         end,
     },
 

@@ -29,7 +29,7 @@ M.set_keymaps = function(bufnr)
         if use_lspsaga then
             require("lspsaga.diagnostic"):show_diagnostics("", "line")
         else
-            vim.diagnostic.open_float()
+            vim.diagnostic.open_float({ scope = "line" })
         end
     end, { buffer = bufnr, desc = "Open Diagnostic Float" })
 

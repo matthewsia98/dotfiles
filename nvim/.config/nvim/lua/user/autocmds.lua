@@ -119,3 +119,21 @@ vim.on_key(function(char)
         end
     end
 end, vim.api.nvim_create_namespace("auto_hlsearch"))
+
+-- Open diagnostic float automatically
+-- vim.api.nvim_create_autocmd({ "CursorHold" }, {
+--     group = group,
+--     callback = vim.schedule_wrap(function()
+--         vim.diagnostic.open_float({ scope = "cursor", severity_sort = true })
+--     end),
+-- })
+
+-- Open nvim-tree if path is directory
+vim.api.nvim_create_autocmd("VimEnter", {
+    group = group,
+    callback = function(data)
+        if vim.fn.isdirectory(data.file) ~= 0 then
+            require("nvim-tree").open({ path = data.file })
+        end
+    end,
+})

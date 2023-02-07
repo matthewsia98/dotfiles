@@ -35,6 +35,7 @@ M.column = function()
         diagnostic_sign and ("%#" .. diagnostic_sign.texthl .. "#" .. trim(diagnostic_sign.text) .. "%*") or " ",
         "%=",
         num .. " ",
+        "%C ",
     }
 
     return table.concat(components, " ")

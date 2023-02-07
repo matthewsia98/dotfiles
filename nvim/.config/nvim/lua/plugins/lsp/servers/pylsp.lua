@@ -2,13 +2,26 @@ local M = {}
 
 M.setup = function(opts)
     local lspconfig = require("lspconfig")
+    local util = require("lspconfig.util")
+
     lspconfig["pylsp"].setup({
         capabilities = opts.capabilities,
-        flags = opts.lsp_flags,
+        flags = opts.flags,
         handlers = opts.handlers,
         on_attach = opts.on_attach,
 
-        root_dir = require("lspconfig.util").root_pattern({ "*.py" }),
+        root_dir = function(fname)
+            local root_files = {
+                "pyproject.toml",
+                "setup.py",
+                "setup.cfg",
+                "requirements.txt",
+                "Pipfile",
+            }
+            return util.root_pattern(unpack(root_files))(fname)
+                or util.find_git_ancestor(fname)
+                or vim.fn.expand("%:p:h")
+        end,
 
         settings = {
             -- https://github.com/python-lsp/python-lsp-server
@@ -38,8 +51,8 @@ M.setup = function(opts)
                         memory = false,
                     },
                     rope_completion = {
-                        enabled = true,
-                        eager = true,
+                        enabled = false,
+                        eager = false,
                     },
                     yapf = { enabled = false },
 
@@ -49,7 +62,7 @@ M.setup = function(opts)
                     jedi_completion = {
                         enabled = true,
                         fuzzy = true,
-                        eager = true,
+                        eager = false,
                         resolve_at_most = 25,
                         cache_for = { "numpy", "pandas", "torch", "matplotlib" },
                     },
