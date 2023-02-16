@@ -69,7 +69,7 @@ opt.updatetime = 200
 opt.laststatus = 3
 
 -- Sign column with max width of 2 (gitsigns and diagnostics)
-opt.signcolumn = "yes:2"
+-- opt.signcolumn = "yes:2"
 opt.statuscolumn = [[%!v:lua.require("statuscolumn").get()]]
 
 -- Enable spell check

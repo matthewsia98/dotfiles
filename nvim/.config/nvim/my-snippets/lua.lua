@@ -53,7 +53,15 @@ local snippets = {
     ),
 }
 
-return snippets
+local auto_snippets = {
+    s("fstr", {
+        t("string.format("),
+        i(1),
+        t(")"),
+    }),
+}
+
+return snippets, auto_snippets
 
 -- return {
 --     s(

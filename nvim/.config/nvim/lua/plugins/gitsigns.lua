@@ -12,6 +12,8 @@ return {
                 topdelete = { text = "" },
             },
             on_attach = function(bufnr)
+                vim.g.gitsigns_attached = true
+
                 local map = require("keymaps").map
 
                 -- Navigation

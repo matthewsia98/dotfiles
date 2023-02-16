@@ -32,7 +32,7 @@ return {
                 format = function(entry, vim_item)
                     local kind = require("lspkind").cmp_format({
                         mode = "symbol_text",
-                        preset = "default", -- "default" | "codicons"
+                        preset = "codicons", -- "default" | "codicons"
                         maxwidth = 60,
                         menu = {
                             buffer = "[BUFFER]",
@@ -62,13 +62,17 @@ return {
             window = {
                 completion = {
                     border = "rounded",
-                    winhighlight = "NormalFloat:Normal,CursorLine:Visual",
+                    -- Default
+                    -- winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+                    winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual",
                     col_offset = 0,
                     side_padding = 0,
                 },
                 documentation = {
                     border = "rounded",
-                    winhighlight = "NormalFloat:Normal",
+                    -- Default
+                    -- winhighlight = "FloatBorder:NormalFloat",
+                    winhighlight = "FloatBorder:FloatBorder",
                     zindex = 1001,
                 },
             },

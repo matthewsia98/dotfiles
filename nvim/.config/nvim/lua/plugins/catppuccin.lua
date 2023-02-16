@@ -1,3 +1,10 @@
+-- Automatically run :CatppuccinCompile whenever catppuccin.lua is updated with an autocommand
+vim.api.nvim_create_autocmd("BufWritePost", {
+    group = vim.api.nvim_create_augroup("Catppuccin", { clear = true }),
+    pattern = "catppuccin.lua",
+    command = "source <afile> | CatppuccinCompile",
+})
+
 return {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -19,6 +26,7 @@ return {
                     NeoTreeNormal = { bg = colors.base },
                     TroubleNormal = { bg = colors.base },
                     WhichKeyFloat = { bg = colors.base },
+                    TreesitterContextLineNumber = { bg = colors.mantle, fg = colors.green },
                 }
             end,
             integrations = {

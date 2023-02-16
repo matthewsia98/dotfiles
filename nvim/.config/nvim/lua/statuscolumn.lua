@@ -22,7 +22,7 @@ M.get = function()
     end
 
     local num = ""
-    if number and vim.wo.relativenumber and vim.v.virtnum == 0 then
+    if vim.wo.relativenumber and vim.v.virtnum == 0 then
         num = vim.v.relnum == 0 and vim.v.lnum or vim.v.relnum
     end
 
@@ -35,16 +35,34 @@ M.get = function()
         end
     end
 
+    local diagnostic
+    for _, client in ipairs(vim.lsp.get_active_clients()) do
+        local capabilities = client.config.capabilities
+        if capabilities and capabilities.textDocument.publishDiagnostics then
+            diagnostic = true
+            break
+        end
+    end
+
     local components = {
-        git_sign and ("%#" .. git_sign.texthl .. "#" .. trim(git_sign.text) .. "%*") or " ",
-        diagnostic_sign and ("%#" .. diagnostic_sign.texthl .. "#" .. trim(diagnostic_sign.text) .. "%*") or " ",
+        (
+            vim.g.gitsigns_attached
+                and (git_sign and ("%#" .. git_sign.texthl .. "#" .. trim(git_sign.text) .. "%*") or " ")
+            or ""
+        ),
+        (
+            diagnostic
+                and (diagnostic_sign and (" %#" .. diagnostic_sign.texthl .. "#" .. trim(diagnostic_sign.text) .. "%* ") or "  ")
+            or ""
+        ),
         "%=",
         num,
+        " ",
         "%C",
-        "",
+        " ",
     }
 
-    return table.concat(components, " ")
+    return table.concat(components, "")
 end
 
 return M

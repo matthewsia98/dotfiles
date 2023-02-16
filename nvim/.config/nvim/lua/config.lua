@@ -1,4 +1,12 @@
 local config = {
+    winbar = {
+        navic = true,
+        cwd = {
+            enabled = true,
+            highlight = "lualine_a_normal",
+        },
+    },
+
     lualine = {
         style = "box", -- powerline | box | round | slant | reverse_slant
         gap_between_sections = true,
@@ -33,6 +41,7 @@ local config = {
             "clangd",
             "gopls",
             "rust_analyzer",
+            "bashls",
         },
 
         mason_packages_to_install = {
@@ -60,6 +69,10 @@ local config = {
             -- Rust
             "rust-analyzer",
             "rustfmt",
+
+            -- Shell
+            "bash-language-server",
+            "shellcheck",
         },
 
         null_ls_sources = {
