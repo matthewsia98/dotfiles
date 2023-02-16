@@ -1,5 +1,3 @@
-# vim: set ft=zsh:
-
 set_title () { 
 	print -Pn "\e]0;%n@%m: %~\a" 
 }
@@ -80,6 +78,13 @@ clean-nvim () {
     sudo rm -r ~/.local/state/nvim/^(undo)*
 }
 
+build-nvim () {
+    cd ~/repos/neovim
+    git fetch origin --tags --force
+    git checkout nightly
+    sudo make && sudo make install
+}
+
 update-mirrorlist() {
     num=10
     if [[ "$1" != "" ]]
@@ -88,3 +93,5 @@ update-mirrorlist() {
     fi
     sudo reflector --country "Canada,United States" --latest "$num" --protocol http,https --sort rate --save /etc/pacman.d/mirrorlist
 }
+
+# vim: set ft=zsh:

@@ -1,9 +1,9 @@
 source ~/.config/zsh/functions
 source ~/.config/zsh/aliases
 
-
+ # lets files beginning with a . be matched without explicitly specifying the dot
 setopt globdots
-setopt extended_glob
+setopt extendedglob
 
 
 ########################################################
@@ -215,7 +215,9 @@ bindkey -M vicmd "p" vi-paste-from-system-clip
 # Node Version Manager
 source /usr/share/nvm/init-nvm.sh
 
+# colorscript -r
+
 # neofetch
 # neofetch --ascii ~/.config/neofetch/ascii/bat_ascii --ascii_colors 4
-pfetch
-# colorscript -r
+# pfetch
+nitch
