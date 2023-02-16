@@ -1,15 +1,16 @@
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
-local cmp_installed, cmp = pcall(require, "cmp_nvim_lsp")
-local capabilities = cmp_installed and cmp.default_capabilities() or vim.lsp.protocol.make_client_capabilities()
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local flags = {
     allow_incremental_sync = true,
     debounce_text_changes = 150,
 }
 local handlers = {}
+
 local on_attach = function(client, bufnr)
     require("plugins.lsp.keymaps").set_keymaps(client, bufnr)
+    require("nvim-navic").attach(client, bufnr)
 end
 
 local config = require("config")

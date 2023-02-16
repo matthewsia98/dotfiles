@@ -13,7 +13,7 @@ require("lspsaga").setup({
     },
 
     symbol_in_winbar = {
-        enable = true,
+        enable = false,
         show_file = true,
         folder_level = 99,
     },

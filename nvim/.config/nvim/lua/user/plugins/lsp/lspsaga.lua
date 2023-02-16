@@ -54,6 +54,4 @@ if installed then
             win_width = 30,
         },
     })
-
-    -- Keymaps defined in nvim-lspconfig/init.lua
 end

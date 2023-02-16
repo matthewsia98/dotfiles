@@ -11,9 +11,6 @@ return {
                     return math.floor(vim.o.lines * 0.4)
                 end
             end,
-            on_open = function(term)
-                vim.api.nvim_win_set_option(term.window, "statuscolumn", "")
-            end,
         })
     end,
     keys = {
@@ -56,7 +53,8 @@ return {
                 elseif filetype == "sh" or filetype == "zsh" then
                     -- SHELL
                     local absolute_path = vim.fn.expand("%:p")
-                    local is_executable = require("user.functions").is_executable(absolute_path)
+                    local perms = vim.fn.getfperm(absolute_path)
+                    local is_executable = perms:sub(3, 3) == "x"
                     local chmod = is_executable and "" or string.format("chmod +x %s && ", head .. tail)
                     command = string.format("%s%s", chmod, head .. tail)
                 end

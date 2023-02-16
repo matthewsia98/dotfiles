@@ -3,6 +3,7 @@ return {
     cmd = "Neotree",
     config = function()
         require("neo-tree").setup({
+            close_if_last_window = true,
             enable_git_status = true,
             enable_diagnostics = true,
             filesystem = {
@@ -17,14 +18,6 @@ return {
                 width = 40,
                 mappings = {
                     ["<space>"] = false,
-                },
-            },
-            event_handlers = {
-                {
-                    event = "neo_tree_window_after_open",
-                    handler = function(args)
-                        vim.api.nvim_win_set_option(args.winid, "statuscolumn", "")
-                    end,
                 },
             },
         })

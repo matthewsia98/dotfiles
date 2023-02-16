@@ -1,60 +1,56 @@
 local map = require("keymaps").map
 local config = require("config")
+local goto_provider = config.lsp.goto_provider or "builtin"
+local actions_provider = config.lsp.actions_provider or "builtin"
 
 local M = {}
 
 M.set_keymaps = function(client, bufnr)
-    map("n", "<leader>d", function()
-        vim.diagnostic.open_float({ scope = "line" })
-    end, { buffer = bufnr, desc = "Open Diagnostic Float" })
-
-    map("n", "[d", function()
-        vim.diagnostic.goto_prev()
-    end, { buffer = bufnr, desc = "Previous Diagnostic" })
-    map("n", "]d", function()
-        vim.diagnostic.goto_next()
-    end, { buffer = bufnr, desc = "Next Diagnostic" })
-
-    if config.lsp.goto_provider == "buiitlin" then
-        map("n", "gd", function()
-            vim.lsp.buf.definition()
-        end, { buffer = bufnr, desc = "Go to Definition" })
-        map("n", "gr", function()
-            vim.lsp.buf.references()
-        end, { buffer = bufnr, desc = "Go to References" })
-        map("n", "gi", function()
-            vim.lsp.buf.implementation()
-        end, { buffer = bufnr, desc = "Go to Implementation" })
+    if goto_provider == "trouble" then
+        map("n", "gd", "<CMD>TroubleToggle lsp_definitions<CR>", { buffer = bufnr, desc = "Go to Definition" })
+        map("n", "gr", "<CMD>TroubleToggle lsp_references<CR>", { buffer = bufnr, desc = "Go to References" })
+        -- stylua: ignore
+        map( "n", "gt", "<CMD>TroubleToggle lsp_type_definitions<CR>", { buffer = bufnr, desc = "Go to Type Definition" })
+    elseif goto_provider == "telescope" then
+        map("n", "gd", "<CMD>Telescope lsp_definitions<CR>", { buffer = bufnr, desc = "Go to Definition" })
+        map("n", "gr", "<CMD>Telescope lsp_references<CR>", { buffer = bufnr, desc = "Go to References" })
+        map("n", "gt", "<CMD>Telescope lsp_type_definitions<CR>", { buffer = bufnr, desc = "Go to Type Definition" })
+    elseif goto_provider == "lspsaga" then
+        map("n", "gd", "<CMD>Lspsaga peek_definition<CR>", { buffer = bufnr, desc = "Go to Definition" })
+        map("n", "gr", "<CMD>Lspsaga lsp_finder<CR>", { buffer = bufnr, desc = "Go to References" })
+        map("n", "gt", "<CMD>Lspsaga peek_type_definition<CR>", { buffer = bufnr, desc = "Go to Type Definition" })
+    else
+        map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to Definition" })
+        map("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "Go to References" })
+        map("n", "gt", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Go to Type Definition" })
     end
 
-    map("n", "K", function()
-        if not require("ufo").peekFoldedLinesUnderCursor() then
-            vim.lsp.buf.hover()
-        end
-    end, { buffer = bufnr, desc = "Hover" })
+    if actions_provider == "lspsaga" then
+        -- stylua: ignore
+        map( "n", "<leader>d", "<CMD>Lspsaga show_line_diagnostics<CR>", { buffer = bufnr, desc = "Open Diagnostic Float" })
+        map("n", "[d", "<CMD>Lspsaga diagnostic_jump_prev<CR>", { buffer = bufnr, desc = "Previous Diagnostic" })
+        map("n", "]d", "<CMD>Lspsaga diagnostic_jump_next<CR>", { buffer = bufnr, desc = "Next Diagnostic" })
+        map("n", "K", "<CMD>Lspsaga hover_doc<CR>", { buffer = bufnr, desc = "Hover" })
+        map("n", "<leader>rn", "<CMD>Lspsaga rename<CR>", { buffer = bufnr, desc = "Rename" })
+        map({ "n", "v" }, "<leader>ca", "<CMD>Lspsaga code_action<CR>", { buffer = bufnr, desc = "Code Action" })
+    else
+        map("n", "<leader>d", vim.diagnostic.open_float, { buffer = bufnr, desc = "Open Diagnostic Float" })
+        map("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr, desc = "Previous Diagnostic" })
+        map("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr, desc = "Next Diagnostic" })
+        map("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
+        map("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
+        map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
+    end
 
-    map("i", "<C-s>", function()
-        vim.lsp.buf.signature_help()
-    end, { buffer = bufnr, desc = "Signature Help" })
-
-    map("n", "<leader>rn", function()
-        vim.lsp.buf.rename()
-    end, { buffer = bufnr, desc = "Rename" })
-
-    map({ "n", "v" }, "<leader>ca", function()
-        vim.lsp.buf.code_action()
-    end, { buffer = bufnr, desc = "Code Action" })
+    map("i", "<C-s>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature Help" })
 
     map("n", "<leader>fm", function()
         vim.lsp.buf.format({ name = "null-ls" })
+        vim.notify("Formatted with null-ls", "info", { title = "LSP" })
     end, { buffer = bufnr, desc = "Format" })
 
-    map("n", "<leader>wa", function()
-        vim.lsp.buf.add_workspace_folder()
-    end, { buffer = bufnr, desc = "Add workspace folder" })
-    map("n", "<leader>wr", function()
-        vim.lsp.buf.remove_workspace_folder()
-    end, { buffer = bufnr, desc = "Remove workspace folder" })
+    map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { buffer = bufnr, desc = "Add workspace folder" })
+    map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, { buffer = bufnr, desc = "Remove workspace folder" })
     map("n", "<leader>wls", function()
         vim.notify(table.concat(vim.lsp.buf.list_workspace_folders(), "\n"), "info", {
             title = "Workspace Folders",

@@ -2,7 +2,7 @@ local M = {}
 
 M.setup = function(opts)
     local lspconfig = require("lspconfig")
-    lspconfig["clangd"].setup({
+    lspconfig.clangd.setup({
         capabilities = opts.capabilities,
         flags = opts.flags,
         handlers = opts.handlers,

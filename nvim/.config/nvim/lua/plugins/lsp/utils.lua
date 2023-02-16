@@ -20,7 +20,7 @@ local M = {}
 
 M.setup = function(opts)
     local lspconfig = require("lspconfig")
-    lspconfig["%s"].setup({
+    lspconfig.%s.setup({
         capabilities = opts.capabilities,
         flags = opts.flags,
         handlers = opts.handlers,

@@ -8,6 +8,8 @@ return {
             signs = {
                 add = { text = "▍" },
                 change = { text = "▍" },
+                delete = { text = "" },
+                topdelete = { text = "" },
             },
             on_attach = function(bufnr)
                 local map = require("keymaps").map

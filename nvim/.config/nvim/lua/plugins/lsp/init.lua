@@ -22,11 +22,18 @@ return {
             require("plugins.lsp.null_ls")
         end,
     },
-    -- {
-    --     "glepnir/lspsaga.nvim",
-    --     event = "BufReadPre",
-    --     config = function()
-    --         require("plugins.lsp.lspsaga")
-    --     end,
-    -- },
+    {
+        "glepnir/lspsaga.nvim",
+        cmd = "Lspsaga",
+        -- event = "BufReadPre",
+        config = function()
+            require("plugins.lsp.lspsaga")
+        end,
+    },
+    {
+        "SmiteshP/nvim-navic",
+        config = function()
+            require("plugins.lsp.navic")
+        end,
+    },
 }

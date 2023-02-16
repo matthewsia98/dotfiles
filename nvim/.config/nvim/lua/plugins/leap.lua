@@ -1,5 +1,6 @@
-local forward_key = ";"
-local backward_key = "-"
+local config = require("config").leap
+local forward_key = config and config.forward_key or "s"
+local backward_key = config and config.backward_key or "S"
 
 return {
     "ggandor/leap.nvim",

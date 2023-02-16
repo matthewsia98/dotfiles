@@ -62,7 +62,7 @@ return {
             window = {
                 completion = {
                     border = "rounded",
-                    winhighlight = "NormalFloat:Normal,CursorLine:PmenuSel",
+                    winhighlight = "NormalFloat:Normal,CursorLine:Visual",
                     col_offset = 0,
                     side_padding = 0,
                 },
@@ -169,8 +169,8 @@ return {
 
         cmp.setup.cmdline(":", {
             sources = {
-                { name = "cmdline_history", max_item_count = 5 },
                 { name = "cmdline", max_item_count = 10 },
+                { name = "cmdline_history", max_item_count = 5 },
                 { name = "nvim_lsp", max_item_count = 10 },
                 { name = "path", max_item_count = 5 },
             },

@@ -7,6 +7,7 @@ end
 M.get_signs = function()
     local buf = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
     local signs = vim.fn.sign_getplaced(buf, { group = "*", lnum = vim.v.lnum })[1].signs
+
     local function get_sign(sign)
         return vim.fn.sign_getdefined(sign.name)[1]
     end
@@ -14,7 +15,17 @@ M.get_signs = function()
     return vim.tbl_map(get_sign, signs)
 end
 
-M.column = function()
+M.get = function()
+    local number = vim.api.nvim_win_get_option(vim.g.statusline_winid, "number")
+    if not number then
+        return ""
+    end
+
+    local num = ""
+    if number and vim.wo.relativenumber and vim.v.virtnum == 0 then
+        num = vim.v.relnum == 0 and vim.v.lnum or vim.v.relnum
+    end
+
     local diagnostic_sign, git_sign
     for _, s in ipairs(M.get_signs()) do
         if s.name:find("GitSign") then
@@ -24,18 +35,13 @@ M.column = function()
         end
     end
 
-    local num = ""
-    local number = vim.api.nvim_win_get_option(vim.g.statusline_winid, "number")
-    if number and vim.wo.relativenumber and vim.v.virtnum == 0 then
-        num = vim.v.relnum == 0 and vim.v.lnum or vim.v.relnum
-    end
-
     local components = {
         git_sign and ("%#" .. git_sign.texthl .. "#" .. trim(git_sign.text) .. "%*") or " ",
         diagnostic_sign and ("%#" .. diagnostic_sign.texthl .. "#" .. trim(diagnostic_sign.text) .. "%*") or " ",
         "%=",
-        num .. " ",
-        "%C ",
+        num,
+        "%C",
+        "",
     }
 
     return table.concat(components, " ")

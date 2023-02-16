@@ -10,3 +10,8 @@ unmuted
 utf
 catppuccin
 bufferline
+lsp
+lspconfig
+statuscolumn
+keymap
+dir

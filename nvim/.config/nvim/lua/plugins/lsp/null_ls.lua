@@ -11,5 +11,4 @@ end
 null_ls.setup({
     sources = sources,
     border = "rounded",
-    diagnostics_format = "#{m}",
 })

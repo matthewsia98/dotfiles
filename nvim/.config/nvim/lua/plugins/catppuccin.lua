@@ -15,14 +15,17 @@ return {
                     WinSeparator = { fg = colors.text },
 
                     NoiceCursor = { bg = colors.text, fg = colors.base },
+                    NoiceSplit = { bg = colors.base },
                     NeoTreeNormal = { bg = colors.base },
                     TroubleNormal = { bg = colors.base },
+                    WhichKeyFloat = { bg = colors.base },
                 }
             end,
             integrations = {
                 cmp = true,
                 dashboard = true,
                 gitsigns = true,
+                harpoon = true,
                 leap = true,
                 mason = true,
                 neotree = true,
@@ -41,6 +44,9 @@ return {
                     colored_indent_levels = true,
                 },
                 native_lsp = {
+                    enabled = true,
+                },
+                navic = {
                     enabled = true,
                 },
             },

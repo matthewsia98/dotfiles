@@ -4,7 +4,7 @@ M.setup = function(opts)
     local lspconfig = require("lspconfig")
     local util = require("lspconfig.util")
 
-    lspconfig["pylsp"].setup({
+    lspconfig.pylsp.setup({
         capabilities = opts.capabilities,
         flags = opts.flags,
         handlers = opts.handlers,

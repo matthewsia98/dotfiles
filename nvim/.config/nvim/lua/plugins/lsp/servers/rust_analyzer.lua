@@ -2,7 +2,7 @@ local M = {}
 
 M.setup = function(opts)
     local lspconfig = require("lspconfig")
-    lspconfig["rust_analyzer"].setup({
+    lspconfig.rust_analyzer.setup({
         capabilities = opts.capabilities,
         flags = opts.flags,
         handlers = opts.handlers,

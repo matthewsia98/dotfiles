@@ -1,21 +1,34 @@
 local config = {
     lualine = {
-        style = "slant",
+        style = "box", -- powerline | box | round | slant | reverse_slant
         gap_between_sections = true,
         diagnostics = {
-            max_length = 100,
-            icon = true,
-            source = true,
+            max_length = 60,
+            icon = false,
+            source = false,
         },
     },
 
+    leap = {
+        forward_key = ";",
+        backward_key = "-",
+    },
+
+    diagnostic = {
+        virtual_text = true,
+    },
+
     lsp = {
-        goto_provider = "trouble",
+        -- Go to definition, reference, type definition
+        goto_provider = "trouble", -- trouble | telescope | lspsaga | builtin
+
+        -- Code action, hover, rename, diagnostics
+        actions_provider = "builtin", -- lspsaga | builtin
 
         lsps_to_configure = {
-            "pylsp",
-            -- "pyright",
-            "sumneko_lua",
+            -- "pylsp",
+            "pyright",
+            "lua_ls",
             "jdtls",
             "clangd",
             "gopls",

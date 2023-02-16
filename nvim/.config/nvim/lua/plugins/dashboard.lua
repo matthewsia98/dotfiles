@@ -4,6 +4,9 @@ return {
     config = function()
         require("dashboard").setup({
             theme = "doom",
+            hide = {
+                tabline = false,
+            },
             config = {
                 header = {}, --your header
                 center = {
@@ -26,16 +29,16 @@ return {
                         action = "Telescope find_files find_command=rg,--hidden,--files",
                     },
                     {
-                        icon = "  ",
+                        icon = "  ",
                         icon_hl = "String",
                         desc = "File Tree       ",
                         desc_hl = "String",
                         key = "t",
                         key_hl = "String",
-                        action = "NvimTreeToggle",
+                        action = "Neotree toggle",
                     },
                     {
-                        icon = "󱚠  ",
+                        icon = "  ",
                         icon_hl = "String",
                         desc = "Config          ",
                         desc_hl = "String",
@@ -53,16 +56,7 @@ return {
                         action = "e ~/.config/nvim/lua/user/options.lua",
                     },
                     {
-                        icon = "  ",
-                        icon_hl = "String",
-                        desc = "Plugins         ",
-                        desc_hl = "String",
-                        key = "p",
-                        key_hl = "String",
-                        action = "e ~/.config/nvim/lua/user/plugins.lua",
-                    },
-                    {
-                        icon = "󰤆  ",
+                        icon = "  ",
                         icon_hl = "String",
                         desc = "Quit         ",
                         desc_hl = "String",
