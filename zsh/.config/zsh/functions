@@ -1,97 +1,106 @@
-set_title () { 
-	print -Pn "\e]0;%n@%m: %~\a" 
-}
-
-toggle_program () {
-    program="$1"
-    c1=${program:0:1}
-    c2=${program:1:#program}
-    running=$(pgrep "[$c1]$c2")
-
-    if [ "$running" = "" ] ; then
-        $program
-    else
-        killall "$program"
-    fi
-}
-
 # Yank to the system clipboard
 vi-yank-to-system-clip () {
     zle vi-yank
 
-    if [ "$XDG_SESSION_TYPE" = "wayland" ]
+    if [ "${XDG_SESSION_TYPE}" = "wayland" ]
     then
-        echo "$CUTBUFFER" | wl-copy
-    elif [ "$XDG_SESSION_TYPE" = "x11" ]
+        echo "${CUTBUFFER}" | wl-copy
+    elif [ "${XDG_SESSION_TYPE}" = "x11" ]
     then
-        echo "$CUTBUFFER" | xclip -i -selection clipboard
+        echo "${CUTBUFFER}" | xclip -i -selection clipboard
     fi
 }
 zle -N vi-yank-to-system-clip
 vi-yank-line-to-system-clip () {
     zle vi-yank-whole-line
 
-    if [ "$XDG_SESSION_TYPE" = "wayland" ]
+    if [ "${XDG_SESSION_TYPE}" = "wayland" ]
     then
-        echo "$CUTBUFFER" | wl-copy
-    elif [ "$XDG_SESSION_TYPE" = "x11" ]
+        echo "${CUTBUFFER}" | wl-copy
+    elif [ "${XDG_SESSION_TYPE}" = "x11" ]
     then
-        echo "$CUTBUFFER" | xclip -i -selection clipboard
+        echo "${CUTBUFFER}" | xclip -i -selection clipboard
     fi
 }
 zle -N vi-yank-line-to-system-clip
 
 # Paste from system clipboard
 vi-paste-from-system-clip () {
-    if [ "$XDG_SESSION_TYPE" = "wayland" ]
+    if [ "${XDG_SESSION_TYPE}" = "wayland" ]
     then
-        RBUFFER=$(wl-paste)$RBUFFER
-    elif [ "$XDG_SESSION_TYPE" = "x11" ]
+        RBUFFER=$(wl-paste)${RBUFFER}
+    elif [ "${XDG_SESSION_TYPE}" = "x11" ]
     then
-        RBUFFER=$(xclip -o -selection clipboard)$RBUFFER
+        RBUFFER=$(xclip -o -selection clipboard)${RBUFFER}
     fi
 }
 zle -N vi-paste-from-system-clip
 
 ctrl-backspace () {
-    if [[ "$LBUFFER" = *"/"* ]]
+    if [[ "${LBUFFER}" = *"/"* ]]
     then
-        curr_char="$LBUFFER[$CURSOR]"
+        curr_char="${LBUFFER[$CURSOR]}"
         if [[ "$curr_char" = "/" ]]
         then
             LBUFFER=${LBUFFER::-1}
         fi
 
         # Delete including /
-        LBUFFER=$(sed "s/\(.*\)\(\/.*\)/\1/" <<< "$LBUFFER")
+        LBUFFER=$(sed "s/\(.*\)\(\/.*\)/\1/" <<< "${LBUFFER}")
 
         # Delete excluding /
-        # LBUFFER=$(sed "s/\(.*\/\)\(.*\)/\1/" <<< "$LBUFFER")
+        # LBUFFER=$(sed "s/\(.*\/\)\(.*\)/\1/" <<< "${LBUFFER}")
     else
         zle vi-backward-kill-word
     fi
 }
 zle -N ctrl-backspace
 
+# shellcheck disable=SC1009,SC1036,SC1056,SC1072,SC1073
 clean-nvim () {
-    sudo rm -r ~/.local/share/nvim
-    sudo rm -r ~/.local/state/nvim/^(undo)*
+    sudo rm -r ${HOME}/.local/share/nvim
+    sudo rm -r ${HOME}/.local/state/nvim/^(undo|shada)*
 }
 
 build-nvim () {
-    cd ~/repos/neovim
-    git fetch origin --tags --force
-    git checkout nightly
-    sudo make && sudo make install
-}
-
-update-mirrorlist() {
-    num=10
-    if [[ "$1" != "" ]]
+    tag="$1"
+    if [[ "${tag}" == "" ]]
     then
-        num="$1"
+        tag="master"
     fi
-    sudo reflector --country "Canada,United States" --latest "$num" --protocol http,https --sort rate --save /etc/pacman.d/mirrorlist
+
+    cd ${HOME}/repos/neovim || return
+    git checkout master
+    sudo rm -rf ./build/
+    git pull origin --tags --force
+    git checkout "${tag}"
+    sudo rm -rf ./build/
+    sudo rm -rf /usr/local/share/nvim/runtime/
+    sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
 }
 
-# vim: set ft=zsh:
+update-mirrorlist () {
+    num="$1"
+    if [[ "${num}" == "" ]]
+    then
+        num=10
+    fi
+
+    sudo reflector --country "Canada,United States" --latest "${num}" --protocol http,https --sort rate --save /etc/pacman.d/mirrorlist
+}
+
+set-hyprland-opacity () {
+    program="$1"
+    opacity="$2"
+    if [[ "${program}" == "" || "${opacity}" == "" ]]
+    then
+        return
+    fi
+
+    sub="s/(^windowrule.*opacity.*)([0-9]\.[0-9]+ [0-9]\.[0-9]+)(.*${program}.*)/\1${opacity} ${opacity}\3/"
+    sed -i.bak -E "$sub" "$HOME/.config/hypr/hyprland.conf"
+
+    printf "Set opacity of %s to %s" "${program}" "${opacity}"
+}
+
+# vim: set ft=sh:
