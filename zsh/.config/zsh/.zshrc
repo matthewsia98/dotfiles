@@ -199,6 +199,9 @@ bindkey -M menuselect "j" vi-down-line-or-history
 
 bindkey -M vicmd "y" vi-yank-to-system-clip
 bindkey -M vicmd "yy" vi-yank-line-to-system-clip
+bindkey -M vicmd "Y" vi-yank-eol-to-system-clip
+bindkey -M vicmd "dd" vi-delete-line-to-system-clip
+bindkey -M vicmd "D" vi-delete-eol-to-system-clip
 bindkey -M vicmd "p" vi-paste-from-system-clip
 
 
@@ -221,3 +224,5 @@ source /usr/share/nvm/init-nvm.sh
 # neofetch --ascii ~/.config/neofetch/ascii/bat_ascii --ascii_colors 4
 # pfetch
 nitch
+
+# vim: set ft=sh:

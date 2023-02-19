@@ -1,7 +1,4 @@
-# Yank to the system clipboard
-vi-yank-to-system-clip () {
-    zle vi-yank
-
+cutbuffer-to-system-clip () {
     if [ "${XDG_SESSION_TYPE}" = "wayland" ]
     then
         echo "${CUTBUFFER}" | wl-copy
@@ -10,22 +7,8 @@ vi-yank-to-system-clip () {
         echo "${CUTBUFFER}" | xclip -i -selection clipboard
     fi
 }
-zle -N vi-yank-to-system-clip
-vi-yank-line-to-system-clip () {
-    zle vi-yank-whole-line
 
-    if [ "${XDG_SESSION_TYPE}" = "wayland" ]
-    then
-        echo "${CUTBUFFER}" | wl-copy
-    elif [ "${XDG_SESSION_TYPE}" = "x11" ]
-    then
-        echo "${CUTBUFFER}" | xclip -i -selection clipboard
-    fi
-}
-zle -N vi-yank-line-to-system-clip
-
-# Paste from system clipboard
-vi-paste-from-system-clip () {
+paste-from-system-clip () {
     if [ "${XDG_SESSION_TYPE}" = "wayland" ]
     then
         RBUFFER=$(wl-paste)${RBUFFER}
@@ -33,6 +16,42 @@ vi-paste-from-system-clip () {
     then
         RBUFFER=$(xclip -o -selection clipboard)${RBUFFER}
     fi
+}
+
+# Yank to the system clipboard
+vi-yank-to-system-clip () {
+    zle vi-yank
+    cutbuffer-to-system-clip
+}
+zle -N vi-yank-to-system-clip
+
+vi-yank-line-to-system-clip () {
+    zle vi-yank-whole-line
+    cutbuffer-to-system-clip
+}
+zle -N vi-yank-line-to-system-clip
+
+vi-yank-eol-to-system-clip () {
+    zle vi-yank-eol
+    cutbuffer-to-system-clip
+}
+zle -N vi-yank-eol-to-system-clip
+
+vi-delete-line-to-system-clip () {
+    zle kill-whole-line
+    cutbuffer-to-system-clip
+}
+zle -N vi-delete-line-to-system-clip
+
+vi-delete-eol-to-system-clip () {
+    zle vi-kill-eol
+    cutbuffer-to-system-clip
+}
+zle -N vi-delete-eol-to-system-clip
+
+# Paste from system clipboard
+vi-paste-from-system-clip () {
+    paste-from-system-clip
 }
 zle -N vi-paste-from-system-clip
 
@@ -51,7 +70,7 @@ ctrl-backspace () {
         # Delete excluding /
         # LBUFFER=$(sed "s/\(.*\/\)\(.*\)/\1/" <<< "${LBUFFER}")
     else
-        zle vi-backward-kill-word
+        zle backward-kill-word
     fi
 }
 zle -N ctrl-backspace
