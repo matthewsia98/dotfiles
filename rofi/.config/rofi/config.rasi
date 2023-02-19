@@ -1,5 +1,5 @@
 configuration {
-    font: "RobotoMono Nerd Font Medium 18";
+    font: "JetBrains Mono Nerd Font Medium 16";
 
     sidebar-mode: true;
     hide-scrollbar: true;
@@ -31,4 +31,4 @@ configuration {
 }
 
 
-@theme "catppuccin-macchiato"
+@theme "catppuccin-mocha"

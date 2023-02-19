@@ -67,7 +67,7 @@ listview {
 }
 
 element {
-    padding: 20px;
+    padding: 10px;
     background-color: @bg-col;
     text-color: @fg-col  ;
 }
