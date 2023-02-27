@@ -119,5 +119,3 @@ set-hyprland-opacity () {
 
     printf "Set opacity of %s to %s" "${program}" "${opacity}"
 }
-
-# vim: set ft=zsh:
