@@ -14,8 +14,9 @@ alias ...="cd ../.."
 alias hg="history 1 | grep"
 alias grep="grep --color=auto"
 alias ls="lsd -l"
-alias ll="lsd -alhL"
-alias lll="lsd -alhLR"
+alias ll="lsd -alh"
+alias lll="lsd -alhL"
+alias dirs="dirs -v"
 alias cp="cp -rv"
 alias rm="rm -v"
 alias mkdir="mkdir -pv"
@@ -43,6 +44,7 @@ then
     alias dunst="dunst -config ~/.config/dunst/dunstrc"
     alias img="feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info "echo %wx%h" --image-bg #494D54"
 fi
+alias syncthing-web="xdg-open http://localhost:8384"
 
 # Git
 alias gcl="git clone"

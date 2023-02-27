@@ -65,10 +65,10 @@ ctrl-backspace () {
         fi
 
         # Delete including /
-        LBUFFER=$(sed "s/\(.*\)\(\/.*\)/\1/" <<< "${LBUFFER}")
+        # LBUFFER=$(sed "s/\(.*\)\(\/.*\)/\1/" <<< "${LBUFFER}")
 
         # Delete excluding /
-        # LBUFFER=$(sed "s/\(.*\/\)\(.*\)/\1/" <<< "${LBUFFER}")
+        LBUFFER=$(sed "s/\(.*\/\)\(.*\)/\1/" <<< "${LBUFFER}")
     else
         zle backward-kill-word
     fi
@@ -89,10 +89,8 @@ build-nvim () {
     fi
 
     cd ${HOME}/repos/neovim || return
-    git checkout master
-    sudo rm -rf ./build/
-    git pull origin --tags --force
     git checkout "${tag}"
+    git pull origin --tags --force
     sudo rm -rf ./build/
     sudo rm -rf /usr/local/share/nvim/runtime/
     sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
@@ -122,4 +120,4 @@ set-hyprland-opacity () {
     printf "Set opacity of %s to %s" "${program}" "${opacity}"
 }
 
-# vim: set ft=sh:
+# vim: set ft=zsh:
