@@ -8,7 +8,7 @@
 
 * {
     font-family: FontAwesome, JetBrainsMono Nerd Font Mono;
-    font-size: 14px;
+    font-size: 16px;
     /* Normal: 400    Bold: 700 */
     font-weight: 600;
     border-radius: 8px;
@@ -52,7 +52,9 @@ tooltip label {
 #backlight,
 #pulseaudio,
 #battery,
-#disk {
+#disk,
+#cpu,
+#memory {
     padding: 0px 12px;
 }
 
@@ -61,8 +63,6 @@ tooltip label {
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    /* font-size: 22px; */
-    /* color: alpha(@blue, 1.0); */
 }
 
 #workspaces {
@@ -79,15 +79,11 @@ tooltip label {
     text-shadow: inherit;
 }
 #workspaces button:hover label {
-    font-size: 20px;
+    font-size: 24px;
 }
-/* #workspaces button.active { */
-/*     background-color: alpha(@sapphire, 1.0); */
-/*     border: 2px solid alpha(@base, 0.8); */
-/* } */
 #workspaces button.active label {
     color: alpha(@yellow, 1.0);
-    font-size: 20px;
+    font-size: 24px;
 }
 
 /* Hyprland Active Window */
@@ -97,18 +93,18 @@ tooltip label {
 
 #custom-updates {
     background-color: transparent;
-    font-size: 16px;
+    margin: 0px 8px;
 }
 
 #clock {
     /* background-color: alpha(@mauve, 1.0); */
     /* color: alpha(@dark-text, 1.0); */
     /* padding: 0px 24px; */
+    padding: 0px 12px;
 }
 
 #custom-notifications {
     background-color: transparent;
-    font-size: 14px;
 }
 
 #network {
@@ -138,17 +134,15 @@ tooltip label {
 }
 
 #cpu {
-    background-color: transparent;
-    /* background-color: alpha(@lavender, 1.0); */
-    color: alpha(@light-text, 1.0);
-    margin-left: 8px;
-    margin-right: 8px;
+    /* background-color: transparent; */
+    background-color: alpha(@lavender, 1.0);
+    color: alpha(@dark-text, 1.0);
 }
 
 #memory {
-    background-color: transparent;
-    /* background-color: alpha(@teal, 1.0); */
-    color: alpha(@light-text, 1.0);
+    /* background-color: transparent; */
+    background-color: alpha(@teal, 1.0);
+    color: alpha(@dark-text, 1.0);
 }
 
 #disk {
