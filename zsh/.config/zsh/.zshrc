@@ -16,7 +16,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="bg=#494D64,fg=#CAD3F5,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 zmodload zsh/complist
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -d ~/.cache/zsh/.zcompdump
 [ -f ~/.config/zsh/fzf.zsh ] && source ~/.config/zsh/fzf.zsh
 [ -f ~/.config/zsh/fzf_tab.zsh ] && source ~/.config/zsh/fzf_tab.zsh
 [ -f ~/.config/zsh/zstyles.zsh ] && source ~/.config/zsh/zstyles.zsh
