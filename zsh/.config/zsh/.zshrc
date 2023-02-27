@@ -27,8 +27,8 @@ autoload -Uz compinit && compinit
 # Node Version Manager
 [ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
 
+# System Fetch
 # colorscript -r
 # neofetch
-# neofetch --ascii ~/.config/neofetch/ascii/bat_ascii --ascii_colors 4
 # pfetch
 nitch

@@ -10,3 +10,6 @@ setopt INC_APPEND_HISTORY
 setopt EXTENDED_HISTORY
 
 setopt HIST_IGNORE_ALL_DUPS
+
+# cd if command is name of directory
+setopt AUTO_CD
