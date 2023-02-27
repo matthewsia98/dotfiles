@@ -4,13 +4,19 @@ bindkey -v
 bindkey "^a" beginning-of-line
 bindkey "^e" end-of-line
 
+# ctrl-backspace
 bindkey "^h" ctrl-backspace
 
 bindkey "^p" up-line-or-search
 bindkey "^n" down-line-or-search
 
+# ctrl-x h
 bindkey '^Xh' _complete_help
 
+# backspace
+bindkey '^?' backward-delete-char
+
+# ctrl-space
 bindkey "^ " autosuggest-accept
 
 bindkey -M vicmd "y" vi-yank-to-system-clip
