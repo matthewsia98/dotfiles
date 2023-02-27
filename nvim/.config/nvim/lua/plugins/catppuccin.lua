@@ -23,6 +23,7 @@ return {
 
                     NoiceCursor = { bg = colors.text, fg = colors.base },
                     NoiceSplit = { bg = colors.base },
+                    NoiceCmdlinePopupBorder = { fg = colors.blue },
                     NeoTreeNormal = { bg = colors.base },
                     TroubleNormal = { bg = colors.base },
                     WhichKeyFloat = { bg = colors.base },
