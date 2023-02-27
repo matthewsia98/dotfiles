@@ -1,18 +1,20 @@
 .mypy_cache/
 __pycache__/
-.zcompdump
 
 # Backup files
 *.bak
 
+# lua-language server configuration
 .luarc.json
 
+# lazygit cache
 lazygit/**/state.yml
-
-gtk-3.0/**/assets
-gtk-3.0/**/*.css
 
 # Created by kitty themes kitten
 kitty/**/current-theme.conf
 
+# tmux plugins
 tmux/**/plugins/
+
+# neovim minimal config for reproducing issues
+minimal.lua

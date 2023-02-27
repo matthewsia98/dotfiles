@@ -15,6 +15,7 @@ M.set_keymaps = function()
         if cmp.visible() then
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
         else
+            -- for cmp-cmdline-history
             feedkeys("<C-n>", "n")
         end
     end, { desc = "Cmp Next" })
@@ -51,6 +52,7 @@ M.set_keymaps = function()
         then
             copilot.prev()
         else
+            -- for cmp-cmdline-history
             feedkeys("<C-p>")
         end
     end, { desc = "Cmp / Luasnip / Copilot Previous" })
