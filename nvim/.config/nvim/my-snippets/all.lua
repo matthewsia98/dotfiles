@@ -31,4 +31,53 @@ return {
             return os.date("%A, %B %d %Y, %H:%M:%S")
         end)
     ),
+    s("week", {
+        f(function()
+            local monday = os.capture([[date -d "monday" +"%A, %B %d"]])
+            return monday
+        end),
+        i(1),
+        t(" - "),
+        c(2, {
+            sn(nil, {
+                f(function()
+                    local friday = os.capture([[date -d "monday + 4days" +"%A, %B %d"]])
+                    return friday
+                end),
+                i(1),
+            }),
+            sn(nil, {
+                f(function()
+                    local sunday = os.capture([[date -d "monday + 6days" +"%A, %B %d"]])
+                    return sunday
+                end),
+                i(1),
+            }),
+        }),
+    }),
+    s("pweek", {
+        f(function()
+            local monday = os.capture([[date -d "last-monday" +"%A, %B %d"]])
+            return monday
+        end),
+        i(1),
+        t(" - "),
+        c(2, {
+            sn(nil, {
+
+                f(function()
+                    local friday = os.capture([[date -d "last-monday + 4days" +"%A, %B %d"]])
+                    return friday
+                end),
+                i(1),
+            }),
+            sn(nil, {
+                f(function()
+                    local sunday = os.capture([[date -d "last-monday + 6days" +"%A, %B %d"]])
+                    return sunday
+                end),
+                i(1),
+            }),
+        }),
+    }),
 }

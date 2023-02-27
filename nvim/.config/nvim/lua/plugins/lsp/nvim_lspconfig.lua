@@ -15,7 +15,7 @@ end
 
 local config = require("config")
 for _, lsp_name in ipairs(config.lsp.lsps_to_configure) do
-    local server_config_file = vim.fn.expand("~/.config/nvim/lua/plugins/lsp/servers/" .. lsp_name .. ".lua")
+    local server_config_file = string.format("%s/lua/plugins/lsp/servers/%s.lua", vim.fn.stdpath("config"), lsp_name)
     local file_exists = vim.fn.filereadable(server_config_file) ~= 0
     if file_exists then
         require("plugins.lsp.servers." .. lsp_name).setup({

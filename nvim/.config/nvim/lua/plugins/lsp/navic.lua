@@ -1,5 +1,9 @@
+local config = require("config")
+local separator = config.winbar.separator or " > "
+
 require("nvim-navic").setup({
     highlight = true,
+    separator = separator,
     icons = {
         File = " ",
         Module = " ",

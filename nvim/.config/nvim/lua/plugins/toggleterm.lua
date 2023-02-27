@@ -11,10 +11,30 @@ return {
                     return math.floor(vim.o.lines * 0.4)
                 end
             end,
+            float_opts = {
+                border = "rounded",
+                winblend = 0,
+                width = math.floor(vim.o.columns * 0.9),
+                height = math.floor(vim.o.lines * 0.9),
+            },
         })
+
+        local Terminal = require("toggleterm.terminal").Terminal
+        local lazygit = Terminal:new({ cmd = "lazygit", direction = "float", hidden = true })
+
+        function _lazygit_toggle()
+            lazygit:toggle()
+        end
     end,
     keys = {
         { "<leader>tt", "<CMD>ToggleTerm<CR>", desc = "Toggle Terminal" },
+        {
+            "<leader>tg",
+            function()
+                _lazygit_toggle()
+            end,
+            desc = "Toggle Lazygit",
+        },
         {
             "<leader>tr",
             function()

@@ -9,7 +9,7 @@ return {
             messages = { enabled = true },
             notify = { enabled = true },
             lsp = {
-                progress = { enabled = true },
+                progress = { enabled = false },
                 documentation = {
                     opts = {
                         border = { style = "rounded" },
@@ -45,9 +45,26 @@ return {
                 },
             },
             routes = {
+                -- Show recording messages
                 {
                     view = "notify",
                     filter = { event = "msg_showmode" },
+                },
+
+                -- Hide written, more/less lines, lines changed, etc messages
+                {
+                    filter = {
+                        event = "msg_show",
+                        kind = "",
+                        any = {
+                            { find = "written" },
+                            { find = "%d change" },
+                            { find = "%d more lines?" },
+                            { find = "%d fewer lines?" },
+                            { find = "%d lines? less" },
+                        },
+                    },
+                    opts = { skip = true },
                 },
             },
         })

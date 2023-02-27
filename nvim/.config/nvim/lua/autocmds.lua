@@ -1,4 +1,7 @@
-local group = vim.api.nvim_create_augroup("MyAutocmds", { clear = true })
+local default_group = vim.api.nvim_create_augroup("MyAutocmds", { clear = true })
+local group = function(name)
+    return name and vim.api.nvim_create_augroup(name, { clear = true }) or default_group
+end
 
 -- Clear hlsearch automatically
 vim.on_key(function(char)
@@ -11,7 +14,7 @@ vim.on_key(function(char)
 end, vim.api.nvim_create_namespace("auto_hlsearch"))
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-    group = group,
+    group = group(),
     callback = function()
         vim.highlight.on_yank({ higroup = "Visual", timeout = 2000 })
     end,
@@ -19,16 +22,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-    group = group,
-    pattern = "norg",
-    callback = function()
-        vim.opt.conceallevel = 2
-    end,
-    desc = "Set conceal level for norg files",
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-    group = group,
+    group = group(),
     pattern = { "", "help", "toggleterm", "tsplayground" },
     callback = function()
         vim.keymap.set("n", "q", "<CMD>q<CR>", { buffer = vim.api.nvim_get_current_buf(), desc = "" })
@@ -37,15 +31,24 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-    group = group,
+    group = group(),
     callback = function()
         vim.opt.formatoptions:remove({ "c", "r", "o" })
     end,
     desc = "Remove bad formatoptions",
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+    group = group(),
+    pattern = { "norg" },
+    callback = function()
+        vim.opt.conceallevel = 3
+    end,
+    desc = "Set conceal level for norg files",
+})
+
 vim.api.nvim_create_autocmd("BufWritePre", {
-    group = group,
+    group = group(),
     callback = function()
         local head = vim.fn.expand("%:p:h")
         local dir_exists = vim.fn.isdirectory(head) ~= 0
@@ -60,11 +63,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-    group = group,
+    group = group(),
     callback = function()
         if #vim.lsp.get_active_clients({ bufnr = 0, name = "null-ls" }) > 0 then
             vim.lsp.buf.format({ name = "null-ls" })
-            vim.notify("Formatted with null-ls", "info", { title = "LSP" })
         end
     end,
     desc = "Format file before save",

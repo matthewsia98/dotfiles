@@ -1,7 +1,6 @@
 return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    dev = true,
     config = function()
         local config = require("config")
         local style = config.lualine.style
@@ -22,15 +21,39 @@ return {
                 section_separators = { left = "", right = "" },
                 component_separators = { left = "", right = "" },
                 disabled_filetypes = {
-                    statusline = { "dashboard" },
-                    winbar = { "dashboard", "help", "neo-tree", "noice", "toggleterm", "Trouble", "tsplayground" },
+                    statusline = { "dashboard", "Trouble" },
+                    winbar = {
+                        "dapui_scopes",
+                        "dapui_breakpoints",
+                        "dapui_stacks",
+                        "dapui_watches",
+                        "dap-repl",
+                        "dapui_console",
+
+                        "dashboard",
+                        "help",
+                        "neo-tree",
+                        "noice",
+                        "Outline",
+                        "toggleterm",
+                        "tsplayground",
+                    },
                 },
             },
-            extensions = { "trouble" },
+            extensions = {},
             winbar = {
                 lualine_a = {
                     {
                         [[require("winbar").get()]],
+                        separator = { left = "", right = "" },
+                        padding = 0,
+                    },
+                },
+            },
+            inactive_winbar = {
+                lualine_a = {
+                    {
+                        [[require("winbar").get({ navic = false })]],
                         separator = { left = "", right = "" },
                         padding = 0,
                     },

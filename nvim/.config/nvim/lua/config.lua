@@ -1,14 +1,24 @@
 local config = {
     winbar = {
-        navic = true,
+        separator = " > ",
+        navic = {
+            enabled = true,
+        },
         cwd = {
             enabled = true,
             highlight = "lualine_a_normal",
+            home_symbol = "~",
+            style = "round", -- powerline | box | round | slant | reverse_slant
+        },
+        trouble = {
+            enabled = true,
+            highlight = "lualine_a_normal",
+            style = "round", -- powerline | box | round | slant | reverse_slant
         },
     },
 
     lualine = {
-        style = "box", -- powerline | box | round | slant | reverse_slant
+        style = "round", -- powerline | box | round | slant | reverse_slant
         gap_between_sections = true,
         diagnostics = {
             max_length = 60,
@@ -41,7 +51,8 @@ local config = {
             "clangd",
             "gopls",
             "rust_analyzer",
-            "bashls",
+            -- "bashls",
+            "jsonls",
         },
 
         mason_packages_to_install = {
@@ -50,6 +61,7 @@ local config = {
             "pyright",
             "black",
             "isort",
+            "debugpy",
 
             -- Lua
             "lua-language-server",
@@ -73,6 +85,11 @@ local config = {
             -- Shell
             "bash-language-server",
             "shellcheck",
+            "shfmt",
+
+            -- JSON
+            "json-lsp",
+            "jq",
         },
 
         null_ls_sources = {
@@ -83,6 +100,8 @@ local config = {
                 "gofumpt",
                 "rustfmt",
                 "clang_format",
+                "shfmt",
+                "jq",
             },
         },
 

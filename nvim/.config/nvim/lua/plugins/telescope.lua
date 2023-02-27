@@ -11,6 +11,7 @@ return {
     config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
+        local trouble = require("trouble.providers.telescope")
 
         telescope.setup({
             defaults = {
@@ -28,11 +29,13 @@ return {
                 mappings = {
                     i = {
                         ["<C-q>"] = false,
+                        ["<C-t>"] = trouble.open_with_trouble,
                     },
                     n = {
                         ["q"] = actions.close,
                         ["<C-c>"] = actions.close,
                         ["<C-q>"] = false,
+                        ["<C-t>"] = trouble.open_with_trouble,
                     },
                 },
             },
@@ -59,9 +62,29 @@ return {
     keys = {
         { "<leader>fh", "<CMD>Telescope help_tags<CR>", desc = "Help Tags" },
         { "<leader>ff", "<CMD>Telescope find_files<CR>", desc = "Find Files" },
-        { "<leader>f.f", "<CMD>Telescope find_files hidden=true<CR>", desc = "Find Files (Including hidden files)" },
+        { "<leader>.ff", "<CMD>Telescope find_files hidden=true<CR>", desc = "Find Files (Including hidden files)" },
         { "<leader>f/", "<CMD>Telescope current_buffer_fuzzy_find<CR>", desc = "Current Buffer Fuzzy Find" },
-        { "<leader>fa", "<CMD>Telescope live_grep_args<CR>", desc = "Live Grep" },
+        { "<leader>fl", "<CMD>Telescope live_grep_args<CR>", desc = "Live Grep" },
+        {
+            "<leader>.fl",
+            function()
+                require("telescope").extensions.live_grep_args.live_grep_args({
+                    vimgrep_arguments = {
+                        -- Defaults
+                        "rg",
+                        "--color=never",
+                        "--no-heading",
+                        "--with-filename",
+                        "--line-number",
+                        "--column",
+                        "--smart-case",
+
+                        "--hidden",
+                    },
+                })
+            end,
+            desc = "Live Grep (--hidden)",
+        },
         { "<leader>fb", "<CMD>Telescope buffers<CR>", desc = "Find Buffers" },
         {
             "<leader>fg",

@@ -4,7 +4,7 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     config = function()
         require("todo-comments").setup({
-            signs = true,
+            signs = false,
             keywords = {
                 REFERENCE = { icon = "", color = "hint" },
             },

@@ -35,6 +35,7 @@ return {
                 gitsigns = true,
                 harpoon = true,
                 leap = true,
+                markdown = true,
                 mason = true,
                 neotree = true,
                 noice = true,
@@ -44,9 +45,14 @@ return {
                 ts_rainbow = true,
                 telescope = true,
                 lsp_trouble = true,
+                symbols_outline = true,
                 which_key = true,
 
                 -- Special Integrations
+                dap = {
+                    enabled = true,
+                    enabled_ui = true,
+                },
                 indent_blankline = {
                     enabled = true,
                     colored_indent_levels = true,

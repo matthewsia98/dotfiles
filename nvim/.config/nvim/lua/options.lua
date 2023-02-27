@@ -1,6 +1,7 @@
 local o = vim.o
 local opt = vim.opt
 
+-- Assign python3 virtualenv for Neovim
 vim.g.python3_host_prog = vim.fn.expand("~/.virtualenvs/nvim/bin/python")
 
 -- Makes neovim and host OS clipboard play nicely with each other
@@ -8,6 +9,9 @@ opt.clipboard = "unnamedplus"
 
 -- Enable 24 bit RGB colors. Use gui highlight attributes instead of cterm attributes
 opt.termguicolors = true
+
+-- Enable mouse
+opt.mouse = "a"
 
 -- Number of screen lines to use for the command-line
 opt.cmdheight = 0
@@ -79,3 +83,6 @@ opt.spelloptions = "camel"
 -- Don't check if words should start with Capital letters
 opt.spellcapcheck = ""
 o.spellfile = vim.fn.expand("~/.config/nvim/spell/en.utf-8.add")
+
+-- opt.conceallevel = 2
+-- opt.concealcursor = "n"

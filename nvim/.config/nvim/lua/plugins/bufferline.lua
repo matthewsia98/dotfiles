@@ -6,6 +6,7 @@ return {
         bufferline.setup({
             options = {
                 numbers = "ordinal",
+                separator_style = "thin",
                 -- Only show if more than 2 buffers (needed for dashboard)
                 always_show_bufferline = false,
                 show_buffer_close_icons = false,

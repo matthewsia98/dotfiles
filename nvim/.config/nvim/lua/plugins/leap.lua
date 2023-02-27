@@ -15,7 +15,7 @@ return {
         leap.opts.case_sensitive = false
         leap.opts.special_keys = {
             repeat_search = "<enter>",
-            next_phase_one_target = "<enter>",
+            next_phase_one_target = "<space>",
             next_target = { "<C-n>" },
             prev_target = { "<C-p>" },
             next_group = "<space>",

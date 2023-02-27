@@ -40,6 +40,11 @@ require("lspsaga").setup({
     },
 
     outline = {
+        auto_preview = false,
         win_width = 30,
+        keys = {
+            expand_collapse = "<SPACE>",
+            jump = "<CR>",
+        },
     },
 })

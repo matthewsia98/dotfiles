@@ -42,11 +42,11 @@ M.set_keymaps = function(client, bufnr)
         map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
     end
 
-    map("i", "<C-s>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature Help" })
+    map("i", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature Help" })
 
     map("n", "<leader>fm", function()
         vim.lsp.buf.format({ name = "null-ls" })
-        vim.notify("Formatted with null-ls", "info", { title = "LSP" })
+        -- vim.notify("Formatted with null-ls", "info", { title = "LSP" })
     end, { buffer = bufnr, desc = "Format" })
 
     map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { buffer = bufnr, desc = "Add workspace folder" })

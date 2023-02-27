@@ -26,12 +26,14 @@ M.get = function()
         num = vim.v.relnum == 0 and vim.v.lnum or vim.v.relnum
     end
 
-    local diagnostic_sign, git_sign
+    local diagnostic_sign, git_sign, dap_sign
     for _, s in ipairs(M.get_signs()) do
         if s.name:find("GitSign") then
             git_sign = s
         elseif s.name:find("Diagnostic") then
             diagnostic_sign = s
+        elseif s.name:find("Dap") then
+            dap_sign = s
         end
     end
 
@@ -43,6 +45,8 @@ M.get = function()
             break
         end
     end
+
+    local dap = vim.g.dap_available_adapters and vim.tbl_contains(vim.g.dap_available_adapters, vim.bo.filetype)
 
     local components = {
         (
@@ -56,6 +60,7 @@ M.get = function()
             or ""
         ),
         "%=",
+        (dap and (dap_sign and (" %#" .. dap_sign.texthl .. "#" .. trim(dap_sign.text) .. "%*  ") or "  ") or ""),
         num,
         " ",
         "%C",
