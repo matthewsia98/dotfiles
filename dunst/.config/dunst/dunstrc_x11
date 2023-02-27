@@ -13,7 +13,7 @@
     origin = top-right
 
     # Offset from the origin
-    offset = 4x4
+    offset = 6x60
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
@@ -26,22 +26,20 @@
 
     # Turn on the progess bar. It appears when a progress hint is passed with
     # for example dunstify -h int:value:12
-    progress_bar = true
+    progress_bar = false
 
     # Set the progress bar height. This includes the frame, so make sure
     # it's at least twice as big as the frame width.
-    progress_bar_height = 10
+    progress_bar_height = 22
 
     # Set the frame width of the progress bar
-    progress_bar_frame_width = 1
-
-    progress_bar_corner_radius = 4
+    progress_bar_frame_width = 4
 
     # Set the minimum width for the progress bar
-    progress_bar_min_width = 150
+    progress_bar_min_width = 100
 
     # Set the maximum width for the progress bar
-    progress_bar_max_width = 300
+    progress_bar_max_width = 200
 
     # Show how many messages are currently hidden (because of
     # notification_limit).
@@ -66,11 +64,11 @@
     horizontal_padding = 8
 
     # Padding between text and icon.
-    text_icon_padding = 16
+    text_icon_padding = 0
 
     # Defines width in pixels of frame around the notification window.
     # Set to 0 to disable.
-    frame_width = 2
+    frame_width = 4
 
     # Defines color of the frame around the notification window.
     # frame_color = "#AAAAAA"
@@ -85,9 +83,7 @@
     # frame_color = "#8AADF4"
 
     # Mocha
-    # frame_color = "#89B4FA"
-
-    frame_color = "#CBA6F7"
+    frame_color = "#89B4FA"
 
     # Size of gap to display between notifications - requires a compositor.
     # If value is greater than 0, separator_height will be ignored and a border
@@ -115,7 +111,7 @@
 
     ### Text ###
 
-    font = JetBrainsMono Nerd Font 14
+    font = RobotoMono Nerd Font 14
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -155,8 +151,7 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    # format = "<b>%s</b>\n%b"
-    format = "<span size='x-large' font_desc='JetBrainsMono Nerd Font 12' weight='bold' foreground='#CDD6F4'>%a</span>\n%s\n%b"
+    format = "<b>%s</b>\n%b"
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
@@ -185,7 +180,7 @@
     hide_duplicate_count = false
 
     # Display indicators for URLs (U) and actions (A).
-    show_indicators = no
+    show_indicators = yes
 
 
     ### Icons ###
@@ -205,10 +200,10 @@
     # Scale small icons up to this size, set to 0 to disable. Helpful
     # for e.g. small files or high-dpi screens. In case of conflict,
     # max_icon_size takes precedence over this.
-    min_icon_size = 48
+    min_icon_size = 25
 
     # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 48
+    max_icon_size = 25
 
     # Paths to default icons (only neccesary when not using recursive icon lookup)
     icon_path = /usr/share/icons
@@ -291,8 +286,8 @@
     # These values can be strung together for each mouse event, and
     # will be executed in sequence.
     mouse_left_click = close_current
-    mouse_middle_click = close_all
-    mouse_right_click = do_action
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = close_all
 
 # Experimental features that may or may not work correctly. Do not expect them
 # to have a consistent behaviour across releases.
@@ -305,56 +300,74 @@
     per_monitor_dpi = false
 
 
-#### Frappe ###
+# [brightness]
+#     background = "#5FAAFF"
+#     foreground = "#5500FF"
+#     frame_color = "#5500FF"
+#     highlight = "#0055FF"
+#
+# [audio]
+#     background = "#5FAAFF"
+#     foreground = "#5500FF"
+#     frame_color = "#5500FF"
+#     highlight = "#0055FF"
+
+
+### Frappe ###
 #[urgency_low]
 #    background = "#303446"
 #    foreground = "#C6D0F5"
+#
 #[urgency_normal]
 #    background = "#303446"
 #    foreground = "#C6D0F5"
+#
 #[urgency_critical]
 #    background = "#303446"
 #    foreground = "#C6D0F5"
 #    frame_color = "#EF9F76"
 
 
-#### Latte ###
+### Latte ###
 #[urgency_low]
 #    background = "#EFF1F5"
 #    foreground = "#4C4F69"
+#
 #[urgency_normal]
 #    background = "#EFF1F5"
 #    foreground = "#4C4F69"
+#
 #[urgency_critical]
 #    background = "#EFF1F5"
 #    foreground = "#4C4F69"
 #    frame_color = "#FE640B"
-
-
-#### Macchiato ###
+#
+#
+#### Macchiato
 #[urgency_low]
 #    background = "#24273A"
 #    foreground = "#CAD3F5"
+#
 #[urgency_normal]
 #    background = "#24273A"
 #    foreground = "#CAD3F5"
+#
 #[urgency_critical]
 #    background = "#24273A"
 #    foreground = "#CAD3F5"
 #    frame_color = "#F5A97F"
-
-
+#
+#
 #### Mocha ###
 [urgency_low]
     background = "#1E1E2E"
     foreground = "#CDD6F4"
-    highlight = "#cba6f7"
+
 [urgency_normal]
     background = "#1E1E2E"
     foreground = "#CDD6F4"
-    highlight = "#cba6f7"
+
 [urgency_critical]
     background = "#1E1E2E"
     foreground = "#CDD6F4"
     frame_color = "#FAB387"
-    highlight = "#cba6f7"
