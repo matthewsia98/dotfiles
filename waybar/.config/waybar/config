@@ -92,13 +92,13 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "  {essid}",
+        "format-wifi": "  {signalStrength}%",
         "format-ethernet": " {ipaddr}/{cidr}",
         "format-linked": " {ifname} (No IP)",
         "format-disconnected": "Disconnected ⚠",
         /* "format-alt": "{ifname}: {ipaddr}/{cidr}", */
         "tooltip": true,
-        "tooltip-format": "{essid} ({signalStrength}%)\n{bandwidthDownBits}    {bandwidthUpBits}",
+        "tooltip-format": "{essid} ({ipaddr})\nSpeed: {bandwidthDownBits}    {bandwidthUpBits}",
         "on-click": "connman-gtk",
         "interval": 60,
     },

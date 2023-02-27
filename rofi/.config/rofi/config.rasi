@@ -1,5 +1,5 @@
 configuration {
-    font: "JetBrains Mono Nerd Font Medium 16";
+    font: "JetBrains Mono Nerd Font Medium 18";
 
     sidebar-mode: true;
     hide-scrollbar: true;

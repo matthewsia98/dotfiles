@@ -85,9 +85,7 @@
     # frame_color = "#8AADF4"
 
     # Mocha
-    # frame_color = "#89B4FA"
-
-    frame_color = "#CBA6F7"
+    frame_color = "#89B4FA"
 
     # Size of gap to display between notifications - requires a compositor.
     # If value is greater than 0, separator_height will be ignored and a border

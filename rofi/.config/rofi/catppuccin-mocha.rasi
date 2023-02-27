@@ -1,6 +1,7 @@
 * {
     bg-col:  #1e1e2e;
     bg-col-light: #1e1e2e;
+    /* border-col: #1e1e2e; */
     border-col: #89b4fa;
     selected-col: #1e1e2e;
     blue: #89b4fa;
@@ -8,8 +9,7 @@
     fg-col2: #f38ba8;
     grey: #6c7086;
 
-    width: 1200px;
-    height: 720px;
+    font: "JetBrainsMono Nerd Font 18";
 }
 
 element-text, element-icon , mode-switcher {
@@ -18,9 +18,11 @@ element-text, element-icon , mode-switcher {
 }
 
 window {
+    width: 1600;
+    height: 900px;
     border: 2px;
+    border-radius: 8px;
     border-color: @border-col;
-    border-radius: 20px;
     background-color: @bg-col;
 }
 
@@ -39,7 +41,7 @@ prompt {
     background-color: @blue;
     padding: 6px;
     text-color: @bg-col;
-    border-radius: 3px;
+    border-radius: 8px;
     margin: 20px 0px 0px 20px;
 }
 
@@ -65,13 +67,13 @@ listview {
 }
 
 element {
-    padding: 10px;
+    padding: 16px;
     background-color: @bg-col;
     text-color: @fg-col  ;
 }
 
 element-icon {
-    size: 40px;
+    size: 32px;
 }
 
 element selected {
@@ -94,4 +96,18 @@ button {
 button selected {
   background-color: @bg-col;
   text-color: @blue;
+}
+
+message {
+    background-color: @bg-col-light;
+    margin: 2px;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+textbox {
+    padding: 6px;
+    margin: 20px 0px 0px 20px;
+    text-color: @blue;
+    background-color: @bg-col-light;
 }
