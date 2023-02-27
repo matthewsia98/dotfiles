@@ -51,7 +51,8 @@ tooltip label {
 #network,
 #backlight,
 #pulseaudio,
-#battery {
+#battery,
+#disk {
     padding: 0px 12px;
 }
 
@@ -136,29 +137,28 @@ tooltip label {
     background-color: alpha(@red, 1.0);
 }
 
-
-#cpu,
-#memory,
-#disk,
-#temperature {
-    color: alpha(@dark-text, 1.0);
-    padding: 0px 12px;
-}
-
 #cpu {
-    background-color: alpha(@peach, 1.0);
+    background-color: transparent;
+    /* background-color: alpha(@lavender, 1.0); */
+    color: alpha(@light-text, 1.0);
+    margin-left: 8px;
+    margin-right: 8px;
 }
 
 #memory {
-    background-color: alpha(@blue, 1.0);
+    background-color: transparent;
+    /* background-color: alpha(@teal, 1.0); */
+    color: alpha(@light-text, 1.0);
 }
 
 #disk {
-    background-color: alpha(@yellow, 1.0);
+    background-color: alpha(@mauve, 1.0);
+    color: alpha(@dark-text, 1.0);
 }
 
 #temperature {
     background-color: alpha(@red, 1.0);
+    color: alpha(@dark-text, 1.0);
 }
 #temperature.critical {
     background-color: alpha(@red, 1.0);

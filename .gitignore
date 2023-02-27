@@ -1,8 +1,18 @@
 .mypy_cache/
 __pycache__/
 .zcompdump
+
+# Backup files
+*.bak
+
+.luarc.json
+
 lazygit/**/state.yml
+
 gtk-3.0/**/assets
 gtk-3.0/**/*.css
+
+# Created by kitty themes kitten
 kitty/**/current-theme.conf
-*.bak
+
+tmux/**/plugins/

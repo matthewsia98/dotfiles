@@ -8,14 +8,24 @@ continuation_prompt = "[ ](bold fg:yellow)"
 
 
 format = """
-($sudo )($username([@](bold fg:cyan)$hostname) )\
 $directory \
 ($git_branch $git_commit ($git_state )$git_metrics$git_status)\
 $c$golang$java$lua$python$rust\
 $fill\
 $time
-$character
+($sudo$hostname$username )$character
 """
+
+
+# format = """
+# ([](fg:blue)($sudo )($hostname$username)[](fg:blue) )\
+# [](fg:blue)$directory[](fg:blue) \
+# [](fg:blue)($git_branch $git_commit ($git_state )$git_metrics$git_status)[](fg:blue)\
+# $c$golang$java$lua$python$rust\
+# $fill\
+# $time
+# $character
+# """
 
 # # Style String Options
 # bold
@@ -71,57 +81,67 @@ disabled = false
 disabled = true
 
 [hostname]
-disabled = true
+disabled = false
 ssh_only = false
-format = '[$ssh_symbol$hostname](bold fg:yellow)'
+ssh_symbol = " "
+style = "bold bg:base fg:blue"
+format = '[$ssh_symbol$hostname@]($style)'
 
 [username]
-disabled = true
+disabled = false
 show_always = true
-format = '[$user](bold fg:cyan)'
+style_root = "bold bg:base fg:red"
+style_user = "bold bg:base fg:blue"
+format = '[$user]($style)'
 
 [sudo]
 disabled = false
-format = '[$symbol](bold fg:blue)'
 symbol = "🥷" 
+style = "bold bg:base"
+format = '[$symbol]($style)'
 
 [directory]
 disabled = false
 home_symbol = "~"
 truncate_to_repo = false
 read_only = " "
-format = '[$path$readonly](bold fg:cyan)'
+style = "bold bg:base fg:yellow"
+format = '[$path$readonly]($style)'
 
 [env_var]
 disabled = true
 variable = "VIRTUAL_ENV"
 symbol = ""
 default = ""
-format = "[$env_value](bold fg:yellow)"
+style = "bold fg:text"
+format = "[$env_value]($style)"
 
 [git_branch]
 disabled = false
 symbol = ""
 # symbol = ""
-format = '[$symbol $branch(:$remote_branch)](bold fg:pink)'
+style = "bold bg:base fg:pink"
+format = '[$symbol $branch(:$remote_branch)]($style)'
 
 [git_commit]
 disabled = false
-format = '[#$hash$tag](bold fg:pink)'
 only_detached = false
 tag_disabled = false
 tag_symbol = "  🏷 "
+style = "bold bg:base fg:pink"
+format = '[#$hash$tag]($style)'
 
 [git_state]
 disabled = false
 
 [git_metrics]
 disabled = false
-format = '([+$added](bold fg:green) )([-$deleted](bold fg:red) )'
+added_style = "bold bg:base fg:green"
+deleted_style = "bold bg:base fg:red"
+format = '([+$added]($added_style) )([-$deleted]($deleted_style) )'
 
 [git_status]
 disabled = false
-format = '([\[$all_status$ahead_behind\]](bold fg:red) )'
 conflicted = '='
 ahead = '⇡'
 behind = '⇣'
@@ -133,11 +153,14 @@ modified = '!'
 staged = '+'
 renamed = '»'
 deleted = '✘'
+style = "bold bg:base fg:red"
+format = '([\[$all_status$ahead_behind\]]($style) )'
 
 [time]
 disabled = false
-format = '[$time](bold fg:yellow)'
 time_format = "%b %d, %T"
+style = "bold fg:yellow"
+format = '[$time]($style)'
 
 [aws]
 disabled = false
@@ -208,19 +231,19 @@ symbol = " "
 
 [character]
 disabled = false
+success_symbol = "[➜](bold fg:green)"
+error_symbol = "[➜](bold fg:red)"
+vicmd_symbol = "[➜](bold fg:mauve)"
+# success_symbol = """
+# [\
+# ╷ 
+# ╰─◯](fg:green)"""
+# error_symbol = """
+# [\
+# ╷ 
+# ╰─◯](fg:red)"""
+# vimcmd_symbol = """
+# [\
+# ╷ 
+# ╰─◯](fg:mauve)"""
 format = "$symbol "
-# success_symbol = "[➜](bold fg:green)"
-# error_symbol = "[➜](bold fg:red)"
-# vicmd_symbol = "[➜](bold fg:mauve)"
-success_symbol = """
-[\
-╷ 
-╰─◯](fg:green)"""
-error_symbol = """
-[\
-╷ 
-╰─◯](fg:red)"""
-vimcmd_symbol = """
-[\
-╷ 
-╰─◯](fg:mauve)"""

@@ -10,10 +10,9 @@
     "margin": "0 0 0 0",
 
     // Choose the order of the modules
-    "modules-left": ["custom/launcher", "wlr/workspaces", "hyprland/window", "custom/updates"],
+    "modules-left": ["custom/launcher", "wlr/workspaces", "hyprland/window", "custom/updates", "cpu", "memory"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/notifications", "backlight", "pulseaudio", "network", "battery"],
-    /* "modules-right": ["cpu", "memory", "disk", "temperature"], */
+    "modules-right": ["custom/notifications", "disk", "backlight", "pulseaudio", "network", "battery"],
 
     // Modules configuration
     "custom/launcher": {
@@ -99,8 +98,7 @@
         "format-disconnected": "Disconnected ⚠",
         /* "format-alt": "{ifname}: {ipaddr}/{cidr}", */
         "tooltip": true,
-        /* "tooltip-format": " {ifname} via {gwaddr}", */
-        "tooltip-format": "{bandwidthDownBits}    {bandwidthUpBits} ({signalStrength}%)",
+        "tooltip-format": "{essid} ({signalStrength}%)\n{bandwidthDownBits}    {bandwidthUpBits}",
         "on-click": "connman-gtk",
         "interval": 60,
     },
@@ -126,21 +124,19 @@
         "on-click": "pavucontrol"
     },
     "cpu": {
-        "format": " {usage}%",
-        "tooltip": false
+        "format": " {usage}%",
+        "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+        "tooltip": true,
+        "tooltip-format": "{load}",
     },
     "memory": {
-        "format": " {}%"
+        "format": " {}%",
+        "tooltip": true,
+        "tooltip-format": "RAM : {used} / {total} GiB\nSwap: {swapUsed} / {swapTotal} GiB"
     },
     "disk": {
-        "format": " {}%"
-    },
-    "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{icon} {temperatureC}°C",
-        "format": "{icon} {temperatureC}°C",
-        "format-icons": ["", "", ""]
+        "format": " {}%",
+        "tooltip": true,
+        "tooltip-format": "{used} / {total} GiB",
     },
 }
