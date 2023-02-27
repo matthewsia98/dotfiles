@@ -104,9 +104,12 @@ format = '[$symbol]($style)'
 disabled = false
 home_symbol = "~"
 truncate_to_repo = false
+truncation_length = 99
+truncation_symbol = ".../"
 read_only = " "
 style = "bold bg:base fg:yellow"
-format = '[$path$readonly]($style)'
+read_only_style = "fg:red"
+format = '[$path]($style)[$readonly]($read_only_style)'
 
 [env_var]
 disabled = true
