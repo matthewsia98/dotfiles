@@ -1,5 +1,6 @@
 return {
     "giusgad/pets.nvim",
+    enabled = false,
     dependencies = {
         "giusgad/hologram.nvim",
         "MunifTanjim/nui.nvim",
