@@ -1,3 +1,4 @@
+## Directory Structure
 ```
 .config/nvim
 ├── after/
