@@ -1,5 +1,5 @@
 [ -f ~/.config/zsh/utils.zsh ] && source ~/.config/zsh/utils.zsh
-[ -f ~/.config/zsh/aliases ] && source ~/.config/zsh/aliases
+[ -f ~/.config/zsh/aliases.zsh ] && source ~/.config/zsh/aliases.zsh
 [ -f ~/.config/zsh/options.zsh ] && source ~/.config/zsh/options.zsh
 [ -f ~/.config/zsh/environment.zsh ] && source ~/.config/zsh/environment.zsh
 [ -f ~/.config/zsh/keybinds.zsh ] && source ~/.config/zsh/keybinds.zsh
