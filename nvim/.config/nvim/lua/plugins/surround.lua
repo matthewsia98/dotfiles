@@ -1,6 +1,5 @@
 return {
     "kylechui/nvim-surround",
-    event = "VeryLazy",
     config = function()
         require("nvim-surround").setup({
             keymaps = {
@@ -13,4 +12,9 @@ return {
             },
         })
     end,
+    keys = {
+        { "ys", desc = "" },
+        { "ds", desc = "" },
+        { "cs", desc = "" },
+    },
 }

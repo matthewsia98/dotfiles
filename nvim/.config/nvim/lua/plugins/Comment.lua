@@ -1,7 +1,10 @@
 return {
     "numToStr/Comment.nvim",
-    event = "VeryLazy",
     config = function()
         require("Comment").setup({})
     end,
+    keys = {
+        { "gc", mode = { "n", "v" }, desc = "Toggle Comment" },
+        { "gb", mode = { "n", "v" }, desc = "Toggle Comment (Blockwise)" },
+    },
 }

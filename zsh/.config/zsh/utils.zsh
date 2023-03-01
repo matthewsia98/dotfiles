@@ -89,8 +89,9 @@ build-nvim () {
     fi
 
     cd ${HOME}/repos/neovim || return
-    git checkout "${tag}"
+    git checkout master
     git pull origin --tags --force
+    git checkout "${tag}"
     sudo rm -rf ./build/
     sudo rm -rf /usr/local/share/nvim/runtime/
     sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install

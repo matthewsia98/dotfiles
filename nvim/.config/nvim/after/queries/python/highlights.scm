@@ -17,7 +17,7 @@
 ((comparison_operator operators: "!=" @TSOperator) (#set! conceal "≢"))
 ((comparison_operator operators: "==" @TSOperator) (#set! conceal "＝"))
 ((comparison_operator operators: "in" @keyword.operator) (#set! conceal "∈"))
-((comparison_operator operators: "not" @keyword.operator) (#set! conceal "￢"))
+((not_operator "not" @keyword.operator) (#set! conceal "￢"))
 
 ; Functions
 ((lambda "lambda" @keyword.function) (#set! conceal "ﬦ"))

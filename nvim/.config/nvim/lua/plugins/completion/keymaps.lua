@@ -76,7 +76,11 @@ M.set_keymaps = function()
         local cmp = require("cmp")
         local copilot = require("copilot.suggestion")
         if cmp.visible() then
-            cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace })
+            if cmp.get_selected_entry() then
+                cmp.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace })
+            else
+                cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace })
+            end
         elseif copilot.is_visible() then
             copilot.accept_line()
         end
