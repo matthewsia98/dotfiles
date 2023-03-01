@@ -9,7 +9,7 @@ return {
             messages = { enabled = true },
             notify = { enabled = true },
             lsp = {
-                progress = { enabled = false },
+                progress = { enabled = true },
                 documentation = {
                     opts = {
                         border = { style = "rounded" },
@@ -55,6 +55,11 @@ return {
                     },
                     border = {
                         style = "rounded",
+                    },
+                },
+                mini = {
+                    position = {
+                        row = vim.o.lines - 4,
                     },
                 },
             },
