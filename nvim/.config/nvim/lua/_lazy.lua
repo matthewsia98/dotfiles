@@ -11,6 +11,15 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("lazy_check_updates", { clear = true }),
+    pattern = "lazy",
+    callback = function()
+        require("lazy.manage").check()
+    end,
+    desc = "Check for updates on open",
+})
+
 require("lazy").setup("plugins", {
     defaults = {
         lazy = true,
