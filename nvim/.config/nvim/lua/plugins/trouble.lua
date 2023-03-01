@@ -1,7 +1,6 @@
 return {
     "folke/trouble.nvim",
     cmd = { "Trouble", "TroubleToggle" },
-    dev = true,
     config = function()
         require("trouble").setup({
             auto_open = false,
@@ -9,7 +8,6 @@ return {
             auto_jump = { "loclist", "quickfix", "lsp_definitions", "lsp_references", "lsp_type_definitions" },
             padding = false,
             use_diagnostic_signs = true,
-            separate_filetypes = true,
             action_keys = {
                 jump = { "<CR>" },
                 jump_close = { "o" },

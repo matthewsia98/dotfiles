@@ -1,6 +1,5 @@
 return {
     "akinsho/bufferline.nvim",
-    enabled = false,
     event = "VeryLazy",
     config = function()
         local bufferline = require("bufferline")
@@ -9,7 +8,7 @@ return {
                 numbers = "ordinal",
                 separator_style = "thin",
                 -- Only show if more than 2 buffers (needed for dashboard)
-                always_show_bufferline = false,
+                always_show_bufferline = true,
                 show_buffer_close_icons = false,
                 show_close_icon = false,
                 offsets = {

@@ -1,5 +1,4 @@
 local cmp = require("cmp")
-local luasnip = require("luasnip")
 
 cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
 cmp.event:on("menu_opened", function()
@@ -43,7 +42,7 @@ cmp.setup({
     },
     snippet = {
         expand = function(args)
-            luasnip.lsp_expand(args.body)
+            require("luasnip").lsp_expand(args.body)
         end,
     },
     window = {
