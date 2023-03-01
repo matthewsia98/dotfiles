@@ -35,12 +35,26 @@ return {
             views = {
                 cmdline_popup = {
                     position = {
-                        row = "30%",
+                        row = 8,
                         col = "50%",
                     },
                     size = {
-                        width = "auto",
+                        width = math.floor(vim.o.columns * 0.4),
                         height = "auto",
+                    },
+                },
+                popupmenu = {
+                    relative = "editor",
+                    position = {
+                        row = 11,
+                        col = "50%",
+                    },
+                    size = {
+                        width = math.floor(vim.o.columns * 0.4),
+                        height = "auto",
+                    },
+                    border = {
+                        style = "rounded",
                     },
                 },
             },
