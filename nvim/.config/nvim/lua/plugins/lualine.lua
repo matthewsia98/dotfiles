@@ -11,6 +11,7 @@ return {
             reverse_slant = { left = "", right = "" },
             round = { left = "", right = "" },
             box = { left = "▐", right = "▌" },
+            -- box = { left = "█", right = "█" },
         }
         local separator = separators[style]
 

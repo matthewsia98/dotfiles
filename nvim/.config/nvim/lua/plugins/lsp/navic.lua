@@ -1,5 +1,5 @@
 local config = require("config")
-local separator = config.winbar.separator or " > "
+local separator = config.lualine.winbar.separator or " > "
 
 require("nvim-navic").setup({
     highlight = true,

@@ -1,29 +1,30 @@
 local config = {
-    winbar = {
-        separator = " > ",
-        navic = {
-            enabled = true,
-        },
-        cwd = {
-            enabled = true,
-            highlight = "lualine_a_normal",
-            home_symbol = "~",
-            style = "round", -- powerline | box | round | slant | reverse_slant
-        },
-        trouble = {
-            enabled = true,
-            highlight = "lualine_a_normal",
-            style = "round", -- powerline | box | round | slant | reverse_slant
-        },
-    },
 
     lualine = {
-        style = "round", -- powerline | box | round | slant | reverse_slant
+        style = "box", -- powerline | box | round | slant | reverse_slant
         gap_between_sections = true,
         diagnostics = {
             max_length = 60,
             icon = false,
             source = false,
+        },
+
+        winbar = {
+            separator = " > ",
+            navic = {
+                enabled = true,
+            },
+            cwd = {
+                enabled = true,
+                highlight = "lualine_a_normal",
+                home_symbol = "~",
+                style = "box", -- powerline | box | round | slant | reverse_slant
+            },
+            trouble = {
+                enabled = true,
+                highlight = "lualine_a_normal",
+                style = "box", -- powerline | box | round | slant | reverse_slant
+            },
         },
     },
 

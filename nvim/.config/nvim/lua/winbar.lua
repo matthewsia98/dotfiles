@@ -1,5 +1,5 @@
-local config = require("config")
-local cwd_hl = vim.api.nvim_get_hl_by_name(config.winbar.cwd.highlight, true)
+local config = require("config").lualine.winbar
+local cwd_hl = vim.api.nvim_get_hl_by_name(config.cwd.highlight, true)
 vim.api.nvim_set_hl(0, "WinbarCwdSeparator", { fg = cwd_hl.background })
 
 local separators = {
@@ -8,6 +8,7 @@ local separators = {
     reverse_slant = { left = "", right = "" },
     round = { left = "", right = "" },
     box = { left = "▐", right = "▌" },
+    -- box = { left = "█", right = "█" },
 }
 
 local function get_trouble_mode()
@@ -18,36 +19,36 @@ local function get_trouble_mode()
         words[i] = word:sub(1, 1):upper() .. word:sub(2)
     end
 
-    local separator = separators[config.winbar.trouble.style]
+    local separator = separators[config.trouble.style]
     local mode = table.concat(words, " ")
     return ("%#WinbarCwdSeparator#" .. separator.left)
-        .. ("%#" .. config.winbar.trouble.highlight .. "# " .. mode .. " ")
+        .. ("%#" .. config.trouble.highlight .. "# " .. mode .. " ")
         .. ("%#WinbarCwdSeparator#" .. separator.right)
 end
 
 local M = {}
 
 M.get = function(opts)
-    if config.winbar.trouble.enabled and vim.bo.filetype == "Trouble" then
+    if config.trouble.enabled and vim.bo.filetype == "Trouble" then
         return get_trouble_mode()
     end
 
     opts = opts or { navic = true }
 
-    local sep = config.winbar.separator or " > "
+    local sep = config.separator or " > "
 
     local cwd
-    if config.winbar.cwd.enabled then
+    if config.cwd.enabled then
         cwd = vim.fn.getcwd()
-        if config.winbar.cwd.home_symbol then
+        if config.cwd.home_symbol then
             local home = os.getenv("HOME")
-            cwd = home and cwd:gsub(home, config.winbar.cwd.home_symbol) or cwd
+            cwd = home and cwd:gsub(home, config.cwd.home_symbol) or cwd
         end
         cwd = table.concat(vim.fn.split(cwd, "/"), sep)
 
-        local separator = separators[config.winbar.cwd.style]
+        local separator = separators[config.cwd.style]
         cwd = ("%#WinbarCwdSeparator#" .. separator.left .. "%#")
-            .. (config.winbar.cwd.highlight .. "# " .. cwd .. " ")
+            .. (config.cwd.highlight .. "# " .. cwd .. " ")
             .. ("%#WinbarCwdSeparator#" .. separator.right)
     end
 
@@ -69,7 +70,7 @@ M.get = function(opts)
         .. ("%#Normal#" .. tail .. readonly .. modified .. "%#Normal#")
 
     local navic
-    if config.winbar.navic.enabled and opts.navic then
+    if config.navic.enabled and opts.navic then
         navic = require("nvim-navic").get_location()
         navic = (#navic > 0) and (sep .. navic) or navic
     end
