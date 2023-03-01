@@ -5,7 +5,7 @@ return {
         event = "BufReadPost",
         dependencies = {
             "nvim-treesitter/nvim-treesitter-textobjects",
-            "p00f/nvim-ts-rainbow",
+            "mrjones2014/nvim-ts-rainbow",
         },
         config = function()
             require("plugins.treesitter.config")
