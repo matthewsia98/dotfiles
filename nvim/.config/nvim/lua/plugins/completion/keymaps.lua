@@ -1,7 +1,7 @@
 local map = require("keymaps").map
 local cmp = require("cmp")
 local luasnip = require("luasnip")
-local copilot_installed, copilot = pcall(require, "copilot.suggestion")
+local copilot = require("copilot.suggestion")
 
 local function feedkeys(lhs, mode)
     mode = mode or "im"
@@ -24,11 +24,7 @@ M.set_keymaps = function()
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
         elseif luasnip.choice_active() then
             luasnip.change_choice(1)
-        elseif
-            copilot_installed
-            and vim.fn.mode() == "i"
-            and #vim.lsp.get_active_clients({ bufnr = 0, name = "copilot" }) > 0
-        then
+        elseif #vim.lsp.get_active_clients({ bufnr = 0, name = "copilot" }) > 0 then
             copilot.next()
         end
     end, { desc = "Cmp / Luasnip / Copilot Next" })
@@ -45,11 +41,7 @@ M.set_keymaps = function()
             cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
         elseif luasnip.choice_active() then
             luasnip.change_choice(-1)
-        elseif
-            copilot_installed
-            and vim.fn.mode() == "i"
-            and #vim.lsp.get_active_clients({ bufnr = 0, name = "copilot" })
-        then
+        elseif #vim.lsp.get_active_clients({ bufnr = 0, name = "copilot" }) then
             copilot.prev()
         else
             -- for cmp-cmdline-history

@@ -7,10 +7,10 @@ local M = {}
 
 M.set_keymaps = function(client, bufnr)
     if goto_provider == "trouble" then
-        map("n", "gd", "<CMD>TroubleToggle lsp_definitions<CR>", { buffer = bufnr, desc = "Go to Definition" })
-        map("n", "gr", "<CMD>TroubleToggle lsp_references<CR>", { buffer = bufnr, desc = "Go to References" })
+        map("n", "gd", "<CMD>Trouble lsp_definitions<CR>", { buffer = bufnr, desc = "Go to Definition" })
+        map("n", "gr", "<CMD>Trouble lsp_references<CR>", { buffer = bufnr, desc = "Go to References" })
         -- stylua: ignore
-        map( "n", "gt", "<CMD>TroubleToggle lsp_type_definitions<CR>", { buffer = bufnr, desc = "Go to Type Definition" })
+        map( "n", "gt", "<CMD>Trouble lsp_type_definitions<CR>", { buffer = bufnr, desc = "Go to Type Definition" })
     elseif goto_provider == "telescope" then
         map("n", "gd", "<CMD>Telescope lsp_definitions<CR>", { buffer = bufnr, desc = "Go to Definition" })
         map("n", "gr", "<CMD>Telescope lsp_references<CR>", { buffer = bufnr, desc = "Go to References" })

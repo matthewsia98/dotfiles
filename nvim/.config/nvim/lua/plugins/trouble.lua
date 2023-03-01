@@ -11,13 +11,13 @@ return {
             use_diagnostic_signs = true,
             separate_filetypes = true,
             action_keys = {
-                jump = { "<CR" },
+                jump = { "<CR>" },
                 jump_close = { "o" },
             },
         })
     end,
     keys = {
-        { "<leader>wd", "<CMD>TroubleToggle workspace_diagnostics<CR>", desc = "Workspace Diagnostics" },
-        { "<leader>dd", "<CMD>TroubleToggle document_diagnostics<CR>", desc = "Document Diagnostics" },
+        { "<leader>wd", "<CMD>Trouble workspace_diagnostics<CR>", desc = "Workspace Diagnostics" },
+        { "<leader>dd", "<CMD>Trouble document_diagnostics<CR>", desc = "Document Diagnostics" },
     },
 }
