@@ -6,7 +6,7 @@ return {
             "williamboman/mason-lspconfig.nvim",
             "folke/neodev.nvim",
         },
-        event = "BufReadPre",
+        event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("plugins.lsp.config")
             require("plugins.lsp.neodev")
@@ -17,7 +17,7 @@ return {
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
-        event = "BufReadPre",
+        event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("plugins.lsp.null_ls")
         end,

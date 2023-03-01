@@ -20,6 +20,7 @@ return {
                     StatusLine = { bg = colors.base },
                     StatusLineNC = { bg = colors.base },
                     WinSeparator = { fg = colors.text },
+                    Pmenu = { bg = colors.base },
 
                     NoiceCursor = { bg = colors.text, fg = colors.base },
                     NoiceSplit = { bg = colors.base },
