@@ -1,8 +1,17 @@
 local config = {
-
     lualine = {
         style = "box", -- powerline | box | round | slant | reverse_slant
+        styles = {
+            powerline = { left = "", right = "" },
+            slant = { left = "", right = "" },
+            reverse_slant = { left = "", right = "" },
+            round = { left = "", right = "" },
+            box = { left = "▐", right = "▌" },
+            -- box = { left = "█", right = "█" },
+        },
+
         gap_between_sections = true,
+
         diagnostics = {
             max_length = 60,
             icon = false,
@@ -18,12 +27,10 @@ local config = {
                 enabled = true,
                 highlight = "lualine_a_normal",
                 home_symbol = "~",
-                style = "box", -- powerline | box | round | slant | reverse_slant
             },
             trouble = {
                 enabled = true,
                 highlight = "lualine_a_normal",
-                style = "box", -- powerline | box | round | slant | reverse_slant
             },
         },
     },

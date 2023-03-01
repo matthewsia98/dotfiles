@@ -2,18 +2,11 @@ return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     config = function()
-        local config = require("config")
-        local style = config.lualine.style
-        local gaps = style ~= "powerline" and config.lualine.gap_between_sections
+        local config = require("config").lualine
+        local style = config.style
+        local gaps = style ~= "powerline" and config.gap_between_sections
         local spacer = "%#Normal# "
-        local separators = {
-            slant = { left = "", right = "" },
-            reverse_slant = { left = "", right = "" },
-            round = { left = "", right = "" },
-            box = { left = "▐", right = "▌" },
-            -- box = { left = "█", right = "█" },
-        }
-        local separator = separators[style]
+        local separator = config.styles[style]
 
         require("lualine").setup({
             options = {
