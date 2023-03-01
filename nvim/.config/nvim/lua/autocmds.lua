@@ -1,5 +1,5 @@
 local default_group = vim.api.nvim_create_augroup("MyAutocmds", { clear = true })
-local group = function(name)
+local function group(name)
     return name and vim.api.nvim_create_augroup(name, { clear = true }) or default_group
 end
 
@@ -19,6 +19,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank({ higroup = "Visual", timeout = 2000 })
     end,
     desc = "Highlight yanked region",
+})
+
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+    group = group("resize_splits"),
+    callback = function()
+        vim.cmd("tabdo wincmd =")
+    end,
+    desc = "resize splits if window got resized",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
