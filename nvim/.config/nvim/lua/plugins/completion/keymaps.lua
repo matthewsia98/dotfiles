@@ -54,13 +54,14 @@ M.set_keymaps = function()
         end
     end, { desc = "Cmp / Luasnip / Copilot Previous" })
 
-    -- map({ "i", "c" }, "<CR>", function()
-    --     if cmp.visible() and cmp.get_selected_entry() then
-    --         cmp.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace })
-    --     else
-    --         feedkeys("<CR>", "n")
-    --     end
-    -- end, { desc = "Cmp confirm selected" })
+    map({ "i", "c" }, "<CR>", function()
+        local cmp = require("cmp")
+        if cmp.visible() and cmp.get_selected_entry() then
+            cmp.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace })
+        else
+            feedkeys("<CR>", "n")
+        end
+    end, { desc = "Cmp confirm selected" })
 
     map({ "i", "c" }, "<C-c>", function()
         local cmp = require("cmp")
@@ -69,6 +70,8 @@ M.set_keymaps = function()
             cmp.abort()
         elseif copilot.is_visible() then
             copilot.dismiss()
+        else
+            feedkeys("<C-c>", "n")
         end
     end, { desc = "Cmp / Copilot cancel" })
 

@@ -77,18 +77,3 @@ cmp.setup({
         { name = "neorg" },
     },
 })
-
-cmp.setup.cmdline("/", {
-    sources = {
-        { name = "buffer", max_item_count = 10 },
-    },
-})
-
-cmp.setup.cmdline(":", {
-    sources = {
-        { name = "cmdline", max_item_count = 10 },
-        { name = "cmdline_history", max_item_count = 5 },
-        { name = "nvim_lsp", max_item_count = 10 },
-        { name = "path", max_item_count = 5 },
-    },
-})

@@ -5,16 +5,36 @@ return {
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-nvim-lsp",
-            -- "hrsh7th/cmp-cmdline",
             "saadparwaiz1/cmp_luasnip",
-            -- "dmitmel/cmp-cmdline-history",
             "onsails/lspkind.nvim",
         },
-        -- event = { "InsertEnter", "CmdlineEnter" },
         event = "InsertEnter",
         config = function()
             require("plugins.completion.cmp")
             require("plugins.completion.keymaps").set_keymaps()
+        end,
+    },
+    {
+        "hrsh7th/cmp-cmdline",
+        enabled = false,
+        dependencies = {
+            "dmitmel/cmp-cmdline-history",
+        },
+        event = "CmdlineEnter",
+        config = function()
+            require("cmp").setup.cmdline(":", {
+                sources = {
+                    { name = "cmdline", max_item_count = 10 },
+                    { name = "cmdline_history", max_item_count = 5 },
+                    { name = "nvim_lsp", max_item_count = 10 },
+                    { name = "path", max_item_count = 5 },
+                },
+            })
+            require("cmp").setup.cmdline({ "/", "?" }, {
+                sources = {
+                    { name = "buffer", max_item_count = 10 },
+                },
+            })
         end,
     },
     {
