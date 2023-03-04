@@ -4,7 +4,7 @@ zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:complete:*:options' fzf-preview
 zstyle ':fzf-tab:complete:*' fzf-preview "${fzf_tab_preview}"
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
-zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview '[[ $group == "[process ID]" ]] && ps --pid=$word'
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview '[[ $group == "[process ID]" ]] && ps --pid=$word --format=user,pid,command,start,etime'
 
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 
@@ -30,6 +30,11 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview '\
 	"recent commit object name") git show --color=always $word | delta ;;
 	*) git log --color=always $word ;;
 	esac'
+zstyle ':fzf-tab:complete:git-branch:*' fzf-preview '\
+    case "$group" in
+    "recent commit object name") git show --color=always $word | delta ;;
+    *) git log --color=always $word ;;
+    esac'
 
 zstyle ":fzf-tab:*" continuous-trigger "/"
 zstyle ":fzf-tab:*" switch-group "ctrl-h" "ctrl-l"
