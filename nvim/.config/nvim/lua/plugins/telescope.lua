@@ -61,6 +61,8 @@ return {
     end,
     keys = {
         { "<leader>fh", "<CMD>Telescope help_tags<CR>", desc = "Help Tags" },
+        { "<leader>fo", "<CMD>Telescope vim_options<CR>", desc = "Options" },
+        { "<leader>fc", "<CMD>Telescope commands<CR>", desc = "Commands" },
         { "<leader>ff", "<CMD>Telescope find_files<CR>", desc = "Find Files" },
         { "<leader>.ff", "<CMD>Telescope find_files hidden=true<CR>", desc = "Find Files (Including hidden files)" },
         { "<leader>f/", "<CMD>Telescope current_buffer_fuzzy_find<CR>", desc = "Current Buffer Fuzzy Find" },
@@ -97,7 +99,7 @@ return {
             desc = "Grep String",
         },
         {
-            "<leader>fc",
+            "<leader>fd",
             function()
                 require("telescope.builtin").find_files({
                     prompt_title = "Neovim Config",

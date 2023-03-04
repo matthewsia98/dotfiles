@@ -63,7 +63,7 @@ return {
                         spacer,
                         cond = function()
                             local is_git = require("lualine.components.branch.git_branch").find_git_dir() ~= nil
-                            return gaps and is_git
+                            return gaps and (is_git or vim.bo.filetype == "lazy")
                         end,
                     },
                     { "branch", separator = separator },

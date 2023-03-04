@@ -16,7 +16,11 @@ require("nvim-treesitter.configs").setup({
         additional_vim_regex_highlighting = false,
     },
     indent = { enabled = false },
-    rainbow = { enable = true },
+    rainbow = {
+        enable = true,
+        query = { "rainbow-parens" },
+        strategy = require("ts-rainbow.strategy.global"),
+    },
     playground = { enable = true },
     textobjects = {
         select = {

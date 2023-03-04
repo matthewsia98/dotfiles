@@ -61,6 +61,9 @@ opt.list = true
 o.listchars = "lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂"
 o.fillchars = "eob: ,fold: ,foldsep: ,foldopen:,foldclose:"
 
+-- Enable fuzzy matching for commands
+opt.wildoptions = "fuzzy,pum,tagfile"
+
 opt.undofile = true
 opt.swapfile = false
 
