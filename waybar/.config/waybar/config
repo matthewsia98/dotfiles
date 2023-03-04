@@ -10,9 +10,9 @@
     "margin": "0 0 0 0",
 
     // Choose the order of the modules
-    "modules-left": ["custom/launcher", "wlr/workspaces", "hyprland/window", "custom/updates", "cpu", "memory"],
+    "modules-left": ["custom/launcher", "wlr/workspaces", "hyprland/window", "custom/updates", "custom/notifications", "cpu", "memory"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/notifications", "disk", "backlight", "pulseaudio", "network", "battery"],
+    "modules-right": ["disk", "backlight", "pulseaudio", "network", "battery"],
 
     // Modules configuration
     "custom/launcher": {
@@ -24,14 +24,14 @@
     "custom/updates": {
         "exec": "checkupdates 2>/dev/null | wc -l",
         "return-type": "string",
-        "format": " {}",
+        "format": "  {}",
         "tooltip": false,
         "interval": 3600,
     },
     "custom/notifications": {
         "exec": "~/.config/waybar/scripts/notifications-status.sh",
         "return-type": "string",
-        "format": "{} ",
+        "format": "|  {}",
         "on-click": "dunstctl set-paused toggle",
         "restart-interval": 1,
         "tooltip": false,

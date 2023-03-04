@@ -56,7 +56,13 @@ tooltip label {
 #cpu,
 #memory {
     padding: 0px 12px;
+    /* margin: 0px 2px; */
 }
+
+/* #custom-updates, */
+/* #custom-notifications { */
+/*     padding: 0px 4px; */
+/* } */
 
 #custom-launcher {
     background-image: url("/home/msia/.config/waybar/archlinux.svg");
@@ -93,7 +99,14 @@ tooltip label {
 
 #custom-updates {
     background-color: transparent;
-    margin: 0px 8px;
+    margin-left: 8px;
+    /* font-size: 18px; */
+}
+
+#custom-notifications {
+    background-color: transparent;
+    margin-right: 8px;
+    /* font-size: 18px; */
 }
 
 #clock {
@@ -101,10 +114,6 @@ tooltip label {
     /* color: alpha(@dark-text, 1.0); */
     /* padding: 0px 24px; */
     padding: 0px 12px;
-}
-
-#custom-notifications {
-    background-color: transparent;
 }
 
 #network {
