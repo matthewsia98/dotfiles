@@ -13,6 +13,12 @@ vim.on_key(function(char)
     end
 end, vim.api.nvim_create_namespace("auto_hlsearch"))
 
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+    group = group("checktime"),
+    command = "checktime",
+    desc = "Check if file has been changed outside of Neovim",
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = group(),
     callback = function()
@@ -50,6 +56,7 @@ vim.api.nvim_create_autocmd("FileType", {
     group = group(),
     pattern = { "norg" },
     callback = function()
+        -- vim.opt.concealcursor = "n"
         vim.opt.conceallevel = 3
     end,
     desc = "Set conceal level for norg files",
@@ -68,14 +75,4 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         end
     end,
     desc = "Create dir if it doesn't exist",
-})
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-    group = group(),
-    callback = function()
-        if #vim.lsp.get_active_clients({ bufnr = 0, name = "null-ls" }) > 0 then
-            vim.lsp.buf.format({ name = "null-ls" })
-        end
-    end,
-    desc = "Format file before save",
 })
