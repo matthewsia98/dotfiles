@@ -3,6 +3,8 @@
 [user]
 	email = matthewsia98@gmail.com
 	name = Matthew Sia
+[pull]
+	rebase = true
 
 # Git Delta
 [include]

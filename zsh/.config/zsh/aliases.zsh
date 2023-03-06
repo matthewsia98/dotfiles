@@ -35,7 +35,7 @@ alias syncthing-web="xdg-open http://localhost:8384"
 
 # Git
 alias gcl="git clone --verbose"
-alias gs="git status --verbose"
+alias gs="git status"
 alias ga="git add --verbose"
 alias ga.="git add --verbose ."
 alias gc="git commit --message"
@@ -65,3 +65,4 @@ alias pacls="pacman -Q"
 # Miscellaneous
 alias dots="cd ~/.dotfiles"
 alias sched="img ~/Pictures/schedule.png"
+alias school="cd ~/uOttawa/2023-Winter/"

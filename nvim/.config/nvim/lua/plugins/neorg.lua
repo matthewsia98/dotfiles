@@ -27,10 +27,9 @@ return {
                 ["core.norg.dirman"] = {
                     config = {
                         workspaces = {
-                            notes = "~/notes",
-                            courses = "~/Courses",
+                            term = "~/uOttawa/2023-Winter",
                         },
-                        default_workspace = "courses",
+                        default_workspace = "term",
                     },
                 },
 

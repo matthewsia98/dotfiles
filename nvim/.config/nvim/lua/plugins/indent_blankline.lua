@@ -3,6 +3,7 @@ return {
     event = "BufReadPre",
     config = function()
         require("indent_blankline").setup({
+            show_first_indent_level = false,
             char_highlight_list = {
                 "IndentBlanklineIndent1",
                 "IndentBlanklineIndent2",

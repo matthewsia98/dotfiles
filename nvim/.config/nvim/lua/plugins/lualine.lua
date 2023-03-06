@@ -163,6 +163,8 @@ return {
                     },
                     { "filetype", separator = separator },
                     { "filesize", separator = separator },
+                    spacer,
+                    { "location", separator = separator },
                 },
             },
         })

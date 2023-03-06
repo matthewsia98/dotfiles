@@ -61,6 +61,8 @@ opt.list = true
 o.listchars = "lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂"
 o.fillchars = "eob: ,fold: ,foldsep: ,foldopen:,foldclose:"
 
+-- Command line completion mode
+opt.wildmode = "longest:full,full"
 -- Enable fuzzy matching for commands
 opt.wildoptions = "fuzzy,pum,tagfile"
 
@@ -86,6 +88,3 @@ opt.spelloptions = "camel"
 -- Don't check if words should start with Capital letters
 opt.spellcapcheck = ""
 o.spellfile = vim.fn.expand("~/.config/nvim/spell/en.utf-8.add")
-
--- opt.conceallevel = 2
--- opt.concealcursor = "n"

@@ -21,6 +21,7 @@ return {
                     StatusLineNC = { bg = colors.base },
                     WinSeparator = { fg = colors.text },
                     Pmenu = { bg = colors.base },
+                    CursorColumn = { bg = colors.surface1 },
 
                     NoiceCursor = { bg = colors.text, fg = colors.base },
                     NoiceSplit = { bg = colors.base },

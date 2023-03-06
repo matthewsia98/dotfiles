@@ -14,6 +14,8 @@ local function map(modes, key, value, options)
 end
 M.map = map
 
+map("i", "<C-BS>", "<C-w>", { desc = "Delete word backwards" })
+
 map("i", "<C-a>", "<ESC>I", { desc = "Go to start of line" })
 map("i", "<C-e>", "<ESC>A", { desc = "Go to end of line" })
 map("s", "<C-a>", "<ESC>`<i", { desc = "Go to start of line" })
@@ -56,5 +58,7 @@ map("n", "<leader>fd", "za", { desc = "Toggle fold" })
 map("n", "<leader>fD", "zA", { desc = "Toggle fold recursively" })
 
 map("n", "gx", "<CMD>!xdg-open <cfile><CR>", { desc = "Open link in browser" })
+
+map("n", "<leader>cc", "<CMD>set cursorcolumn!<CR>", { desc = "Toggle cursor column" })
 
 return M

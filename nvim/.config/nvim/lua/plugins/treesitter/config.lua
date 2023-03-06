@@ -15,7 +15,7 @@ require("nvim-treesitter.configs").setup({
         enable = true,
         additional_vim_regex_highlighting = false,
     },
-    indent = { enabled = false },
+    indent = { enable = true, disable = { "python" } },
     rainbow = {
         enable = true,
         query = { "rainbow-parens" },
