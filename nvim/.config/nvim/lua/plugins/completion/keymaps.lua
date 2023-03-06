@@ -58,10 +58,12 @@ M.set_keymaps = function()
         local cmp = require("cmp")
         if cmp.visible() and cmp.get_selected_entry() then
             cmp.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace })
+        elseif pcall(require, "nvim-autopairs") then
+            return require("nvim-autopairs").autopairs_cr()
         else
-            feedkeys("<CR>", "n")
+            feedkeys("<CR>", "nt")
         end
-    end, { desc = "Cmp confirm selected" })
+    end, { expr = true, desc = "Cmp confirm selected" })
 
     map({ "i", "c" }, "<C-c>", function()
         local cmp = require("cmp")

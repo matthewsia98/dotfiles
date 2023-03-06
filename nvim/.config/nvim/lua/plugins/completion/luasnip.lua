@@ -2,7 +2,8 @@ local luasnip = require("luasnip")
 local types = require("luasnip.util.types")
 
 luasnip.config.set_config({
-    history = true,
+    -- Enable jumping back to previous snippets
+    history = false,
     enable_autosnippets = true,
 
     -- Fix extmarks not being cleared when deleting snippet (https://github.com/L3MON4D3/LuaSnip/issues/298) (https://github.com/L3MON4D3/LuaSnip/issues/116)
