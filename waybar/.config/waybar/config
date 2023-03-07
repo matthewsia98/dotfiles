@@ -134,7 +134,7 @@
         "tooltip-format": "RAM : {used} / {total} GiB\nSwap: {swapUsed} / {swapTotal} GiB"
     },
     "disk": {
-        "format": " {}%",
+        "format": " {percentage_used}%",
         "tooltip": true,
         "tooltip-format": "{used} / {total} GiB",
     },
