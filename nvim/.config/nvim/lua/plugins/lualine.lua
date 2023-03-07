@@ -151,8 +151,11 @@ return {
                             return gaps
                         end,
                     },
-                    { "fileformat", separator = separator },
-                    { "encoding", separator = separator },
+                    -- { "fileformat", separator = separator },
+                    -- { "encoding", separator = separator },
+                    -- spacer,
+                    { "filetype", separator = separator },
+                    { "filesize", separator = separator },
                 },
                 lualine_z = {
                     {
@@ -161,10 +164,8 @@ return {
                             return gaps
                         end,
                     },
-                    { "filetype", separator = separator },
-                    { "filesize", separator = separator },
-                    spacer,
                     { "location", separator = separator },
+                    { "progress", separator = separator },
                 },
             },
         })

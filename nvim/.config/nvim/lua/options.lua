@@ -74,6 +74,8 @@ opt.timeoutlen = 500
 -- Time in milliseconds for CursorHold
 opt.updatetime = 200
 
+-- Always show tabline
+opt.showtabline = 2
 -- Only 1 global statusline
 opt.laststatus = 3
 

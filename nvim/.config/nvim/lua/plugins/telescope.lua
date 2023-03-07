@@ -60,12 +60,13 @@ return {
         telescope.load_extension("live_grep_args")
     end,
     keys = {
+        { "<leader>fb", "<CMD>Telescope buffers<CR>", desc = "Find Buffers" },
+        { "<leader>fc", "<CMD>Telescope commands<CR>", desc = "Commands" },
         { "<leader>fh", "<CMD>Telescope help_tags<CR>", desc = "Help Tags" },
         { "<leader>fo", "<CMD>Telescope vim_options<CR>", desc = "Options" },
-        { "<leader>fc", "<CMD>Telescope commands<CR>", desc = "Commands" },
+        { "<leader>f/", "<CMD>Telescope current_buffer_fuzzy_find<CR>", desc = "Current Buffer Fuzzy Find" },
         { "<leader>ff", "<CMD>Telescope find_files<CR>", desc = "Find Files" },
         { "<leader>.ff", "<CMD>Telescope find_files hidden=true<CR>", desc = "Find Files (Including hidden files)" },
-        { "<leader>f/", "<CMD>Telescope current_buffer_fuzzy_find<CR>", desc = "Current Buffer Fuzzy Find" },
         { "<leader>fl", "<CMD>Telescope live_grep_args<CR>", desc = "Live Grep" },
         {
             "<leader>.fl",
@@ -87,7 +88,6 @@ return {
             end,
             desc = "Live Grep (--hidden)",
         },
-        { "<leader>fb", "<CMD>Telescope buffers<CR>", desc = "Find Buffers" },
         {
             "<leader>fg",
             function()
@@ -99,7 +99,7 @@ return {
             desc = "Grep String",
         },
         {
-            "<leader>fd",
+            "<leader>fn",
             function()
                 require("telescope.builtin").find_files({
                     prompt_title = "Neovim Config",
