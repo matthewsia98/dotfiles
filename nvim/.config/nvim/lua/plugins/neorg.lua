@@ -27,9 +27,10 @@ return {
                 ["core.norg.dirman"] = {
                     config = {
                         workspaces = {
-                            term = "~/uOttawa/2023-Winter",
+                            uOttawa = "~/uOttawa",
+                            ["2023-Winter"] = "~/uOttawa/2023-Winter",
                         },
-                        default_workspace = "term",
+                        default_workspace = "2023-Winter",
                     },
                 },
 
