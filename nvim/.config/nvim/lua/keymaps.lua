@@ -21,7 +21,18 @@ map("i", "<C-e>", "<ESC>A", { desc = "Go to end of line" })
 map("s", "<C-a>", "<ESC>`<i", { desc = "Go to start of line" })
 map("s", "<C-e>", "<ESC>`>a", { desc = "Go to end of line" })
 
-map("n", "<CR>", "o<ESC>", { desc = "Insert blank line below" })
+map("n", "<CR>", function()
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local line = vim.fn.getline(".")
+    ---@diagnostic disable-next-line: undefined-field
+    if line:match("^%s*$") then
+        -- If line is empty, insert blank line
+        return "o<ESC>"
+    else
+        -- If line is not empty, break line at cursor
+        return "m`i<CR><Esc>``"
+    end
+end, { expr = true, desc = "Insert blank line below" })
 map("n", "<S-CR>", "O<ESC>", { desc = "Insert blank line above" })
 
 map("n", "i", function()
@@ -32,10 +43,12 @@ map("n", "i", function()
 end, { expr = true, desc = "Correct indentation when pressing i on empty line" })
 
 -- REFERENCE: https://vim.fandom.com/wiki/Moving_lines_up_or_down
-map("i", "<C-j>", "<Esc>:m .+1<CR>==gi", { desc = "Move line up" })
-map("i", "<C-k>", "<Esc>:m .-2<CR>==gi", { desc = "Move line down" })
-map("x", "<C-j>", ":move '>+1<CR>gv=gv", { desc = "Move visual selection up" })
-map("x", "<C-k>", ":move '<-2<CR>gv=gv", { desc = "Move visual selection down" })
+map("n", "<C-n>", ":move .+1<CR>==", { desc = "Move line down" })
+map("n", "<C-p>", ":move .-2<CR>==", { desc = "Move line up" })
+-- map("i", "<C-n>", "<Esc>:m .+1<CR>==gi", { desc = "Move line down" })
+-- map("i", "<C-p>", "<Esc>:m .-2<CR>==gi", { desc = "Move line up" })
+map("x", "<C-n>", ":move '>+1<CR>gv=gv", { desc = "Move visual selection down" })
+map("x", "<C-p>", ":move '<-2<CR>gv=gv", { desc = "Move visual selection up" })
 
 map("n", "<C-k>", "<C-w>k", { desc = "Focus top window" })
 map("n", "<C-j>", "<C-w>j", { desc = "Focus bottom window" })
