@@ -8,6 +8,9 @@ return {
             keywords = {
                 REFERENCE = { icon = "", color = "hint" },
             },
+            highlight = {
+                multiline = false,
+            },
         })
     end,
     keys = {
