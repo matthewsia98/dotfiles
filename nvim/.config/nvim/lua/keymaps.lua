@@ -21,19 +21,9 @@ map("i", "<C-e>", "<ESC>A", { desc = "Go to end of line" })
 map("s", "<C-a>", "<ESC>`<i", { desc = "Go to start of line" })
 map("s", "<C-e>", "<ESC>`>a", { desc = "Go to end of line" })
 
-map("n", "<CR>", function()
-    ---@diagnostic disable-next-line: param-type-mismatch
-    local line = vim.fn.getline(".")
-    ---@diagnostic disable-next-line: undefined-field
-    if line:match("^%s*$") then
-        -- If line is empty, insert blank line
-        return "o<ESC>"
-    else
-        -- If line is not empty, break line at cursor
-        return "m`i<CR><Esc>``"
-    end
-end, { expr = true, desc = "Insert blank line below" })
+map("n", "<CR>", "o<ESC>", { desc = "Insert blank line below" })
 map("n", "<S-CR>", "O<ESC>", { desc = "Insert blank line above" })
+map("n", "<C-CR>", "m`i<CR><Esc>``", { desc = "Break line at cursor" })
 
 map("n", "i", function()
     ---@diagnostic disable-next-line: param-type-mismatch
