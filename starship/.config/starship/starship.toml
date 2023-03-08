@@ -130,7 +130,7 @@ format = '[$symbol $branch(:$remote_branch)]($style)'
 disabled = false
 only_detached = false
 tag_disabled = false
-tag_symbol = "  🏷 "
+tag_symbol = " 🏷 "
 style = "bold bg:base fg:pink"
 format = '[#$hash$tag]($style)'
 
