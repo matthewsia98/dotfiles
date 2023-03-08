@@ -64,5 +64,5 @@ alias pacls="pacman -Q"
 
 # Miscellaneous
 alias dots="cd ~/.dotfiles"
-alias sched="img ~/Pictures/schedule.png"
-alias school="cd ~/uOttawa/2023-Winter/"
+alias schedule="img ~/Pictures/schedule.png"
+alias term="cd ~/uOttawa/2023-Winter/"

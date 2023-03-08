@@ -6,7 +6,10 @@ luasnip.config.set_config({
     history = false,
     enable_autosnippets = true,
 
-    -- Fix extmarks not being cleared when deleting snippet (https://github.com/L3MON4D3/LuaSnip/issues/298) (https://github.com/L3MON4D3/LuaSnip/issues/116)
+    --[[
+    REFERENCE: (https://github.com/L3MON4D3/LuaSnip/issues/298) (https://github.com/L3MON4D3/LuaSnip/issues/116)
+    Fix extmarks not being cleared when deleting snippet
+    ]]
     region_check_events = "CursorMoved,InsertEnter",
     delete_check_events = "TextChanged,InsertLeave",
 

@@ -73,7 +73,8 @@ return {
                     {
                         spacer,
                         cond = function()
-                            return gaps
+                            local diagnostics = #vim.diagnostic.get(nil) > 0
+                            return gaps and diagnostics
                         end,
                     },
                     {
@@ -81,7 +82,6 @@ return {
                         sources = { "nvim_workspace_diagnostic" },
                         separator = style == "powerline" and { left = "", right = "" } or separator,
                     },
-                    spacer,
                     -- {
                     --     -- Cursor diagnostic | Most severe diagnostic
                     --     function()
@@ -142,8 +142,24 @@ return {
                     --             .. cursor_diagnostic_msg
                     --     end,
                     -- },
+                    -- {
+                    --     spacer,
+                    --     cond = function()
+                    --         return vim.fn.reg_recording() ~= ""
+                    --     end,
+                    -- },
+                    -- {
+                    --     -- Show macro recording
+                    --     function()
+                    --         local reg = vim.fn.reg_recording()
+                    --         return #reg > 0 and ("Recording @" .. reg) or reg
+                    --     end,
+                    --     color = "WarningMsg",
+                    -- },
                 },
-                lualine_x = { spacer },
+                lualine_x = {
+                    spacer,
+                },
                 lualine_y = {
                     {
                         spacer,

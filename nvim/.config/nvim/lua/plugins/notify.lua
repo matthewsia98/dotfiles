@@ -3,7 +3,7 @@ return {
     config = function()
         local notify = require("notify")
         notify.setup({
-            timeout = 3000,
+            timeout = 1000,
         })
         vim.notify = notify
     end,
