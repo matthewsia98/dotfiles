@@ -44,11 +44,12 @@ M.setup = function(opts)
                     typeshedPaths = {},
 
                     --[[
+                    REFERENCE: https://github.com/microsoft/pyright/issues/3201#issuecomment-1069658359
                     Determines whether pyright reads, parses and analyzes library code to extract type information in the absence of type stub files.
                     Type information will typically be incomplete.
                     We recommend using type stubs where possible. The default value for this option is false.
                     ]]
-                    useLibraryCodeForTypes = false,
+                    useLibraryCodeForTypes = true,
                 },
             },
             pyright = {
