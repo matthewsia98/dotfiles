@@ -54,16 +54,24 @@ M.set_keymaps = function()
         end
     end, { desc = "Cmp / Luasnip / Copilot Previous" })
 
-    map({ "i", "c" }, "<CR>", function()
+    map("i", "<CR>", function()
         local cmp = require("cmp")
         if cmp.visible() and cmp.get_selected_entry() then
             cmp.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace })
         elseif pcall(require, "nvim-autopairs") then
-            return require("nvim-autopairs").autopairs_cr()
+            feedkeys(require("nvim-autopairs").autopairs_cr(), "n")
         else
-            feedkeys("<CR>", "nt")
+            feedkeys("<CR>", "n")
         end
-    end, { expr = true, desc = "Cmp confirm selected" })
+    end, { desc = "Cmp confirm selected" })
+    map("c", "<CR>", function()
+        local cmp = require("cmp")
+        if cmp.visible() and cmp.get_selected_entry() then
+            cmp.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace })
+        else
+            feedkeys("<CR>", "n")
+        end
+    end, { desc = "Cmp confirm selected" })
 
     map({ "i", "c" }, "<C-c>", function()
         local cmp = require("cmp")
