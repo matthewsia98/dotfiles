@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-    group = group(),
+    group = group("highlight_on_yank"),
     callback = function()
         vim.highlight.on_yank({ higroup = "Visual", timeout = 2000 })
     end,
@@ -36,7 +36,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-    group = group(),
+    group = group("close_with_q"),
     pattern = { "", "help", "toggleterm", "tsplayground" },
     callback = function()
         vim.keymap.set("n", "q", "<CMD>q<CR>", { buffer = vim.api.nvim_get_current_buf(), desc = "" })
@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-    group = group(),
+    group = group("formatoptions"),
     callback = function()
         vim.opt.formatoptions:remove({ "c", "r", "o" })
     end,
@@ -53,7 +53,16 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-    group = group(),
+    group = group("lazy_check_updates"),
+    pattern = "lazy",
+    callback = function()
+        require("lazy.manage").check()
+    end,
+    desc = "Check for plugin updates on opening Lazy UI",
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    group = group("neorg_conceal"),
     pattern = { "norg" },
     callback = function()
         -- vim.opt.concealcursor = "n"
@@ -63,7 +72,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-    group = group(),
+    group = group("auto_create_dir"),
     callback = function()
         local head = vim.fn.expand("%:p:h")
         local dir_exists = vim.fn.isdirectory(head) ~= 0
