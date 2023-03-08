@@ -23,7 +23,7 @@
   "mini.align": { "branch": "main", "commit": "39594d705ad85899e106213b712b3d9630d90ca3" },
   "mini.cursorword": { "branch": "main", "commit": "823946b30e0c521152df5f02edcc3a65b3c40649" },
   "neo-tree.nvim": { "branch": "v2.x", "commit": "aec592bb1f0cf67f7e1123053d1eb17700aa9ed4" },
-  "neodev.nvim": { "branch": "main", "commit": "749f933eab33fd4e4b78b3d4c97e401632988b33" },
+  "neodev.nvim": { "branch": "main", "commit": "50eaabc6645b43ded9126f97080bff767063b1c6" },
   "neorg": { "branch": "main", "commit": "3e09f698b8a4151f2b4f77ee917e4b54388bc97a" },
   "neorg-telescope": { "branch": "main", "commit": "9deacda7abbfe09cd80ba86d0eefad514cda0b11" },
   "neoscroll.nvim": { "branch": "master", "commit": "d7601c26c8a183fa8994ed339e70c2d841253e93" },

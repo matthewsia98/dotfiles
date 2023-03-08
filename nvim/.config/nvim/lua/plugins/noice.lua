@@ -59,7 +59,7 @@ return {
                 },
                 mini = {
                     position = {
-                        row = vim.o.lines - 4,
+                        row = "96%",
                     },
                 },
             },
