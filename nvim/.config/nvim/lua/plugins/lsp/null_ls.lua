@@ -28,7 +28,7 @@ null_ls.setup({
                 group = group,
                 buffer = bufnr,
                 callback = function()
-                    vim.lsp.buf.format({ name = "null-ls" })
+                    vim.lsp.buf.format({ name = "null-ls", timeout = 5000 })
                 end,
             })
         end
