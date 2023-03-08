@@ -24,4 +24,19 @@ return {
             { "cs", desc = "" },
         },
     },
+    {
+        "echasnovski/mini.align",
+        config = function()
+            require("mini.align").setup({
+                mappings = {
+                    start = "ga",
+                    start_with_preview = "gA",
+                },
+            })
+        end,
+        keys = {
+            { "ga", mode = { "n", "v" } },
+            { "gA", mode = { "n", "v" } },
+        },
+    },
 }

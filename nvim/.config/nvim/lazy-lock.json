@@ -20,6 +20,7 @@
   "lualine.nvim": { "branch": "master", "commit": "e99d733e0213ceb8f548ae6551b04ae32e590c80" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "a31e011135a79d63c71254c250c9158e1056a1cb" },
   "mason.nvim": { "branch": "main", "commit": "bb307c339d14afaaefe624f784e3cf25451817e4" },
+  "mini.align": { "branch": "main", "commit": "39594d705ad85899e106213b712b3d9630d90ca3" },
   "mini.cursorword": { "branch": "main", "commit": "823946b30e0c521152df5f02edcc3a65b3c40649" },
   "neo-tree.nvim": { "branch": "v2.x", "commit": "aec592bb1f0cf67f7e1123053d1eb17700aa9ed4" },
   "neodev.nvim": { "branch": "main", "commit": "749f933eab33fd4e4b78b3d4c97e401632988b33" },
@@ -55,5 +56,6 @@
   "toggleterm.nvim": { "branch": "main", "commit": "31d38d11390bcd35a568fcc65a79b7d6ec89de62" },
   "trouble.nvim": { "branch": "main", "commit": "67337644e38144b444d026b0df2dc5fa0038930f" },
   "ts-node-action": { "branch": "master", "commit": "25a1eff9d2cd1d2132dc6d1cd3b9d8d9b28518f3" },
-  "vim-python-pep8-indent": { "branch": "master", "commit": "60ba5e11a61618c0344e2db190210145083c91f8" }
+  "vim-python-pep8-indent": { "branch": "master", "commit": "60ba5e11a61618c0344e2db190210145083c91f8" },
+  "which-key.nvim": { "branch": "main", "commit": "fb027738340502b556c3f43051f113bcaa7e8e63" }
 }

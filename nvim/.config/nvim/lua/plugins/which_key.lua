@@ -1,6 +1,6 @@
 return {
     "folke/which-key.nvim",
-    enabled = false,
+    enabled = true,
     event = "CursorHold",
     config = function()
         require("which-key").setup({
