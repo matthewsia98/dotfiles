@@ -28,13 +28,11 @@ return {
                 },
                 mappings = {
                     i = {
-                        ["<C-q>"] = false,
                         ["<C-t>"] = trouble.open_with_trouble,
                     },
                     n = {
                         ["q"] = actions.close,
                         ["<C-c>"] = actions.close,
-                        ["<C-q>"] = false,
                         ["<C-t>"] = trouble.open_with_trouble,
                     },
                 },
