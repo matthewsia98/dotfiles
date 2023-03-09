@@ -11,13 +11,13 @@ return {
         require("telescope").load_extension("harpoon")
     end,
     keys = {
-        -- {
-        --     "<leader>hm",
-        --     function()
-        --         require("harpoon.ui").toggle_quick_menu()
-        --     end,
-        --     desc = "Harpoon Toggle Menu",
-        -- },
+        {
+            "<leader>hm",
+            function()
+                require("harpoon.ui").toggle_quick_menu()
+            end,
+            desc = "Harpoon Toggle Menu",
+        },
         {
             "<leader>ha",
             function()

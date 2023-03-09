@@ -8,7 +8,12 @@ return {
                 ["<ESC>"] = true,
             },
             window_options = {
+                relative = "editor",
                 border = "rounded",
+                row = 100,
+                col = math.floor(vim.o.columns / 4),
+                width = math.floor(vim.o.columns / 2),
+                height = 8,
             },
         })
     end,

@@ -15,7 +15,7 @@ return {
                 section_separators = { left = "", right = "" },
                 component_separators = { left = "", right = "" },
                 disabled_filetypes = {
-                    statusline = { "dashboard", "Trouble" },
+                    statusline = { "dashboard", "lazy", "Trouble" },
                     winbar = {
                         "dapui_scopes",
                         "dapui_breakpoints",
@@ -142,20 +142,20 @@ return {
                     --             .. cursor_diagnostic_msg
                     --     end,
                     -- },
-                    -- {
-                    --     spacer,
-                    --     cond = function()
-                    --         return vim.fn.reg_recording() ~= ""
-                    --     end,
-                    -- },
-                    -- {
-                    --     -- Show macro recording
-                    --     function()
-                    --         local reg = vim.fn.reg_recording()
-                    --         return #reg > 0 and ("Recording @" .. reg) or reg
-                    --     end,
-                    --     color = "WarningMsg",
-                    -- },
+                    {
+                        spacer,
+                        cond = function()
+                            return vim.fn.reg_recording() ~= ""
+                        end,
+                    },
+                    {
+                        -- Show macro recording
+                        function()
+                            local reg = vim.fn.reg_recording()
+                            return #reg > 0 and ("Recording @" .. reg) or reg
+                        end,
+                        color = "WarningMsg",
+                    },
                 },
                 lualine_x = {
                     spacer,

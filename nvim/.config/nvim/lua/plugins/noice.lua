@@ -65,10 +65,10 @@ return {
             },
             routes = {
                 -- Show recording messages
-                {
-                    view = "notify",
-                    filter = { event = "msg_showmode" },
-                },
+                -- {
+                --     view = "notify",
+                --     filter = { event = "msg_showmode" },
+                -- },
 
                 -- Hide written, more/less lines, lines changed, etc messages
                 {

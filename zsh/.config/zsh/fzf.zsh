@@ -51,7 +51,7 @@ then
     esac
 elif [ -d {} ]
 then
-    exa -aT --icons --color=always {}
+    exa -aT --icons --color=always $(realpath {})
 fi'
 
 export FZF_DEFAULT_OPTS="${fzf_opts}"
