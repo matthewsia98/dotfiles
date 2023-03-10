@@ -26,7 +26,7 @@
         "return-type": "string",
         "format": "  {}",
         "tooltip": false,
-        "interval": 3600,
+        "interval": 3600, // check every hour
     },
     "custom/notifications": {
         "exec": "~/.config/waybar/scripts/notifications-status.sh",
