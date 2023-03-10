@@ -23,3 +23,5 @@ export EXA_COLORS="*.png=35"
 
 export BAT_PAGER="less -RF --mouse --wheel-lines=4"
 export DELTA_PAGER="less -RF --mouse --wheel-lines=4"
+
+export W3M_DIR="~/.config/w3m"

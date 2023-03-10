@@ -19,7 +19,6 @@ zmodload zsh/complist
 autoload -Uz compinit && compinit -d ~/.cache/zsh/.zcompdump
 [ -f ~/.config/zsh/fzf.zsh ] && source ~/.config/zsh/fzf.zsh
 [ -f ~/.config/zsh/fzf_tab.zsh ] && source ~/.config/zsh/fzf_tab.zsh
-[ -f ~/.config/zsh/zstyles.zsh ] && source ~/.config/zsh/zstyles.zsh
 [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # [ -f ~/repos/zsh-syntax-highlighting-catppuccin/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh ] && source ~/repos/zsh-syntax-highlighting-catppuccin/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
