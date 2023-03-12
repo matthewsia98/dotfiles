@@ -115,7 +115,7 @@ set-hyprland-opacity () {
         return
     fi
 
-    sub="s/(^windowrule.*opacity.*)([0-9]\.[0-9]+ [0-9]\.[0-9]+)(.*${program}.*)/\1${opacity} ${opacity}\3/"
+    sub="s/(^windowrule.*opacity\s*)([0-9]\.?[0-9]* [0-9]\.?[0-9]*)(.*${program}.*)/\1${opacity} ${opacity}\3/"
     sed -i.bak -E "$sub" "$HOME/.config/hypr/hyprland.conf"
 
     printf "Set opacity of %s to %s" "${program}" "${opacity}"

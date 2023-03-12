@@ -3,6 +3,7 @@ set first-page-column "1:1"
 set font "JetBrainsMono Nerd Font 12"
 
 
+map c snap_to_page
 map f toggle_fullscreen
 map [fullscreen] f toggle_fullscreen
 

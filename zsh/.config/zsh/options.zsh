@@ -1,7 +1,10 @@
 # lets files beginning with a . be matched without explicitly specifying the dot
-# setopt globdots
+# setopt GLOB_DOTS
 
-setopt extendedglob
+setopt EXTENDED_GLOB
+
+# make globbing case insensitive
+unsetopt CASE_GLOB
 
 # Add to history immediately, not on exit
 setopt INC_APPEND_HISTORY

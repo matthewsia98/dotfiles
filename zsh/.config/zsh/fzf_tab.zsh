@@ -3,11 +3,17 @@ fzf_tab_preview=$(sed 's/{}/${realpath}/g' <<< "${fzf_tab_preview}")
 
 [ -f ~/repos/fzf-tab/fzf-tab.plugin.zsh ] && source ~/repos/fzf-tab/fzf-tab.plugin.zsh
 
-zstyle ':fzf-tab:*' fzf-flags '--height=80%'
+zstyle ":fzf-tab:*" continuous-trigger "/"
+zstyle ":fzf-tab:*" switch-group "ctrl-h" "ctrl-l"
+
 zstyle ":completion:*:descriptions" format "[%d]"
 zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}
-zstyle ':fzf-tab:complete:*:options' fzf-preview
+
+zstyle ':fzf-tab:*' fzf-flags '--height=80%'
 zstyle ':fzf-tab:complete:*' fzf-preview "${fzf_tab_preview}"
+# Disable preview for command options
+zstyle ':fzf-tab:complete:*:options' fzf-preview
+
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview '[[ $group == "[process ID]" ]] && ps --pid=$word --format=user,pid,command,start,etime'
 
@@ -40,6 +46,3 @@ zstyle ':fzf-tab:complete:git-branch:*' fzf-preview '\
     "recent commit object name") git show --color=always $word | delta ;;
     *) git log --color=always $word ;;
     esac'
-
-zstyle ":fzf-tab:*" continuous-trigger "/"
-zstyle ":fzf-tab:*" switch-group "ctrl-h" "ctrl-l"
