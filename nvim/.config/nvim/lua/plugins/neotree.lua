@@ -31,7 +31,7 @@ return {
                 },
             },
             window = {
-                width = 40,
+                max_width = math.floor(vim.o.columns * 0.4),
                 mappings = {
                     ["<space>"] = false,
                 },

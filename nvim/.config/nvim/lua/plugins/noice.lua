@@ -6,7 +6,8 @@ return {
     event = "VeryLazy",
     config = function()
         require("noice").setup({
-            messages = { enabled = true },
+            cmdline = { enabled = true },
+            messages = { enabled = false },
             notify = { enabled = true },
             lsp = {
                 progress = { enabled = true },

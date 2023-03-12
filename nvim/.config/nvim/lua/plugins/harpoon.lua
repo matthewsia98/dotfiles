@@ -3,8 +3,8 @@ return {
     config = function()
         require("harpoon").setup({
             menu = {
-                width = math.floor(vim.o.columns * 0.5),
-                height = math.floor(vim.o.lines * 0.5),
+                width = math.floor(vim.o.columns * 0.7),
+                height = math.floor(vim.o.lines * 0.7),
             },
         })
 

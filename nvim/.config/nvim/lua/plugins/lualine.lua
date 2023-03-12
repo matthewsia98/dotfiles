@@ -63,7 +63,8 @@ return {
                         spacer,
                         cond = function()
                             local is_git = require("lualine.components.branch.git_branch").find_git_dir() ~= nil
-                            return gaps and is_git or vim.tbl_contains({ "qf", "lazy" }, vim.bo.filetype)
+                            return gaps and is_git
+                                or vim.tbl_contains({ "qf", "lazy", "DressingInput" }, vim.bo.filetype)
                         end,
                     },
                     { "branch", separator = separator },

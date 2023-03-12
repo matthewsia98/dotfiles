@@ -6,9 +6,9 @@ return {
             direction = "vertical",
             size = function(term)
                 if term.direction == "vertical" then
-                    return math.floor(vim.o.columns * 0.4)
+                    return math.floor(vim.o.columns * 0.3)
                 elseif term.direction == "horizontal" then
-                    return math.floor(vim.o.lines * 0.4)
+                    return math.floor(vim.o.lines * 0.3)
                 end
             end,
             float_opts = {
@@ -80,6 +80,15 @@ return {
                 end
 
                 vim.cmd(string.format('TermExec go_back=0 cmd="%s"', command))
+
+                -- vim.ui.input({
+                --     prompt = "Run Command: ",
+                --     default = command,
+                -- }, function(input)
+                --     if input ~= nil then
+                --         vim.cmd(string.format('TermExec go_back=0 cmd="%s"', input))
+                --     end
+                -- end)
             end,
             desc = "Run File",
         },

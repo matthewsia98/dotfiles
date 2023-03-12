@@ -43,6 +43,7 @@ return {
                 neotree = true,
                 noice = true,
                 notify = true,
+                semantic_tokens = true,
                 treesitter_context = true,
                 treesitter = true,
                 ts_rainbow = true,
