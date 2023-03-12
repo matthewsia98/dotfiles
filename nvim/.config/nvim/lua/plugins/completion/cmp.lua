@@ -35,8 +35,10 @@ cmp.setup({
                     Copilot = "",
                 },
             })(entry, vim_item)
+
+            -- vim_item.kind = " Text",
             local strings = vim.split(vim_item.kind, "%s+", { trimempty = true })
-            kind.kind = " " .. string.format("[%s] %s", strings[1], strings[2]) .. " "
+            kind.kind = string.format(" [%s] %s ", strings[1], strings[2])
             return kind
         end,
     },
