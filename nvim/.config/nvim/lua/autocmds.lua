@@ -37,7 +37,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 
 vim.api.nvim_create_autocmd("FileType", {
     group = group("close_with_q"),
-    pattern = { "", "qf", "help", "toggleterm", "tsplayground" },
+    pattern = { "", "qf", "help", "checkhealth", "toggleterm", "tsplayground" },
     callback = function()
         vim.keymap.set("n", "q", "<CMD>q<CR>", { buffer = vim.api.nvim_get_current_buf(), desc = "" })
     end,

@@ -21,5 +21,19 @@ return {
             end,
             desc = "Scroll up",
         },
+        {
+            "<C-d>",
+            function()
+                require("neoscroll").scroll(vim.wo.scroll, true, 250)
+            end,
+            desc = "Scroll down",
+        },
+        {
+            "<C-u>",
+            function()
+                require("neoscroll").scroll(-vim.wo.scroll, true, 250)
+            end,
+            desc = "Scroll up",
+        },
     },
 }

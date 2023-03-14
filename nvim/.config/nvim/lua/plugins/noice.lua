@@ -6,9 +6,22 @@ return {
     event = "VeryLazy",
     config = function()
         require("noice").setup({
-            cmdline = { enabled = true },
-            messages = { enabled = false },
-            notify = { enabled = true },
+            cmdline = {
+                enabled = true,
+                view = "cmdline_popup",
+            },
+            popupmenu = {
+                enabled = true,
+                backend = "nui", -- nui | cmp
+            },
+            messages = {
+                enabled = true,
+                view = "split",
+            },
+            notify = {
+                enabled = true,
+                view = "notify",
+            },
             lsp = {
                 progress = { enabled = true },
                 documentation = {
@@ -82,7 +95,16 @@ return {
                             { find = "%d more lines?" },
                             { find = "%d fewer lines?" },
                             { find = "%d lines? less" },
+                            { find = "%d lines? yanked" },
                         },
+                    },
+                    opts = { skip = true },
+                },
+                {
+                    filter = {
+                        event = "msg_show",
+                        kind = "echo",
+                        find = "Running healthchecks...",
                     },
                     opts = { skip = true },
                 },

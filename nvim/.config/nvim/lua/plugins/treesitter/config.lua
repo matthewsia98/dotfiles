@@ -1,7 +1,10 @@
 require("nvim-treesitter.configs").setup({
     auto_install = true,
     ensure_installed = {
-        -- Required for noice lsp overrides
+        --[[
+        Required for noice lsp overrides
+        REFERENCE: https://github.com/folke/noice.nvim#%EF%B8%8F-requirements
+        ]]
         "vim",
         "regex",
         "lua",
@@ -9,7 +12,13 @@ require("nvim-treesitter.configs").setup({
         "markdown",
         "markdown_inline",
 
+        --[[
+        Should always be installed
+        REFERENCE: https://github.com/nvim-treesitter/nvim-treesitter#modules
+        ]]
+        "c",
         "help",
+        "query",
     },
 
     highlight = {
