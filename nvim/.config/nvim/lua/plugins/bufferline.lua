@@ -69,7 +69,12 @@ return {
 
         local map = require("keymaps").map
         for n = 1, 9 do
-            map("n", "<leader>" .. n, "<CMD>BufferLineGoToBuffer" .. n .. "<CR>", { desc = "Go to Buffer " .. n })
+            map(
+                "n",
+                "<leader>" .. n,
+                string.format([[<CMD>lua require("bufferline").go_to_buffer(%d, true)<CR>]], n),
+                { desc = "Go to Buffer " .. n }
+            )
         end
     end,
 }

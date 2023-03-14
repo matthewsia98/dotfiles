@@ -98,6 +98,8 @@ local config = {
             -- JSON
             "json-lsp",
             "jq",
+
+            "prettier",
         },
 
         null_ls_sources = {
@@ -110,6 +112,7 @@ local config = {
                 "clang_format",
                 "shfmt",
                 "jq",
+                "prettier",
             },
         },
 
