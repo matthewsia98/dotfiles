@@ -60,6 +60,8 @@ local config = {
             "gopls",
             "rust_analyzer",
             -- "bashls",
+            "html",
+            "cssls",
             "jsonls",
         },
 
@@ -99,6 +101,8 @@ local config = {
             "json-lsp",
             "jq",
 
+            "html-lsp",
+            "css-lsp",
             "prettier",
         },
 
