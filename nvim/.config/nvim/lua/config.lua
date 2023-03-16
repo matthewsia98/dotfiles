@@ -62,6 +62,8 @@ local config = {
             -- "bashls",
             "html",
             "cssls",
+            "emmet_ls",
+            "tsserver",
             "jsonls",
         },
 
@@ -103,6 +105,8 @@ local config = {
 
             "html-lsp",
             "css-lsp",
+            "emmet-ls",
+            "typescript-language-server",
             "prettier",
         },
 

@@ -21,8 +21,10 @@ for _, package_name in ipairs(config.lsp.mason_packages_to_install) do
     local package = registry.get_package(package_name)
     if not package:is_installed() then
         if show_ui then
-            vim.cmd([[Mason]])
-            show_ui = false
+            vim.schedule(function()
+                vim.cmd([[Mason]])
+                show_ui = false
+            end)
         end
         package:install()
     end

@@ -2,7 +2,7 @@ local M = {}
 
 M.setup = function(opts)
     local lspconfig = require("lspconfig")
-    lspconfig.html.setup({
+    lspconfig.tsserver.setup({
         capabilities = opts.capabilities,
         flags = opts.flags,
         handlers = opts.handlers,
