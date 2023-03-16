@@ -65,7 +65,7 @@ vim.api.nvim_create_autocmd("FileType", {
     group = group("neorg_conceal"),
     pattern = { "norg" },
     callback = function()
-        -- vim.opt.concealcursor = "n"
+        vim.opt.concealcursor = "n"
         vim.opt.conceallevel = 3
     end,
     desc = "Set conceal level for norg files",

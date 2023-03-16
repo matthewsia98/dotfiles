@@ -16,14 +16,17 @@ return {
             },
             messages = {
                 enabled = true,
-                view = "split",
+                view = "notify",
             },
             notify = {
                 enabled = true,
                 view = "notify",
             },
             lsp = {
-                progress = { enabled = true },
+                progress = {
+                    enabled = true,
+                    view = "mini",
+                },
                 documentation = {
                     opts = {
                         border = { style = "rounded" },
@@ -80,9 +83,18 @@ return {
             routes = {
                 -- Show recording messages
                 -- {
-                --     view = "notify",
                 --     filter = { event = "msg_showmode" },
+                --     view = "notify",
                 -- },
+
+                -- Redirect long messages
+                {
+                    filter = {
+                        event = "msg_show",
+                        min_height = 10,
+                    },
+                    view = "cmdline_output",
+                },
 
                 -- Hide written, more/less lines, lines changed, etc messages
                 {
@@ -90,24 +102,26 @@ return {
                         event = "msg_show",
                         kind = "",
                         any = {
-                            { find = "written" },
-                            { find = "%d change" },
-                            { find = "%d more lines?" },
-                            { find = "%d fewer lines?" },
-                            { find = "%d lines? less" },
-                            { find = "%d lines? yanked" },
+                            { find = "%d+B written" },
+                            { find = "%d+ change" },
+                            { find = "%d+ more lines?" },
+                            { find = "%d+ fewer lines?" },
+                            { find = "%d+ lines? less" },
+                            { find = "%d+ lines? yanked" },
+                            { find = "Already at newest change" },
                         },
                     },
                     opts = { skip = true },
                 },
-                {
-                    filter = {
-                        event = "msg_show",
-                        kind = "echo",
-                        find = "Running healthchecks...",
-                    },
-                    opts = { skip = true },
-                },
+                -- Hide other messages
+                -- {
+                --     filter = {
+                --         any = {
+                --
+                --         },
+                --     },
+                --     opts = { skip = true },
+                -- },
             },
         })
     end,

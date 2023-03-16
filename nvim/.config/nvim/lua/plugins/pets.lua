@@ -1,6 +1,6 @@
 return {
     "giusgad/pets.nvim",
-    enabled = false,
+    enabled = true,
     dependencies = {
         "giusgad/hologram.nvim",
         "MunifTanjim/nui.nvim",
@@ -8,8 +8,9 @@ return {
     cmd = { "PetsNew", "PetsNewCustom" },
     config = function()
         require("pets").setup({
-            default_pet = "cat",
-            default_style = "red",
+            default_pet = "dog",
+            default_style = "black",
+            random = true, -- Randomize pet for PetsNew command. Overrides defaults
             row = 5,
             popup = {
                 avoid_statusline = true,
