@@ -14,7 +14,7 @@ local function map(modes, key, value, options)
 end
 M.map = map
 
-map("i", "<C-BS>", "<C-w>", { desc = "Delete word backwards" })
+map({ "i", "c" }, "<C-BS>", "<C-w>", { desc = "Delete word backwards" })
 
 map("i", "<C-a>", "<ESC>I", { desc = "Go to start of line" })
 map("i", "<C-e>", "<ESC>A", { desc = "Go to end of line" })
