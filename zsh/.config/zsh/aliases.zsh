@@ -5,12 +5,12 @@ alias grep="grep --color=auto"
 alias ls="lsd -l"
 alias ll="lsd -alh"
 alias lll="lsd -alhL"
-alias dirs="dirs -v"
 alias cp="cp -rv"
 alias rm="rm -v"
 alias mkdir="mkdir -pv"
 alias cat="bat"
 alias rg="rg -S"
+alias df="df -h"
 alias tree="tree -CF"
 alias hexdump="hexdump -C"
 alias logout='loginctl terminate-user $USER'
@@ -60,5 +60,6 @@ alias pacls="pacman -Q"
 # Miscellaneous
 alias dots="cd ~/.dotfiles"
 alias schedule="img ~/Pictures/schedule.png"
-alias term='cd ~/uOttawa/2023-Winter/ && cd $(\ls | fzf --preview="${fzf_preview}")'
-alias neorg="nvim ~/uOttawa/2023-Winter/index.norg"
+
+current_school_term="${HOME}/uOttawa/2023-Winter"
+alias uottawa='xdg-open $(gum file ${current_school_term})'

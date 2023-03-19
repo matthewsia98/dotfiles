@@ -4,6 +4,7 @@ export PATH=${PATH}:~/.local/bin:~/.cargo/bin:~/.spicetify
 export PATH=${PATH}:~/.local/share/nvim/mason/bin
 export PATH=${PATH}:~/.config/emacs/bin
 
+export BROWSER="firefox"
 export EDITOR="nvim"
 export VISUAL="nvim"
 export PSQL_EDITOR="nvim"

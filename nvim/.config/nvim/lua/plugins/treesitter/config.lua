@@ -57,6 +57,13 @@ require("nvim-treesitter.configs").setup({
                 ["ah"] = { query = "@assignment.lhs", desc = "assignment left side" },
                 ["al"] = { query = "@assignment.rhs", desc = "assignment right side" },
             },
+            selection_modes = {
+                --[[
+                v: charwise
+                V: linewise
+                <C-v>: blockwise
+                ]]
+            },
         },
         swap = {
             enable = true,
