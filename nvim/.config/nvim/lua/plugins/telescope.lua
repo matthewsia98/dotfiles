@@ -97,7 +97,7 @@ return {
             desc = "Grep String",
         },
         {
-            "<leader>fn",
+            "<leader>f.",
             function()
                 require("telescope.builtin").find_files({
                     prompt_title = "Neovim Config",

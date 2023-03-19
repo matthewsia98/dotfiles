@@ -24,13 +24,8 @@ alias gitui="gitui --theme mocha.ron"
 alias pdf="zathura"
 alias asciiquarium="asciiquarium --transparent"
 alias uotp="python ~/Misc/uottawa_otp.py"
-if [ "$XDG_SESSION_TYPE" = "wayland" ]
-then
-    alias img="swayimg"
-elif [ "$XDG_SESSION_TYPE" = "x11" ]
-then
-    alias img="feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info "echo %wx%h" --image-bg #494D54"
-fi
+alias img="swayimg"
+alias feh="feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info 'echo %wx%h' --image-bg '#494D54'"
 alias syncthing-web="xdg-open http://localhost:8384"
 
 # Git
@@ -65,4 +60,5 @@ alias pacls="pacman -Q"
 # Miscellaneous
 alias dots="cd ~/.dotfiles"
 alias schedule="img ~/Pictures/schedule.png"
-alias term='cd ~/uOttawa/2023-Winter/ && \ls | fzf --preview="${fzf_preview}"'
+alias term='cd ~/uOttawa/2023-Winter/ && cd $(\ls | fzf --preview="${fzf_preview}")'
+alias neorg="nvim ~/uOttawa/2023-Winter/index.norg"
