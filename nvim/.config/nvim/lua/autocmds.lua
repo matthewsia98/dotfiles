@@ -4,14 +4,14 @@ local function group(name)
 end
 
 -- Clear hlsearch automatically
-vim.on_key(function(char)
-    if vim.fn.mode() == "n" then
-        local keys = { "<CR>", "n", "N", "*", "#", "?", "/" }
-        if not vim.tbl_contains(keys, vim.fn.keytrans(char)) then
-            vim.cmd([[noh]])
-        end
-    end
-end, vim.api.nvim_create_namespace("auto_hlsearch"))
+-- vim.on_key(function(char)
+--     if vim.fn.mode() == "n" then
+--         local keys = { "<CR>", "n", "N", "*", "#", "?", "/" }
+--         if not vim.tbl_contains(keys, vim.fn.keytrans(char)) then
+--             vim.cmd([[noh]])
+--         end
+--     end
+-- end, vim.api.nvim_create_namespace("auto_hlsearch"))
 
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
     group = group("checktime"),

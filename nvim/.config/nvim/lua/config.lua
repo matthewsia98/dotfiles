@@ -59,7 +59,7 @@ local config = {
             "clangd",
             "gopls",
             "rust_analyzer",
-            -- "bashls",
+            "bashls",
             "html",
             "cssls",
             "emmet_ls",
@@ -113,14 +113,28 @@ local config = {
 
         null_ls_sources = {
             formatting = {
+                --Python
                 "black",
                 "isort",
+
+                -- Lua
                 "stylua",
+
+                -- Go
                 "gofumpt",
+
+                -- Rust
                 "rustfmt",
+
+                -- C/C++
                 "clang_format",
+
+                -- Shell
                 "shfmt",
+
+                -- JSON
                 "jq",
+
                 "prettier",
             },
         },

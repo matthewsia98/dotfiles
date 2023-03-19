@@ -17,6 +17,7 @@ return {
             messages = {
                 enabled = true,
                 view = "notify",
+                view_search = false,
             },
             notify = {
                 enabled = true,

@@ -64,12 +64,22 @@ return {
         { "<leader>fo", "<CMD>Telescope vim_options<CR>", desc = "Options" },
         { "<leader>f/", "<CMD>Telescope current_buffer_fuzzy_find<CR>", desc = "Current Buffer Fuzzy Find" },
         { "<leader>ff", "<CMD>Telescope find_files<CR>", desc = "Find Files" },
-        { "<leader>.ff", "<CMD>Telescope find_files hidden=true<CR>", desc = "Find Files (Including hidden files)" },
+        {
+            "<leader>.ff",
+            function()
+                require("telescope.builtin").find_files({
+                    prompt_title = "Find Files (Hidden)",
+                    hidden = true,
+                })
+            end,
+            desc = "Find Files (Including hidden files)",
+        },
         { "<leader>fl", "<CMD>Telescope live_grep_args<CR>", desc = "Live Grep" },
         {
             "<leader>.fl",
             function()
                 require("telescope").extensions.live_grep_args.live_grep_args({
+                    prompt_title = "Live Grep (Hidden)",
                     vimgrep_arguments = {
                         -- Defaults
                         "rg",

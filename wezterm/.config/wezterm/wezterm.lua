@@ -18,4 +18,6 @@ return {
     color_scheme = "custom",
 
     use_fancy_tab_bar = false,
+
+    keys = {},
 }

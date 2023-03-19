@@ -31,6 +31,7 @@ return {
                         "Outline",
                         "toggleterm",
                         "tsplayground",
+                        "oil",
                     },
                 },
             },
