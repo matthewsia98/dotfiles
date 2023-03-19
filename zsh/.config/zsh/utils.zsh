@@ -95,6 +95,7 @@ build-nvim () {
     sudo rm -rf ./build/
     sudo rm -rf /usr/local/share/nvim/runtime/
     sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
+    cd "${HOME}"
 }
 
 update-mirrorlist () {

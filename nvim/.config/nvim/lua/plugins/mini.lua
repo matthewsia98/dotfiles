@@ -39,4 +39,12 @@ return {
             { "gA", mode = { "n", "v" } },
         },
     },
+    {
+        "echasnovski/mini.animate",
+        enabled = false,
+        event = "VeryLazy",
+        config = function()
+            require("mini.animate").setup({})
+        end,
+    },
 }

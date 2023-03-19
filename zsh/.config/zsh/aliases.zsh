@@ -65,4 +65,4 @@ alias pacls="pacman -Q"
 # Miscellaneous
 alias dots="cd ~/.dotfiles"
 alias schedule="img ~/Pictures/schedule.png"
-alias term="cd ~/uOttawa/2023-Winter/"
+alias term='cd ~/uOttawa/2023-Winter/ && \ls | fzf --preview="${fzf_preview}"'

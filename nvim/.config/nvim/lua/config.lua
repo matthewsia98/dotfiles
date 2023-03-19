@@ -103,6 +103,7 @@ local config = {
             "json-lsp",
             "jq",
 
+            -- HTML / CSS / JS
             "html-lsp",
             "css-lsp",
             "emmet-ls",
