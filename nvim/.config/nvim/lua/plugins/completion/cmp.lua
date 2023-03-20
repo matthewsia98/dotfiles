@@ -51,7 +51,7 @@ cmp.setup({
         completion = {
             border = "rounded",
             -- Default: winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
-            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual",
+            winhighlight = "CursorLine:PmenuSel,Search:None",
             col_offset = 0,
             side_padding = 0,
         },

@@ -19,5 +19,11 @@ return {
 
     use_fancy_tab_bar = false,
 
-    keys = {},
+    keys = {
+        {
+            key = "w",
+            mods = "CMD",
+            action = wezterm.action.CloseCurrentTab({ confirm = true }),
+        },
+    },
 }
