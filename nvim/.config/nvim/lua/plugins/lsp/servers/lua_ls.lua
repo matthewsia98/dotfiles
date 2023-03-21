@@ -10,11 +10,8 @@ M.setup = function(opts)
 
         settings = {
             Lua = {
-                -- semantic = { enable = false },
+                semantic = { enable = true },
                 telemetry = { enable = false },
-                diagnostics = {
-                    globals = { "vim" },
-                },
                 workspace = {
                     checkThirdParty = false,
                 },
