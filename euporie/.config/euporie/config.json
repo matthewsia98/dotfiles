@@ -1,0 +1,14 @@
+{
+  "notebook": {
+    "edit_mode": "vi",
+    "key_bindings": {
+      "euporie.notebook.app.NotebookApp": {
+        "new-notebook": "c-t"
+      },
+      "euporie.notebook.tabs.notebook.Notebook": {
+        "select-next-cell": "c-n",
+        "select-previous-cell": "c-p"
+      }
+    }
+  }
+}
