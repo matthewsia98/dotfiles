@@ -1,8 +1,9 @@
 local config = {
+    statusline = "lualine",
+
     lualine = {
-        style = "box", -- powerline | box | round | slant | reverse_slant
+        style = "box", -- box | round | slant | reverse_slant
         styles = {
-            powerline = { left = "", right = "" },
             slant = { left = "", right = "" },
             reverse_slant = { left = "", right = "" },
             round = { left = "", right = "" },

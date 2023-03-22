@@ -1,10 +1,11 @@
 return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
+    enabled = require("config").statusline == "lualine",
     config = function()
         local config = require("config").lualine
         local style = config.style
-        local gaps = style ~= "powerline" and config.gap_between_sections
+        local gaps = config.gap_between_sections
         local spacer = "%#Normal# "
         local separator = config.styles[style]
 
@@ -12,7 +13,7 @@ return {
             options = {
                 theme = "catppuccin",
                 -- Needed for powerline option
-                section_separators = { left = "", right = "" },
+                -- section_separators = { left = "", right = "" },
                 component_separators = { left = "", right = "" },
                 disabled_filetypes = {
                     statusline = { "dashboard", "lazy", "Trouble" },
@@ -24,6 +25,7 @@ return {
                         "dap-repl",
                         "dapui_console",
 
+                        "checkhealth",
                         "dashboard",
                         "help",
                         "neo-tree",
@@ -72,17 +74,17 @@ return {
                     { "diff", separator = separator },
                 },
                 lualine_c = {
-                    {
-                        spacer,
-                        cond = function()
-                            local diagnostics = #vim.diagnostic.get(nil) > 0
-                            return gaps and diagnostics
-                        end,
-                    },
+                    spacer,
                     {
                         "diagnostics",
                         sources = { "nvim_workspace_diagnostic" },
-                        separator = style == "powerline" and { left = "", right = "" } or separator,
+                        separator = separator,
+                    },
+                    {
+                        spacer,
+                        cond = function()
+                            return gaps and (#vim.diagnostic.get(nil) > 0)
+                        end,
                     },
                     -- {
                     --     -- Cursor diagnostic | Most severe diagnostic
@@ -144,12 +146,12 @@ return {
                     --             .. cursor_diagnostic_msg
                     --     end,
                     -- },
-                    {
-                        spacer,
-                        cond = function()
-                            return vim.fn.reg_recording() ~= ""
-                        end,
-                    },
+                    -- {
+                    --     spacer,
+                    --     cond = function()
+                    --         return vim.fn.reg_recording() ~= ""
+                    --     end,
+                    -- },
                     {
                         -- Show macro recording
                         function()
