@@ -30,6 +30,7 @@ cmp.setup({
                     cmdline_history = "[HIST]",
                     cmdline = "[CMD]",
                     neorg = "[NEORG]",
+                    jupynium = "[JUPYTER]",
                 },
                 symbol_map = {
                     Copilot = "",
@@ -72,6 +73,7 @@ cmp.setup({
     sources = {
         -- Order Matters! OR explicitly set priority
         { name = "luasnip", max_item_count = 5 },
+        { name = "jupynium", max_item_count = 10 },
         { name = "nvim_lsp", max_item_count = 10 },
         -- { name = "nvim_lsp_signature_help" }, -- handled by noice
         { name = "path", max_item_count = 5 },

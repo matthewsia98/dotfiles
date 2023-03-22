@@ -16,6 +16,9 @@ bindkey '^Xh' _complete_help
 # backspace
 bindkey '^?' backward-delete-char
 
+# delete
+bindkey "\e[3~" vi-delete-char
+
 # ctrl-space
 bindkey "^ " autosuggest-accept
 

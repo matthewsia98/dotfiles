@@ -1,6 +1,7 @@
 return {
     "Vimjas/vim-python-pep8-indent",
-    ft = "python",
+    -- ft = "python",
+    event = "InsertEnter *.py",
     config = function()
         --[[
         This defaults to 0, which means that multiline strings are not indented.
