@@ -1,7 +1,8 @@
 local wezterm = require("wezterm")
 
 local catppuccin = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
-catppuccin.tab_bar.background = "#1E1E2E"
+catppuccin.tab_bar.background = catppuccin.background
+catppuccin.tab_bar.active_tab.bg_color = "#89B4FA"
 
 return {
     font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
@@ -27,6 +28,7 @@ return {
     },
 
     use_fancy_tab_bar = true,
+    hide_tab_bar_if_only_one_tab = true,
     window_frame = {
         active_titlebar_bg = catppuccin.tab_bar.background,
         inactive_titlebar_bg = catppuccin.tab_bar.background,
