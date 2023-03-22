@@ -12,7 +12,9 @@ local dl = e.dynamic_lambda
 local sn = ls.sn
 local rep = e.rep
 
-return {
+local autosnippets = {}
+
+local snippets = {
     s(
         "timenow",
         f(function()
@@ -81,3 +83,5 @@ return {
         }),
     }),
 }
+
+return snippets, autosnippets

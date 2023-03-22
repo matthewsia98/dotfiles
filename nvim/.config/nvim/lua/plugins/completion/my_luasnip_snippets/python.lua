@@ -12,7 +12,35 @@ local dl = e.dynamic_lambda
 local sn = ls.sn
 local rep = e.rep
 
-return {
+local autosnippets = {
+    s(
+        { trig = "([%a_]+)%+%+", regTrig = true },
+        f(function(_, snip)
+            return snip.captures[1] .. " += 1"
+        end)
+    ),
+    s(
+        { trig = "([%a_]+)%-%-", regTrig = true },
+        f(function(_, snip)
+            return snip.captures[1] .. " -= 1"
+        end)
+    ),
+    s(
+        "printn",
+        fmt([[print({}, "\n")]], {
+            i(1, ""),
+        })
+    ),
+    s(
+        "printf",
+        fmt([[print(f"{}{{{}}}{}")]], {
+            i(1, ""),
+            i(2, ""),
+            i(3, ""),
+        })
+    ),
+}
+local snippets = {
     s(
         "mydef",
         fmt(
@@ -533,19 +561,6 @@ return {
             }
         )
     ),
-}, {
-    s(
-        "printn",
-        fmt([[print({}, '\n'){}]], {
-            i(1, ""),
-            i(0),
-        })
-    ),
-    s(
-        "printf",
-        fmt([[print(f'{}'){}]], {
-            i(1, ""),
-            i(0),
-        })
-    ),
 }
+
+return snippets, autosnippets
