@@ -2,8 +2,6 @@ local wezterm = require("wezterm")
 
 local catppuccin = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
 catppuccin.tab_bar.background = "#1E1E2E"
-catppuccin.tab_bar.active_tab.bg_color = "#11111B"
-catppuccin.tab_bar.inactive_tab.bg_color = "#1E1E2E"
 
 return {
     font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
@@ -36,9 +34,51 @@ return {
 
     keys = {
         {
+            mods = "SUPER",
             key = "w",
-            mods = "CMD",
             action = wezterm.action.CloseCurrentTab({ confirm = true }),
+        },
+        {
+            mods = "SUPER",
+            key = "v",
+            action = wezterm.action.SplitPane({ direction = "Right" }),
+        },
+        {
+            mods = "SUPER",
+            key = "s",
+            action = wezterm.action.SplitPane({ direction = "Down" }),
+        },
+        {
+            mods = "SUPER",
+            key = "c",
+            action = wezterm.action.CloseCurrentPane({ confirm = true }),
+        },
+        {
+            mods = "SUPER",
+            key = "k",
+            action = wezterm.action.ActivatePaneDirection("Up"),
+        },
+        {
+            mods = "SUPER",
+            key = "j",
+            action = wezterm.action.ActivatePaneDirection("Down"),
+        },
+        {
+            mods = "SUPER",
+            key = "h",
+            action = wezterm.action.ActivatePaneDirection("Left"),
+        },
+        {
+            mods = "SUPER",
+            key = "l",
+            action = wezterm.action.ActivatePaneDirection("Right"),
+        },
+        {
+            mods = "SUPER|CTRL",
+            key = " ",
+            action = wezterm.action.PaneSelect({
+                mode = "SwapWithActive",
+            }),
         },
     },
 }
