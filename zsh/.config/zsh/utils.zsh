@@ -108,7 +108,7 @@ update-mirrorlist () {
     sudo reflector --country "Canada,United States" --latest "${num}" --protocol http,https --sort rate --save /etc/pacman.d/mirrorlist
 }
 
-set-hyprland-opacity () {
+hyprland-set-opacity () {
     program="$1"
     opacity="$2"
     if [[ "${program}" == "" || "${opacity}" == "" ]]
@@ -120,4 +120,11 @@ set-hyprland-opacity () {
     sed -i.bak -E "$sub" "$HOME/.config/hypr/hyprland.conf"
 
     printf "Set opacity of %s to %s" "${program}" "${opacity}"
+}
+
+hyprland-toggle-swallow () {
+    current=$(hyprctl getoption -j misc:enable_swallow | jq -r ".int")
+    new=$(( 1 - current ))
+    msg=$([[ "${new}" == 1 ]] && echo "Enabled swallow" || echo "Disabled swallow")
+    hyprctl keyword misc:enable_swallow "${new}" && notify-send -r 991 -a "Hyprland" "${msg}"
 }
