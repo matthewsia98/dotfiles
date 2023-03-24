@@ -19,7 +19,7 @@ return {
                 -- Adds pretty icons to your documents
                 ["core.norg.concealer"] = {
                     config = {
-                        icon_preset = "diamond",
+                        icon_preset = "diamond", -- basic | diamond | varied
                     },
                 },
 

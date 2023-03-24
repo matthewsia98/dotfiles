@@ -14,7 +14,7 @@ local rep = e.rep
 
 return {}, {
     s(
-        "sout",
+        { trig = "sout" },
         fmt(
             [[
             System.out.println({});{}
@@ -26,7 +26,7 @@ return {}, {
         )
     ),
     s(
-        "psvm",
+        { trig = "psvm" },
         fmt(
             [[
             public static void main(String[] args) {{

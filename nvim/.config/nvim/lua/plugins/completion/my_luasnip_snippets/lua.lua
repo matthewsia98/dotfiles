@@ -12,15 +12,40 @@ local dl = e.dynamic_lambda
 local sn = ls.sn
 local rep = e.rep
 
+local auto_snippets = {
+    s(
+        { trig = "strf" },
+        fmt(
+            [[
+            string.format("{}", {})
+            ]],
+            {
+                i(1, "format"),
+                i(2, "args"),
+            }
+        )
+    ),
+}
+
 local snippets = {
     s(
-        "if",
+        {
+            trig = "if",
+            snippetType = "autosnippet",
+            condition = function(line_to_cursor, matched_trigger, captures)
+                local _, row, col, _, _ = unpack(vim.fn.getcurpos())
+                local node = vim.treesitter.get_node({
+                    pos = { row - 1, col - #matched_trigger - 1 },
+                })
+                return node and node:type() ~= "comment"
+            end,
+        },
         fmt(
             [[
             if {} then
                 {}
             end
-        ]],
+            ]],
             {
                 i(1, "condition"),
                 i(2, "body"),
@@ -29,7 +54,7 @@ local snippets = {
     ),
 
     s(
-        "function",
+        { trig = "function" },
         fmt(
             [[
             {}function {}({})
@@ -51,14 +76,6 @@ local snippets = {
             }
         )
     ),
-}
-
-local auto_snippets = {
-    s("fstr", {
-        t("string.format("),
-        i(1),
-        t(")"),
-    }),
 }
 
 return snippets, auto_snippets

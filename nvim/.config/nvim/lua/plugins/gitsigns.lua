@@ -60,7 +60,7 @@ return {
                     gitsigns.diffthis("~")
                 end, { buffer = bufnr, desc = "Diff against last commit" })
 
-                map("n", "<leader>td", gitsigns.toggle_deleted, { buffer = bufnr, desc = "Toggle Deleted" })
+                map("n", "<leader>htd", gitsigns.toggle_deleted, { buffer = bufnr, desc = "Toggle Deleted" })
 
                 map("n", "<leader>hl", gitsigns.setloclist, { buffer = bufnr, desc = "Send hunks to loclist" })
                 map("n", "<leader>hq", gitsigns.setqflist, { buffer = bufnr, desc = "Send hunks to qflist" })

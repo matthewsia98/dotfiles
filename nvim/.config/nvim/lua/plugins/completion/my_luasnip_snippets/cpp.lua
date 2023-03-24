@@ -12,17 +12,21 @@ local dl = e.dynamic_lambda
 local sn = ls.sn
 local rep = e.rep
 
-return {}, {
-    s("cout ", {
+local autosnippets = {
+    s({ trig = "cout " }, {
         t("cout << "),
         i(1),
         t(";"),
         i(0),
     }),
-    s("cin ", {
+    s({ trig = "cin " }, {
         t("cin >> "),
         i(1),
         t(";"),
         i(0),
     }),
 }
+
+local snippets = {}
+
+return snippets, autosnippets

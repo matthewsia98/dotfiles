@@ -26,13 +26,13 @@ local autosnippets = {
         end)
     ),
     s(
-        "printn",
+        { trig = "printn" },
         fmt([[print({}, "\n")]], {
             i(1, ""),
         })
     ),
     s(
-        "printf",
+        { trig = "printf" },
         fmt([[print(f"{}{{{}}}{}")]], {
             i(1, ""),
             i(2, ""),
@@ -42,7 +42,7 @@ local autosnippets = {
 }
 local snippets = {
     s(
-        "mydef",
+        { trig = "mydef" },
         fmt(
             [[
             def {}({}){}:{}
@@ -177,7 +177,7 @@ local snippets = {
         )
     ),
     s(
-        "myclass",
+        { trig = "myclass" },
         fmt(
             [[
             class {}{}:
@@ -218,7 +218,7 @@ local snippets = {
         )
     ),
     s(
-        "myinit",
+        { trig = "myinit" },
         fmt(
             [[
             def __init__(self, {}):
@@ -245,7 +245,7 @@ local snippets = {
         )
     ),
     s(
-        "pd_groupby",
+        { trig = "pd_groupby" },
         fmt([[{}.groupby([{}]{}{}).{}]], {
             i(1, "df"),
             i(2, "column"),
@@ -272,7 +272,7 @@ local snippets = {
         })
     ),
     s(
-        "pd_apply",
+        { trig = "pd_apply" },
         fmt([[{}{}.apply({}{})]], {
             i(1, "df"),
             c(2, {
@@ -300,7 +300,7 @@ local snippets = {
         })
     ),
     s(
-        "torch_imports",
+        { trig = "torch_imports" },
         t({
             "import torch",
             "import torch.nn as nn",
@@ -311,7 +311,7 @@ local snippets = {
         })
     ),
     s(
-        "torch_dataloader",
+        { trig = "torch_dataloader" },
         fmt([[{} = DataLoader({}, batch_size={}{}{}{}{}){}]], {
             i(1, "dataloader"),
             i(2, "dataset"),
@@ -348,7 +348,7 @@ local snippets = {
         })
     ),
     s(
-        "torch_dataset",
+        { trig = "torch_dataset" },
         fmt(
             [[
             class {}({}):
@@ -400,7 +400,7 @@ local snippets = {
         )
     ),
     s(
-        "torch_model",
+        { trig = "torch_model" },
         fmt(
             [[
             class {}(nn.Module):
@@ -476,7 +476,7 @@ local snippets = {
         )
     ),
     s(
-        "torch_train",
+        { trig = "torch_train" },
         fmt(
             [[
             for {} in {}:

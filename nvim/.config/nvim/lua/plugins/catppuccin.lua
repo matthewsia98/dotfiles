@@ -38,6 +38,7 @@ return {
                 dashboard = true,
                 gitsigns = true,
                 harpoon = true,
+                headlines = true,
                 leap = true,
                 markdown = true,
                 mason = true,

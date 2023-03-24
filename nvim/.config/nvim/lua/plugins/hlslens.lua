@@ -1,5 +1,6 @@
 return {
     "kevinhwang91/nvim-hlslens",
+    enabled = false,
     config = function()
         require("hlslens").setup({
             calm_down = false,

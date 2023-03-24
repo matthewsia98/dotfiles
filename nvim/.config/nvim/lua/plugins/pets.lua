@@ -20,4 +20,16 @@ return {
             },
         })
     end,
+    keys = {
+        {
+            "<leader>pn",
+            function()
+                vim.g.pet_number = vim.g.pet_number or 0
+                vim.g.pet_number = vim.g.pet_number + 1
+                vim.cmd("PetsNew " .. vim.g.pet_number)
+            end,
+            desc = "Create new Pet",
+        },
+        { "<leader>pka", "<CMD>PetsKillAll<CR>", desc = "Kill all Pets" },
+    },
 }

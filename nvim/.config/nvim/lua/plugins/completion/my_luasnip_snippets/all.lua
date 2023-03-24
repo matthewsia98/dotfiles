@@ -16,24 +16,24 @@ local autosnippets = {}
 
 local snippets = {
     s(
-        "timenow",
+        { trig = "timenow" },
         f(function()
             return os.date("%H:%M:%S")
         end)
     ),
     s(
-        "today",
+        { trig = "today" },
         f(function()
             return os.date("%A %B %d, %Y")
         end)
     ),
     s(
-        "datetimenow",
+        { trig = "datetimenow" },
         f(function()
             return os.date("%A, %B %d %Y, %H:%M:%S")
         end)
     ),
-    s("week", {
+    s({ trig = "week" }, {
         f(function()
             local monday = os.capture([[date -d "monday" +"%A, %B %d"]])
             return monday
@@ -57,7 +57,7 @@ local snippets = {
             }),
         }),
     }),
-    s("pweek", {
+    s({ trig = "pweek" }, {
         f(function()
             local monday = os.capture([[date -d "last-monday" +"%A, %B %d"]])
             return monday

@@ -2,12 +2,17 @@ return {
     "kiyoon/jupynium.nvim",
     build = "pip3 install --user .",
     event = "BufWinEnter *.ju.py",
-    dev = true,
     config = function()
         require("jupynium").setup({
             python_host = "python3",
             firefox_profiles_ini_path = "~/.mozilla/firefox/profiles.ini",
             firefox_profile_name = "jupynium",
+
+            kernel_hover = {
+                floating_win_opts = {
+                    border = "rounded",
+                },
+            },
         })
 
         local bufnr = vim.api.nvim_get_current_buf()
