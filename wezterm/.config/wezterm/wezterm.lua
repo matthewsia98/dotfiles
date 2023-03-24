@@ -5,6 +5,8 @@ catppuccin.tab_bar.background = catppuccin.background
 catppuccin.tab_bar.active_tab.bg_color = "#89B4FA"
 
 return {
+    term = "wezterm",
+
     font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
     font_size = 12.0,
 
