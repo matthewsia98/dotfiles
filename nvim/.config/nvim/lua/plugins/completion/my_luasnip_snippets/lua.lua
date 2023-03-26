@@ -12,6 +12,8 @@ local dl = e.dynamic_lambda
 local sn = ls.sn
 local rep = e.rep
 
+local utils = require("plugins.completion.my_luasnip_snippets.utils")
+
 local auto_snippets = {
     s(
         { trig = "strf" },
@@ -30,15 +32,9 @@ local auto_snippets = {
 local snippets = {
     s(
         {
-            trig = "if",
+            trig = "if ",
             snippetType = "autosnippet",
-            condition = function(line_to_cursor, matched_trigger, captures)
-                local _, row, col, _, _ = unpack(vim.fn.getcurpos())
-                local node = vim.treesitter.get_node({
-                    pos = { row - 1, col - #matched_trigger - 1 },
-                })
-                return node and node:type() ~= "comment"
-            end,
+            condition = utils.not_in_comment_node,
         },
         fmt(
             [[
@@ -54,7 +50,11 @@ local snippets = {
     ),
 
     s(
-        { trig = "function" },
+        {
+            trig = "function ",
+            snippetType = "autosnippet",
+            condition = utils.not_in_comment_node,
+        },
         fmt(
             [[
             {}function {}({})

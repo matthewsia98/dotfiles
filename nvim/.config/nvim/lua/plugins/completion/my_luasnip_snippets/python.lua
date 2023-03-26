@@ -12,6 +12,8 @@ local dl = e.dynamic_lambda
 local sn = ls.sn
 local rep = e.rep
 
+local utils = require("plugins.completion.my_luasnip_snippets.utils")
+
 local autosnippets = {
     s(
         { trig = "([%a_]+)%+%+", regTrig = true },
@@ -40,7 +42,29 @@ local autosnippets = {
         })
     ),
 }
+
 local snippets = {
+    s(
+        {
+            trig = "def ",
+            snippetType = "autosnippet",
+            condition = utils.not_in_comment_node,
+        },
+        fmt(
+            [[
+        def {}({}):
+            {}
+        {}
+        ]],
+            {
+                i(1, "function_name"),
+                i(2, "args"),
+                i(3, "pass"),
+                i(0),
+            }
+        )
+    ),
+
     s(
         { trig = "mydef" },
         fmt(

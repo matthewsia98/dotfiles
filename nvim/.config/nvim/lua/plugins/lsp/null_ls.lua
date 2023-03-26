@@ -4,18 +4,18 @@ local null_ls = require("null-ls")
 local group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true })
 
 local sources = {}
-for type, type_sources in pairs(config.lsp.null_ls_sources) do
-    for _, source in ipairs(type_sources) do
-        if source == "jq" then
-            table.insert(
-                sources,
-                null_ls.builtins[type][source].with({
-                    args = { "--indent", "4" },
-                })
-            )
+for source_type, type_sources in pairs(config.lsp.null_ls_sources) do
+    for k, v in pairs(type_sources) do
+        local source, opts
+        if type(k) == "string" then
+            source = k
+            opts = v
         else
-            table.insert(sources, null_ls.builtins[type][source])
+            source = v
+            opts = {}
         end
+
+        table.insert(sources, null_ls.builtins[source_type][source].with(opts))
     end
 end
 

@@ -8,6 +8,11 @@ return {
             firefox_profiles_ini_path = "~/.mozilla/firefox/profiles.ini",
             firefox_profile_name = "jupynium",
 
+            use_default_keybindings = true,
+            textobjects = {
+                use_default_keybindings = true,
+            },
+
             kernel_hover = {
                 floating_win_opts = {
                     border = "rounded",
@@ -16,6 +21,15 @@ return {
         })
 
         local bufnr = vim.api.nvim_get_current_buf()
+
+        local opts = require("jupynium.options").opts
+        if opts.use_default_keybindings then
+            require("jupynium").set_default_keymaps(bufnr)
+        end
+        if opts.textobjects.use_default_keybindings then
+            require("jupynium.textobj").set_default_keymaps(bufnr)
+        end
+
         local map = require("keymaps").map
 
         map("n", "<leader>jsa", function()

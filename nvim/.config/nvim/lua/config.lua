@@ -134,7 +134,7 @@ local config = {
                 "shfmt",
 
                 -- JSON
-                "jq",
+                ["jq"] = { args = { "--indent", "4" } },
 
                 "prettier",
             },

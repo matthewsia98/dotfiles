@@ -5,6 +5,8 @@
 	name = Matthew Sia
 [pull]
 	rebase = true
+[push]
+    autoSetupRemote = true
 
 # Git Delta
 [include]
