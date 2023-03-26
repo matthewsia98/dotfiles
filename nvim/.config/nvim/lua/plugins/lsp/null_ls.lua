@@ -6,15 +6,8 @@ local group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true })
 local sources = {}
 for source_type, type_sources in pairs(config.lsp.null_ls_sources) do
     for k, v in pairs(type_sources) do
-        local source, opts
-        if type(k) == "string" then
-            source = k
-            opts = v
-        else
-            source = v
-            opts = {}
-        end
-
+        local source = type(k) == "string" and k or v
+        local opts = type(k) == "string" and v or {}
         table.insert(sources, null_ls.builtins[source_type][source].with(opts))
     end
 end
