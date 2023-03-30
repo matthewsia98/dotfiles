@@ -75,6 +75,7 @@ local config = {
             "black",
             "isort",
             "debugpy",
+            "djlint",
 
             -- Lua
             "lua-language-server",

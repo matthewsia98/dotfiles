@@ -51,9 +51,9 @@ M.set_keymaps = function(client, bufnr)
 
     map("i", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature Help" })
 
-    map("n", "<leader>fm", function()
-        vim.lsp.buf.format({ name = "null-ls" })
-    end, { buffer = bufnr, desc = "Format" })
+    -- map("n", "<leader>fm", function()
+    --     vim.lsp.buf.format({ name = "null-ls" })
+    -- end, { buffer = bufnr, desc = "Format" })
 
     map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { buffer = bufnr, desc = "Add workspace folder" })
     map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, { buffer = bufnr, desc = "Remove workspace folder" })

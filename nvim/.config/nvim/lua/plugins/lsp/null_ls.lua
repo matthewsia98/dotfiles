@@ -16,7 +16,13 @@ null_ls.setup({
     sources = sources,
     border = "rounded",
     on_attach = function(client, bufnr)
+        local map = require("keymaps").map
+
         if client.supports_method("textDocument/formatting") then
+            map("n", "<leader>fm", function()
+                vim.lsp.buf.format({ name = "null-ls" })
+            end, { buffer = bufnr, desc = "Format" })
+
             vim.api.nvim_create_autocmd("BufWritePre", {
                 group = group,
                 buffer = bufnr,
