@@ -36,6 +36,7 @@ autoload -Uz compinit && compinit -d ~/.cache/zsh/.zcompdump
 
 # Node Version Manager
 [ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
+[ -f "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh" ] && source "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh"
 
 # System Fetch
 # colorscript -r
