@@ -5,6 +5,9 @@ cutbuffer-to-system-clip () {
     elif [ "${XDG_SESSION_TYPE}" = "x11" ]
     then
         echo "${CUTBUFFER}" | xclip -i -selection clipboard
+    elif [ "$(uname)" = "Darwin" ]
+    then
+        echo "${CUTBUFFER}" | pbcopy
     fi
 }
 
@@ -15,6 +18,9 @@ paste-from-system-clip () {
     elif [ "${XDG_SESSION_TYPE}" = "x11" ]
     then
         RBUFFER=$(xclip -o -selection clipboard)${RBUFFER}
+    elif [ "$(uname)" = "Darwin" ]
+    then
+        RBUFFER=$(pbpaste)${RBUFFER}
     fi
 }
 
