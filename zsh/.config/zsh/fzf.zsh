@@ -62,6 +62,9 @@ export FZF_ALT_C_OPTS="${fzf_opts} --preview='${fzf_preview}'"
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 
+[ -f "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh" ] && source "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh"
+[ -f "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh" ] && source "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh"
+
 bindkey -M vicmd "^T" fzf-file-widget
 bindkey -M viins "^T" fzf-file-widget
 bindkey -M vicmd "^R" fzf-history-widget

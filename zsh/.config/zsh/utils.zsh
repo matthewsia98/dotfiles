@@ -59,16 +59,16 @@ ctrl-backspace () {
     if [[ "${LBUFFER}" = *"/"* ]]
     then
         curr_char="${LBUFFER[$CURSOR]}"
-        if [[ "$curr_char" = "/" ]]
+        if [[ "${curr_char}" = "/" ]]
         then
-            LBUFFER=${LBUFFER::-1}
+            LBUFFER="${LBUFFER[1,-2]}"
         fi
 
         # Delete including /
         # LBUFFER=$(sed "s/\(.*\)\(\/.*\)/\1/" <<< "${LBUFFER}")
 
         # Delete excluding /
-        LBUFFER=$(sed "s/\(.*\/\)\(.*\)/\1/" <<< "${LBUFFER}")
+        LBUFFER="$(sed "s/\(.*\/\)\(.*\)/\1/" <<< "${LBUFFER}")"
     else
         zle backward-kill-word
     fi

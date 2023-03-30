@@ -46,3 +46,5 @@ zstyle ':fzf-tab:complete:git-branch:*' fzf-preview '\
     "recent commit object name") git show --color=always $word | delta ;;
     *) git log --color=always $word ;;
     esac'
+
+zstyle ':fzf-tab:complete:brew-install:*' fzf-preview 'brew info $word'
