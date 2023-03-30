@@ -40,6 +40,6 @@ autoload -Uz compinit && compinit -d ~/.cache/zsh/.zcompdump
 
 # System Fetch
 # colorscript -r
-# neofetch
+neofetch
 # pfetch
 # nitch
