@@ -34,7 +34,7 @@
                                     "key_code": "left_control",
                                     "modifiers": {
                                         "optional": [
-                                            "any"
+                                            "left_shift"
                                         ]
                                     }
                                 },
@@ -64,7 +64,7 @@
                                     "key_code": "right_command",
                                     "modifiers": {
                                         "optional": [
-                                            "any"
+                                            "left_shift"
                                         ]
                                     }
                                 },
