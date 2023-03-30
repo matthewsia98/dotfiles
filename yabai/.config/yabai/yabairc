@@ -22,3 +22,7 @@ yabai -m config mouse_modifier alt
 yabai -m rule --add app="^Discord$" space=2
 yabai -m rule --add app="^Thunderbird$" space=3
 yabai -m rule --add app="^Firefox$" space=4
+
+yabai -m signal --add event=window_destroyed action="yabai -m window --focus last"
+yabai -m signal --add event=window_minimized action="yabai -m window --focus last"
+yabai -m signal --add event=application_hidden action="yabai -m window --focus last"
