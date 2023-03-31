@@ -15,6 +15,7 @@ end
 M.map = map
 
 map("s", "<BS>", "<C-g>s", { desc = "Delete selection" })
+map("x", "y", "m`y``", { desc = "Copy selection to clipboard" })
 
 map("i", "<C-a>", "<ESC>I", { desc = "Go to start of line" })
 map("i", "<C-e>", "<ESC>A", { desc = "Go to end of line" })

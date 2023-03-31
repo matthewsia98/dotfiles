@@ -114,10 +114,15 @@ local config = {
         },
 
         null_ls_sources = {
+            diagnostics = {
+                "djlint",
+            },
+
             formatting = {
                 --Python
                 "black",
                 "isort",
+                "djlint",
 
                 -- Lua
                 "stylua",
