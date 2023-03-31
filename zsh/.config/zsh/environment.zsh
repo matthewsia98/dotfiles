@@ -1,8 +1,8 @@
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
-export PATH=${PATH}:~/.local/bin:~/.cargo/bin:~/.spicetify
-export PATH=${PATH}:~/.local/share/nvim/mason/bin
-export PATH=${PATH}:~/.config/emacs/bin
+export PATH="${PATH}:~/.local/bin:~/.cargo/bin:~/.spicetify"
+export PATH="${PATH}:~/.local/share/nvim/mason/bin"
+export PATH="${PATH}:~/.config/emacs/bin"
 
 export BROWSER="firefox"
 export EDITOR="nvim"

@@ -1,8 +1,13 @@
-[ -f ~/.config/zsh/utils.zsh ] && source ~/.config/zsh/utils.zsh
-[ -f ~/.config/zsh/aliases.zsh ] && source ~/.config/zsh/aliases.zsh
-[ -f ~/.config/zsh/options.zsh ] && source ~/.config/zsh/options.zsh
-[ -f ~/.config/zsh/environment.zsh ] && source ~/.config/zsh/environment.zsh
-[ -f ~/.config/zsh/keybinds.zsh ] && source ~/.config/zsh/keybinds.zsh
+if type brew &>/dev/null
+then
+    [ -f "${ZDOTDIR}/homebrew.zsh" ] && source "${ZDOTDIR}/homebrew.zsh"
+fi
+
+[ -f "${ZDOTDIR}/environment.zsh" ] && source "${ZDOTDIR}/environment.zsh"
+[ -f "${ZDOTDIR}/utils.zsh" ] && source "${ZDOTDIR}/utils.zsh"
+[ -f "${ZDOTDIR}/aliases.zsh" ] && source "${ZDOTDIR}/aliases.zsh"
+[ -f "${ZDOTDIR}/options.zsh" ] && source "${ZDOTDIR}/options.zsh"
+[ -f "${ZDOTDIR}/keybinds.zsh" ] && source "${ZDOTDIR}/keybinds.zsh"
 
 # Disable % if line doesn"t end with \n
 PROMPT_EOL_MARK=""
@@ -15,17 +20,13 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="bg=#494D64,fg=#CAD3F5,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-fi
-
 zstyle ':completion:*' cache-path ~/.cache/zsh/.zcompcache
 zmodload zsh/complist
 autoload -Uz compinit && compinit -d ~/.cache/zsh/.zcompdump
-[ -f ~/.config/zsh/fzf.zsh ] && source ~/.config/zsh/fzf.zsh
-[ -f ~/.config/zsh/fzf_tab.zsh ] && source ~/.config/zsh/fzf_tab.zsh
+
+[ -f "${ZDOTDIR}/fzf.zsh" ] && source "${ZDOTDIR}/fzf.zsh"
+[ -f "${ZDOTDIR}/fzf_tab.zsh" ] && source "${ZDOTDIR}/fzf_tab.zsh"
+
 [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # [ -f ~/repos/zsh-syntax-highlighting-catppuccin/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh ] && source ~/repos/zsh-syntax-highlighting-catppuccin/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh

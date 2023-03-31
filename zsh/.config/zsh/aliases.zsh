@@ -27,6 +27,7 @@ alias uotp="python ~/Misc/uottawa_otp.py"
 alias img="swayimg"
 alias feh="feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info 'echo %wx%h' --image-bg '#494D54'"
 alias syncthing-web="xdg-open http://localhost:8384"
+alias python="python3"
 
 # Git
 alias gcl="git clone --verbose"
