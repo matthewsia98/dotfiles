@@ -1,7 +1,9 @@
 alt - return: kitty -d "${HOME}"
+alt - p: /Applications/flameshot.app/Contents/MacOS/flameshot gui
 
 alt - w: yabai -m window --close
 alt - m: yabai -m window --toggle zoom-fullscreen
+alt + shift - m: yabai -m window --toggle native-fullscreen
 alt + ctrl - f : yabai -m window --toggle float --grid 10:10:1:1:8:8
 
 alt - k: yabai -m window --focus north
