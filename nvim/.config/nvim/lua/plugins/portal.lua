@@ -18,7 +18,9 @@ return {
         })
     end,
     keys = {
-        { "<leader>pj", "<CMD>Portal jumplist<CR>", desc = "" },
-        { "<leader>ph", "<CMD>Portal harpoon<CR>", desc = "" },
+        { "<leader>pjf", "<CMD>Portal jumplist forward<CR>", desc = "" },
+        { "<leader>pjb", "<CMD>Portal jumplist backward<CR>", desc = "" },
+        { "<leader>phf", "<CMD>Portal harpoon forward<CR>", desc = "" },
+        { "<leader>phb", "<CMD>Portal harpoon backward<CR>", desc = "" },
     },
 }

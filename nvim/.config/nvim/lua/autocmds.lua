@@ -74,6 +74,10 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = group("auto_create_dir"),
     callback = function()
+        if vim.bo.filetype == "oil" then
+            return
+        end
+
         local head = vim.fn.expand("%:p:h")
         local dir_exists = vim.fn.isdirectory(head) ~= 0
         if not dir_exists then
