@@ -18,10 +18,14 @@ yabai -m config normal_window_border_color 0x00000000
 
 yabai -m config mouse_follows_focus off
 yabai -m config mouse_modifier alt
+yabai -m config mouse_action1 move
+yabai -m config mouse_action2 resize
 
 yabai -m rule --add app="^Discord$" space=2
 yabai -m rule --add app="^Thunderbird$" space=3
 yabai -m rule --add app="^Firefox$" space=4
+
+yabai -m rule --add app="^System Settings$" manage=off
 
 yabai -m signal --add event=window_destroyed action="yabai -m window --focus last"
 yabai -m signal --add event=window_minimized action="yabai -m window --focus last"
