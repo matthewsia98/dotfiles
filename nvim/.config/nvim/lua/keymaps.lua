@@ -61,7 +61,11 @@ map("n", "<Right>", "<C-w>5>", { desc = "Grow window horizontally" })
 map("n", "<leader>fd", "za", { desc = "Toggle fold" })
 map("n", "<leader>fD", "zA", { desc = "Toggle fold recursively" })
 
-map("n", "gx", "<CMD>!xdg-open <cfile><CR>", { desc = "Open link in browser" })
+if vim.fn.has("unix") then
+    map("n", "gx", "<CMD>!xdg-open <cfile><CR>", { desc = "Open link in browser" })
+elseif vim.fn.has("mac") then
+    map("n", "gx", "<CMD>!open <cfile><CR>", { desc = "Open link in browser" })
+end
 
 map("n", "<leader>cc", "<CMD>set cursorcolumn!<CR>", { desc = "Toggle cursor column" })
 
