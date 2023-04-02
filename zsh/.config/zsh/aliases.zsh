@@ -51,12 +51,15 @@ alias gf="git fetch --verbose"
 alias gm="git merge --verbose"
 
 # Pacman
-alias pac="sudo pacman"
-alias pacin="sudo pacman -S"
-alias pacrm="sudo pacman -Rsu"
-alias pacsyu="sudo pacman -Syu"
-alias pacg="pacman -Q | grep"
-alias pacls="pacman -Q"
+if type pacman &> /dev/null
+then
+    alias pac="sudo pacman"
+    alias pacin="sudo pacman -S"
+    alias pacrm="sudo pacman -Rsu"
+    alias pacsyu="sudo pacman -Syu"
+    alias pacg="pacman -Q | grep"
+    alias pacls="pacman -Q"
+fi
 
 # Miscellaneous
 alias dots="cd ~/.dotfiles"

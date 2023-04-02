@@ -1,4 +1,4 @@
-if type brew &>/dev/null
+if type brew &> /dev/null
 then
     [ -f "${ZDOTDIR}/homebrew.zsh" ] && source "${ZDOTDIR}/homebrew.zsh"
 fi
