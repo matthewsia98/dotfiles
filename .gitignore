@@ -13,6 +13,9 @@ lazygit/**/state.yml
 # Created by kitty themes kitten
 kitty/**/current-theme.conf
 
+# smart-splits.nvim kitty integration
+kitty/**/*.py
+
 # tmux plugins
 tmux/**/plugins/
 
