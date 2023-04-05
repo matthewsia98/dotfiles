@@ -95,7 +95,8 @@
                         {
                             "type": "frontmost_application_if",
                             "bundle_identifiers": [
-                                "^org.mozilla.firefox$"
+                                "^org.mozilla.firefox$",
+                                "^com.apple.finder$"
                             ]
                         }
                     ]
@@ -127,7 +128,8 @@
                         {
                             "type": "frontmost_application_if",
                             "bundle_identifiers": [
-                                "^org.mozilla.firefox$"
+                                "^org.mozilla.firefox$",
+                                "^com.apple.finder$"
                             ]
                         }
                     ]
