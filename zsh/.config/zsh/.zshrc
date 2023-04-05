@@ -1,3 +1,11 @@
+if [ "$(uname)" = "Linux" ]
+then
+    open_command="xdg-open"
+elif [ "$(uname)" = "Darwin" ]
+    open_command="open"
+then
+fi
+
 if type brew &> /dev/null
 then
     [ -f "${ZDOTDIR}/homebrew.zsh" ] && source "${ZDOTDIR}/homebrew.zsh"

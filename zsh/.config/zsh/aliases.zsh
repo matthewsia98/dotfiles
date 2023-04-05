@@ -32,7 +32,7 @@ then
     alias img="swayimg"
 fi
 alias feh="feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info 'echo %wx%h' --image-bg '#494D54'"
-alias syncthing-web="xdg-open http://localhost:8384"
+alias syncthing-web="${open_command} http://localhost:8384"
 alias python="python3"
 
 # Git
@@ -75,4 +75,4 @@ alias dots="cd ${HOME}/.dotfiles"
 alias schedule="img ${HOME}/Pictures/schedule.png"
 
 current_school_term="${HOME}/uOttawa/2023-Winter"
-alias uottawa='xdg-open $(gum file ${current_school_term})'
+alias uottawa='${open_command} $(gum file ${current_school_term})'

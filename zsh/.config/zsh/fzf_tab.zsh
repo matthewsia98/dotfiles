@@ -1,7 +1,7 @@
 fzf_tab_preview="${fzf_preview}"
 fzf_tab_preview=$(sed 's/{}/${realpath}/g' <<< "${fzf_tab_preview}")
 
-[ -f "{HOME}/repos/fzf-tab/fzf-tab.plugin.zsh" ] && source "${HOME}/repos/fzf-tab/fzf-tab.plugin.zsh"
+[ -f "${HOME}/repos/fzf-tab/fzf-tab.plugin.zsh" ] && source "${HOME}/repos/fzf-tab/fzf-tab.plugin.zsh"
 
 zstyle ":fzf-tab:*" continuous-trigger "/"
 zstyle ":fzf-tab:*" switch-group "ctrl-h" "ctrl-l"
