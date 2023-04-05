@@ -1,15 +1,15 @@
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
+export STARSHIP_CONFIG="${HOME}/.config/starship/starship.toml"
 
-export PATH="${PATH}:~/.local/bin:~/.cargo/bin:~/.spicetify"
-export PATH="${PATH}:~/.local/share/nvim/mason/bin"
-export PATH="${PATH}:~/.config/emacs/bin"
+export PATH="${PATH}:${HOME}/.local/bin:${HOME}/.cargo/bin:${HOME}/.spicetify"
+export PATH="${PATH}:${HOME}/.local/share/nvim/mason/bin"
+export PATH="${PATH}:${HOME}/.config/emacs/bin"
 
 export BROWSER="firefox"
 export EDITOR="nvim"
 export VISUAL="nvim"
 export PSQL_EDITOR="nvim"
 
-export HISTFILE=~/.zsh_history
+export HISTFILE="${HOME}/.zsh_history"
 
 # Session History
 export HISTSIZE=100000
@@ -25,4 +25,4 @@ export EXA_COLORS="*.png=35"
 export BAT_PAGER="less -RF --mouse --wheel-lines=4"
 export DELTA_PAGER="less -RF --mouse --wheel-lines=4"
 
-export W3M_DIR="~/.config/w3m"
+export W3M_DIR="${HOME}/.config/w3m"

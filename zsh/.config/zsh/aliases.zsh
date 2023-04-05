@@ -23,8 +23,14 @@ alias vim="nvim"
 alias gitui="gitui --theme mocha.ron"
 alias pdf="zathura"
 alias asciiquarium="asciiquarium --transparent"
-alias uotp="python ~/Misc/uottawa_otp.py"
-alias img="swayimg"
+alias uotp="python ${HOME}/Misc/uottawa_otp.py"
+if [ "$(uname)" = "Darwin" ]
+then
+    alias img="open -a Preview"
+elif [ "$(uname)" = "Linux" ]
+then
+    alias img="swayimg"
+fi
 alias feh="feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info 'echo %wx%h' --image-bg '#494D54'"
 alias syncthing-web="xdg-open http://localhost:8384"
 alias python="python3"
@@ -42,7 +48,10 @@ alias gb="git branch --verbose --color=always"
 alias gco="git checkout"
 alias gd="git diff"
 alias gds="git diff --staged"
+alias gr="git rebase"
+# Removes the file only from the Git repository, but not from the filesystem
 alias grm="git rm -r --cached"
+# Deletes files both from the Git repository as well as the filesystem
 alias gRM="git rm -r"
 alias gl="git log --graph --decorate --pretty=oneline --abbrev-commit"
 alias gsh="git stash"
@@ -62,8 +71,8 @@ then
 fi
 
 # Miscellaneous
-alias dots="cd ~/.dotfiles"
-alias schedule="img ~/Pictures/schedule.png"
+alias dots="cd ${HOME}/.dotfiles"
+alias schedule="img ${HOME}/Pictures/schedule.png"
 
 current_school_term="${HOME}/uOttawa/2023-Winter"
 alias uottawa='xdg-open $(gum file ${current_school_term})'

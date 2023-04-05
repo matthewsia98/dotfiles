@@ -4,7 +4,8 @@
 setopt EXTENDED_GLOB
 
 # make globbing case insensitive
-unsetopt CASE_GLOB
+# unsetopt CASE_GLOB
+setopt NO_CASE_GLOB
 
 # Add to history immediately, not on exit
 setopt INC_APPEND_HISTORY
