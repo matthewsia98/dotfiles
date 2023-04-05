@@ -3,6 +3,7 @@ sudo yabai --load-sa
 
 yabai -m config layout bsp
 yabai -m config window_placement second_child
+yabai -m config window_topmost on
 
 yabai -m config top_padding 4
 yabai -m config bottom_padding 4
