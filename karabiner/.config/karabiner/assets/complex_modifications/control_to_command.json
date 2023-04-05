@@ -71,6 +71,38 @@
             ]
         },
         {
+            "description": "Control + A to Command + A",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "a",
+                        "modifiers": {
+                            "mandatory": [
+                                "control"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "a",
+                            "modifiers": [
+                                "command"
+                            ]
+                        }
+                    ],
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "^org.mozilla.firefox$"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "description": "Control + F to Command + F",
             "manipulators": [
                 {
