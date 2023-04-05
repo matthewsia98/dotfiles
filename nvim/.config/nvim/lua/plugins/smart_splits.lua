@@ -1,6 +1,6 @@
 return {
     "mrjones2014/smart-splits.nvim",
-    build = "./install-kitty.sh",
+    build = "./kitty/install-kittens.bash",
     event = "WinResized",
     config = function()
         require("smart-splits").setup({})

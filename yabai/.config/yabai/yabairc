@@ -25,8 +25,9 @@ yabai -m config mouse_action2 resize
 yabai -m rule --add app="^Discord$" space=2
 yabai -m rule --add app="^Thunderbird$" space=3
 yabai -m rule --add app="^Firefox$" space=4
+yabai -m rule --add app="^Spotify$" space=6
 
-yabai -m rule --add app="^(System Settings|Preview|Finder|Karabiner.*)$" manage=off
+yabai -m rule --add app="^(System Settings|Preview|Finder|Karabiner.*|Raycast)$" manage=off
 yabai -m rule --add app="^Finder$" title="^Finder Settings$" manage=off
 
 yabai -m signal --add event=window_destroyed action="yabai -m window --focus last"
