@@ -1,4 +1,5 @@
 alt - return: kitty -d "${HOME}"
+alt - f: open "${HOME}"
 alt - p: /Applications/flameshot.app/Contents/MacOS/flameshot gui
 
 alt - w: yabai -m window --close
