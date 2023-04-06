@@ -51,7 +51,7 @@ map("t", "<C-q>", "<C-\\><C-n><C-w>c", { desc = "Close terminal" })
 map("t", "<C-k>", "<C-\\><C-n><C-w>k", { desc = "Focus top window" })
 map("t", "<C-j>", "<C-\\><C-n><C-w>j", { desc = "Focus bottom window" })
 map("t", "<C-h>", "<C-\\><C-n><C-w>h", { desc = "Focus left window" })
--- map("t", "<C-l>", "<C-\\><C-n><C-w>l", { desc = "Focus right window" })
+map("t", "<C-l>", "<C-\\><C-n><C-w>l", { desc = "Focus right window" })
 
 -- map("n", "<Up>", "<C-w>1+", { desc = "Grow window vertically" })
 -- map("n", "<Down>", "<C-w>1-", { desc = "Shrink window vertically" })
