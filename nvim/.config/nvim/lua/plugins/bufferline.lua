@@ -12,7 +12,7 @@ return {
         bufferline.setup({
             options = {
                 numbers = "ordinal",
-                separator_style = "slant", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' }
+                separator_style = "slant", -- "slant" | "padded_slant" | "slope" | "thick" | "thin" | { "|", "|" }
                 -- Only show if more than 2 buffers (needed for dashboard)
                 always_show_bufferline = true,
                 show_buffer_close_icons = false,

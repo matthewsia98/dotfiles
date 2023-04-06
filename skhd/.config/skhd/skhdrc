@@ -1,6 +1,7 @@
-alt - return: kitty -d "${HOME}"
+alt - return: kitty -1 -d "${HOME}" &> /dev/null
 alt - f: open "${HOME}"
 alt - p: /Applications/flameshot.app/Contents/MacOS/flameshot gui
+alt + shift - p: /Applications/flameshot.app/Contents/MacOS/flameshot full --clipboard
 
 alt - w: yabai -m window --close
 alt - m: yabai -m window --toggle zoom-fullscreen
@@ -16,6 +17,8 @@ alt + ctrl - k: yabai -m window --swap north
 alt + ctrl - j: yabai -m window --swap south
 alt + ctrl - h: yabai -m window --swap west
 alt + ctrl - l: yabai -m window --swap east
+alt + ctrl - n: yabai -m space --rotate 270
+alt + ctrl - p: yabai -m space --rotate 90
 
 alt + shift - k: yabai -m window --resize top:0:-10 || yabai -m window --resize bottom:0:10
 alt + shift - j: yabai -m window --resize top:0:10 || yabai -m window --resize bottom:0:-10
