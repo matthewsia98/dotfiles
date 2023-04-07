@@ -1,10 +1,40 @@
-local config = require("config")
-
 local null_ls = require("null-ls")
-local group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true })
+
+local config = {
+    diagnostics = {
+        "djlint",
+    },
+
+    formatting = {
+        --Python
+        "black",
+        "isort",
+        "djlint",
+
+        -- Lua
+        "stylua",
+
+        -- Go
+        "gofumpt",
+
+        -- Rust
+        "rustfmt",
+
+        -- C/C++
+        "clang_format",
+
+        -- Shell
+        "shfmt",
+
+        -- JSON
+        ["jq"] = { args = { "--indent", "4" } },
+
+        "prettier",
+    },
+}
 
 local sources = {}
-for source_type, type_sources in pairs(config.lsp.null_ls_sources) do
+for source_type, type_sources in pairs(config) do
     for k, v in pairs(type_sources) do
         local source = type(k) == "string" and k or v
         local opts = type(k) == "string" and v or {}
@@ -13,8 +43,8 @@ for source_type, type_sources in pairs(config.lsp.null_ls_sources) do
 end
 
 null_ls.setup({
-    sources = sources,
     border = "rounded",
+    sources = sources,
     on_attach = function(client, bufnr)
         local map = require("keymaps").map
 
@@ -24,7 +54,7 @@ null_ls.setup({
             end, { buffer = bufnr, desc = "Format" })
 
             vim.api.nvim_create_autocmd("BufWritePre", {
-                group = group,
+                group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true }),
                 buffer = bufnr,
                 callback = function()
                     vim.lsp.buf.format({ name = "null-ls", timeout = 5000 })

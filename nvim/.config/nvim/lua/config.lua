@@ -1,5 +1,5 @@
 local config = {
-    statusline = "lualine",
+    statusline = "lualine", -- lualine | feline
 
     lualine = {
         style = "box", -- box | round | slant | reverse_slant
@@ -111,39 +111,6 @@ local config = {
             "emmet-ls",
             "typescript-language-server",
             "prettier",
-        },
-
-        null_ls_sources = {
-            diagnostics = {
-                "djlint",
-            },
-
-            formatting = {
-                --Python
-                "black",
-                "isort",
-                "djlint",
-
-                -- Lua
-                "stylua",
-
-                -- Go
-                "gofumpt",
-
-                -- Rust
-                "rustfmt",
-
-                -- C/C++
-                "clang_format",
-
-                -- Shell
-                "shfmt",
-
-                -- JSON
-                ["jq"] = { args = { "--indent", "4" } },
-
-                "prettier",
-            },
         },
 
         pylsp_plugins_to_install = {

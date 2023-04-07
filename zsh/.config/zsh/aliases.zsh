@@ -1,4 +1,5 @@
 # Shell
+alias cl="clear"
 alias ..="cd ..;"
 alias hg="history 1 | grep"
 alias grep="grep --color=auto"
