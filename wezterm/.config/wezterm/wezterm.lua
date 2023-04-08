@@ -125,6 +125,26 @@ return {
             action = wezterm.action.ActivatePaneDirection("Right"),
         },
         {
+            mods = "SUPER|SHIFT",
+            key = "k",
+            action = wezterm.action.AdjustPaneSize({ "Up", 5 }),
+        },
+        {
+            mods = "SUPER|SHIFT",
+            key = "j",
+            action = wezterm.action.AdjustPaneSize({ "Down", 5 }),
+        },
+        {
+            mods = "SUPER|SHIFT",
+            key = "h",
+            action = wezterm.action.AdjustPaneSize({ "Left", 5 }),
+        },
+        {
+            mods = "SUPER|SHIFT",
+            key = "l",
+            action = wezterm.action.AdjustPaneSize({ "Right", 5 }),
+        },
+        {
             mods = "SUPER|CTRL",
             key = " ",
             action = wezterm.action.PaneSelect({
@@ -137,11 +157,5 @@ return {
         split_nav("move", "j"),
         split_nav("move", "k"),
         split_nav("move", "l"),
-
-        -- resize panes
-        split_nav("resize", "LeftArrow"),
-        split_nav("resize", "DownArrow"),
-        split_nav("resize", "UpArrow"),
-        split_nav("resize", "RightArrow"),
     },
 }
