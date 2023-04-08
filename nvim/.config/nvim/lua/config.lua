@@ -79,6 +79,7 @@ local config = {
 
             -- Lua
             "lua-language-server",
+            "luacheck",
             "stylua",
 
             -- Java

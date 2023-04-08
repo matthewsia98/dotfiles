@@ -2,7 +2,11 @@ local null_ls = require("null-ls")
 
 local config = {
     diagnostics = {
+        -- Python
         "djlint",
+
+        -- Lua
+        "luacheck",
     },
 
     formatting = {
@@ -57,7 +61,7 @@ null_ls.setup({
                 group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true }),
                 buffer = bufnr,
                 callback = function()
-                    vim.lsp.buf.format({ name = "null-ls", timeout = 5000 })
+                    vim.lsp.buf.format({ name = "null-ls", timeout_ms = 3000 })
                 end,
             })
         end
