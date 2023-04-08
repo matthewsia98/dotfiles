@@ -71,6 +71,13 @@ then
     alias pacls="pacman -Q"
 fi
 
+if type brew &> /dev/null
+then
+    alias brewin="brew install"
+    alias brewrm="brew uninstall"
+    alias brewg="brew list --versions | grep"
+fi
+
 # Miscellaneous
 alias dots="cd ${HOME}/.dotfiles"
 alias schedule="img ${HOME}/Pictures/schedule.png"
