@@ -1,6 +1,8 @@
 local M = {}
 
 M.setup = function(opts)
+    opts.capabilities.textDocument.completion.completionItem.snippetSupport = false
+
     local lspconfig = require("lspconfig")
     lspconfig.html.setup({
         capabilities = opts.capabilities,

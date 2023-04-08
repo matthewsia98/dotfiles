@@ -8,7 +8,7 @@ return {
             "nvim-treesitter/nvim-treesitter-textobjects",
             -- "mrjones2014/nvim-ts-rainbow",
             "HiPhish/nvim-ts-rainbow2",
-            "windwp/nvim-ts-autotag",
+            -- "windwp/nvim-ts-autotag",
         },
         config = function()
             require("plugins.treesitter.config")
