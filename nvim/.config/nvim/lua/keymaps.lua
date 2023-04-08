@@ -69,4 +69,8 @@ end
 
 map("n", "<leader>cc", "<CMD>set cursorcolumn!<CR>", { desc = "Toggle cursor column" })
 
+map("n", "<leader>cn", function()
+    vim.opt_local.conceallevel = vim.opt_local.conceallevel:get() == 0 and 2 or 0
+end, { desc = "Toggle conceal" })
+
 return M

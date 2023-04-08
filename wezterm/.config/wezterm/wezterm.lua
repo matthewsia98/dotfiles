@@ -74,6 +74,8 @@ return {
         },
     },
 
+    window_decorations = "RESIZE",
+
     use_fancy_tab_bar = true,
     hide_tab_bar_if_only_one_tab = true,
     window_frame = {
