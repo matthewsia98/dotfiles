@@ -24,16 +24,36 @@ return {
     },
     {
         "glepnir/lspsaga.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
         cmd = "Lspsaga",
-        -- event = "BufReadPre",
+        enabled = require("config").lsp.goto_provider == "lspsaga"
+            or require("config").lsp.actions_provider == "lspsaga",
         config = function()
             require("plugins.lsp.lspsaga")
         end,
     },
     {
         "SmiteshP/nvim-navic",
+        dependencies = {
+            "neovim/nvim-lspconfig",
+        },
         config = function()
             require("plugins.lsp.navic")
         end,
+    },
+    {
+        "SmiteshP/nvim-navbuddy",
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            "SmiteshP/nvim-navic",
+            "MunifTanjim/nui.nvim",
+        },
+        cmd = "Navbuddy",
+        config = function()
+            require("plugins.lsp.navbuddy")
+        end,
+        keys = {
+            { "<leader>nb", "<CMD>Navbuddy<CR>", desc = "" },
+        },
     },
 }

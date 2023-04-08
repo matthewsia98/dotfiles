@@ -12,6 +12,7 @@ local on_attach = function(client, bufnr)
     require("plugins.lsp.keymaps").set_keymaps(client, bufnr)
     if client.server_capabilities.documentSymbolProvider then
         require("nvim-navic").attach(client, bufnr)
+        require("nvim-navbuddy").attach(client, bufnr)
     end
 end
 
