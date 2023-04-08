@@ -4,6 +4,8 @@ local separator = config.lualine.winbar.separator or " > "
 require("nvim-navic").setup({
     highlight = true,
     separator = separator,
+
+    -- VSCode icons
     icons = {
         File = " ",
         Module = " ",
