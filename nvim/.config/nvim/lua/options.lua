@@ -2,7 +2,7 @@ local o = vim.o
 local opt = vim.opt
 
 -- Assign python3 virtualenv for Neovim
-vim.g.python3_host_prog = vim.fn.expand("~/.virtualenvs/nvim/bin/python")
+vim.g.python3_host_prog = vim.fn.stdpath("config") .. "/venv/bin/python"
 
 -- Makes neovim and host OS clipboard play nicely with each other
 opt.clipboard = "unnamedplus"
