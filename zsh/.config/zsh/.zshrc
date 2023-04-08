@@ -2,7 +2,7 @@ if [ "$(uname)" = "Linux" ]
 then
     open_command="xdg-open"
 elif [ "$(uname)" = "Darwin" ]
-    open_command="open"
+    open_command="mac-os-open"
 then
 fi
 

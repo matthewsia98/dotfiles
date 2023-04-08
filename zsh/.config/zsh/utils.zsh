@@ -134,3 +134,20 @@ hyprland-toggle-swallow () {
     msg=$([[ "${new}" == 1 ]] && echo "Enabled swallow" || echo "Disabled swallow")
     hyprctl keyword misc:enable_swallow "${new}" && notify-send -r 991 -a "Hyprland" "${msg}"
 }
+
+mac-os-open () {
+    if [ -f "$1" ]
+    then
+        filetype=$(file -b --mime-type "$1")
+        if [ "${filetype}" = "text/plain" ]
+        then
+            nvim "$1"
+            return
+        fi
+
+        case "$1" in
+            *.pdf) zathura "$1" ;;
+            *) open "$1" ;;
+        esac
+    fi
+}
