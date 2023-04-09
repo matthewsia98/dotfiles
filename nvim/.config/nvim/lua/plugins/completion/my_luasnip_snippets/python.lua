@@ -54,13 +54,11 @@ local snippets = {
             [[
         def {}({}):
             {}
-        {}
         ]],
             {
                 i(1, "function_name"),
                 i(2, "args"),
                 i(3, "pass"),
-                i(0),
             }
         )
     ),

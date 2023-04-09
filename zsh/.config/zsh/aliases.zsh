@@ -35,6 +35,7 @@ fi
 alias feh="feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info 'echo %wx%h' --image-bg '#494D54'"
 alias syncthing-web="${open_command} http://localhost:8384"
 alias python="python3"
+alias pip="pip3"
 
 # Git
 alias gcl="git clone --verbose"
@@ -71,16 +72,7 @@ then
     alias pacls="pacman -Q"
 fi
 
-if type brew &> /dev/null
-then
-    alias brewin="brew install"
-    alias brewrm="brew uninstall"
-    alias brewg="brew list --versions | grep"
-fi
-
 # Miscellaneous
 alias dots="cd ${HOME}/.dotfiles"
 alias schedule="img ${HOME}/Pictures/schedule.png"
-
-current_school_term="${HOME}/uOttawa/2023-Winter"
-alias uottawa='${open_command} $(gum file ${current_school_term})'
+alias uottawa='${open_command} $(gum file ${HOME}/uOttawa/2023-Winter)'

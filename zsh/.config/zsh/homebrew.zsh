@@ -7,3 +7,7 @@ export CC="${HOMEBREW_PREFIX}/bin/gcc-12"
 
 FPATH="${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}"
 FPATH="${HOMEBREW_PREFIX}/share/zsh/zsh-completions:${FPATH}"
+
+alias brewin="brew install"
+alias brewrm="brew uninstall"
+alias brewg="brew list --versions | grep"

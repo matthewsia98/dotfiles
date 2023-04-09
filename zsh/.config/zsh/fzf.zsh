@@ -3,6 +3,8 @@
 # fzf_cmd="rg -L --files --hidden -g '!.git'"
 
 # fuzzy completion always
+# export FZF_COMPLETION_TRIGGER=""
+
 export FZF_COMPLETION_TRIGGER="**"
 
 # export FZF_DEFAULT_COMMAND="${fzf_cmd}"
