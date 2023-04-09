@@ -1,4 +1,4 @@
-export HOMEBREW_PREFIX="$(brew --prefix)"
+export HOMEBREW_PREFIX="$(/opt/homebrew/bin/brew --prefix)"
 
 export PATH="${HOMEBREW_PREFIX}/bin:${PATH}"
 export PATH="${HOMEBREW_PREFIX}/opt/postgresql@15/bin:${PATH}"

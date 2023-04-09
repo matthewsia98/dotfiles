@@ -8,6 +8,8 @@ venv/
 # Backup files
 *.bak
 
+karabiner/**/automatic_backups
+
 # lua-language server configuration
 .luarc.json
 
