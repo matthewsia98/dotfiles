@@ -1,29 +1,35 @@
-[init]
-	defaultBranch = main
 [user]
-	email = matthewsia98@gmail.com
-	name = Matthew Sia
+    email = matthewsia98@gmail.com
+    name = Matthew Sia
+
+[init]
+    defaultBranch = main
+
 [pull]
-	rebase = true
+    rebase = true
+
 [push]
     autoSetupRemote = true
 
 # Git Delta
-[include]
-    path = ~/repos/delta/themes.gitconfig
+# [include]
+#     path = ~/repos/delta/themes.gitconfig
 [core]
     pager = delta
-	excludesfile = /home/msia/.gitignore
+
 [interactive]
     diffFilter = delta --color-only
+
 [delta]
     navigate = true    # use n and N to move between diff sections
     light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
     side-by-side = true
     line-numbers = true
     syntax-theme = Catppuccin-mocha
-    features = chameleon
+    # features = chameleon
+
 [merge]
     conflictstyle = diff3
+
 [diff]
     colorMoved = default
