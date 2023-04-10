@@ -16,19 +16,14 @@ local function is_vim(pane)
     return process_name == "nvim" or process_name == "vim"
 end
 
-local direction_keys = {
-    LeftArrow = "Left",
-    DownArrow = "Down",
-    UpArrow = "Up",
-    RightArrow = "Right",
-
-    h = "Left",
-    j = "Down",
+local direction = {
     k = "Up",
+    j = "Down",
+    h = "Left",
     l = "Right",
 }
 
-local function split_nav(resize_or_move, key)
+local function focus(key)
     return {
         key = key,
         mods = "CTRL",
@@ -39,17 +34,14 @@ local function split_nav(resize_or_move, key)
                     SendKey = { key = key, mods = "CTRL" },
                 }, pane)
             else
-                if resize_or_move == "resize" then
-                    win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
-                else
-                    win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
-                end
+                win:perform_action({ ActivatePaneDirection = direction[key] }, pane)
             end
         end),
     }
 end
 
 return {
+    -- REFERENCE: https://wezfurlong.org/wezterm/config/lua/config/term.html
     term = "wezterm",
 
     font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
@@ -152,10 +144,10 @@ return {
             }),
         },
 
-        -- move between split panes
-        split_nav("move", "h"),
-        split_nav("move", "j"),
-        split_nav("move", "k"),
-        split_nav("move", "l"),
+        -- move focus between wezterm panes and vim windows
+        focus("k"),
+        focus("j"),
+        focus("h"),
+        focus("l"),
     },
 }
