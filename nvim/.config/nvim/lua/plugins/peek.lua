@@ -13,10 +13,14 @@ return {
         local map = require("keymaps").map
         map("n", "<leader>md", function()
             if peek.is_open() then
-                vim.fn.system("hyprctl keyword misc:enable_swallow 1")
+                if vim.fn.executable("hyprctl") == 1 then
+                    vim.fn.system("hyprctl keyword misc:enable_swallow 1")
+                end
                 peek.close()
             else
-                vim.fn.system("hyprctl keyword misc:enable_swallow 0")
+                if vim.fn.executable("hyprctl") then
+                    vim.fn.system("hyprctl keyword misc:enable_swallow 0")
+                end
                 peek.open()
             end
         end, { desc = "Toggle Markdown Preview" })

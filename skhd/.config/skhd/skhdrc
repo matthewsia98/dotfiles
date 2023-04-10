@@ -4,6 +4,9 @@ alt - f: open "${HOME}"
 alt - p: /Applications/flameshot.app/Contents/MacOS/flameshot gui
 alt + shift - p: /Applications/flameshot.app/Contents/MacOS/flameshot full --clipboard
 
+# Restart yabai
+alt + ctrl - r: brew services restart yabai
+
 # Window Management
 alt - w: yabai -m window --close
 alt - m: yabai -m window --toggle zoom-fullscreen

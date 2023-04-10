@@ -30,6 +30,19 @@ return {
             },
             view_options = {
                 show_hidden = false,
+                is_hidden_file = function(filename, bufnr)
+                    local patterns = { ".*.class" }
+
+                    local is_hidden = false
+                    for _, pattern in ipairs(patterns) do
+                        if filename:find(pattern) then
+                            is_hidden = true
+                            break
+                        end
+                    end
+
+                    return vim.startswith(filename, ".") or is_hidden
+                end,
             },
             float = {
                 win_options = {

@@ -18,6 +18,9 @@ local config = {
         -- Lua
         "stylua",
 
+        -- Java
+        ["google_java_format"] = { extra_args = { "--aosp" } },
+
         -- Go
         "gofumpt",
 
@@ -31,7 +34,7 @@ local config = {
         "shfmt",
 
         -- JSON
-        ["jq"] = { args = { "--indent", "4" } },
+        ["jq"] = { extra_args = { "--indent", "4" } },
 
         "prettier",
     },

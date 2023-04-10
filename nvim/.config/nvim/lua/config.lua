@@ -84,6 +84,7 @@ local config = {
 
             -- Java
             "jdtls",
+            "google-java-format",
 
             -- GO
             "gopls",
