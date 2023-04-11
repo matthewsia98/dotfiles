@@ -2,6 +2,7 @@
 .DS_Store
 
 .mypy_cache/
+.ropeproject/
 __pycache__/
 venv/
 
