@@ -1,27 +1,43 @@
 #!/bin/sh
 
-if [[ "$1" == "nvim" ]]
-then
-    stow nvim
+platform=$(uname)
 
-    if [[ "$TERM" == *"kitty"* ]]
-    then
-        kitty_themes_dir="$HOME/.config/kitty/themes/"
-        if [[ ! -d "$kitty_themes_dir" ]]
-        then
-            mkdir -v "$kitty_themes_dir"
-        fi
+install_fonts() {
+	if [ "${platform}" = "Linux" ]; then
+		fonts_dir="${HOME}/.fonts"
+		if [ ! -d "${fonts_dir}" ]; then
+			mkdir "${fonts_dir}"
+		fi
+		curl -LO --output-dir "${fonts_dir}" "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip"
+	elif [ "${platform}" = "Darwin" ]; then
+		brew tap homebrew/cask-fonts && brew install --cask font-jetbrains-mono-nerd-font
+	fi
+}
 
-        # Catppuccin
-        curl "https://raw.githubusercontent.com/catppuccin/kitty/main/frappe.conf" -o "${kitty_themes_dir}frappe.conf"
-        curl "https://raw.githubusercontent.com/catppuccin/kitty/main/latte.conf" -o "${kitty_themes_dir}latte.conf"
-        curl "https://raw.githubusercontent.com/catppuccin/kitty/main/macchiato.conf" -o "${kitty_themes_dir}macchiato.conf"
-        curl "https://raw.githubusercontent.com/catppuccin/kitty/main/mocha.conf" -o "${kitty_themes_dir}mocha.conf"
+install_dotfiles() {
+	git clone --depth 1 "https://github.com/matthewsia98/dotfiles.git"
+}
 
-        # Tokyonight
-        curl "https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/kitty/tokyonight_day.conf" -o "${kitty_themes_dir}tokyonight_day.conf"
-        curl "https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/kitty/tokyonight_moon.conf" -o "${kitty_themes_dir}tokyonight_moon.conf"
-        curl "https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/kitty/tokyonight_night.conf" -o "${kitty_themes_dir}tokyonight_night.conf"
-        curl "https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/kitty/tokyonight_storm.conf" -o "${kitty_themes_dir}tokyonight_storm.conf"
-    fi
-fi
+install_programs() {
+	if [ "${platform}" = "Linux" ]; then
+		sudo pacman -S --needed --noconfirm \
+			lsd \
+			bat \
+			stow \
+			kitty \
+			zathura-pdf-mupdf
+	elif [ "${platform}" = "Darwin" ]; then
+		brew tap zegervdv/zathura
+
+		brew install \
+			lsd \
+			bat \
+			stow \
+			kitty \
+			zathura-pdf-mupdf
+
+		# REFERENCE: https://github.com/zegervdv/homebrew-zathura
+		mkdir -p "$(brew --prefix zathura)/lib/zathura"
+		ln -s "$(brew --prefix zathura-pdf-mupdf)/libpdf-mupdf.dylib" "$(brew --prefix zathura)/lib/zathura/libpdf-mupdf.dylib"
+	fi
+}
