@@ -76,3 +76,4 @@ fi
 alias dots="cd ${HOME}/.dotfiles"
 alias schedule="img ${HOME}/Pictures/schedule.png"
 alias uottawa='${open_command} $(gum file ${HOME}/uOttawa/2023-Winter)'
+alias twin="${open_command} https://this-week-in-neovim.org/latest"
