@@ -1,15 +1,18 @@
 return {
     "lewis6991/gitsigns.nvim",
-    event = "BufReadPre",
+    event = "VeryLazy",
     config = function()
         local gitsigns = require("gitsigns")
         gitsigns.setup({
-            trouble = false,
+            trouble = true,
             signs = {
                 add = { text = "▍" },
                 change = { text = "▍" },
                 delete = { text = "" },
                 topdelete = { text = "" },
+            },
+            preview_config = {
+                border = "rounded",
             },
             on_attach = function(bufnr)
                 vim.g.gitsigns_attached = true

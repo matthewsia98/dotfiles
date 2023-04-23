@@ -1,5 +1,6 @@
 return {
     "Vimjas/vim-python-pep8-indent",
+    enabled = false,
     -- ft = "python",
     event = "InsertEnter *.py",
     config = function()

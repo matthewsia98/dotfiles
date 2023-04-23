@@ -2,17 +2,17 @@ return {
     "stevearc/oil.nvim",
     cmd = "Oil",
     init = function()
-        if vim.fn.argc() == 0 then
-            vim.schedule(function()
+        if require("config").file_manager == "oil" then
+            if vim.fn.argc() == 0 then
                 require("oil").open()
-            end)
-        end
+            end
 
-        if vim.fn.argc() == 1 then
-            ---@diagnostic disable-next-line: param-type-mismatch
-            local stat = vim.loop.fs_stat(vim.fn.argv(0))
-            if stat and stat.type == "directory" then
-                require("oil")
+            if vim.fn.argc() == 1 then
+                ---@diagnostic disable-next-line: param-type-mismatch
+                local stat = vim.loop.fs_stat(vim.fn.argv(0))
+                if stat and stat.type == "directory" then
+                    require("oil")
+                end
             end
         end
     end,

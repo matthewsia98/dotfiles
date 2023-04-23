@@ -1,7 +1,7 @@
 return {
     {
         "echasnovski/mini.cursorword",
-        event = "CursorMoved",
+        event = "VeryLazy",
         config = function()
             require("mini.cursorword").setup({})
         end,

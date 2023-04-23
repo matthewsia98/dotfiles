@@ -1,24 +1,26 @@
 return {
     {
         "mfussenegger/nvim-dap",
-        enabled = false,
+        enabled = true,
         dependencies = {
-            "rcarriga/nvim-dap-ui",
+            {
+                "rcarriga/nvim-dap-ui",
+                enabled = true,
+                config = function()
+                    require("dapui").setup({})
+                end,
+            },
         },
-        init = function()
-            vim.g.dap_available_adapters = { "python" }
+        config = function()
+            local dap = require("dap")
+            local dapui = require("dapui")
 
-            vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "DapBreakpoint" })
+            vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
             vim.fn.sign_define(
                 "DapBreakpointCondition",
                 { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" }
             )
             vim.fn.sign_define("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
-            vim.fn.sign_define("DapStopped", { text = "■", texthl = "DapStopped", linehl = "debugPC", numhl = "" })
-        end,
-        config = function()
-            local dap = require("dap")
-            local dapui = require("dapui")
 
             dap.listeners.after.event_initialized["dapui_config"] = function()
                 dapui.open()
@@ -56,10 +58,15 @@ return {
                     end,
                 },
             }
-
-            vim.g.dap_available_adapters = vim.tbl_keys(dap.adapters)
         end,
         keys = {
+            {
+                "<leader>dt",
+                function()
+                    require("dapui").toggle()
+                end,
+                desc = "Toggle DAP UI",
+            },
             {
                 "<leader>db",
                 function()
@@ -96,17 +103,5 @@ return {
                 desc = "Terminate",
             },
         },
-    },
-    {
-        "rcarriga/nvim-dap-ui",
-        enabled = false,
-        config = function()
-            require("dapui").setup({})
-
-            local map = require("keymaps").map
-            map("n", "<leader>dt", function()
-                require("dapui").toggle()
-            end, { desc = "Toggle DAP UI" })
-        end,
     },
 }

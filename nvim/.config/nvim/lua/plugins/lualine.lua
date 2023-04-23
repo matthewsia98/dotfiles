@@ -163,14 +163,18 @@ return {
                 },
                 lualine_x = {
                     spacer,
+                    {
+                        "%S",
+                    },
+                    spacer,
                 },
                 lualine_y = {
-                    {
-                        spacer,
-                        cond = function()
-                            return gaps
-                        end,
-                    },
+                    -- {
+                    --     spacer,
+                    --     cond = function()
+                    --         return gaps
+                    --     end,
+                    -- },
                     -- { "fileformat", separator = separator },
                     -- { "encoding", separator = separator },
                     -- spacer,

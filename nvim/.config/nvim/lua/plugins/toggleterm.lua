@@ -6,9 +6,9 @@ return {
             direction = "vertical",
             size = function(term)
                 if term.direction == "vertical" then
-                    return math.floor(vim.o.columns * 0.3)
+                    return math.floor(vim.o.columns / 3)
                 elseif term.direction == "horizontal" then
-                    return math.floor(vim.o.lines * 0.3)
+                    return math.floor(vim.o.lines / 3)
                 end
             end,
             float_opts = {

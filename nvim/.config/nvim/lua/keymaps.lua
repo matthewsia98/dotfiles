@@ -46,7 +46,7 @@ map("n", "<C-j>", "<C-w>j", { desc = "Focus bottom window" })
 map("n", "<C-h>", "<C-w>h", { desc = "Focus left window" })
 map("n", "<C-l>", "<C-w>l", { desc = "Focus right window" })
 
-map("t", "<C-Esc>", "<C-\\><C-n>", { desc = "Escape terminal mode" })
+map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Escape terminal mode" })
 map("t", "<C-q>", "<C-\\><C-n><C-w>c", { desc = "Close terminal" })
 map("t", "<C-k>", "<C-\\><C-n><C-w>k", { desc = "Focus top window" })
 map("t", "<C-j>", "<C-\\><C-n><C-w>j", { desc = "Focus bottom window" })

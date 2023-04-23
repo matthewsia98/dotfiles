@@ -20,8 +20,8 @@ return {
             },
         })
 
+        -- Set default keymaps manually because lazy loading
         local bufnr = vim.api.nvim_get_current_buf()
-
         local opts = require("jupynium.options").opts
         if opts.use_default_keybindings then
             require("jupynium").set_default_keymaps(bufnr)

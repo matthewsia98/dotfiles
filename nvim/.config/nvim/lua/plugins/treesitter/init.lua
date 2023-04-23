@@ -20,7 +20,7 @@ return {
     },
     {
         "nvim-treesitter/nvim-treesitter-context",
-        event = "CursorMoved",
+        event = "VeryLazy",
         config = function()
             require("plugins.treesitter.context")
         end,

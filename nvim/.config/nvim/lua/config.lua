@@ -1,5 +1,8 @@
 local config = {
-    statusline = "lualine", -- lualine | feline
+    -- What to open when neovim is launched without arguments or with directory as argument
+    file_manager = "oil", -- neo-tree | oil
+
+    statusline = "lualine", -- feline | lualine
 
     lualine = {
         style = "box", -- box | round | slant | reverse_slant

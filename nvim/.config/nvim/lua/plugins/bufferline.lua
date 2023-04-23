@@ -32,7 +32,6 @@ return {
                     },
                 },
             },
-            ---@diagnostic disable-next-line: assign-type-mismatch
             highlights = require("catppuccin.groups.integrations.bufferline").get({
                 styles = { "bold", "italic" },
                 custom = {
@@ -64,7 +63,7 @@ return {
                         modified_visible = { bg = inactive_bg },
                     },
                 },
-            }),
+            })(),
         })
 
         local map = require("keymaps").map
@@ -76,5 +75,7 @@ return {
                 { desc = "Go to Buffer " .. n }
             )
         end
+        map("n", "<leader>bh", "<CMD>BufferLineMovePrev<CR>", { desc = "Move Buffer Left" })
+        map("n", "<leader>bl", "<CMD>BufferLineMoveNext<CR>", { desc = "Move Buffer Right" })
     end,
 }

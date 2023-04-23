@@ -1,8 +1,10 @@
 return {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufReadPre",
+    event = "VeryLazy",
     config = function()
-        require("indent_blankline").setup({
+        local indent_blankline = require("indent_blankline")
+
+        indent_blankline.setup({
             show_first_indent_level = false,
             char_highlight_list = {
                 "IndentBlanklineIndent1",
@@ -13,5 +15,8 @@ return {
                 "IndentBlanklineIndent6",
             },
         })
+
+        -- Needed if loading on VeryLazy event
+        indent_blankline.refresh()
     end,
 }

@@ -1,6 +1,9 @@
 local cmp = require("cmp")
 
-cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
+if pcall(require, "nvim-autopairs") then
+    cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
+end
+
 cmp.event:on("menu_opened", function()
     vim.b.copilot_suggestion_hidden = true
 end)

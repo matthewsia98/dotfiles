@@ -34,17 +34,32 @@ local snippets = {
         {
             trig = "if ",
             snippetType = "autosnippet",
-            condition = utils.not_in_comment_node,
+            condition = utils.not_in_no_expand_node,
         },
         fmt(
             [[
             if {} then
-                {}
+                {}{}
             end
             ]],
             {
-                i(1, "condition"),
-                i(2, "body"),
+                i(1, "true"),
+                i(2, "-- if body"),
+                c(3, {
+                    t(""),
+                    sn(nil, {
+                        t({ "", "elseif " }),
+                        i(1, "true"),
+                        t({ " then", "\t" }),
+                        i(2, "-- elseif body"),
+                        -- t({ "", "else", "\t" }),
+                        -- i(3, "-- else body"),
+                    }),
+                    sn(nil, {
+                        t({ "", "else", "\t" }),
+                        i(1, "-- else body"),
+                    }),
+                }),
             }
         )
     ),
@@ -53,7 +68,7 @@ local snippets = {
         {
             trig = "function ",
             snippetType = "autosnippet",
-            condition = utils.not_in_comment_node,
+            condition = utils.not_in_no_expand_node,
         },
         fmt(
             [[

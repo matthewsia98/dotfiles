@@ -1,7 +1,8 @@
 return {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
-    event = { "BufReadPost", "BufNewFile" },
+    -- event = { "BufReadPost", "BufNewFile" },
+    event = "VeryLazy",
     config = function()
         require("todo-comments").setup({
             signs = false,

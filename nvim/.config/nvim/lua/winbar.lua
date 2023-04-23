@@ -1,8 +1,8 @@
-local config = require("config").lualine
-local cwd_hl = vim.api.nvim_get_hl_by_name(config.winbar.cwd.highlight, true)
-vim.api.nvim_set_hl(0, "WinbarCwdSeparator", { fg = cwd_hl.background })
+local config = require("config")
+local cwd_hl = vim.api.nvim_get_hl(0, { name = "lualine_a_normal" })
+vim.api.nvim_set_hl(0, "WinbarCwdSeparator", { fg = cwd_hl.bg })
 
-local separator = config.styles[config.style]
+local separator = config.lualine.styles[config.lualine.style]
 
 local function get_trouble_mode()
     local opts = require("trouble.config").options
@@ -14,32 +14,32 @@ local function get_trouble_mode()
 
     local mode = table.concat(words, " ")
     return ("%#WinbarCwdSeparator#" .. separator.left)
-        .. ("%#" .. config.winbar.trouble.highlight .. "# " .. mode .. " ")
+        .. ("%#" .. config.lualine.winbar.trouble.highlight .. "# " .. mode .. " ")
         .. ("%#WinbarCwdSeparator#" .. separator.right)
 end
 
 local M = {}
 
 M.get = function(opts)
-    if config.winbar.trouble.enabled and vim.bo.filetype == "Trouble" then
+    if config.lualine.winbar.trouble.enabled and vim.bo.filetype == "Trouble" then
         return get_trouble_mode()
     end
 
     opts = opts or { navic = true }
 
-    local sep = config.winbar.separator or " > "
+    local sep = config.lualine.winbar.separator or " > "
 
     local cwd
-    if config.winbar.cwd.enabled then
+    if config.lualine.winbar.cwd.enabled then
         cwd = vim.fn.getcwd()
-        if config.winbar.cwd.home_symbol then
+        if config.lualine.winbar.cwd.home_symbol then
             local home = os.getenv("HOME")
-            cwd = home and cwd:gsub(home, config.winbar.cwd.home_symbol) or cwd
+            cwd = home and cwd:gsub(home, config.lualine.winbar.cwd.home_symbol) or cwd
         end
         cwd = table.concat(vim.fn.split(cwd, "/"), sep)
 
         cwd = ("%#WinbarCwdSeparator#" .. separator.left .. "%#")
-            .. (config.winbar.cwd.highlight .. "# " .. cwd .. " ")
+            .. (config.lualine.winbar.cwd.highlight .. "# " .. cwd .. " ")
             .. ("%#WinbarCwdSeparator#" .. separator.right)
     end
 
@@ -61,7 +61,7 @@ M.get = function(opts)
         .. ("%#Normal#" .. tail .. readonly .. modified .. "%#Normal#")
 
     local navic
-    if config.winbar.navic.enabled and opts.navic then
+    if config.lualine.winbar.navic.enabled and opts.navic then
         navic = require("nvim-navic").get_location()
         navic = (#navic > 0) and (sep .. navic) or navic
     end

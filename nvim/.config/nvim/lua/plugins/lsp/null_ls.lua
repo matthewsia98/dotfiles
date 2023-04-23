@@ -1,12 +1,16 @@
 local null_ls = require("null-ls")
 
 local config = {
+    code_actions = {
+        "gitsigns",
+    },
+
     diagnostics = {
         -- Python
         "djlint",
 
         -- Lua
-        "luacheck",
+        -- "luacheck",
     },
 
     formatting = {
@@ -54,6 +58,10 @@ null_ls.setup({
     sources = sources,
     on_attach = function(client, bufnr)
         local map = require("keymaps").map
+
+        if client.supports_method("textDocument/codeAction") then
+            map("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
+        end
 
         if client.supports_method("textDocument/formatting") then
             map("n", "<leader>fm", function()

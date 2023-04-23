@@ -1,19 +1,21 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
-    enabled = false,
+    enabled = true,
     cmd = "Neotree",
     init = function()
-        vim.g.neo_tree_remove_legacy_commands = 1
+        if require("config").file_manager == "neo-tree" then
+            vim.g.neo_tree_remove_legacy_commands = 1
 
-        if vim.fn.argc() == 0 then
-            require("neo-tree").focus()
-        end
+            if vim.fn.argc() == 0 then
+                require("neo-tree").focus()
+            end
 
-        if vim.fn.argc() == 1 then
-            ---@diagnostic disable-next-line: param-type-mismatch
-            local stat = vim.loop.fs_stat(vim.fn.argv(0))
-            if stat and stat.type == "directory" then
-                require("neo-tree")
+            if vim.fn.argc() == 1 then
+                ---@diagnostic disable-next-line: param-type-mismatch
+                local stat = vim.loop.fs_stat(vim.fn.argv(0))
+                if stat and stat.type == "directory" then
+                    require("neo-tree")
+                end
             end
         end
     end,
@@ -32,7 +34,7 @@ return {
                 },
             },
             window = {
-                max_width = math.floor(vim.o.columns * 0.4),
+                max_width = math.floor(vim.o.columns / 3),
                 mappings = {
                     ["<space>"] = false,
                 },

@@ -12,25 +12,27 @@ return {
     priority = 1000,
     config = function()
         require("catppuccin").setup({
-            flavour = "mocha",
+            flavour = "mocha", -- latte | frappe | macchiato | mocha
             transparent_background = false,
             custom_highlights = function(colors)
                 return {
-                    NormalFloat = { bg = colors.base },
-                    StatusLine = { bg = colors.base },
-                    StatusLineNC = { bg = colors.base },
-                    WinSeparator = { fg = colors.text },
-                    Pmenu = { bg = colors.base },
-                    PmenuSel = { bg = colors.surface1 },
-                    CursorColumn = { bg = colors.surface1 },
+                    NormalFloat = { link = "Normal" },
+                    Pmenu = { link = "Normal" },
+                    PmenuSel = { bg = colors.surface2 },
 
-                    NoiceCursor = { bg = colors.text, fg = colors.base },
-                    NoiceSplit = { bg = colors.base },
+                    -- fixes black bars in statusline
+                    StatusLine = { link = "Normal" },
+
+                    CursorColumn = { bg = colors.surface2 },
+                    WinSeparator = { fg = colors.text },
+
                     NoiceCmdlinePopupBorder = { fg = colors.blue },
-                    NeoTreeNormal = { bg = colors.base },
-                    TroubleNormal = { bg = colors.base },
-                    WhichKeyFloat = { bg = colors.base },
+
+                    NeoTreeNormal = { link = "Normal" },
+                    TroubleNormal = { link = "Normal" },
+
                     TreesitterContextLineNumber = { bg = colors.mantle, fg = colors.green },
+                    MiniCursorWord = { sp = colors.text, style = { "underline" } },
                 }
             end,
             integrations = {

@@ -16,6 +16,8 @@ opt.mouse = "a"
 -- Number of screen lines to use for the command-line
 opt.cmdheight = 0
 
+opt.showcmdloc = "statusline"
+
 -- Don't show -- MODE --
 opt.showmode = false
 
@@ -89,4 +91,4 @@ opt.spell = true
 opt.spelloptions = "camel"
 -- Don't check if words should start with Capital letters
 opt.spellcapcheck = ""
-o.spellfile = vim.fn.expand("~/.config/nvim/spell/en.utf-8.add")
+o.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"

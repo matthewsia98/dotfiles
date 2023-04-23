@@ -1,7 +1,7 @@
 return {
     "kevinhwang91/nvim-ufo",
     dependencies = { "kevinhwang91/promise-async" },
-    event = "BufReadPost",
+    event = "VeryLazy",
     config = function()
         local handler = function(virtText, lnum, endLnum, width, truncate)
             local newVirtText = {}

@@ -8,6 +8,10 @@ end
 local M = {}
 
 M.set_keymaps = function()
+    -- map("i", "<C-y>", function()
+    --     require("cmp").complete()
+    -- end, { desc = "Trigger completion" })
+
     map("c", "<C-n>", function()
         local cmp = require("cmp")
         if cmp.visible() then

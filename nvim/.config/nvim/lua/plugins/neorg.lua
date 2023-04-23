@@ -17,14 +17,14 @@ return {
                 },
 
                 -- Adds pretty icons to your documents
-                ["core.norg.concealer"] = {
+                ["core.concealer"] = {
                     config = {
                         icon_preset = "diamond", -- basic | diamond | varied
                     },
                 },
 
                 -- Manages Neorg workspaces
-                ["core.norg.dirman"] = {
+                ["core.dirman"] = {
                     config = {
                         workspaces = {
                             uOttawa = "~/uOttawa",
@@ -37,7 +37,7 @@ return {
                 -- Export norg files to other formats
                 ["core.export"] = {},
 
-                ["core.norg.completion"] = {
+                ["core.completion"] = {
                     config = {
                         engine = "nvim-cmp",
                     },

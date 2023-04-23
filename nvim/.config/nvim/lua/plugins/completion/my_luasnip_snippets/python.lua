@@ -48,7 +48,7 @@ local snippets = {
         {
             trig = "def ",
             snippetType = "autosnippet",
-            condition = utils.not_in_comment_node,
+            condition = utils.not_in_no_expand_node,
         },
         fmt(
             [[

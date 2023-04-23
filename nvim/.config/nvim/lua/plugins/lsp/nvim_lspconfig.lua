@@ -1,11 +1,13 @@
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities =
+    vim.tbl_extend("force", vim.lsp.protocol.make_client_capabilities(), require("cmp_nvim_lsp").default_capabilities())
 
 local flags = {
     allow_incremental_sync = true,
     debounce_text_changes = 150,
 }
+
 local handlers = {}
 
 local on_attach = function(client, bufnr)
