@@ -12,7 +12,7 @@ local dl = e.dynamic_lambda
 local sn = ls.sn
 local rep = e.rep
 
-local utils = require("plugins.completion.my_luasnip_snippets.utils")
+local utils = require("plugins.completion.snippets.utils")
 
 local autosnippets = {
     s(
@@ -48,7 +48,7 @@ local snippets = {
         {
             trig = "def ",
             snippetType = "autosnippet",
-            condition = utils.not_in_no_expand_node,
+            condition = utils.expand_node,
         },
         fmt(
             [[

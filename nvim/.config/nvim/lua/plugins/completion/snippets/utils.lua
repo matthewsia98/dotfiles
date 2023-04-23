@@ -1,6 +1,6 @@
 local M = {}
 
-M.not_in_no_expand_node = function(line_to_cursor, matched_trigger, captures)
+M.expand_node = function(line_to_cursor, matched_trigger, captures)
     local _, row, col, _, _ = unpack(vim.fn.getcurpos())
     local node = vim.treesitter.get_node({
         pos = { row - 1, col - #matched_trigger - 1 },

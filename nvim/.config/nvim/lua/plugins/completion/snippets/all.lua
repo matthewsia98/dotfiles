@@ -12,6 +12,8 @@ local dl = e.dynamic_lambda
 local sn = ls.sn
 local rep = e.rep
 
+local date = (vim.fn.has("mac") == 1) and "gdate" or "date"
+
 return {
     s(
         { trig = "timenow" },
@@ -33,7 +35,7 @@ return {
     ),
     s({ trig = "week" }, {
         f(function()
-            local monday = os.capture([[date -d "monday" +"%A, %B %d"]])
+            local monday = os.capture(date .. [[ -d "monday" +"%A, %B %d"]])
             return monday
         end),
         i(1),
@@ -41,14 +43,14 @@ return {
         c(2, {
             sn(nil, {
                 f(function()
-                    local friday = os.capture([[date -d "monday + 4days" +"%A, %B %d"]])
+                    local friday = os.capture(date .. [[ -d "monday + 4days" +"%A, %B %d"]])
                     return friday
                 end),
                 i(1),
             }),
             sn(nil, {
                 f(function()
-                    local sunday = os.capture([[date -d "monday + 6days" +"%A, %B %d"]])
+                    local sunday = os.capture(date .. [[ -d "monday + 6days" +"%A, %B %d"]])
                     return sunday
                 end),
                 i(1),
@@ -57,23 +59,22 @@ return {
     }),
     s({ trig = "pweek" }, {
         f(function()
-            local monday = os.capture([[date -d "last-monday" +"%A, %B %d"]])
+            local monday = os.capture(date .. [[ -d "last-monday" +"%A, %B %d"]])
             return monday
         end),
         i(1),
         t(" - "),
         c(2, {
             sn(nil, {
-
                 f(function()
-                    local friday = os.capture([[date -d "last-monday + 4days" +"%A, %B %d"]])
+                    local friday = os.capture(date .. [[ -d "last-monday + 4days" +"%A, %B %d"]])
                     return friday
                 end),
                 i(1),
             }),
             sn(nil, {
                 f(function()
-                    local sunday = os.capture([[date -d "last-monday + 6days" +"%A, %B %d"]])
+                    local sunday = os.capture(date .. [[ -d "last-monday + 6days" +"%A, %B %d"]])
                     return sunday
                 end),
                 i(1),

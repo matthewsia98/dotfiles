@@ -24,5 +24,5 @@ luasnip.config.set_config({
 })
 
 require("luasnip.loaders.from_lua").lazy_load({
-    paths = "~/.config/nvim/lua/plugins/completion/my_luasnip_snippets/",
+    paths = vim.fn.stdpath("config") .. "/lua/plugins/completion/snippets/",
 })
