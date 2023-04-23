@@ -81,20 +81,14 @@ ctrl-backspace () {
 }
 zle -N ctrl-backspace
 
-# shellcheck disable=SC1009,SC1036,SC1056,SC1072,SC1073
 clean-nvim () {
     sudo rm -r ${HOME}/.local/share/nvim
     sudo rm -r ${HOME}/.local/state/nvim/^(undo|shada)*
 }
 
 build-nvim () {
-    tag="$1"
-    if [[ "${tag}" == "" ]]
-    then
-        tag="master"
-    fi
-
-    cd ${HOME}/repos/neovim || return
+    tag="${1:-"master"}"
+    cd ${HOME}/repos/neovim
     git checkout master
     git pull origin --tags --force
     git checkout "${tag}"
@@ -105,12 +99,7 @@ build-nvim () {
 }
 
 update-mirrorlist () {
-    num="$1"
-    if [[ "${num}" == "" ]]
-    then
-        num=10
-    fi
-
+    num="${1:-10}"
     sudo reflector --country "Canada,United States" --latest "${num}" --protocol http,https --sort rate --save /etc/pacman.d/mirrorlist
 }
 
