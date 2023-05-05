@@ -5,7 +5,7 @@ alt - f: open "${HOME}"
 # alt + shift - p: /Applications/flameshot.app/Contents/MacOS/flameshot full --clipboard
 
 # Restart yabai
-alt + ctrl - r: brew services restart yabai
+alt + ctrl - r: yabai --restart-service
 
 # Window Management
 alt - w: yabai -m window --close

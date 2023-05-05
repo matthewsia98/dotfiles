@@ -36,4 +36,4 @@ yabai -m signal --add event=application_hidden action="yabai -m window --focus l
 
 yabai -m rule --add app="^kitty$" opacity=0.9
 
-# osascript -e 'display notification "yabai config loaded" with title "yabai"'
+echo "yabai configuration loaded.."
