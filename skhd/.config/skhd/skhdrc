@@ -1,6 +1,6 @@
 # Launch Programs
 alt - return: kitty -1 -d "${HOME}" &> /dev/null
-alt - f: open "${HOME}"
+alt - t: open "${HOME}"
 # alt - p: /Applications/flameshot.app/Contents/MacOS/flameshot gui
 # alt + shift - p: /Applications/flameshot.app/Contents/MacOS/flameshot full --clipboard
 
@@ -38,7 +38,8 @@ alt + shift - h: yabai -m window --resize right:-10:0 || yabai -m window --resiz
 alt + shift - l: yabai -m window --resize right:10:0 || yabai -m window --resize left:-10:0
 alt + shift - n: yabai -m space --balance
 
-# Go to Space
+# Move window to Space and Go to Space (requires yabai scripting addition)
+# REFERENCE: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
 alt + ctrl - 1: yabai -m window --space 1 && yabai -m space --focus 1
 alt + ctrl - 2: yabai -m window --space 2 && yabai -m space --focus 2
 alt + ctrl - 3: yabai -m window --space 3 && yabai -m space --focus 3

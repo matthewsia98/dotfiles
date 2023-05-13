@@ -34,6 +34,6 @@ yabai -m signal --add event=window_destroyed action="yabai -m window --focus las
 yabai -m signal --add event=window_minimized action="yabai -m window --focus last"
 yabai -m signal --add event=application_hidden action="yabai -m window --focus last"
 
-yabai -m rule --add app="^kitty$" opacity=0.9
+# yabai -m rule --add app="^kitty$" opacity=0.9
 
 echo "yabai configuration loaded.."
