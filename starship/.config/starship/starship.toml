@@ -10,7 +10,7 @@ continuation_prompt = "[ ](bold fg:yellow)"
 format = """
 $directory \
 ($git_branch $git_commit ($git_state )$git_metrics$git_status)\
-$c$golang$java$lua$python$rust\
+$c$golang$java$lua$python$conda$rust\
 $fill\
 $time
 ($sudo$hostname$username )$character
@@ -178,6 +178,7 @@ format = '[\[$symbol($version(-$name))\]]($style)'
 [conda]
 disabled = false
 symbol = " "
+format = '[\[$symbol$environment\]]($style)'
 
 [docker_context]
 disabled = false
