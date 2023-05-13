@@ -1,0 +1,25 @@
+theme = "catppuccin_mocha"
+
+[editor]
+line-number = "relative"
+cursorline = true
+bufferline = "always"
+color-modes = true
+
+[editor.statusline]
+left = ["mode", "spacer", "version-control", "workspace-diagnostics", "diagnostics", "spinner"]
+right = ["selections", "file-encoding", "file-type", "position"]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.indent-guides]
+render = true
