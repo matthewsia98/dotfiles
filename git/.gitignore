@@ -1,2 +1,5 @@
 # Mac OS Finder
 DS_Store
+
+# Notebook Checkpoints
+.ipynb_checkpoints/

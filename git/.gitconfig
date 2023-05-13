@@ -15,6 +15,7 @@
 # [include]
 #     path = ~/repos/delta/themes.gitconfig
 [core]
+    excludesfile = ~/.gitignore
     pager = delta
 
 [interactive]
