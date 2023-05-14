@@ -34,8 +34,8 @@ then
 fi
 alias feh="feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info 'echo %wx%h' --image-bg '#494D54'"
 alias syncthing-web="${open_command} http://localhost:8384"
-alias python="python3"
-alias pip="pip3"
+# alias python="python3"
+# alias pip="pip3"
 
 # Git
 alias gcl="git clone --verbose"

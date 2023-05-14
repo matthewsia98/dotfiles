@@ -11,9 +11,6 @@ FPATH="${HOMEBREW_PREFIX}/share/zsh/zsh-completions:${FPATH}"
 alias brewin="brew install"
 alias brewrm="brew uninstall"
 alias brewg="brew list --versions | grep"
-alias brewsyu="brew update && brew upgrade"
-
-alias checkupdates="brew outdated"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
