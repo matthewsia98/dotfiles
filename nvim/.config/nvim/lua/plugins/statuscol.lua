@@ -20,6 +20,10 @@ return {
                     click = "v:lua.ScSa",
                 },
                 {
+                    sign = { name = { "Mark" }, auto = true },
+                    click = "v:lua.ScSa",
+                },
+                {
                     text = { " ", builtin.lnumfunc },
                     click = "v:lua.ScLa",
                 },
