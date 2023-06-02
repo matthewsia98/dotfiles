@@ -5,7 +5,7 @@ bindkey "^a" beginning-of-line
 bindkey "^e" end-of-line
 
 # ctrl-backspace
-bindkey "^h" ctrl-backspace
+bindkey "^h" vi-backward-kill-word
 
 bindkey "^p" up-line-or-search
 bindkey "^n" down-line-or-search

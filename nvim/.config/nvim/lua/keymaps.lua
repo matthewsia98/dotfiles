@@ -14,11 +14,13 @@ local function map(modes, key, value, options)
 end
 M.map = map
 
+map("i", "<C-BS>", "<C-w>", { desc = "Delete word backwards" })
+
 map("s", "<BS>", "<C-g>s", { desc = "Delete selection" })
 map("x", "y", "m`y``", { desc = "Copy selection to clipboard" })
 
-map("i", "<C-a>", "<ESC>I", { desc = "Go to start of line" })
-map("i", "<C-e>", "<ESC>A", { desc = "Go to end of line" })
+map("i", "<C-a>", "<C-o>^", { desc = "Go to start of line" })
+map("i", "<C-e>", "<C-o>$", { desc = "Go to end of line" })
 map("s", "<C-a>", "<ESC>`<i", { desc = "Go to start of line" })
 map("s", "<C-e>", "<ESC>`>a", { desc = "Go to end of line" })
 

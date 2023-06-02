@@ -1,0 +1,47 @@
+{
+    "title": "Option + {I, O} to {HOME, END}",
+    "rules": [
+        {
+            "description": "Option + I to HOME",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "i",
+                        "modifiers": {
+                            "mandatory": [
+                                "option"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "home"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Option + O to END",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "o",
+                        "modifiers": {
+                            "mandatory": [
+                                "option"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "end"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

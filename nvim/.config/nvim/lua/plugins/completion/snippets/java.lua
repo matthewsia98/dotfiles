@@ -12,9 +12,13 @@ local dl = e.dynamic_lambda
 local sn = ls.sn
 local rep = e.rep
 
-return {}, {
+return {
     s(
-        { trig = "sout" },
+        {
+            trig = "sout",
+            dscr = "System.out.println();",
+            snippetType = "autosnippet",
+        },
         fmt(
             [[
             System.out.println({});{}
@@ -26,7 +30,11 @@ return {}, {
         )
     ),
     s(
-        { trig = "psvm" },
+        {
+            trig = "psvm",
+            dscr = "public static void main(String[] args) {}",
+            snippetType = "autosnippet",
+        },
         fmt(
             [[
             public static void main(String[] args) {{

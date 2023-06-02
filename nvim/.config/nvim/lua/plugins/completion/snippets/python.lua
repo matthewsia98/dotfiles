@@ -14,40 +14,53 @@ local rep = e.rep
 
 local utils = require("plugins.completion.snippets.utils")
 
-local autosnippets = {
+return {
     s(
-        { trig = "([%a_]+)%+%+", regTrig = true },
+        {
+            trig = "([%a_]+)%+%+",
+            regTrig = true,
+            snippetType = "autosnippet",
+            dscr = "i++",
+        },
         f(function(_, snip)
             return snip.captures[1] .. " += 1"
         end)
     ),
     s(
-        { trig = "([%a_]+)%-%-", regTrig = true },
+        {
+            trig = "([%a_]+)%-%-",
+            regTrig = true,
+            snippetType = "autosnippet",
+            dscr = "i--",
+        },
         f(function(_, snip)
             return snip.captures[1] .. " -= 1"
         end)
     ),
     s(
-        { trig = "printn" },
+        {
+            trig = "printn",
+            snippetType = "autosnippet",
+        },
         fmt([[print({}, "\n")]], {
             i(1, ""),
         })
     ),
     s(
-        { trig = "printf" },
+        {
+            trig = "printf",
+            snippetType = "autosnippet",
+        },
         fmt([[print(f"{}{{{}}}{}")]], {
             i(1, ""),
             i(2, ""),
             i(3, ""),
         })
     ),
-}
-
-local snippets = {
     s(
         {
             trig = "def ",
-            snippetType = "autosnippet",
+            -- snippetType = "autosnippet",
             condition = utils.expand_node,
         },
         fmt(
@@ -584,5 +597,3 @@ local snippets = {
         )
     ),
 }
-
-return snippets, autosnippets

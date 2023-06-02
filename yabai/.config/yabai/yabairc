@@ -1,3 +1,4 @@
+# https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 
@@ -29,6 +30,7 @@ yabai -m rule --add app="^Spotify$" space=6
 
 yabai -m rule --add app="^(System Settings|Preview|Karabiner.*|Raycast)$" manage=off
 yabai -m rule --add app="^Finder$" title="^Finder Settings$" manage=off
+yabai -m rule --add app="^Visual Studio$" title="^Find in Files$" manage=off
 
 yabai -m signal --add event=window_destroyed action="yabai -m window --focus last"
 yabai -m signal --add event=window_minimized action="yabai -m window --focus last"

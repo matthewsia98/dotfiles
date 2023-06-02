@@ -13,8 +13,8 @@ return {
         })
     end,
     keys = {
-        { "ys", desc = "" },
-        { "ds", desc = "" },
-        { "cs", desc = "" },
+        { "ys", desc = "Add surround" },
+        { "ds", desc = "Delete surround" },
+        { "cs", desc = "Change surround" },
     },
 }

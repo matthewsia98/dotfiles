@@ -1,3 +1,57 @@
+local function toggleterm_run(interactive)
+    local filetype = vim.bo.filetype
+    local relative_path = vim.fn.expand("%.")
+    local head = vim.fn.expand("%:h") .. "/"
+    local tail = vim.fn.expand("%:t")
+    if head == "." then
+        head = "./" .. head
+    end
+
+    local command
+    if filetype == "lua" then
+        -- LUA
+        command = "lua " .. relative_path
+    elseif filetype == "python" then
+        -- PYTHON
+        command = "python " .. (interactive and "-i " or "") .. relative_path
+    elseif filetype == "go" then
+        -- GO
+        command = "go run " .. relative_path
+    elseif filetype == "java" then
+        -- JAVA
+        command = string.format("javac %s && java -cp %s %s", relative_path, head, tail:gsub(".java", ""))
+    elseif filetype == "c" then
+        -- C
+        local output = string.format("%s", head .. tail:gsub(".c", ""))
+        command = string.format("gcc %s -o %s && %s", relative_path, output, output)
+    elseif filetype == "cpp" then
+        -- C++
+        local output = string.format("%s", head .. tail:gsub(".cpp", ""))
+        command = string.format("g++ %s -o %s && %s", relative_path, output, output)
+    elseif filetype == "rust" then
+        local output = string.format("%s", head .. tail:gsub(".rs", ""))
+        command = string.format("rustc %s -o %s && %s", relative_path, output, output)
+    elseif filetype == "sh" or filetype == "zsh" then
+        -- SHELL
+        local absolute_path = vim.fn.expand("%:p")
+        local perms = vim.fn.getfperm(absolute_path)
+        local is_executable = perms:sub(3, 3) == "x"
+        local chmod = is_executable and "" or string.format("chmod +x %s && ", head .. tail)
+        command = string.format("%s%s", chmod, head .. tail)
+    end
+
+    vim.cmd(string.format('TermExec go_back=0 cmd="%s"', command))
+
+    -- vim.ui.input({
+    --     prompt = "Run Command: ",
+    --     default = command,
+    -- }, function(input)
+    --     if input ~= nil then
+    --         vim.cmd(string.format('TermExec go_back=0 cmd="%s"', input))
+    --     end
+    -- end)
+end
+
 return {
     "akinsho/toggleterm.nvim",
     config = function()
@@ -37,58 +91,13 @@ return {
         },
         {
             "<leader>tr",
+            toggleterm_run,
+            desc = "Run File",
+        },
+        {
+            "<leader>tir",
             function()
-                local filetype = vim.bo.filetype
-                local relative_path = vim.fn.expand("%.")
-                local head = vim.fn.expand("%:h") .. "/"
-                local tail = vim.fn.expand("%:t")
-                if head == "." then
-                    head = "./" .. head
-                end
-
-                local command
-                if filetype == "lua" then
-                    -- LUA
-                    command = "lua " .. relative_path
-                elseif filetype == "python" then
-                    -- PYTHON
-                    command = "python " .. relative_path
-                elseif filetype == "go" then
-                    -- GO
-                    command = "go run " .. relative_path
-                elseif filetype == "java" then
-                    -- JAVA
-                    command = string.format("javac %s && java -cp %s %s", relative_path, head, tail:gsub(".java", ""))
-                elseif filetype == "c" then
-                    -- C
-                    local output = string.format("%s", head .. tail:gsub(".c", ""))
-                    command = string.format("gcc %s -o %s && %s", relative_path, output, output)
-                elseif filetype == "cpp" then
-                    -- C++
-                    local output = string.format("%s", head .. tail:gsub(".cpp", ""))
-                    command = string.format("g++ %s -o %s && %s", relative_path, output, output)
-                elseif filetype == "rust" then
-                    local output = string.format("%s", head .. tail:gsub(".rs", ""))
-                    command = string.format("rustc %s -o %s && %s", relative_path, output, output)
-                elseif filetype == "sh" or filetype == "zsh" then
-                    -- SHELL
-                    local absolute_path = vim.fn.expand("%:p")
-                    local perms = vim.fn.getfperm(absolute_path)
-                    local is_executable = perms:sub(3, 3) == "x"
-                    local chmod = is_executable and "" or string.format("chmod +x %s && ", head .. tail)
-                    command = string.format("%s%s", chmod, head .. tail)
-                end
-
-                vim.cmd(string.format('TermExec go_back=0 cmd="%s"', command))
-
-                -- vim.ui.input({
-                --     prompt = "Run Command: ",
-                --     default = command,
-                -- }, function(input)
-                --     if input ~= nil then
-                --         vim.cmd(string.format('TermExec go_back=0 cmd="%s"', input))
-                --     end
-                -- end)
+                toggleterm_run(true)
             end,
             desc = "Run File",
         },

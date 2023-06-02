@@ -12,15 +12,16 @@ return {
                     click = "v:lua.ScSa",
                 },
                 {
+                    sign = { name = { "Mark" }, auto = true },
+                    click = "v:lua.ScSa",
+                },
+                {
                     sign = { name = { "Diagnostic" }, auto = true },
                     click = "v:lua.ScSa",
                 },
                 {
                     sign = { name = { "Dap" }, colwidth = 1, auto = true },
-                    click = "v:lua.ScSa",
-                },
-                {
-                    sign = { name = { "Mark" }, auto = true },
+
                     click = "v:lua.ScSa",
                 },
                 {

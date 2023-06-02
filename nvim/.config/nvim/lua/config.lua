@@ -69,6 +69,7 @@ local config = {
             "emmet_ls",
             "tsserver",
             "jsonls",
+            "csharp_ls",
         },
 
         mason_packages_to_install = {
@@ -116,6 +117,9 @@ local config = {
             "emmet-ls",
             "typescript-language-server",
             "prettier",
+
+            -- C#
+            "csharp-language-server",
         },
 
         pylsp_plugins_to_install = {

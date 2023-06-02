@@ -16,6 +16,9 @@ local on_attach = function(client, bufnr)
         require("nvim-navic").attach(client, bufnr)
         require("nvim-navbuddy").attach(client, bufnr)
     end
+    if client.supports_method("textDocument/inlayHint") then
+        require("lsp-inlayhints").on_attach(client, bufnr)
+    end
 end
 
 local config = require("config")

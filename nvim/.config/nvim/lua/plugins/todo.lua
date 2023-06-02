@@ -8,9 +8,15 @@ return {
             signs = false,
             keywords = {
                 REFERENCE = { icon = "", color = "hint" },
+                DEBUG = { icon = "", color = "debug" },
+                ERROR = { icon = "", color = "error" },
             },
             highlight = {
+                comments_only = false,
                 multiline = false,
+            },
+            colors = {
+                debug = { "Normal" },
             },
         })
     end,

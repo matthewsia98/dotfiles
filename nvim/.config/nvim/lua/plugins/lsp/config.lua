@@ -23,13 +23,13 @@ vim.diagnostic.config({
 
 -- SIGNS --
 vim.fn.sign_define("DiagnosticSignError", {
-    text = " ",
+    text = "󰅚 ",
     texthl = "DiagnosticSignError",
     numhl = "DiagnosticSignError",
 })
 
 vim.fn.sign_define("DiagnosticSignWarn", {
-    text = " ",
+    text = "󰀪 ",
     texthl = "DiagnosticSignWarn",
     numhl = "DiagnosticSignWarn",
 })
@@ -41,7 +41,7 @@ vim.fn.sign_define("DiagnosticSignHint", {
 })
 
 vim.fn.sign_define("DiagnosticSignInfo", {
-    text = " ",
+    text = "󰋽 ",
     texthl = "DiagnosticSignInfo",
     numhl = "DiagnosticSignInfo",
 })

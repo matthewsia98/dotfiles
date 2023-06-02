@@ -1,10 +1,10 @@
 return {
     "kiyoon/jupynium.nvim",
-    build = "pip3 install --user .",
+    build = (vim.g.python3_host_prog or "python3"):gsub("python(%d*)", "pip%1") .. " install .",
     event = "BufWinEnter *.ju.py",
     config = function()
         require("jupynium").setup({
-            python_host = "python3",
+            python_host = vim.g.python3_host_prog or "python3",
             firefox_profiles_ini_path = "~/.mozilla/firefox/profiles.ini",
             firefox_profile_name = "jupynium",
 

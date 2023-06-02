@@ -16,7 +16,10 @@ local date = (vim.fn.has("mac") == 1) and "gdate" or "date"
 
 return {
     s(
-        { trig = "timenow" },
+        {
+            trig = "timenow",
+            dscr = "Get current time in hh:mm:ss format",
+        },
         f(function()
             return os.date("%H:%M:%S")
         end)

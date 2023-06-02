@@ -27,3 +27,11 @@ keymaps
 python3
 mozilla
 firefox
+utils
+args
+init
+groupby
+df
+len
+idx
+fmt

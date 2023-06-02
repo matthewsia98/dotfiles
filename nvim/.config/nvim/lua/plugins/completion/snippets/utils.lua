@@ -9,6 +9,7 @@ M.expand_node = function(line_to_cursor, matched_trigger, captures)
     local no_expand_nodes = {
         "comment",
         "string",
+        "string_literal",
     }
 
     return node and not vim.tbl_contains(no_expand_nodes, node:type())

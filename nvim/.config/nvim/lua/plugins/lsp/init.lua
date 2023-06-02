@@ -23,6 +23,12 @@ return {
         end,
     },
     {
+        "lvimuser/lsp-inlayhints.nvim",
+        config = function()
+            require("plugins.lsp.inlayhints")
+        end,
+    },
+    {
         "glepnir/lspsaga.nvim",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         cmd = "Lspsaga",

@@ -12,6 +12,7 @@ M.setup = function(opts)
             Lua = {
                 diagnostics = { enable = true }, -- use null-ls luacheck instead
                 semantic = { enable = true },
+                hint = { enable = true, setType = true },
                 telemetry = { enable = false },
                 workspace = {
                     checkThirdParty = false,

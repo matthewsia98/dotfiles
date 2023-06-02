@@ -64,7 +64,7 @@ o.listchars = "lead:·,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂"
 o.fillchars = "eob: ,fold: ,foldsep: ,foldopen:,foldclose:"
 
 -- Command line completion mode
-opt.wildmode = "longest:full,full"
+opt.wildmode = "list:full"
 -- Enable fuzzy matching for commands
 opt.wildoptions = "fuzzy,pum,tagfile"
 

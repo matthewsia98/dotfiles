@@ -1,5 +1,8 @@
 export HOMEBREW_PREFIX="$(/opt/homebrew/bin/brew --prefix)"
 
+# unversioned symlinks python -> python3, pip -> pip3, etc.
+export PATH="$(brew --prefix python)/libexec/bin:${PATH}"
+
 export PATH="${HOMEBREW_PREFIX}/bin:${PATH}"
 export PATH="${HOMEBREW_PREFIX}/opt/postgresql@15/bin:${PATH}"
 

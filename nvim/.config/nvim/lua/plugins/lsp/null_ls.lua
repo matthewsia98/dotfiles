@@ -1,9 +1,9 @@
 local null_ls = require("null-ls")
 
 local config = {
-    code_actions = {
-        "gitsigns",
-    },
+    -- code_actions = {
+    --     "gitsigns",
+    -- },
 
     diagnostics = {
         -- Python
@@ -15,8 +15,8 @@ local config = {
 
     formatting = {
         --Python
-        "black",
         "isort",
+        "black",
         "djlint",
 
         -- Lua
@@ -78,3 +78,5 @@ null_ls.setup({
         end
     end,
 })
+
+vim.api.nvim_set_hl(0, "NullLSInfoBorder", { link = "FloatBorder" })

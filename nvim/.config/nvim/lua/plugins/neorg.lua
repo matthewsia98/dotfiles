@@ -5,11 +5,18 @@ return {
         "nvim-neorg/neorg-telescope",
     },
     cmd = "Neorg",
-    ft = "norg",
+    event = { "BufReadPre *.norg", "BufNewFile *.norg" },
+    -- ft = "norg",
     config = function()
         require("neorg").setup({
             load = {
-                ["core.defaults"] = {}, -- Loads default behaviour
+                -- Loads default behaviour
+                ["core.defaults"] = {
+                    config = {
+                        disable = {},
+                    },
+                },
+
                 ["core.presenter"] = {
                     config = {
                         zen_mode = "zen-mode",
@@ -42,6 +49,9 @@ return {
                         engine = "nvim-cmp",
                     },
                 },
+
+                -- ["core.itero"] = {},
+                -- ["core.promo"] = {},
 
                 ["core.integrations.telescope"] = {},
             },

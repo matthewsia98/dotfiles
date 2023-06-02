@@ -1,7 +1,6 @@
 local mason = require("mason")
 
 mason.setup({
-    PATH = "prepend",
     ui = {
         check_outdated_packages_on_open = true,
         border = "rounded",
@@ -17,6 +16,8 @@ local config = require("config")
 
 local show_ui = true
 local registry = require("mason-registry")
+registry.refresh()
+
 for _, package_name in ipairs(config.lsp.mason_packages_to_install) do
     local package = registry.get_package(package_name)
     if not package:is_installed() then
@@ -34,7 +35,7 @@ for _, package_name in ipairs(config.lsp.mason_packages_to_install) do
                 vim.schedule(function()
                     local plugins = config.lsp.pylsp_plugins_to_install
                     local install_cmd = {
-                        vim.fn.expand("~/.local/share/nvim/mason/packages/python-lsp-server/venv/bin/python"),
+                        vim.fn.expand(vim.fn.stdpath("data") .. "/mason/packages/python-lsp-server/venv/bin/python"),
                         "-m",
                         "pip",
                         "install",

@@ -3,3 +3,9 @@ DS_Store
 
 # Notebook Checkpoints
 .ipynb_checkpoints/
+
+# Log Files
+*.log
+
+# Python
+__pycache__/
