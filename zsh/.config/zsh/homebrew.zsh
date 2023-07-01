@@ -1,9 +1,10 @@
 export HOMEBREW_PREFIX="$(/opt/homebrew/bin/brew --prefix)"
 
+export PATH="${HOMEBREW_PREFIX}/bin:${PATH}"
+
 # unversioned symlinks python -> python3, pip -> pip3, etc.
 export PATH="$(brew --prefix python)/libexec/bin:${PATH}"
 
-export PATH="${HOMEBREW_PREFIX}/bin:${PATH}"
 export PATH="${HOMEBREW_PREFIX}/opt/postgresql@15/bin:${PATH}"
 
 export CC="${HOMEBREW_PREFIX}/bin/gcc-13"
@@ -14,6 +15,8 @@ FPATH="${HOMEBREW_PREFIX}/share/zsh/zsh-completions:${FPATH}"
 alias brewin="brew install"
 alias brewrm="brew uninstall"
 alias brewg="brew list --versions | grep"
+
+alias checkupdates="brew update && brew outdated"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

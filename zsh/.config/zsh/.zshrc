@@ -52,3 +52,5 @@ autoload -Uz compinit && compinit -d ~/.cache/zsh/.zcompdump
 neofetch
 # pfetch
 # nitch
+
+"${HOME}/misc/ansi_escape_codes.sh"

@@ -1,5 +1,7 @@
 local config = require("config")
 
+vim.lsp.set_log_level("warn") -- set to "debug" to enable logging
+
 vim.diagnostic.config({
     update_in_insert = false,
     underline = true,

@@ -1,4 +1,5 @@
 # Shell
+alias clera="clear"
 alias cl="clear"
 alias ..="cd ..;"
 alias hg="history 1 | grep"
@@ -18,13 +19,13 @@ alias logout='loginctl terminate-user $USER'
 alias suspend="systemctl suspend"
 
 # Programs
-alias v="nvim"
-alias vi="nvim"
+# alias v="nvim"
+# alias vi="nvim"
 alias vim="nvim"
 alias gitui="gitui --theme mocha.ron"
 alias pdf="zathura"
 alias asciiquarium="asciiquarium --transparent"
-alias uotp="python ${HOME}/Misc/uottawa_otp.py"
+alias uotp="python ${HOME}/misc/uottawa_otp.py"
 if [ "$(uname)" = "Darwin" ]
 then
     alias img="open -a Preview"
@@ -34,32 +35,41 @@ then
 fi
 alias feh="feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info 'echo %wx%h' --image-bg '#494D54'"
 alias syncthing-web="${open_command} http://localhost:8384"
-# alias python="python3"
-# alias pip="pip3"
+
+# Pip
+if type pip &> /dev/null
+then
+    alias pipin="pip install"
+    alias piprm="pip uninstall"
+    alias pipg="pip list | grep"
+fi
 
 # Git
-alias gcl="git clone --verbose"
-alias gs="git status"
-alias ga="git add --verbose"
-alias ga.="git add --verbose ."
-alias gc="git commit --message"
-alias gca="git commit --amend --message"
-alias gpl="git pull --verbose"
-alias gp="git push --verbose"
-alias gb="git branch --verbose --color=always"
-alias gco="git checkout"
-alias gd="git diff"
-alias gds="git diff --staged"
-alias gr="git rebase"
-# Removes the file only from the Git repository, but not from the filesystem
-alias grm="git rm -r --cached"
-# Deletes files both from the Git repository as well as the filesystem
-alias gRM="git rm -r"
-alias gl="git log --graph --decorate --pretty=oneline --abbrev-commit"
-alias gsh="git stash"
-alias gsp="git stash pop"
-alias gf="git fetch --verbose"
-alias gm="git merge --verbose"
+if type git &> /dev/null
+then
+    alias gcl="git clone --verbose"
+    alias gs="git status"
+    alias ga="git add --verbose"
+    alias ga.="git add --verbose ."
+    alias gc="git commit --message"
+    alias gca="git commit --amend --message"
+    alias gpl="git pull --verbose"
+    alias gp="git push --verbose"
+    alias gb="git branch --verbose --color=always"
+    alias gco="git checkout"
+    alias gd="git diff"
+    alias gds="git diff --staged"
+    alias gr="git rebase"
+    # Removes the file only from the Git repository, but not from the filesystem
+    alias grm="git rm -r --cached"
+    # Deletes files both from the Git repository as well as the filesystem
+    alias gRM="git rm -r"
+    alias gl="git log --graph --decorate --pretty=oneline --abbrev-commit"
+    alias gsh="git stash"
+    alias gsp="git stash pop"
+    alias gf="git fetch --verbose"
+    alias gm="git merge --verbose"
+fi
 
 # Pacman
 if type pacman &> /dev/null

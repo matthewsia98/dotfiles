@@ -14,10 +14,14 @@ local function map(modes, key, value, options)
 end
 M.map = map
 
+map({ "n", "x" }, "*", [["*]], { desc = "Use system clipboard" })
+map({ "n", "x" }, "_", [["_]], { desc = "Use black hole register" })
+map({ "n", "x" }, "+", [["+]], { desc = "Use system clipboard" })
+
 map("i", "<C-BS>", "<C-w>", { desc = "Delete word backwards" })
 
 map("s", "<BS>", "<C-g>s", { desc = "Delete selection" })
-map("x", "y", "m`y``", { desc = "Copy selection to clipboard" })
+-- map("x", "y", "m`y``", { desc = "Copy selection to clipboard and retain cursor position" })
 
 map("i", "<C-a>", "<C-o>^", { desc = "Go to start of line" })
 map("i", "<C-e>", "<C-o>$", { desc = "Go to end of line" })

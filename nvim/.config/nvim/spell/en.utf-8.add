@@ -35,3 +35,15 @@ df
 len
 idx
 fmt
+util
+cwd
+cpp
+chmod
+toml
+zsh
+rustc
+gcc
+javac
+cp
+Buf
+treesitter

@@ -4,6 +4,7 @@ local backward_key = config and config.backward_key or "S"
 
 return {
     "ggandor/leap.nvim",
+    enabled = false,
     config = function()
         local leap = require("leap")
 

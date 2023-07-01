@@ -8,7 +8,9 @@ M.setup = function(opts)
         handlers = opts.handlers,
         on_attach = opts.on_attach,
 
-        settings = {},
+        settings = {
+            ["rust-analyzer"] = {},
+        },
     })
 end
 

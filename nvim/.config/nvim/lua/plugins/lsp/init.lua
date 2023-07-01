@@ -24,8 +24,9 @@ return {
     },
     {
         "lvimuser/lsp-inlayhints.nvim",
+        enabled = false, -- REFERENCE: Feature implemented in https://github.com/neovim/neovim/pull/23984
         config = function()
-            require("plugins.lsp.inlayhints")
+            require("lsp-inlayhints").setup({})
         end,
     },
     {
@@ -61,5 +62,12 @@ return {
         keys = {
             { "<leader>nb", "<CMD>Navbuddy<CR>", desc = "" },
         },
+    },
+    {
+        "simrat39/rust-tools.nvim",
+        event = { "BufReadPre *.rs", "BufNewFile *.rs" },
+        config = function()
+            require("plugins.lsp.rust_tools")
+        end,
     },
 }

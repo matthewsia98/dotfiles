@@ -7,20 +7,20 @@ return {
         })
     end,
     keys = {
-        {
-            "<C-f>",
-            function()
-                require("neoscroll").scroll(vim.wo.scroll, true, 250)
-            end,
-            desc = "Scroll down",
-        },
-        {
-            "<C-b>",
-            function()
-                require("neoscroll").scroll(-vim.wo.scroll, true, 250)
-            end,
-            desc = "Scroll up",
-        },
+        -- {
+        --     "<C-f>",
+        --     function()
+        --         require("neoscroll").scroll(vim.wo.scroll, true, 250)
+        --     end,
+        --     desc = "Scroll down",
+        -- },
+        -- {
+        --     "<C-b>",
+        --     function()
+        --         require("neoscroll").scroll(-vim.wo.scroll, true, 250)
+        --     end,
+        --     desc = "Scroll up",
+        -- },
         {
             "<C-d>",
             function()

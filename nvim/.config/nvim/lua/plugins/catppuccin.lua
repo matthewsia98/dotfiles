@@ -32,7 +32,7 @@ return {
                     TroubleNormal = { link = "Normal" },
 
                     TreesitterContextLineNumber = { bg = colors.mantle, fg = colors.green },
-                    MiniCursorWord = { sp = colors.text, style = { "underline" } },
+                    -- MiniCursorWord = { sp = colors.text, style = { "underline" } },
                 }
             end,
             integrations = {
@@ -44,13 +44,14 @@ return {
                 leap = true,
                 markdown = true,
                 mason = true,
+                mini = true,
                 neotree = true,
                 noice = true,
                 notify = true,
                 semantic_tokens = true,
                 treesitter_context = true,
                 treesitter = true,
-                ts_rainbow = true,
+                ts_rainbow2 = true,
                 telescope = true,
                 lsp_trouble = true,
                 symbols_outline = true,

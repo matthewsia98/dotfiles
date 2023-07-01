@@ -14,12 +14,12 @@ luasnip.config.set_config({
     delete_check_events = "TextChanged,InsertLeave",
 
     ext_opts = {
-        [types.choiceNode] = {
-            active = {
-                virt_text = { { " ﬋ Current Choice ", "Search" } },
-                priority = 1,
-            },
-        },
+        -- [types.choiceNode] = {
+        --     active = {
+        --         virt_text = { { " ﬋ Current Choice ", "Search" } },
+        --         priority = 1,
+        --     },
+        -- },
     },
 })
 

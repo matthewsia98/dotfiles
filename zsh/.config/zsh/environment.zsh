@@ -3,7 +3,9 @@ export STARSHIP_CONFIG="${HOME}/.config/starship/starship.toml"
 export GOPATH="${HOME}/go"
 export GOBIN="${GOPATH}/bin"
 
-export PATH="${PATH}:${HOME}/.local/bin:${HOME}/.cargo/bin:${GOBIN}"
+export PATH="${PATH}:${HOME}/.local/bin"
+export PATH="${PATH}:${HOME}/.cargo/bin"
+export PATH="${PATH}:${GOBIN}"
 export PATH="${PATH}:${HOME}/.local/share/nvim/mason/bin"
 export PATH="${PATH}:${HOME}/.spicetify"
 

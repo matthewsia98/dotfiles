@@ -1,4 +1,4 @@
-# https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
+# REFERENCE: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 
@@ -14,9 +14,9 @@ yabai -m config window_gap 4
 
 yabai -m config window_border off
 yabai -m config window_border_hidpi off
-yabai -m config window_border_width 2
+yabai -m config window_border_width 4
 yabai -m config active_window_border_color 0xff89b4fa
-yabai -m config normal_window_border_color 0x00000000
+yabai -m config normal_window_border_color 0xff1e1e2e
 
 yabai -m config mouse_follows_focus off
 yabai -m config mouse_modifier alt
@@ -29,6 +29,8 @@ yabai -m rule --add app="^Firefox$" space=4
 yabai -m rule --add app="^Spotify$" space=6
 
 yabai -m rule --add app="^(System Settings|Preview|Karabiner.*|Raycast)$" manage=off
+# grid=rows:columns:start-x:start-y:width:height
+yabai -m rule --add app="^Finder$" manage=off grid=7:9:1:1:7:5
 yabai -m rule --add app="^Finder$" title="^Finder Settings$" manage=off
 yabai -m rule --add app="^Visual Studio$" title="^Find in Files$" manage=off
 

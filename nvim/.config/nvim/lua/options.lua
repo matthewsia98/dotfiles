@@ -5,7 +5,7 @@ local opt = vim.opt
 vim.g.python3_host_prog = vim.fn.stdpath("config") .. "/venv/bin/python"
 
 -- Makes neovim and host OS clipboard play nicely with each other
-opt.clipboard = "unnamedplus"
+-- opt.clipboard = "unnamedplus"
 
 -- Enable 24 bit RGB colors. Use gui highlight attributes instead of cterm attributes
 opt.termguicolors = true

@@ -109,17 +109,21 @@ M.set_keymaps = function()
         end
     end, { desc = "Copilot accept" })
 
-    map("i", "<C-f>", function()
-        local cmp = require("cmp")
-        if cmp.visible() then
-            cmp.scroll_docs(4)
+    map({ "n", "i" }, "<C-f>", function()
+        if not require("noice.lsp").scroll(4) then
+            local cmp = require("cmp")
+            if cmp.visible() then
+                cmp.scroll_docs(4)
+            end
         end
     end, { desc = "Cmp scroll down" })
 
-    map("i", "<C-b>", function()
-        local cmp = require("cmp")
-        if cmp.visible() then
-            cmp.scroll_docs(-4)
+    map({ "n", "i" }, "<C-b>", function()
+        if not require("noice.lsp").scroll(4) then
+            local cmp = require("cmp")
+            if cmp.visible() then
+                cmp.scroll_docs(-4)
+            end
         end
     end, { desc = "Cmp scroll up" })
 

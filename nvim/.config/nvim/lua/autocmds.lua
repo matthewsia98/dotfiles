@@ -61,15 +61,15 @@ vim.api.nvim_create_autocmd("FileType", {
     desc = "Check for plugin updates on opening Lazy UI",
 })
 
--- vim.api.nvim_create_autocmd("FileType", {
---     group = group("neorg_conceal"),
---     pattern = { "norg" },
---     callback = function()
---         vim.opt_local.concealcursor = "n"
---         vim.opt_local.conceallevel = 2
---     end,
---     desc = "Set conceal level for norg files",
--- })
+vim.api.nvim_create_autocmd("FileType", {
+    group = group("neorg_conceal"),
+    pattern = { "norg" },
+    callback = function()
+        -- vim.opt_local.concealcursor = "n"
+        vim.opt_local.conceallevel = 2
+    end,
+    desc = "Set conceal level for norg files",
+})
 
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = group("auto_create_dir"),

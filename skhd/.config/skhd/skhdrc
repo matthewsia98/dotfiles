@@ -1,5 +1,5 @@
 # Launch Programs
-alt - return: kitty -1 -d "${HOME}" &> /dev/null
+alt - return: kitty --single-instance -d "${HOME}" &> /dev/null
 alt - t: open "${HOME}"
 # alt - p: /Applications/flameshot.app/Contents/MacOS/flameshot gui
 # alt + shift - p: /Applications/flameshot.app/Contents/MacOS/flameshot full --clipboard

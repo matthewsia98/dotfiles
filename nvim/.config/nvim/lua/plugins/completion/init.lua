@@ -9,7 +9,7 @@ return {
             "saadparwaiz1/cmp_luasnip",
             "onsails/lspkind.nvim",
         },
-        event = "InsertEnter",
+        event = { "InsertEnter", "LspAttach" },
         config = function()
             require("plugins.completion.cmp")
             require("plugins.completion.keymaps").set_keymaps()
@@ -37,11 +37,6 @@ return {
                 },
             })
         end,
-        keys = {
-            { ":" },
-            { "/" },
-            { "?" },
-        },
     },
     {
         "L3MON4D3/LuaSnip",
