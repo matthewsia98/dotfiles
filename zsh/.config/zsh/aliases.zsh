@@ -51,6 +51,7 @@ then
     alias gs="git status"
     alias ga="git add --verbose"
     alias ga.="git add --verbose ."
+    alias gb="git branch --verbose --color=always"
     alias gc="git commit --message"
     alias gca="git commit --amend --message"
     alias gpl="git pull --verbose"
@@ -59,7 +60,7 @@ then
     alias gco="git checkout"
     alias gd="git diff"
     alias gds="git diff --staged"
-    alias gr="git rebase"
+    alias grb="git rebase"
     # Removes the file only from the Git repository, but not from the filesystem
     alias grm="git rm -r --cached"
     # Deletes files both from the Git repository as well as the filesystem
