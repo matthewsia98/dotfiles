@@ -53,3 +53,10 @@ nmap <leader>te :vsc TestExplorer.ShowTestExplorer<CR>
 nmap <leader>tl :vsc View.TaskList<CR>
 nmap <leader>nt :vsc View.SolutionExplorer<CR>
 nmap <leader>tt :vsc View.Terminal<CR>
+
+nmap <leader>b :vsc Debug.ToggleBreakpoint<CR>
+nmap <leader>x :vsc Debug.Start<CR>
+nmap <leader>q :vsc Debug.StopDebugging<CR>
+nmap <F1> :vsc Debug.StepInto<CR>
+nmap <F2> :vsc Debug.StepOver<CR>
+nmap <F3> :vsc Debug.StepOut<CR>
