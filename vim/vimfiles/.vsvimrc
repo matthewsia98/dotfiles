@@ -1,0 +1,55 @@
+set backspace=indent,eol,start
+set hlsearch
+set ignorecase
+set incsearch
+set nojoinspaces
+set relativenumber
+set number
+set scrolloff=22
+set smartcase
+
+let mapleader=" "
+
+nmap e] :vsc View.NextError<CR>
+nmap e[ :vsc View.PreviousError<CR>
+nmap m] :vsc Edit.NextMethod<CR>
+nmap m[ :vsc Edit.PreviousMethod<CR>
+
+nmap K :vsc Edit.QuickInfo<CR>
+
+nmap gd :vsc Edit.GoToDefinition<CR>
+nmap gi :vsc Edit.GoToImplementation<CR>
+nmap gr :vsc Edit.FindAllReferences<CR>
+
+nmap <leader>rn :vsc Refactor.Rename<CR>
+
+nmap <leader>fm :vsc Edit.FormatDocument<CR>
+nmap <leader>ff :vsc Edit.GoToFile<CR>
+nmap <leader>ft :vsc Edit.GoToType<CR>
+nmap <leader>fl :vsc Edit.FindInFiles<CR>
+
+nmap <C-O> :vsc View.NavigateBackward<CR>
+nmap <C-I> :vsc View.NavigateForward<CR>
+
+nmap gcc :vsc Edit.ToggleLineComment<CR>
+vmap gc :vsc Edit.ToggleLineComment<CR>
+nmap gbb :vsc Edit.ToggleBlockComment<CR>
+vmap gb :vsc Edit.ToggleBlockComment<CR>
+
+nmap <leader>hb :vsc Team.Git.Annotate<CR>
+
+nmap <C-k> <C-w>k
+nmap <C-j> <C-w>j
+nmap <C-h> <C-w>h
+nmap <C-l> <C-w>l
+
+nmap <C-w>L :vsc Window.MovetoNextTabGroup<CR>
+nmap <C-w>H :vsc Window.MovetoPrevTabGroup<CR>
+
+nmap <C-n> :vsc Window.NextTab<CR>
+nmap <C-p> :vsc Window.PreviousTab<CR>
+
+nmap <leader>te :vsc TestExplorer.ShowTestExplorer<CR>
+nmap <leader>tl :vsc View.TaskList<CR>
+nmap <leader>nt :vsc View.SolutionExplorer<CR>
+nmap <leader>tt :vsc View.Terminal<CR>
