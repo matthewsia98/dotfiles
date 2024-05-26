@@ -28,3 +28,8 @@ tmux/**/plugins/
 
 # neovim minimal config for reproducing issues
 minimal.lua
+
+# vim tmp files
+*~
+*.swp
+*.swo
