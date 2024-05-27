@@ -60,3 +60,30 @@ nmap <leader>q :vsc Debug.StopDebugging<CR>
 nmap <F1> :vsc Debug.StepInto<CR>
 nmap <F2> :vsc Debug.StepOver<CR>
 nmap <F3> :vsc Debug.StepOut<CR>
+
+nmap ysiw' ciw'<C-r>"'<ESC>
+nmap ysiw" ciw"<C-r>""<ESC>
+nmap ysiw( ciw(<C-r>")<ESC>
+nmap ysiw) ciw(<C-r>")<ESC>
+nmap ysiw[ ciw[<C-r>"]<ESC>
+nmap ysiw] ciw[<C-r>"]<ESC>
+nmap ysiw{ ciw{<C-r>"}<ESC>
+nmap ysiw} ciw{<C-r>"}<ESC>
+
+nmap ysiW' ciW'<C-r>"'<ESC>
+nmap ysiW" ciW"<C-r>""<ESC>
+nmap ysiW( ciW(<C-r>")<ESC>
+nmap ysiW) ciW(<C-r>")<ESC>
+nmap ysiW[ ciW[<C-r>"]<ESC>
+nmap ysiW] ciW[<C-r>"]<ESC>
+nmap ysiW{ ciW{<C-r>"}<ESC>
+nmap ysiW} ciW{<C-r>"}<ESC>
+
+nmap ds' di'vhp
+nmap ds" di"vhp
+nmap ds( di(vhp
+nmap ds) di)vhp
+nmap ds[ di[vhp
+nmap ds] di]vhp
+nmap ds{ di{vhp
+nmap ds} di}vhp
