@@ -27,5 +27,5 @@
 ## Extensions
 
 -   IndentRainbow
-    -   blue, green, yellow, peach, red<br>
-        #3089b4fa, #30a6e3a1, #30f9e2af, #30fab387, #30f38ba8
+    -   mauve,     teal,      blue,      green,     peach,     red<br>
+        #30cba6f7, #3094e2d5, #3089b4fa, #30a6e3a1, #30fab387, #30f38ba8
