@@ -1,8 +1,15 @@
 local map = require("keymaps").map
 
-local function feedkeys(lhs, mode)
+local function feedkeys(lhs, mode, dont_replace_termcodes)
     mode = mode or "im"
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(lhs, true, false, true), mode, false)
+
+    local keys = lhs
+    local replace_termcodes = not dont_replace_termcodes
+    if replace_termcodes then
+        keys = vim.api.nvim_replace_termcodes(lhs, true, false, true)
+    end
+
+    vim.api.nvim_feedkeys(keys, mode, false)
 end
 
 local M = {}
@@ -63,7 +70,7 @@ M.set_keymaps = function()
         if cmp.visible() and cmp.get_selected_entry() then
             cmp.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace })
         elseif pcall(require, "nvim-autopairs") then
-            feedkeys(require("nvim-autopairs").autopairs_cr(), "n")
+            feedkeys(require("nvim-autopairs").autopairs_cr(), "n", true)
         else
             feedkeys("<CR>", "n")
         end

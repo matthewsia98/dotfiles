@@ -53,4 +53,4 @@ neofetch
 # pfetch
 # nitch
 
-"${HOME}/misc/ansi_escape_codes.sh"
+# "${HOME}/misc/ansi_escape_codes.sh"

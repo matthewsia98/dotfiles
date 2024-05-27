@@ -7,7 +7,7 @@ export PATH="$(brew --prefix python)/libexec/bin:${PATH}"
 
 export PATH="${HOMEBREW_PREFIX}/opt/postgresql@15/bin:${PATH}"
 
-export CC="${HOMEBREW_PREFIX}/bin/gcc-13"
+export CC="${HOMEBREW_PREFIX}/bin/gcc-14"
 
 FPATH="${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}"
 FPATH="${HOMEBREW_PREFIX}/share/zsh/zsh-completions:${FPATH}"

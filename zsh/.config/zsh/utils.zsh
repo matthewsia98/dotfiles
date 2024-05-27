@@ -88,14 +88,14 @@ clean-nvim () {
 
 build-nvim () {
     tag="${1:-"master"}"
-    cd ${HOME}/repos/neovim
+    pushd ${HOME}/repos/neovim
     git checkout master
     git pull origin --tags --force
     git checkout "${tag}"
     sudo rm -rf ./build/
     sudo rm -rf /usr/local/share/nvim/runtime/
     sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
-    cd "${HOME}"
+    popd
 }
 
 update-mirrorlist () {
@@ -139,4 +139,8 @@ mac-os-open () {
             *) open "$1" ;;
         esac
     fi
+}
+
+yabai-visudo () {
+    echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai) | cut -d " " -f 1) $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
 }

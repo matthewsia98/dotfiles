@@ -47,3 +47,5 @@ javac
 cp
 Buf
 treesitter
+eslint
+trophic

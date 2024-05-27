@@ -38,7 +38,7 @@ M.get = function()
     end
 
     local diagnostic
-    for _, client in ipairs(vim.lsp.get_active_clients()) do
+    for _, client in ipairs(vim.lsp.get_clients()) do
         local capabilities = client.config.capabilities
         if capabilities and capabilities.textDocument.publishDiagnostics then
             diagnostic = true

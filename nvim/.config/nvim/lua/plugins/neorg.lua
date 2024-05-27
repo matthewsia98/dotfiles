@@ -1,8 +1,9 @@
 return {
     "nvim-neorg/neorg",
-    build = ":Neorg sync-parsers",
+    -- build = ":Neorg sync-parsers",
     dependencies = {
         "nvim-neorg/neorg-telescope",
+        "vhyrro/luarocks.nvim",
     },
     cmd = "Neorg",
     event = { "BufReadPre *.norg", "BufNewFile *.norg" },

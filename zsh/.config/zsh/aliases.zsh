@@ -52,7 +52,8 @@ then
     alias ga="git add --verbose"
     alias ga.="git add --verbose ."
     alias gb="git branch --verbose --color=always"
-    alias gc="git commit --message"
+    alias gc="git commit --verbose"
+    alias gcm="git commit --verbose --message"
     alias gca="git commit --amend --message"
     alias gpl="git pull --verbose"
     alias gp="git push --verbose"
@@ -60,6 +61,7 @@ then
     alias gco="git checkout"
     alias gd="git diff"
     alias gds="git diff --staged"
+    alias gm="git merge --verbose"
     alias grb="git rebase"
     # Removes the file only from the Git repository, but not from the filesystem
     alias grm="git rm -r --cached"
@@ -83,8 +85,15 @@ then
     alias pacls="pacman -Q"
 fi
 
+# Docker
+if type docker &> /dev/null
+then
+    alias dc="docker compose"
+fi
+
 # Miscellaneous
 alias dots="cd ${HOME}/.dotfiles"
 alias schedule="img ${HOME}/Pictures/schedule.png"
-alias uottawa='${open_command} $(gum file ${HOME}/uOttawa/2023-Winter)'
+alias uottawa='${open_command} $(gum file ${HOME}/uOttawa/2024-Winter)'
 alias twin="${open_command} https://this-week-in-neovim.org/latest"
+alias note='${EDITOR} $(date +%d-%b-%Y).md'

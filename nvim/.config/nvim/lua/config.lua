@@ -50,7 +50,7 @@ local config = {
 
     lsp = {
         -- Go to definition, reference, type definition
-        goto_provider = "trouble", -- trouble | telescope | lspsaga | builtin
+        goto_provider = "telescope", -- trouble | telescope | lspsaga | builtin
 
         -- Code action, hover, rename, diagnostics
         actions_provider = "builtin", -- lspsaga | builtin
@@ -67,9 +67,11 @@ local config = {
             -- "html",
             -- "cssls",
             -- "emmet_ls",
-            -- "tsserver",
+            "tsserver",
             -- "jsonls",
             -- "csharp_ls",
+            "omnisharp",
+            -- "angularls",
         },
 
         mason_packages_to_install = {
@@ -78,8 +80,8 @@ local config = {
             "pyright",
             "black",
             "isort",
-            "debugpy",
-            "djlint",
+            -- "debugpy",
+            -- "djlint",
 
             -- Lua
             "lua-language-server",
@@ -87,39 +89,42 @@ local config = {
             "stylua",
 
             -- Java
-            "jdtls",
-            "google-java-format",
+            -- "jdtls",
+            -- "google-java-format",
 
             -- GO
             "gopls",
             "gofumpt",
 
             -- C/C++
-            "clangd",
-            "clang-format",
+            -- "clangd",
+            -- "clang-format",
 
             -- Rust
-            "rust-analyzer",
-            "rustfmt",
+            -- "rust-analyzer",
+            -- "rustfmt",
 
             -- Shell
-            "bash-language-server",
-            "shellcheck",
-            "shfmt",
+            -- "bash-language-server",
+            -- "shellcheck",
+            -- "shfmt",
 
             -- JSON
-            "json-lsp",
-            "jq",
+            -- "json-lsp",
+            -- "jq",
 
             -- HTML / CSS / JS
-            "html-lsp",
-            "css-lsp",
-            "emmet-ls",
+            -- "html-lsp",
+            -- "css-lsp",
+            -- "emmet-ls",
             "typescript-language-server",
             "prettier",
+            "eslint_d",
+            -- "angular-language-server",
 
             -- C#
-            "csharp-language-server",
+            -- "csharp-language-server",
+            "omnisharp",
         },
 
         pylsp_plugins_to_install = {

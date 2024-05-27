@@ -1,5 +1,6 @@
 return {
     "kiyoon/jupynium.nvim",
+    enabled = false,
     build = (vim.g.python3_host_prog or "python3"):gsub("python(%d*)", "pip%1") .. " install .",
     event = "BufWinEnter *.ju.py",
     config = function()

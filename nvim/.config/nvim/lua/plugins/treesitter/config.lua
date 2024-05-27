@@ -1,4 +1,5 @@
 require("nvim-treesitter.configs").setup({
+    modules = {},
     auto_install = true,
     ensure_installed = {
         --[[
@@ -20,6 +21,8 @@ require("nvim-treesitter.configs").setup({
         "markdown",
         "markdown_inline",
     },
+    sync_install = false,
+    ignore_install = {},
 
     highlight = {
         enable = true,
@@ -35,11 +38,11 @@ require("nvim-treesitter.configs").setup({
     --     enable = true,
     -- },
 
-    rainbow = {
-        enable = true,
-        query = { "rainbow-parens" },
-        strategy = require("ts-rainbow").strategy.global,
-    },
+    -- rainbow = {
+    --     enable = true,
+    --     query = { "rainbow-parens" },
+    --     strategy = require("ts-rainbow").strategy.global,
+    -- },
 
     playground = { enable = true },
 

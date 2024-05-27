@@ -1,10 +1,10 @@
 return {
     "ThePrimeagen/harpoon",
+    branch = "harpoon2",
     config = function()
-        require("harpoon").setup({
-            menu = {
-                width = math.floor(vim.o.columns * 0.7),
-                height = math.floor(vim.o.lines * 0.7),
+        require("harpoon"):setup({
+            settings = {
+                save_on_toggle = true,
             },
         })
 
@@ -14,14 +14,19 @@ return {
         {
             "<leader>hm",
             function()
-                require("harpoon.ui").toggle_quick_menu()
+                local harpoon = require("harpoon")
+                harpoon.ui:toggle_quick_menu(harpoon:list(), {
+                    border = "rounded",
+                    title_pos = "center",
+                    ui_width_ratio = 0.7,
+                })
             end,
             desc = "Harpoon Toggle Menu",
         },
         {
             "<leader>ha",
             function()
-                require("harpoon.mark").add_file()
+                require("harpoon"):list():add()
             end,
             desc = "Harpoon Add File",
         },
