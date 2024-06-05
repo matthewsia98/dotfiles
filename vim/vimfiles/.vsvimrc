@@ -53,6 +53,7 @@ nmap <leader>te :vsc TestExplorer.ShowTestExplorer<CR>
 nmap <leader>tl :vsc View.TaskList<CR>
 nmap <leader>nt :vsc View.SolutionExplorer<CR>
 nmap <leader>tt :vsc View.Terminal<CR>
+nmap <leader>dd :vsc View.ErrorList<CR>
 
 nmap <leader>b :vsc Debug.ToggleBreakpoint<CR>
 nmap <leader>x :vsc Debug.Start<CR>
@@ -61,24 +62,167 @@ nmap <F1> :vsc Debug.StepInto<CR>
 nmap <F2> :vsc Debug.StepOver<CR>
 nmap <F3> :vsc Debug.StepOut<CR>
 
+" iw surround
 nmap ysiw' ciw'<C-r>"'<ESC>
 nmap ysiw" ciw"<C-r>""<ESC>
-nmap ysiw( ciw(<C-r>")<ESC>
+nmap ysiw( ciw( <C-r>" )<ESC>
 nmap ysiw) ciw(<C-r>")<ESC>
-nmap ysiw[ ciw[<C-r>"]<ESC>
+nmap ysiw[ ciw[ <C-r>" ]<ESC>
 nmap ysiw] ciw[<C-r>"]<ESC>
-nmap ysiw{ ciw{<C-r>"}<ESC>
+nmap ysiw{ ciw{ <C-r>" }<ESC>
 nmap ysiw} ciw{<C-r>"}<ESC>
 
+" aw surround
+nmap ysaw' caw'<C-r>"'<ESC>
+nmap ysaw" caw"<C-r>""<ESC>
+nmap ysaw( caw( <C-r>" )<ESC>
+nmap ysaw) caw(<C-r>")<ESC>
+nmap ysaw[ caw[ <C-r>" ]<ESC>
+nmap ysaw] caw[<C-r>"]<ESC>
+nmap ysaw{ caw{ <C-r>" }<ESC>
+nmap ysaw} caw{<C-r>"}<ESC>
+
+" iW surround
 nmap ysiW' ciW'<C-r>"'<ESC>
 nmap ysiW" ciW"<C-r>""<ESC>
-nmap ysiW( ciW(<C-r>")<ESC>
+nmap ysiW( ciW (<C-r>" )<ESC>
 nmap ysiW) ciW(<C-r>")<ESC>
-nmap ysiW[ ciW[<C-r>"]<ESC>
+nmap ysiW[ ciW[ <C-r>" ]<ESC>
 nmap ysiW] ciW[<C-r>"]<ESC>
-nmap ysiW{ ciW{<C-r>"}<ESC>
+nmap ysiW{ ciW{ <C-r>" }<ESC>
 nmap ysiW} ciW{<C-r>"}<ESC>
 
+" aW surround
+nmap ysaW' caW'<C-r>"'<ESC>
+nmap ysaW" caW"<C-r>""<ESC>
+nmap ysaW( caW (<C-r>" )<ESC>
+nmap ysaW) caW(<C-r>")<ESC>
+nmap ysaW[ caW[ <C-r>" ]<ESC>
+nmap ysaW] caW[<C-r>"]<ESC>
+nmap ysaW{ caW{ <C-r>" }<ESC>
+nmap ysaW} caW{<C-r>"}<ESC>
+
+" i' surround
+nmap ysi'' ci''<C-r>"'<ESC>
+nmap ysi'" ci'"<C-r>""<ESC>
+nmap ysi'( ci'( <C-r>" )<ESC>
+nmap ysi') ci'(<C-r>")<ESC>
+nmap ysi'[ ci'[ <C-r>" ]<ESC>
+nmap ysi'] ci'[<C-r>"]<ESC>
+nmap ysi'{ ci'{ <C-r>" }<ESC>
+nmap ysi'} ci'{<C-r>"}<ESC>
+
+" a' surround
+nmap ysa'' ca''<C-r>"'<ESC>
+nmap ysa'" ca'"<C-r>""<ESC>
+nmap ysa'( ca'( <C-r>" )<ESC>
+nmap ysa') ca'(<C-r>")<ESC>
+nmap ysa'[ ca'[ <C-r>" ]<ESC>
+nmap ysa'] ca'[<C-r>"]<ESC>
+nmap ysa'{ ca'{ <C-r>" }<ESC>
+nmap ysa'} ca'{<C-r>"}<ESC>
+
+" i\" surround
+nmap ysi"' ci"'<C-r>"'<ESC>
+nmap ysi"" ci""<C-r>""<ESC>
+nmap ysi"( ci"( <C-r>" )<ESC>
+nmap ysi") ci"(<C-r>")<ESC>
+nmap ysi"[ ci"[ <C-r>" ]<ESC>
+nmap ysi"] ci"[<C-r>"]<ESC>
+nmap ysi"{ ci"{ <C-r>" }<ESC>
+nmap ysi"} ci"{<C-r>"}<ESC>
+
+" a\" surround
+nmap ysa"' ca"'<C-r>"'<ESC>
+nmap ysa"" ca""<C-r>""<ESC>
+nmap ysa"( ca"( <C-r>" )<ESC>
+nmap ysa") ca"(<C-r>")<ESC>
+nmap ysa"[ ca"[ <C-r>" ]<ESC>
+nmap ysa"] ca"[<C-r>"]<ESC>
+nmap ysa"{ ca"{ <C-r>" }<ESC>
+nmap ysa"} ca"{<C-r>"}<ESC>
+
+" i( surround
+nmap ysi(' ci('<C-r>"'<ESC>
+nmap ysi(" ci("<C-r>""<ESC>
+nmap ysi(( ci(( <C-r>" )<ESC>
+nmap ysi() ci((<C-r>")<ESC>
+nmap ysi([ ci([ <C-r>" ]<ESC>
+nmap ysi(] ci([<C-r>"]<ESC>
+nmap ysi({ ci({ <C-r>" }<ESC>
+nmap ysi(} ci({<C-r>"}<ESC>
+
+" a( surround
+nmap ysa(' ca('<C-r>"'<ESC>
+nmap ysa(" ca("<C-r>""<ESC>
+nmap ysa(( ca(( <C-r>" )<ESC>
+nmap ysa() ca((<C-r>")<ESC>
+nmap ysa([ ca([ <C-r>" ]<ESC>
+nmap ysa(] ca([<C-r>"]<ESC>
+nmap ysa({ ca({ <C-r>" }<ESC>
+nmap ysa(} ca({<C-r>"}<ESC>
+
+" i) surround
+nmap ysi)' ci)'<C-r>"'<ESC>
+nmap ysi)" ci)"<C-r>""<ESC>
+nmap ysi)( ci)( <C-r>" )<ESC>
+nmap ysi)) ci)(<C-r>")<ESC>
+nmap ysi)[ ci)[ <C-r>" ]<ESC>
+nmap ysi)] ci)[<C-r>"]<ESC>
+nmap ysi){ ci){ <C-r>" }<ESC>
+nmap ysi)} ci){<C-r>"}<ESC>
+
+" a) surround
+nmap ysa)' ca)'<C-r>"'<ESC>
+nmap ysa)" ca)"<C-r>""<ESC>
+nmap ysa)( ca)( <C-r>" )<ESC>
+nmap ysa)) ca)(<C-r>")<ESC>
+nmap ysa)[ ca)[ <C-r>" ]<ESC>
+nmap ysa)] ca)[<C-r>"]<ESC>
+nmap ysa){ ca){ <C-r>" }<ESC>
+nmap ysa)} ca){<C-r>"}<ESC>
+
+" i{ surround
+nmap ysi{' ci{'<C-r>"'<ESC>
+nmap ysi{" ci{"<C-r>""<ESC>
+nmap ysi{( ci{( <C-r>" )<ESC>
+nmap ysi{) ci{(<C-r>")<ESC>
+nmap ysi{[ ci{[ <C-r>" ]<ESC>
+nmap ysi{] ci{[<C-r>"]<ESC>
+nmap ysi{{ ci{{ <C-r>" }<ESC>
+nmap ysi{} ci{{<C-r>"}<ESC>
+
+" a{ surround
+nmap ysa{' ca{'<C-r>"'<ESC>
+nmap ysa{" ca{"<C-r>""<ESC>
+nmap ysa{( ca{( <C-r>" )<ESC>
+nmap ysa{) ca{(<C-r>")<ESC>
+nmap ysa{[ ca{[ <C-r>" ]<ESC>
+nmap ysa{] ca{[<C-r>"]<ESC>
+nmap ysa{{ ca{{ <C-r>" }<ESC>
+nmap ysa{} ca{{<C-r>"}<ESC>
+
+" i} surround
+nmap ysi}' ci}'<C-r>"'<ESC>
+nmap ysi}" ci}"<C-r>""<ESC>
+nmap ysi}( ci}( <C-r>" )<ESC>
+nmap ysi}) ci}(<C-r>")<ESC>
+nmap ysi}[ ci}[ <C-r>" ]<ESC>
+nmap ysi}] ci}[<C-r>"]<ESC>
+nmap ysi}{ ci}{ <C-r>" }<ESC>
+nmap ysi}} ci}{<C-r>"}<ESC>
+
+" a} surround
+nmap ysa}' ca}'<C-r>"'<ESC>
+nmap ysa}" ca}"<C-r>""<ESC>
+nmap ysa}( ca}( <C-r>" )<ESC>
+nmap ysa}) ca}(<C-r>")<ESC>
+nmap ysa}[ ca}[ <C-r>" ]<ESC>
+nmap ysa}] ca}[<C-r>"]<ESC>
+nmap ysa}{ ca}{ <C-r>" }<ESC>
+nmap ysa}} ca}{<C-r>"}<ESC>
+
+" delete surround
 nmap ds' di'vhp
 nmap ds" di"vhp
 nmap ds( di(vhp

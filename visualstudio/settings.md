@@ -8,6 +8,9 @@
     | ------------ | -------- |
     | Window.Close | Ctrl + Q |
 
+-   Tabs and Windows
+    -   Insert new tabs to the right of existing tabs
+
 ## Projects and Solutions
 
 -   General
