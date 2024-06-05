@@ -10,10 +10,10 @@ set smartcase
 
 let mapleader=" "
 
-nmap e] :vsc View.NextError<CR>
-nmap e[ :vsc View.PreviousError<CR>
-nmap m] :vsc Edit.NextMethod<CR>
-nmap m[ :vsc Edit.PreviousMethod<CR>
+nmap ]e :vsc View.NextError<CR>
+nmap [e :vsc View.PreviousError<CR>
+nmap ]m :vsc Edit.NextMethod<CR>
+nmap [m :vsc Edit.PreviousMethod<CR>
 
 nmap K :vsc Edit.QuickInfo<CR>
 
