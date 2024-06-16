@@ -1,5 +1,6 @@
 return {
     "mrjones2014/smart-splits.nvim",
+    enabled = false,
     build = "./kitty/install-kittens.bash",
     -- event = "WinResized",
     config = function()

@@ -23,6 +23,10 @@ return {
         end,
     },
     {
+        event = { "LspAttach *.cs" },
+        "Hoffs/omnisharp-extended-lsp.nvim",
+    },
+    {
         "lvimuser/lsp-inlayhints.nvim",
         enabled = false, -- REFERENCE: Feature implemented in https://github.com/neovim/neovim/pull/23984
         config = function()

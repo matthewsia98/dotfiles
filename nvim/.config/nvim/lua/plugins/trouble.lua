@@ -15,7 +15,7 @@ return {
         })
     end,
     keys = {
-        { "<leader>wd", "<CMD>Trouble workspace_diagnostics<CR>", desc = "Workspace Diagnostics" },
-        { "<leader>dd", "<CMD>Trouble document_diagnostics<CR>", desc = "Document Diagnostics" },
+        -- { "<leader>wd", "<CMD>Trouble workspace_diagnostics<CR>", desc = "Workspace Diagnostics" },
+        { "<leader>dd", "<CMD>Trouble diagnostics toggle focus=true<CR>", desc = "Document Diagnostics" },
     },
 }

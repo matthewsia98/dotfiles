@@ -6,26 +6,59 @@ local actions_provider = config.lsp.actions_provider or "builtin"
 local M = {}
 
 M.set_keymaps = function(client, bufnr)
-    if goto_provider == "trouble" then
-        map("n", "gd", "<CMD>Trouble lsp_definitions<CR>", { buffer = bufnr, desc = "Go to Definition" })
-        map("n", "gr", "<CMD>Trouble lsp_references<CR>", { buffer = bufnr, desc = "Go to References" })
-        map("n", "gt", "<CMD>Trouble lsp_type_definitions<CR>", { buffer = bufnr, desc = "Go to Type Definition" })
-        map("n", "gi", "<CMD>Trouble lsp_implementations", { buffer = bufnr, desc = "Go to Implementation" })
-    elseif goto_provider == "telescope" then
-        map("n", "gd", "<CMD>Telescope lsp_definitions<CR>", { buffer = bufnr, desc = "Go to Definition" })
-        map("n", "gr", "<CMD>Telescope lsp_references<CR>", { buffer = bufnr, desc = "Go to References" })
-        map("n", "gt", "<CMD>Telescope lsp_type_definitions<CR>", { buffer = bufnr, desc = "Go to Type Definition" })
-        map("n", "gi", "<CMD>Telescope lsp_implementations", { buffer = bufnr, desc = "Go to Implementation" })
-    elseif goto_provider == "lspsaga" then
-        map("n", "gd", "<CMD>Lspsaga peek_definition<CR>", { buffer = bufnr, desc = "Go to Definition" })
-        map("n", "gr", "<CMD>Lspsaga lsp_finder<CR>", { buffer = bufnr, desc = "Go to References" })
-        map("n", "gt", "<CMD>Lspsaga peek_type_definition<CR>", { buffer = bufnr, desc = "Go to Type Definition" })
-        map("n", "gi", "<CMD>Lspsaga lsp_finder<CR>", { buffer = bufnr, desc = "Go to Implementation" })
+    if client.name == "omnisharp" then
+        local telescope_prefix = goto_provider == "telescope" and "telescope_" or ""
+        map(
+            "n",
+            "gd",
+            string.format("<CMD>lua require('omnisharp_extended').%slsp_definition()<CR>", telescope_prefix),
+            { buffer = bufnr, desc = "" }
+        )
+        map(
+            "n",
+            "gr",
+            string.format("<CMD>lua require('omnisharp_extended').%slsp_references()<CR>", telescope_prefix),
+            { buffer = bufnr, desc = "" }
+        )
+        map(
+            "n",
+            "gt",
+            string.format("<CMD>lua require('omnisharp_extended').%slsp_type_definition()<CR>", telescope_prefix),
+            { buffer = bufnr, desc = "" }
+        )
+        map(
+            "n",
+            "gi",
+            string.format("<CMD>lua require('omnisharp_extended').%slsp_implementation()<CR>", telescope_prefix),
+            { buffer = bufnr, desc = "" }
+        )
     else
-        map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to Definition" })
-        map("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "Go to References" })
-        map("n", "gt", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Go to Type Definition" })
-        map("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Go to Implementation" })
+        if goto_provider == "trouble" then
+            map("n", "gd", "<CMD>Trouble lsp_definitions<CR>", { buffer = bufnr, desc = "Go to Definition" })
+            map("n", "gr", "<CMD>Trouble lsp_references<CR>", { buffer = bufnr, desc = "Go to References" })
+            map("n", "gt", "<CMD>Trouble lsp_type_definitions<CR>", { buffer = bufnr, desc = "Go to Type Definition" })
+            map("n", "gi", "<CMD>Trouble lsp_implementations", { buffer = bufnr, desc = "Go to Implementation" })
+        elseif goto_provider == "telescope" then
+            map("n", "gd", "<CMD>Telescope lsp_definitions<CR>", { buffer = bufnr, desc = "Go to Definition" })
+            map("n", "gr", "<CMD>Telescope lsp_references<CR>", { buffer = bufnr, desc = "Go to References" })
+            map(
+                "n",
+                "gt",
+                "<CMD>Telescope lsp_type_definitions<CR>",
+                { buffer = bufnr, desc = "Go to Type Definition" }
+            )
+            map("n", "gi", "<CMD>Telescope lsp_implementations", { buffer = bufnr, desc = "Go to Implementation" })
+        elseif goto_provider == "lspsaga" then
+            map("n", "gd", "<CMD>Lspsaga peek_definition<CR>", { buffer = bufnr, desc = "Go to Definition" })
+            map("n", "gr", "<CMD>Lspsaga lsp_finder<CR>", { buffer = bufnr, desc = "Go to References" })
+            map("n", "gt", "<CMD>Lspsaga peek_type_definition<CR>", { buffer = bufnr, desc = "Go to Type Definition" })
+            map("n", "gi", "<CMD>Lspsaga lsp_finder<CR>", { buffer = bufnr, desc = "Go to Implementation" })
+        else
+            map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to Definition" })
+            map("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "Go to References" })
+            map("n", "gt", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Go to Type Definition" })
+            map("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Go to Implementation" })
+        end
     end
 
     if actions_provider == "lspsaga" then
