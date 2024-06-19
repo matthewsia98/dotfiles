@@ -34,6 +34,9 @@ local config = {
         -- C/C++
         "clang_format",
 
+        -- C#
+        "csharpier",
+
         -- Shell
         "shfmt",
 

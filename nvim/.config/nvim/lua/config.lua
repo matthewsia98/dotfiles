@@ -71,6 +71,7 @@ local config = {
             -- "jsonls",
             -- "csharp_ls",
             "omnisharp",
+            -- "omnisharp-mono",
             -- "angularls",
         },
 
@@ -125,6 +126,7 @@ local config = {
             -- C#
             -- "csharp-language-server",
             "omnisharp",
+            -- "omnisharp-mono",
         },
 
         pylsp_plugins_to_install = {
