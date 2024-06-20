@@ -46,8 +46,8 @@ nmap <C-l> <C-w>l
 nmap <C-w>L :vsc Window.MovetoNextTabGroup<CR>
 nmap <C-w>H :vsc Window.MovetoPrevTabGroup<CR>
 
-nmap <C-n> :vsc Window.NextTab<CR>
-nmap <C-p> :vsc Window.PreviousTab<CR>
+nmap L :vsc Window.NextTab<CR>
+nmap H :vsc Window.PreviousTab<CR>
 
 nmap <leader>te :vsc TestExplorer.ShowTestExplorer<CR>
 nmap <leader>tl :vsc View.TaskList<CR>
