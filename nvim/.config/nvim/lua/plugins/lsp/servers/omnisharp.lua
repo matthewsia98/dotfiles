@@ -18,6 +18,8 @@ M.setup = function(opts)
         on_attach = opts.on_attach,
 
         settings = {
+            -- https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options
+
             FormattingOptions = {
                 -- Enables support for reading code style, naming convention and analyzer
                 -- settings from .editorconfig.
