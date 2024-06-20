@@ -3,6 +3,13 @@ local function group(name)
     return name and vim.api.nvim_create_augroup(name, { clear = true }) or default_group
 end
 
+vim.api.nvim_create_autocmd("FileType", {
+    group = group("# commentstring"),
+    pattern = { "editorconfig" },
+    command = [[setlocal commentstring=#\ %s]],
+    desc = "Set # commentstring",
+})
+
 -- Clear hlsearch automatically
 vim.on_key(function(char)
     if vim.fn.mode() == "n" then
