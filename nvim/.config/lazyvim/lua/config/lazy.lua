@@ -24,6 +24,9 @@ require("lazy").setup({
         version = false, -- always use the latest git commit
         -- version = "*", -- try installing the latest stable version for plugins that support semver
     },
+    dev = {
+        path = "~/repos",
+    },
     install = { colorscheme = { "catppuccin" } },
     checker = { enabled = true }, -- automatically check for plugin updates
     performance = {
@@ -40,5 +43,8 @@ require("lazy").setup({
                 "zipPlugin",
             },
         },
+    },
+    ui = {
+        border = "rounded",
     },
 })

@@ -9,6 +9,8 @@ export PATH="${PATH}:${GOBIN}"
 export PATH="${PATH}:${HOME}/.local/share/nvim/mason/bin"
 export PATH="${PATH}:${HOME}/.spicetify"
 
+export NVIM_APPNAME="lazyvim"
+
 export TERMINAL="kitty"
 export BROWSER="firefox"
 export EDITOR="nvim"
