@@ -4,6 +4,15 @@ return {
         name = "catppuccin",
         opts = {
             flavour = "auto",
+            custom_highlights = function(colors)
+                return {
+                    NormalFloat = { link = "Normal" },
+                    Pmenu = { link = "Normal" },
+                    WinSeparator = { fg = colors.lavender },
+
+                    NoiceCmdLinePopupBorder = { link = "FloatBorder" },
+                }
+            end,
             integrations = {
                 indent_blankline = {
                     colored_indent_levels = true,
