@@ -8,4 +8,7 @@ return {
             [".."] = "actions.parent",
         },
     },
+    keys = {
+        { "<leader>o", "<CMD>Oil<CR>", desc = "Open Oil" },
+    },
 }

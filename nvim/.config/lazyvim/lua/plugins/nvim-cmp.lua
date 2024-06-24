@@ -16,7 +16,8 @@ return {
         local cmp = require("cmp")
         opts.preselect = cmp.PreselectMode.None
         opts.mapping["<C-c>"] = cmp.mapping.abort()
+        opts.mapping["<C-y>"] = cmp.mapping.complete()
         opts.mapping["<CR>"] = cmp.mapping.confirm()
-        opts.mapping["<C-CR>"] = cmp.mapping.confirm({ select = true })
+        opts.mapping["<C-Space>"] = cmp.mapping.confirm({ select = true })
     end,
 }

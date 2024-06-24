@@ -2,6 +2,7 @@
   "extras": [
     "lazyvim.plugins.extras.coding.copilot",
     "lazyvim.plugins.extras.coding.mini-surround",
+    "lazyvim.plugins.extras.editor.harpoon2",
     "lazyvim.plugins.extras.lang.omnisharp",
     "lazyvim.plugins.extras.ui.treesitter-context",
     "lazyvim.plugins.extras.vscode"
