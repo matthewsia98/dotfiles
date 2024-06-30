@@ -1,5 +1,11 @@
 return {
     {
+        "neovim/nvim-lspconfig",
+        opts = function(_, opts)
+            require("lspconfig.ui.windows").default_options.border = "rounded"
+        end,
+    },
+    {
         "nvim-lualine/lualine.nvim",
         optional = true,
         opts = function(_, opts)
