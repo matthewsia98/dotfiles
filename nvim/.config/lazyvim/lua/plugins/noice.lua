@@ -1,17 +1,17 @@
+local cmdline_row = math.floor(vim.o.lines * 0.25)
+
 return {
     "folke/noice.nvim",
     opts = {
         views = {
             cmdline_popup = {
                 position = {
-                    row = "20%",
+                    row = cmdline_row,
                 },
             },
-        },
-        lsp = {
-            documentation = {
-                opts = {
-                    border = { style = "rounded" },
+            cmdline_popupmenu = {
+                position = {
+                    row = cmdline_row + 3,
                 },
             },
         },

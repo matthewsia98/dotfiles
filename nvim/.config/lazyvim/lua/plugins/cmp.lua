@@ -13,6 +13,12 @@ return {
             documentation = { border = "rounded", winhighlight = "" },
         }
 
+        opts.view = {
+            entries = {
+                selection_order = "near_cursor",
+            },
+        }
+
         local cmp = require("cmp")
         opts.preselect = cmp.PreselectMode.None
         opts.mapping["<C-c>"] = cmp.mapping.abort()
