@@ -7,10 +7,12 @@ return {
             custom_highlights = function(colors)
                 return {
                     NormalFloat = { link = "Normal" },
+                    FloatBorder = { bg = colors.base, fg = colors.blue },
                     Pmenu = { link = "Normal" },
                     WinSeparator = { fg = colors.lavender },
 
                     NoiceCmdLinePopupBorder = { link = "FloatBorder" },
+                    TroubleNormal = { link = "Normal" },
                 }
             end,
             integrations = {
