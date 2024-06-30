@@ -62,6 +62,10 @@ nmap <F1> :vsc Debug.StepInto<CR>
 nmap <F2> :vsc Debug.StepOver<CR>
 nmap <F3> :vsc Debug.StepOut<CR>
 
+" clear search highlight
+inoremap <ESC> <ESC>:noh<CR><ESC>
+nnoremap <ESC> :noh<CR><ESC>
+
 " iw surround
 nmap ysiw' ciw'<C-r>"'<ESC>
 nmap ysiw" ciw"<C-r>""<ESC>
