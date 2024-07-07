@@ -3,6 +3,8 @@ return {
         "neovim/nvim-lspconfig",
         opts = function(_, opts)
             require("lspconfig.ui.windows").default_options.border = "rounded"
+
+            opts.inlay_hints.enabled = false
         end,
     },
     {

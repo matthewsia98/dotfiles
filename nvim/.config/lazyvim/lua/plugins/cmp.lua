@@ -10,7 +10,10 @@ return {
                 border = "rounded",
                 winhighlight = "CursorLine:PmenuSel",
             },
-            documentation = { border = "rounded", winhighlight = "" },
+            documentation = {
+                border = "rounded",
+                winhighlight = "",
+            },
         }
 
         opts.view = {
