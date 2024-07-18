@@ -12,16 +12,16 @@ return {
         optional = true,
         opts = function(_, opts)
             opts.winbar = opts.winbar or {}
-            opts.winbar.lualine_a = opts.winbar.lualine_a or {}
+            opts.winbar.lualine_z = opts.winbar.lualine_z or {}
 
-            table.insert(opts.winbar.lualine_a, 1, {
+            table.insert(opts.winbar.lualine_z, 1, {
                 function()
                     local clients = vim.lsp.get_clients()
                     local client_names = {}
                     for _, client in pairs(clients) do
                         table.insert(client_names, client.name)
                     end
-                    return "Language Servers: " .. table.concat(client_names, ", ")
+                    return table.concat(client_names, ", ")
                 end,
                 cond = function()
                     return package.loaded["lspconfig"] and #vim.lsp.get_clients() > 0

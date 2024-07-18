@@ -8,5 +8,8 @@ return {
                 winbar = { "trouble" },
             },
         },
+        winbar = {
+            lualine_a = { "buffers" },
+        },
     },
 }
