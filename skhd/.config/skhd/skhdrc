@@ -1,7 +1,7 @@
 # Launch Programs
 alt - return: kitty --single-instance -d "${HOME}" &> /dev/null
 alt - t: open "${HOME}"
-alt - p: open -a Screenshot
+alt + shift - p: open -a Screenshot
 # alt + shift - p: /Applications/flameshot.app/Contents/MacOS/flameshot full --clipboard
 
 # Restart yabai
@@ -18,6 +18,10 @@ alt - k: yabai -m window --focus north
 alt - j: yabai -m window --focus south
 alt - h: yabai -m window --focus west
 alt - l: yabai -m window --focus east
+# cycle forward
+alt - n: yabai -m window --focus next || yabai -m window --focus first
+# cycle backwards
+alt - p: yabai -m window --focus prev || yabai -m window --focus last
 
 # Window Swap
 alt + ctrl - k: yabai -m window --swap north

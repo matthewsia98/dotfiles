@@ -8,6 +8,7 @@ export PATH="${PATH}:${HOME}/.cargo/bin"
 export PATH="${PATH}:${GOBIN}"
 export PATH="${PATH}:${HOME}/.local/share/nvim/mason/bin"
 export PATH="${PATH}:${HOME}/.spicetify"
+export PATH="${PATH}:${HOME}/.dotnet/tools"
 
 export NVIM_APPNAME="lazyvim"
 

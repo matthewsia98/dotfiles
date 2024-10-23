@@ -26,27 +26,29 @@ alias gitui="gitui --theme mocha.ron"
 alias pdf="zathura"
 alias asciiquarium="asciiquarium --transparent"
 alias uotp="python ${HOME}/misc/uottawa_otp.py"
-if [ "$(uname)" = "Darwin" ]
-then
+if [ "$(uname)" = "Darwin" ]; then
     alias img="open -a Preview"
-elif [ "$(uname)" = "Linux" ]
-then
+elif [ "$(uname)" = "Linux" ]; then
     alias img="swayimg"
 fi
 alias feh="feh --scroll-step 20 --zoom-step 5 --scale-down -d -g 1900x980 --info 'echo %wx%h' --image-bg '#494D54'"
 alias syncthing-web="${open_command} http://localhost:8384"
 
+# Docker
+if type docker &>/dev/null; then
+    alias d="docker"
+    alias dc="docker-compose"
+fi
+
 # Pip
-if type pip &> /dev/null
-then
+if type pip &>/dev/null; then
     alias pipin="pip install"
     alias piprm="pip uninstall"
     alias pipg="pip list | grep"
 fi
 
 # Git
-if type git &> /dev/null
-then
+if type git &>/dev/null; then
     alias gcl="git clone --verbose"
     alias gs="git status"
     alias ga="git add --verbose"
@@ -75,8 +77,7 @@ then
 fi
 
 # Pacman
-if type pacman &> /dev/null
-then
+if type pacman &>/dev/null; then
     alias pac="sudo pacman"
     alias pacin="sudo pacman -S"
     alias pacrm="sudo pacman -Rsu"
@@ -86,8 +87,7 @@ then
 fi
 
 # Docker
-if type docker &> /dev/null
-then
+if type docker &>/dev/null; then
     alias dc="docker compose"
 fi
 
@@ -97,3 +97,4 @@ alias schedule="img ${HOME}/Pictures/schedule.png"
 alias uottawa='${open_command} $(gum file ${HOME}/uOttawa/2024-Winter)'
 alias twin="${open_command} https://this-week-in-neovim.org/latest"
 alias note='${EDITOR} $(date +%d-%b-%Y).md'
+alias capstone="cd ${HOME}/my-repos/AdSpot-Server"

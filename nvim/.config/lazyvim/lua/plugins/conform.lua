@@ -1,5 +1,14 @@
 return {
     {
+        "stevearc/conform.nvim",
+        opts = {
+            formatters_by_ft = {
+                zsh = { "shfmt" },
+            },
+        },
+    },
+
+    {
         "nvim-lualine/lualine.nvim",
         optional = true,
         opts = function(_, opts)
