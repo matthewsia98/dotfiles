@@ -5,7 +5,7 @@ return {
             char = "▎",
             tab_char = "▎",
             highlight = {
-                -- "RainbowRed",
+                "RainbowRed",
                 "RainbowYellow",
                 "RainbowBlue",
                 "RainbowOrange",
@@ -13,6 +13,10 @@ return {
                 "RainbowViolet",
                 "RainbowCyan",
             },
+        }
+
+        opts.scope = {
+            enabled = true,
         }
 
         local hooks = require("ibl.hooks")

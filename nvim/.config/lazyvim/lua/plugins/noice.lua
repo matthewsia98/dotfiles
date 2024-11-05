@@ -3,11 +3,12 @@ local cmdline_row = math.floor(vim.o.lines * 0.25)
 return {
     "folke/noice.nvim",
     opts = {
+        presets = {
+            lsp_doc_border = true,
+        },
         lsp = {
-            documentation = {
-                opts = {
-                    border = { style = "rounded" },
-                },
+            signature = {
+                auto_open = { enabled = false },
             },
         },
         views = {

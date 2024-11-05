@@ -11,7 +11,8 @@ alias cp="cp -rv"
 alias rm="rm -v"
 alias mkdir="mkdir -pv"
 alias cat="bat"
-alias rg="rg -S"
+alias rg="rg -SL"
+alias find="find -L"
 alias df="df -h"
 alias tree="tree -CF"
 alias hexdump="hexdump -C"
@@ -19,7 +20,7 @@ alias logout='loginctl terminate-user $USER'
 alias suspend="systemctl suspend"
 
 # Programs
-# alias v="nvim"
+alias v="nvim"
 # alias vi="nvim"
 alias vim="nvim"
 alias gitui="gitui --theme mocha.ron"
@@ -49,6 +50,7 @@ fi
 
 # Git
 if type git &>/dev/null; then
+    alias g="git"
     alias gcl="git clone --verbose"
     alias gs="git status"
     alias ga="git add --verbose"

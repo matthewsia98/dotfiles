@@ -33,6 +33,7 @@ yabai -m rule --add app="^(System Settings|Preview|Karabiner.*|Raycast)$" manage
 yabai -m rule --add app="^Finder$" manage=off grid=7:9:1:1:7:5
 yabai -m rule --add app="^Finder$" title="^Finder Settings$" manage=off
 yabai -m rule --add app="^Visual Studio$" title="^Find in Files$" manage=off
+yabai -m rule --add app="^Python$" manage=off
 
 yabai -m signal --add event=window_destroyed action="yabai -m window --focus last"
 yabai -m signal --add event=window_minimized action="yabai -m window --focus last"
