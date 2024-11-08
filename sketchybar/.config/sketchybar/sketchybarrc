@@ -82,24 +82,24 @@ sketchybar --add item front_app left                               \
 # volume is registered. More info about the event system can be found here:
 # https://felixkratz.github.io/SketchyBar/config/events
 
-# sketchybar --add item clock right                              \
-#            --set clock   update_freq=10                        \
-#                          icon=                                \
-#                          script="$PLUGIN_DIR/clock.sh"         \
-#                                                                \
-#            --add item wifi right                               \
-#            --set wifi    script="$PLUGIN_DIR/wifi.sh"          \
-#                          icon=                               \
-#            --subscribe wifi wifi_change                        \
-#                                                                \
-#            --add item volume right                             \
-#            --set volume  script="$PLUGIN_DIR/volume.sh"        \
-#            --subscribe volume volume_change                    \
-#                                                                \
-#            --add item battery right                            \
-#            --set battery script="$PLUGIN_DIR/battery.sh"       \
-#                          update_freq=120                       \
-#            --subscribe battery system_woke power_source_change
+sketchybar --add item clock right                              \
+           --set clock   update_freq=10                        \
+                         icon=                                \
+                         script="$PLUGIN_DIR/clock.sh"         \
+                                                               \
+           --add item wifi right                               \
+           --set wifi    script="$PLUGIN_DIR/wifi.sh"          \
+                         icon=                               \
+           --subscribe wifi wifi_change                        \
+                                                               \
+           --add item volume right                             \
+           --set volume  script="$PLUGIN_DIR/volume.sh"        \
+           --subscribe volume volume_change                    \
+                                                               \
+           --add item battery right                            \
+           --set battery script="$PLUGIN_DIR/battery.sh"       \
+                         update_freq=120                       \
+           --subscribe battery system_woke power_source_change
 
 ##### Finalizing Setup #####
 # The below command is only needed at the end of the initial configuration to
