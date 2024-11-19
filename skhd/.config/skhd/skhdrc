@@ -9,7 +9,8 @@ alt + ctrl - r: yabai --restart-service
 
 # Window Management
 alt - w: yabai -m window --close
-alt - m: yabai -m window --toggle zoom-fullscreen
+alt - m: yabai -m window --minimize
+# alt + shift - m: yabai -m window --toggle zoom-fullscreen
 alt + shift - m: yabai -m window --toggle native-fullscreen
 alt + ctrl - f : yabai -m window --toggle float --grid 10:10:1:1:8:8
 

@@ -25,7 +25,7 @@ require("lazy").setup({
         -- version = "*", -- try installing the latest stable version for plugins that support semver
     },
     dev = {
-        path = "~/repos",
+        path = "~/my-repos",
     },
     install = { colorscheme = { "catppuccin" } },
     checker = { enabled = true }, -- automatically check for plugin updates

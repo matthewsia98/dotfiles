@@ -82,8 +82,8 @@ ctrl-backspace () {
 zle -N ctrl-backspace
 
 clean-nvim () {
-    sudo rm -r ${HOME}/.local/share/nvim
-    sudo rm -r ${HOME}/.local/state/nvim/^(undo|shada)*
+    sudo rm -rv ${HOME}/.local/share/${NVIM_APPNAME}
+    sudo rm -rv ${HOME}/.local/state/${NVIM_APPNAME}/^(undo|shada)*
 }
 
 build-nvim () {
