@@ -5,7 +5,7 @@ return {
             section_separators = { left = "", right = "" },
             component_separators = { left = "", right = "" },
             disabled_filetypes = {
-                winbar = { "trouble" },
+                winbar = { "trouble", "neo-tree" },
             },
         },
         winbar = {
